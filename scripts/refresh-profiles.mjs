@@ -182,14 +182,16 @@ REGLAS
 7. Si la nota informa que un candidato conocido pasó a competir bajo otro nombre de agrupación, frente o lista (por una fusión o un acuerdo), ponelo en "groupChanges" con el nombre nuevo tal como lo escribe la nota y la cita.
 8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
 9. Usá solo el cuerpo de la nota titulada abajo. Ignorá titulares, bajadas y avances de OTRAS notas que aparezcan en el texto (notas relacionadas, "te puede interesar", barras laterales).
-10. Si la nota no trae nada de esto, devolvé las listas vacías.
+10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
+11. Si la nota no trae nada de esto, devolvé las listas vacías.
 
 FORMATO
 {"positions":[{"candidate":"id","topic":"id","summary":"...","quote":"..."}],
  "stances":[{"candidate":"id","question":"id","supports":["optionId"],"partial":["optionId"],"summary":"...","quote":"..."}],
  "withdrawals":[{"candidate":"id","joins":"id o vacío","quote":"..."}],
  "groupChanges":[{"candidate":"id","group":"nombre nuevo","quote":"..."}],
- "newCandidates":[{"name":"...","role":"Candidato a presidente","group":"agrupación o vacío","quote":"..."}]}
+ "newCandidates":[{"name":"...","role":"Candidato a presidente","group":"agrupación o vacío","quote":"..."}],
+ "polls":[{"pollster":"...","field":"...","sample":"...","results":{"id":35,"otroId":28,"indecisos":20},"quote":"..."}]}
 
 NOTA
 Título: ${article.title}
@@ -306,9 +308,88 @@ function whyRejected(kind, p, candidate, haystack) {
   return "";
 }
 
+// ---------------------------------------------------------------------------
+// Sondeos. Solo se publica una encuesta si la nota nombra a quien la hizo, trae una cita textual
+// y cada porcentaje aparece escrito en la nota pegado al nombre del candidato al que se le asigna.
+// ---------------------------------------------------------------------------
+const MAX_POLLS = 10;
+const UNDECIDED_WORDS = ["indecis", "ns/nc", "nsnc", "no sabe", "no contesta", "sin definir", "no define", "ninguno", "en blanco"];
+
+function pctPattern(value) {
+  const n = Number(value);
+  const body = Number.isInteger(n) ? `${n}(?:[.,]0+)?` : String(n).replace(".", "[.,]");
+  return new RegExp(`(?<![\\d.,])${body}\\s?(?:%|por ciento)`, "g");
+}
+
+function nameWords(candidate) {
+  const parts = String(candidate.name || "").split(/\s+/).filter((part) => part.length >= 5);
+  return [...new Set([candidate.name, candidate.short, ...(candidate.aliases || []), ...parts].filter(Boolean).map(norm).filter((word) => word.length >= 4))];
+}
+
+function spansOf(hay, words) {
+  const out = [];
+  for (const word of words) {
+    let at = hay.indexOf(word);
+    while (at !== -1) { out.push([at, at + word.length]); at = hay.indexOf(word, at + 1); }
+  }
+  return out;
+}
+
+function distanceTo(at, spans) {
+  return spans.reduce((best, [start, end]) => Math.min(best, at < start ? start - at : at > end ? at - end : 0), Infinity);
+}
+
+// ¿Hay algún lugar de la nota donde ese porcentaje queda más cerca del nombre de este candidato que del de cualquier otro?
+function pollAttributed(hay, value, ownWords, otherWords) {
+  const own = spansOf(hay, ownWords);
+  const others = spansOf(hay, otherWords);
+  for (const match of hay.matchAll(pctPattern(value))) {
+    const mine = distanceTo(match.index, own);
+    if (mine <= 140 && mine <= distanceTo(match.index, others)) return true;
+  }
+  return false;
+}
+
+export function cleanPoll(p, actives, haystack) {
+  const reject = (why) => ({ why });
+  if (!p || typeof p !== "object") return reject("la propuesta no es válida");
+  const pollster = String(p.pollster || "").trim();
+  if (pollster.length < 3 || pollster.length > 70 || !haystack.includes(norm(pollster))) return reject("la encuestadora no aparece en la nota");
+  if (!quoteOk(p.quote, haystack)) return reject("la cita NO aparece textual en la nota");
+  const known = new Map(actives.map((c) => [c.id, c]));
+  const results = {};
+  for (const [key, raw] of Object.entries(p.results && typeof p.results === "object" ? p.results : {})) {
+    if (!known.has(key) && key !== "indecisos") continue;
+    const value = Math.round(Number(String(raw).replace(",", ".")) * 10) / 10;
+    if (!Number.isFinite(value) || value <= 0 || value > 100) return reject("porcentaje inválido en " + key);
+    results[key] = value;
+  }
+  const keys = Object.keys(results);
+  if (keys.filter((key) => key !== "indecisos").length < 2) return reject("trae menos de dos candidatos con porcentaje");
+  if (keys.reduce((sum, key) => sum + results[key], 0) > 101) return reject("los porcentajes suman más de 100");
+  const quoted = norm(p.quote);
+  if (!keys.some((key) => pctPattern(results[key]).test(quoted))) return reject("la cita no muestra ningún porcentaje");
+  for (const key of keys) {
+    const own = key === "indecisos" ? UNDECIDED_WORDS : nameWords(known.get(key));
+    const others = actives.filter((c) => c.id !== key).flatMap(nameWords);
+    if (!pollAttributed(haystack, results[key], own, others)) {
+      return reject(`el ${results[key]}% de ${key} no figura junto a su nombre en la nota`);
+    }
+  }
+  const keepIfWritten = (text) => {
+    const value = String(text || "").trim().slice(0, 70);
+    return value && haystack.includes(norm(value)) ? value : "";
+  };
+  return { poll: { pollster, field: keepIfWritten(p.field), sample: keepIfWritten(p.sample), results } };
+}
+
+function pollSignature(poll) {
+  return norm(poll.pollster) + "|" + Object.keys(poll.results).sort().map((key) => key + ":" + poll.results[key]).join(",");
+}
+
 // Citas propuestas por el modelo que no están en la nota (letras cambiadas, texto inventado).
 function brokenQuotes(result, haystack) {
-  const all = ["positions", "stances", "withdrawals", "groupChanges", "newCandidates"].flatMap((key) => (Array.isArray(result[key]) ? result[key] : []));
+  const all = ["positions", "stances", "withdrawals", "groupChanges", "newCandidates", "polls"].flatMap((key) => (Array.isArray(result[key]) ? result[key] : []));
   return all.filter((p) => p && p.quote && !quoteOk(p.quote, haystack)).map((p) => String(p.quote).slice(0, 320));
 }
 
@@ -330,6 +411,13 @@ async function main() {
   const quizPayload = await readJson("quiz.json", null);
   const newsPayload = await readJson("news.json", { items: [] });
   const ledger = await readJson("processed.json", { items: {} });
+  const pollsPayload = await readJson("polls.json", { polls: [], mentions: [] });
+  pollsPayload.polls = Array.isArray(pollsPayload.polls) ? pollsPayload.polls : [];
+  let pollsChanged = false;
+  for (const entry of newsPayload.items || []) {
+    const host = hostOf(entry.url);
+    if (host && host !== "news.google.com" && entry.source) HOST_LABELS.set(host, entry.source);
+  }
   const pending = await readJson("pending.json", { withdrawals: {}, newCandidates: {}, groups: {} });
   pending.withdrawals = pending.withdrawals || {};
   pending.newCandidates = pending.newCandidates || {};
@@ -367,6 +455,7 @@ async function main() {
       c.positions = Object.fromEntries(Object.keys(c.positions || {}).map((k) => [k, []]));
       c.stances = {};
     }
+    pollsPayload.polls = [];
   }
   KNOWN_HEADLINES = (newsPayload.items || []).map((entry) => norm(entry.title)).filter((title) => title.length >= 30);
   const write = DRY ? async () => {} : writeFile;
@@ -383,6 +472,7 @@ async function main() {
 
   const log = [];
   let changed = false;
+  let brokenModel = "";
   console.log(`Notas por revisar: ${queue.length}. Proveedor: ${provider}.`);
 
   for (const entry of queue) {
@@ -403,6 +493,7 @@ async function main() {
             mark("unresolved");
             continue;
           }
+          if (item.source && !HOST_LABELS.has(hostOf(item.url))) HOST_LABELS.set(hostOf(item.url), item.source);
           if (/reddit\.com|youtube\.com/.test(hostOf(item.url))) { mark("skipped"); continue; }
           if (!FORCE && cited.has(item.url)) { mark("cited"); continue; }
         }
@@ -441,7 +532,14 @@ async function main() {
     } catch (error) {
       console.warn("El modelo falló:", item.url, String(error));
       // Sin permiso, modelo inexistente o cupo agotado: no tiene sentido seguir con el resto.
-      if ([401, 403, 404, 413, 429].includes(error.status)) { console.warn("Se corta esta corrida; se reintenta en la próxima."); break; }
+      // Clave inválida o modelo dado de baja: no se arregla solo, así que la corrida queda en rojo para que GitHub avise por mail.
+      // (Gemini responde 400 "API key not valid" cuando la clave está mal.)
+      const hardFailure = [401, 403, 404].includes(error.status) || (error.status === 400 && /api[ _]?key/i.test(String(error.message)));
+      if (hardFailure || [413, 429].includes(error.status)) {
+        console.warn("Se corta esta corrida; se reintenta en la próxima.");
+        if (hardFailure) brokenModel = String(error.message).slice(0, 200);
+        break;
+      }
       continue; // sin marcar: se reintenta en la próxima corrida
     }
     if (!result) { mark("invalid"); continue; }
@@ -458,6 +556,10 @@ async function main() {
       (Array.isArray(result.stances) ? result.stances : []).forEach((p) => check("test", p, "/" + (p && p.question)));
       (Array.isArray(result.withdrawals) ? result.withdrawals : []).forEach((p) => check("baja", p, p && p.joins ? " -> " + p.joins : ""));
       (Array.isArray(result.groupChanges) ? result.groupChanges : []).forEach((p) => check("agrupacion", p, ""));
+      (Array.isArray(result.polls) ? result.polls : []).forEach((p) => {
+        const verdict = cleanPoll(p, active(), haystack);
+        console.log(`    propuesta sondeo (${p && p.pollster}): ${verdict.why || "ACEPTADA"}\n      resultados: ${JSON.stringify(p && p.results)}\n      cita: «${p && p.quote}»`);
+      });
       console.log(`    candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
     }
     const candidatesById = new Map(active().map((c) => [c.id, c]));
@@ -521,6 +623,20 @@ async function main() {
       if (!slot.sources.some((x) => x.url === item.url)) slot.sources.push({ url: item.url, host: hostOf(item.url), date, quote: String(n.quote).trim() });
     }
 
+    let pollAdded = false;
+    for (const raw of Array.isArray(result.polls) ? result.polls : []) {
+      const checked = cleanPoll(raw, active(), haystack);
+      if (!checked.poll) continue;
+      const poll = { ...checked.poll, published: item.published, url: item.url, source: item.source, auto: true };
+      // La misma encuesta contada por varios medios se muestra una sola vez.
+      if (pollsPayload.polls.some((old) => old.url === poll.url || pollSignature(old) === pollSignature(poll))) continue;
+      pollsPayload.polls.push(poll);
+      pollsPayload.polls = pollsPayload.polls.sort((a, b) => Date.parse(b.published) - Date.parse(a.published)).slice(0, MAX_POLLS);
+      pollsChanged = true;
+      pollAdded = true;
+      log.push({ at: now.toISOString(), text: `Nuevo sondeo de ${poll.pollster}`, url: item.url, source: item.source });
+    }
+
     if (entries.length) {
       const errors = validate(candidatesPayload, quizPayload);
       if (errors.length) {
@@ -532,7 +648,7 @@ async function main() {
       changed = true;
       entries.forEach((text2) => log.push({ at: now.toISOString(), text: text2, url: item.url, source: item.source }));
     }
-    mark(entries.length ? "applied" : "empty");
+    mark(entries.length || pollAdded ? "applied" : "empty");
   }
 
   // Bajas y candidatos nuevos: solo cuando al menos dos medios distintos lo informan.
@@ -607,6 +723,11 @@ async function main() {
     await write(path.join(DATA, "candidates.json"), JSON.stringify(candidatesPayload, null, 2) + "\n");
   }
 
+  if (pollsChanged) {
+    pollsPayload.updated = now.toISOString();
+    await write(path.join(DATA, "polls.json"), JSON.stringify(pollsPayload, null, 2) + "\n");
+  }
+
   const keep = Object.entries(ledger.items).sort((a, b) => Date.parse(b[1].at) - Date.parse(a[1].at)).slice(0, LEDGER_MAX);
   await write(path.join(DATA, "processed.json"), JSON.stringify({ items: Object.fromEntries(keep) }, null, 2) + "\n");
   await write(path.join(DATA, "pending.json"), JSON.stringify(pending, null, 2) + "\n");
@@ -624,6 +745,7 @@ async function main() {
         if (s.auto) console.log(`[${c.name}] test ${qid} -> respalda: ${s.supports.join(",") || "-"} | parcial: ${s.partial.join(",") || "-"}: ${s.summary}\n    cita: «${s.quote}»\n    ${s.url}`);
       }
     }
+    for (const poll of pollsPayload.polls.filter((x) => x.auto)) console.log(`[sondeo] ${poll.pollster}: ${JSON.stringify(poll.results)}\n    ${poll.url}`);
     for (const [id, hits] of Object.entries(pending.withdrawals)) console.log(`[pendiente de confirmar] posible baja de ${id}: ${hits.map((h) => h.host).join(", ")}`);
     for (const [id, hits] of Object.entries(pending.groups)) console.log(`[pendiente de confirmar] posible cambio de agrupación de ${id}: ${hits.map((h) => h.group + " (" + h.host + ")").join(", ")}`);
     for (const [id, slot] of Object.entries(pending.newCandidates)) console.log(`[pendiente de confirmar] posible candidato nuevo ${slot.name}: ${slot.sources.map((s) => s.host).join(", ")}`);
@@ -631,11 +753,17 @@ async function main() {
   if (process.env.CHANGELOG_FILE) {
     await write(process.env.CHANGELOG_FILE, log.map((e) => `- ${e.text} ([${e.source}](${e.url}))`).join("\n") + "\n");
   }
-  console.log(changed ? `Cambios aplicados: ${log.length}.` : "Sin cambios en candidatos.");
+  console.log(changed || pollsChanged ? `Cambios aplicados: ${log.length}.` : "Sin cambios en candidatos ni sondeos.");
+  if (brokenModel) {
+    console.error("::error::El modelo no responde (clave inválida o modelo dado de baja). Las posturas y los sondeos no se actualizan hasta arreglarlo: " + brokenModel);
+    process.exitCode = 3;
+  }
 }
 
 function isHttp(url) { return /^https?:\/\//i.test(String(url || "")); }
-function hostLabel(host) { return host; }
+// Nombre del medio para una dirección (el que traen las noticias); si no se conoce, la dirección.
+const HOST_LABELS = new Map();
+function hostLabel(host) { return HOST_LABELS.get(host) || host; }
 
 // Una nota ya vista no se vuelve a leer, salvo los enlaces de Google Noticias que no se pudieron abrir (se reintentan cada 12 horas).
 function seenBefore(stamp, now) {

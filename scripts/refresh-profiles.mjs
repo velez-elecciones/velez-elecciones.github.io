@@ -262,7 +262,11 @@ async function main() {
       mark("unreadable");
       continue;
     }
-    if (text.length < MIN_TEXT) { mark("unreadable"); continue; }
+    if (text.length < MIN_TEXT) {
+      if (DRY) console.log(`\n--- ${item.source}: ${item.title}\n    texto leído: ${text.length} caracteres (insuficiente, se descarta)`);
+      mark("unreadable");
+      continue;
+    }
 
     let result;
     try {
@@ -277,6 +281,18 @@ async function main() {
 
     const haystack = norm(text);
     const date = item.published.slice(0, 10);
+    if (DRY) {
+      const byId = new Map(active().map((c) => [c.id, c]));
+      console.log(`\n--- ${item.source}: ${item.title}\n    texto leído: ${text.length} caracteres`);
+      const check = (kind, p, extra) => {
+        const c = byId.get(p && p.candidate);
+        const verdict = !c ? "candidato desconocido" : !quoteOk(p.quote, haystack) ? "la cita NO aparece textual en la nota" : !mentions(c, haystack) ? "el candidato no se nombra en la nota" : "ACEPTADA";
+        console.log(`    propuesta ${kind} (${p && p.candidate}${extra}): ${verdict}\n      resumen: ${p && p.summary}\n      cita: «${p && p.quote}»`);
+      };
+      (Array.isArray(result.positions) ? result.positions : []).forEach((p) => check("postura", p, "/" + (p && p.topic)));
+      (Array.isArray(result.stances) ? result.stances : []).forEach((p) => check("test", p, "/" + (p && p.question)));
+      console.log(`    bajas propuestas: ${(result.withdrawals || []).length} | candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
+    }
     const candidatesById = new Map(active().map((c) => [c.id, c]));
     const snapshot = JSON.stringify(candidatesPayload);
     const entries = [];

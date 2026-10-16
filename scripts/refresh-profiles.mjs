@@ -154,7 +154,8 @@ PREGUNTAS DEL TEST PARA "stances"
 ${qs}
 
 REGLAS
-1. Temas "formula", "perfil" y "vinculos" (fórmula, trayectoria y alianzas): podés incluir hechos CONFIRMADOS que la nota informe sobre el candidato (quién lo acompaña en la fórmula, su cargo o trayectoria, qué agrupaciones o dirigentes lo apoyan), aunque los cuente el periodista. Solo hechos presentados como ciertos ("presentó", "anunció", "confirmó", "acompañará", "fue elegido"). Nunca rumores ni condicionales ("iría", "sería", "podría", "se especula", "trascendió").
+1. Tema "formula": solo cuando la nota nombra al compañero o compañera de fórmula (vicepresidente) o informa un cambio en la fórmula. Que alguien sea candidato a presidente por una agrupación NO es "formula": va en "vinculos" o "perfil".
+   Temas "formula", "perfil" y "vinculos" (fórmula, trayectoria y alianzas): podés incluir hechos CONFIRMADOS que la nota informe sobre el candidato (quién lo acompaña en la fórmula, su cargo o trayectoria, qué agrupaciones o dirigentes lo apoyan), aunque los cuente el periodista. Solo hechos presentados como ciertos ("presentó", "anunció", "confirmó", "acompañará", "fue elegido"). Nunca rumores ni condicionales ("iría", "sería", "podría", "se especula", "trascendió").
    En el resto de los temas y en "stances" solo incluí lo que el candidato dijo o propuso según la nota. En todos los casos: no infieras, no completes con conocimiento previo, no uses opiniones del periodista.
 2. Cada ítem lleva "quote": una cita TEXTUAL, copiada igual que en la nota (entre 25 y 300 caracteres). Si no hay una cita textual que lo respalde, no incluyas el ítem.
 3. "summary" en español rioplatense neutro, máximo 220 caracteres, en tercera persona, sin adjetivos valorativos.
@@ -240,6 +241,39 @@ function quoteOk(quote, haystack) {
 function mentions(candidate, haystack) {
   const names = [candidate.name, ...(candidate.aliases || [])].filter(Boolean).map(norm);
   return names.some((name) => name && haystack.includes(name));
+}
+
+// Hechos (fórmula, perfil, alianzas, bajas, fusiones) no se registran si la cita es un rumor o un condicional ("iría", "sería", "habría").
+const NOUN_RIA = /(?:secretar|tesorer|galer|categor|alegr|gestor|mayor|minor|teor|auditor|consultor|librer|ferreter|panader|zapater|carnicer|pizzer|cafeter|sastrer|peluquer|joyer|relojer|mercer|geograf)[ií]a/g;
+function isTentative(text) {
+  const t = String(text || "").normalize("NFC").toLowerCase().replace(NOUN_RIA, " ");
+  return /[a-záéíóúñ]+rí(?:a|as|an|amos)\b/.test(t) || /\b(?:se especula|trascendi[oó]|trascendidos|al parecer|de confirmarse|rumor(?:es)?)\b/.test(t);
+}
+
+// Los nombres propios del resumen tienen que estar en la nota: si el modelo deforma una palabra, el ítem se descarta.
+function namesOk(summary, haystack) {
+  return String(summary || "").split(/(?<=[.!?:])\s+/).every((sentence) =>
+    sentence.split(/[^\p{L}\p{N}]+/u).filter(Boolean).slice(1)
+      .every((word) => word.length < 4 || !/^\p{Lu}/u.test(word) || haystack.includes(norm(word))));
+}
+
+const FACT_TOPICS = new Set(["formula", "perfil", "vinculos"]);
+
+// Motivo por el que se descarta una propuesta del modelo ("" si se acepta).
+function whyRejected(kind, p, candidate, haystack) {
+  if (!p || !candidate) return "candidato desconocido";
+  if (!quoteOk(p.quote, haystack)) return "la cita NO aparece textual en la nota";
+  if (!mentions(candidate, haystack)) return "el candidato no se nombra en la nota";
+  if (p.summary && !namesOk(p.summary, haystack)) return "el resumen nombra algo que no está en la nota";
+  const factual = !(kind === "postura" || kind === "test") || FACT_TOPICS.has(p.topic);
+  if (factual && isTentative(p.quote)) return "la cita es un rumor o está en condicional";
+  return "";
+}
+
+// Citas propuestas por el modelo que no están en la nota (letras cambiadas, texto inventado).
+function brokenQuotes(result, haystack) {
+  const all = ["positions", "stances", "withdrawals", "groupChanges", "newCandidates"].flatMap((key) => (Array.isArray(result[key]) ? result[key] : []));
+  return all.filter((p) => p && p.quote && !quoteOk(p.quote, haystack)).map((p) => String(p.quote).slice(0, 320));
 }
 
 async function main() {
@@ -347,11 +381,24 @@ async function main() {
       continue;
     }
 
+    const haystack = norm(text);
     let result;
     try {
-      const answer = await askModel(buildPrompt(item, text, active(), topics, questions), item);
+      const prompt = buildPrompt(item, text, active(), topics, questions);
+      const answer = await askModel(prompt, item);
       if (DRY) console.log(`\n--- ${item.source}: ${item.title}\n    texto (inicio): ${text.slice(0, 700).replace(/\s+/g, " ")}\n    respuesta cruda del modelo: ${String(answer).slice(0, 900).replace(/\s+/g, " ")}`);
       result = parseJson(answer);
+      // A veces el modelo cambia letras al copiar una cita. Se le pide una sola vez que la corrija; si no, ese ítem se descarta.
+      const broken = result && provider !== "mock" ? brokenQuotes(result, haystack) : [];
+      if (broken.length) {
+        if (DRY) console.log(`    ${broken.length} cita(s) no coinciden con la nota; se le pide corregirlas una vez`);
+        const again = parseJson(await askModel(prompt + "\n\nCORRECCIÓN: estas citas tuyas NO aparecen textuales en la nota (cambiaste letras al copiar):\n" +
+          broken.map((q) => "- " + q).join("\n") + "\nRespondé de nuevo el JSON completo, copiando cada cita carácter por carácter desde el texto de la nota, o quitá el ítem si no podés.", item));
+        if (again) {
+          result = again;
+          if (DRY) console.log(`    respuesta corregida: ${JSON.stringify(again).slice(0, 700)}`);
+        }
+      }
     } catch (error) {
       console.warn("El modelo falló:", item.url, String(error));
       // Sin permiso, modelo inexistente o cupo agotado: no tiene sentido seguir con el resto.
@@ -360,19 +407,19 @@ async function main() {
     }
     if (!result) { mark("invalid"); continue; }
 
-    const haystack = norm(text);
     const date = item.published.slice(0, 10);
     if (DRY) {
       const byId = new Map(active().map((c) => [c.id, c]));
       console.log(`    texto leído: ${text.length} caracteres`);
       const check = (kind, p, extra) => {
-        const c = byId.get(p && p.candidate);
-        const verdict = !c ? "candidato desconocido" : !quoteOk(p.quote, haystack) ? "la cita NO aparece textual en la nota" : !mentions(c, haystack) ? "el candidato no se nombra en la nota" : "ACEPTADA";
-        console.log(`    propuesta ${kind} (${p && p.candidate}${extra}): ${verdict}\n      resumen: ${p && p.summary}\n      cita: «${p && p.quote}»`);
+        const verdict = whyRejected(kind, p, byId.get(p && p.candidate), haystack) || "ACEPTADA";
+        console.log(`    propuesta ${kind} (${p && p.candidate}${extra}): ${verdict}\n      resumen: ${p && (p.summary || p.group)}\n      cita: «${p && p.quote}»`);
       };
       (Array.isArray(result.positions) ? result.positions : []).forEach((p) => check("postura", p, "/" + (p && p.topic)));
       (Array.isArray(result.stances) ? result.stances : []).forEach((p) => check("test", p, "/" + (p && p.question)));
-      console.log(`    bajas propuestas: ${(result.withdrawals || []).length} | cambios de agrupación: ${(result.groupChanges || []).length} | candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
+      (Array.isArray(result.withdrawals) ? result.withdrawals : []).forEach((p) => check("baja", p, p && p.joins ? " -> " + p.joins : ""));
+      (Array.isArray(result.groupChanges) ? result.groupChanges : []).forEach((p) => check("agrupacion", p, ""));
+      console.log(`    candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
     }
     const candidatesById = new Map(active().map((c) => [c.id, c]));
     const snapshot = JSON.stringify(candidatesPayload);
@@ -380,7 +427,7 @@ async function main() {
 
     for (const p of Array.isArray(result.positions) ? result.positions : []) {
       const c = candidatesById.get(p && p.candidate);
-      if (!c || !topics.some((t) => t.id === p.topic) || !p.summary || !quoteOk(p.quote, haystack) || !mentions(c, haystack)) continue;
+      if (!topics.some((t) => t.id === (p && p.topic)) || !p.summary || whyRejected("postura", p, c, haystack)) continue;
       c.positions = c.positions || {};
       const list = (c.positions[p.topic] = c.positions[p.topic] || []);
       if (list.some((x) => x.url === item.url)) continue;
@@ -398,7 +445,7 @@ async function main() {
     for (const s of Array.isArray(result.stances) ? result.stances : []) {
       const c = candidatesById.get(s && s.candidate);
       const q = questions.find((x) => x.id === (s && s.question));
-      if (!c || !q || !s.summary || !quoteOk(s.quote, haystack) || !mentions(c, haystack)) continue;
+      if (!q || !s.summary || whyRejected("test", s, c, haystack)) continue;
       const ids = new Set(q.options.map((o) => o.id));
       const supports = (Array.isArray(s.supports) ? s.supports : []).filter((id) => ids.has(id));
       const partial = (Array.isArray(s.partial) ? s.partial : []).filter((id) => ids.has(id) && !supports.includes(id));
@@ -412,7 +459,7 @@ async function main() {
 
     for (const w of Array.isArray(result.withdrawals) ? result.withdrawals : []) {
       const c = candidatesById.get(w && w.candidate);
-      if (!c || !quoteOk(w.quote, haystack) || !mentions(c, haystack)) continue;
+      if (whyRejected("baja", w, c, haystack)) continue;
       const joins = candidatesById.has(w.joins) && w.joins !== c.id ? w.joins : "";
       const slot = (pending.withdrawals[c.id] = pending.withdrawals[c.id] || []);
       if (!slot.some((x) => x.url === item.url)) slot.push({ url: item.url, host: hostOf(item.url), date, quote: String(w.quote).trim(), joins });
@@ -422,13 +469,13 @@ async function main() {
       const c = candidatesById.get(g && g.candidate);
       const group = String((g && g.group) || "").trim();
       if (!c || !group || group.length > 80 || norm(group) === norm(c.group)) continue;
-      if (!quoteOk(g.quote, haystack) || !mentions(c, haystack) || !haystack.includes(norm(group))) continue;
+      if (whyRejected("agrupacion", g, c, haystack) || !haystack.includes(norm(group))) continue;
       const slot = (pending.groups[c.id] = pending.groups[c.id] || []);
       if (!slot.some((x) => x.url === item.url)) slot.push({ url: item.url, host: hostOf(item.url), date, group, quote: String(g.quote).trim() });
     }
 
     for (const n of Array.isArray(result.newCandidates) ? result.newCandidates : []) {
-      if (!n || !n.name || !quoteOk(n.quote, haystack) || !haystack.includes(norm(n.name))) continue;
+      if (!n || !n.name || !quoteOk(n.quote, haystack) || isTentative(n.quote) || !haystack.includes(norm(n.name))) continue;
       const id = slug(n.name);
       if (!id || candidatesPayload.candidates.some((c) => c.id === id || norm(c.name) === norm(n.name))) continue;
       const slot = (pending.newCandidates[id] = pending.newCandidates[id] || { name: String(n.name).trim(), role: String(n.role || "Candidato a presidente").trim(), group: String(n.group || "").trim(), sources: [] });

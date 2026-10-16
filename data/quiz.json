@@ -1,5 +1,6 @@
 {
   "updated": "2026-10-10T21:30:00-03:00",
+  "enabled": false,
   "minCoverage": 3,
   "questions": [
     {

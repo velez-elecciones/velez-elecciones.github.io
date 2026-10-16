@@ -27,6 +27,7 @@ const MIN_TEXT = 500;
 const MAX_TEXT = 7500;
 const LEDGER_MAX = 600;
 const CONFIRM_HOSTS = 2;
+const PENDING_DAYS = 30;
 const PALETTE = ["#7c3aed", "#0f766e", "#b45309", "#be185d", "#4d7c0f", "#475569"];
 
 const provider = (process.env.LLM_PROVIDER ||
@@ -94,6 +95,39 @@ function articleText(html) {
   return paragraphs.join("\n").slice(0, MAX_TEXT);
 }
 
+// Los enlaces de Google Noticias son redirecciones: se resuelve la nota real para poder leerla y citarla con su medio.
+// Si Google cambia el mecanismo, falla sin romper nada y la nota queda sin leer.
+async function resolveGoogleNews(url) {
+  const id = new URL(url).pathname.split("/").pop();
+  try {
+    const raw = Buffer.from(id.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("latin1");
+    const direct = raw.match(/https?:\/\/[\x21-\x7e]+/);
+    if (direct) return direct[0];
+  } catch { /* se sigue con el otro método */ }
+  const agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+  const page = await fetch("https://news.google.com/rss/articles/" + id + "?hl=es-419&gl=AR&ceid=AR:es-419", {
+    headers: { "user-agent": agent }, signal: AbortSignal.timeout(15000)
+  });
+  const html = await page.text();
+  const signature = html.match(/data-n-a-sg="([^"]+)"/);
+  const stamp = html.match(/data-n-a-ts="([^"]+)"/);
+  if (!signature || !stamp) throw new Error("Google Noticias no devolvió la firma (" + page.status + ")");
+  const inner = JSON.stringify([
+    "garturlreq",
+    [["es-419", "AR", ["FINANCE_TOP_INDICES", "WEB_TEST_1_0_0"], null, null, 1, 1, "AR:es-419", null, 180, null, null, null, null, null, 0, 1], "es-419", "AR", 1, [2, 4, 8], 1, 1, null, 0, 0, null, 0],
+    id, Number(stamp[1]), signature[1]
+  ]);
+  const response = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
+    method: "POST",
+    headers: { "content-type": "application/x-www-form-urlencoded;charset=UTF-8", "user-agent": agent },
+    body: "f.req=" + encodeURIComponent(JSON.stringify([[["Fbv4je", inner, null, "generic"]]])),
+    signal: AbortSignal.timeout(15000)
+  });
+  const found = (await response.text()).match(/garturlres\\",\\"(https?:[^"\\]+)/);
+  if (!found) throw new Error("Google Noticias no devolvió la nota (" + response.status + ")");
+  return JSON.parse('"' + found[1] + '"');
+}
+
 async function download(url) {
   const response = await fetch(url, {
     headers: { "user-agent": "Mozilla/5.0 (compatible; VelezElecciones/1.0)", "accept-language": "es-AR,es;q=0.9" },
@@ -125,14 +159,17 @@ REGLAS
 2. Cada ítem lleva "quote": una cita TEXTUAL, copiada igual que en la nota (entre 25 y 300 caracteres). Si no hay una cita textual que lo respalde, no incluyas el ítem.
 3. "summary" en español rioplatense neutro, máximo 220 caracteres, en tercera persona, sin adjetivos valorativos.
 4. En "stances", "supports" lista las opciones que la declaración respalda claramente y "partial" las que respalda en parte. Si no está claro, usá listas vacías o no incluyas el ítem.
-5. Si la nota informa que un candidato conocido se bajó, declinó o retiró su candidatura, ponelo en "withdrawals" con la cita.
-6. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
-7. Si la nota no trae nada de esto, devolvé las listas vacías.
+5. Si la nota informa un CAMBIO (otro compañero de fórmula, una alianza nueva, un apoyo que se retira, una fusión de listas), registralo en el tema que corresponda con la cita del hecho nuevo, y en el resumen contá cómo quedó la situación actual.
+6. Si la nota informa que un candidato conocido se bajó, declinó o retiró su candidatura, ponelo en "withdrawals" con la cita. Si la misma cita dice que se suma a la lista de otro candidato conocido (fusión o acuerdo), poné en "joins" el id de ese candidato; si no, dejalo vacío.
+7. Si la nota informa que un candidato conocido pasó a competir bajo otro nombre de agrupación, frente o lista (por una fusión o un acuerdo), ponelo en "groupChanges" con el nombre nuevo tal como lo escribe la nota y la cita.
+8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
+9. Si la nota no trae nada de esto, devolvé las listas vacías.
 
 FORMATO
 {"positions":[{"candidate":"id","topic":"id","summary":"...","quote":"..."}],
  "stances":[{"candidate":"id","question":"id","supports":["optionId"],"partial":["optionId"],"summary":"...","quote":"..."}],
- "withdrawals":[{"candidate":"id","quote":"..."}],
+ "withdrawals":[{"candidate":"id","joins":"id o vacío","quote":"..."}],
+ "groupChanges":[{"candidate":"id","group":"nombre nuevo","quote":"..."}],
  "newCandidates":[{"name":"...","role":"Candidato a presidente","group":"agrupación o vacío","quote":"..."}]}
 
 NOTA
@@ -223,7 +260,22 @@ async function main() {
   const quizPayload = await readJson("quiz.json", null);
   const newsPayload = await readJson("news.json", { items: [] });
   const ledger = await readJson("processed.json", { items: {} });
-  const pending = await readJson("pending.json", { withdrawals: {}, newCandidates: {} });
+  const pending = await readJson("pending.json", { withdrawals: {}, newCandidates: {}, groups: {} });
+  pending.withdrawals = pending.withdrawals || {};
+  pending.newCandidates = pending.newCandidates || {};
+  pending.groups = pending.groups || {};
+  // Lo que no se confirma en un mes se descarta: una novedad aislada no pesa para siempre.
+  const expireAt = now.getTime() - PENDING_DAYS * 86400000;
+  for (const key of ["withdrawals", "groups"]) {
+    for (const id of Object.keys(pending[key])) {
+      pending[key][id] = (pending[key][id] || []).filter((hit) => Date.parse(hit.date) >= expireAt);
+      if (!pending[key][id].length) delete pending[key][id];
+    }
+  }
+  for (const id of Object.keys(pending.newCandidates)) {
+    pending.newCandidates[id].sources = (pending.newCandidates[id].sources || []).filter((hit) => Date.parse(hit.date) >= expireAt);
+    if (!pending.newCandidates[id].sources.length) delete pending.newCandidates[id];
+  }
   const changelog = await readJson("changelog.json", { entries: [] });
   if (validate(candidatesPayload, quizPayload).length) {
     console.error("Los datos actuales no son válidos; no se toca nada.");
@@ -250,8 +302,7 @@ async function main() {
   const oldest = now.getTime() - MAX_AGE_DAYS * 86400000;
   const queue = (newsPayload.items || [])
     .filter((item) => item && isHttp(item.url) && item.title && Date.parse(item.published) >= oldest)
-    .filter((item) => FORCE || (!ledger.items[item.url] && !cited.has(item.url)))
-    .filter((item) => hostOf(item.url) !== "news.google.com")
+    .filter((item) => FORCE || (!seenBefore(ledger.items[item.url], now) && !cited.has(item.url)))
     .filter((item) => item.kind !== "community" && !/reddit\.com|youtube\.com/.test(hostOf(item.url)))
     .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
     .slice(0, MAX_ARTICLES);
@@ -263,12 +314,28 @@ async function main() {
   let changed = false;
   console.log(`Notas por revisar: ${queue.length}. Proveedor: ${provider}.`);
 
-  for (const item of queue) {
-    const mark = (result) => { ledger.items[item.url] = { at: now.toISOString(), result }; };
+  for (const entry of queue) {
+    const item = { ...entry }; // "item.url" pasa a ser la nota real si el enlace era de Google Noticias
+    const mark = (result) => {
+      const stamp = { at: now.toISOString(), result };
+      ledger.items[entry.url] = stamp;
+      ledger.items[item.url] = stamp;
+    };
     let text = "";
     try {
-      if (articles) text = (articles.find((a) => a.url === item.url) || {}).text || "";
-      else text = articleText(await download(item.url));
+      if (articles) text = (articles.find((a) => a.url === entry.url) || {}).text || "";
+      else {
+        if (hostOf(entry.url) === "news.google.com") {
+          try { item.url = await resolveGoogleNews(entry.url); } catch (error) {
+            console.warn("No se pudo abrir el enlace de Google Noticias:", String(error));
+            mark("unresolved");
+            continue;
+          }
+          if (/reddit\.com|youtube\.com/.test(hostOf(item.url))) { mark("skipped"); continue; }
+          if (!FORCE && cited.has(item.url)) { mark("cited"); continue; }
+        }
+        text = articleText(await download(item.url));
+      }
     } catch (error) {
       console.warn("No se pudo leer:", item.url, String(error));
       mark("unreadable");
@@ -305,7 +372,7 @@ async function main() {
       };
       (Array.isArray(result.positions) ? result.positions : []).forEach((p) => check("postura", p, "/" + (p && p.topic)));
       (Array.isArray(result.stances) ? result.stances : []).forEach((p) => check("test", p, "/" + (p && p.question)));
-      console.log(`    bajas propuestas: ${(result.withdrawals || []).length} | candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
+      console.log(`    bajas propuestas: ${(result.withdrawals || []).length} | cambios de agrupación: ${(result.groupChanges || []).length} | candidatos nuevos propuestos: ${(result.newCandidates || []).length}`);
     }
     const candidatesById = new Map(active().map((c) => [c.id, c]));
     const snapshot = JSON.stringify(candidatesPayload);
@@ -346,8 +413,18 @@ async function main() {
     for (const w of Array.isArray(result.withdrawals) ? result.withdrawals : []) {
       const c = candidatesById.get(w && w.candidate);
       if (!c || !quoteOk(w.quote, haystack) || !mentions(c, haystack)) continue;
+      const joins = candidatesById.has(w.joins) && w.joins !== c.id ? w.joins : "";
       const slot = (pending.withdrawals[c.id] = pending.withdrawals[c.id] || []);
-      if (!slot.some((x) => x.url === item.url)) slot.push({ url: item.url, host: hostOf(item.url), date, quote: String(w.quote).trim() });
+      if (!slot.some((x) => x.url === item.url)) slot.push({ url: item.url, host: hostOf(item.url), date, quote: String(w.quote).trim(), joins });
+    }
+
+    for (const g of Array.isArray(result.groupChanges) ? result.groupChanges : []) {
+      const c = candidatesById.get(g && g.candidate);
+      const group = String((g && g.group) || "").trim();
+      if (!c || !group || group.length > 80 || norm(group) === norm(c.group)) continue;
+      if (!quoteOk(g.quote, haystack) || !mentions(c, haystack) || !haystack.includes(norm(group))) continue;
+      const slot = (pending.groups[c.id] = pending.groups[c.id] || []);
+      if (!slot.some((x) => x.url === item.url)) slot.push({ url: item.url, host: hostOf(item.url), date, group, quote: String(g.quote).trim() });
     }
 
     for (const n of Array.isArray(result.newCandidates) ? result.newCandidates : []) {
@@ -377,11 +454,46 @@ async function main() {
     const hosts = new Set(hits.map((h) => h.host));
     const c = candidatesPayload.candidates.find((x) => x.id === id);
     if (c && c.status !== "withdrawn" && hosts.size >= CONFIRM_HOSTS) {
+      const latest = [...hits].sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+      // Fusión: solo si al menos dos medios distintos dicen que se suma a la misma lista.
+      const joinHits = hits.filter((h) => h.joins);
+      const target = [...new Set(joinHits.map((h) => h.joins))].find((tid) =>
+        new Set(joinHits.filter((h) => h.joins === tid).map((h) => h.host)).size >= CONFIRM_HOSTS &&
+        candidatesPayload.candidates.some((x) => x.id === tid && x.status !== "withdrawn"));
       c.status = "withdrawn";
+      c.withdrawal = { date: latest.date, source: hostLabel(latest.host), url: latest.url, joins: target || "" };
       changed = true;
-      log.push({ at: now.toISOString(), text: `${c.name}: baja de la candidatura confirmada por ${hosts.size} medios`, url: hits[0].url, source: hits[0].host });
+      log.push({ at: now.toISOString(), text: `${c.name}: baja de la candidatura confirmada por ${hosts.size} medios`, url: latest.url, source: latest.host });
+      if (target) {
+        const receiver = candidatesPayload.candidates.find((x) => x.id === target);
+        const proof = joinHits.filter((h) => h.joins === target).sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+        receiver.positions = receiver.positions || {};
+        (receiver.positions.vinculos = receiver.positions.vinculos || []).push({
+          summary: `${c.name} bajó su candidatura y se suma a la lista de ${receiver.name}.`,
+          quote: proof.quote, source: hostLabel(proof.host), url: proof.url, date: proof.date, auto: true
+        });
+        log.push({ at: now.toISOString(), text: `${c.name} se suma a la lista de ${receiver.name}`, url: proof.url, source: proof.host });
+      }
       delete pending.withdrawals[id];
     }
+  }
+  // Cambio de agrupación (fusiones): dos medios distintos tienen que coincidir en el nombre nuevo.
+  for (const [id, hits] of Object.entries(pending.groups)) {
+    const c = candidatesPayload.candidates.find((x) => x.id === id);
+    if (!c || c.status === "withdrawn") { delete pending.groups[id]; continue; }
+    const names = [...new Set(hits.map((h) => norm(h.group)))];
+    const agreed = names.find((name) => new Set(hits.filter((h) => norm(h.group) === name).map((h) => h.host)).size >= CONFIRM_HOSTS);
+    if (!agreed) continue;
+    const proof = hits.filter((h) => norm(h.group) === agreed).sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+    c.group = proof.group;
+    c.logo = ""; // el escudo anterior ya no representa a la agrupación
+    c.positions = c.positions || {};
+    (c.positions.vinculos = c.positions.vinculos || []).push({
+      summary: `Pasa a competir como ${proof.group}.`, quote: proof.quote, source: hostLabel(proof.host), url: proof.url, date: proof.date, auto: true
+    });
+    changed = true;
+    log.push({ at: now.toISOString(), text: `${c.name}: ahora compite como ${proof.group}`, url: proof.url, source: proof.host });
+    delete pending.groups[id];
   }
   for (const [id, slot] of Object.entries(pending.newCandidates)) {
     const hosts = new Set(slot.sources.map((s) => s.host));
@@ -390,7 +502,7 @@ async function main() {
     candidatesPayload.candidates.push({
       id, status: "active", name: slot.name, short: slot.name.split(" ").slice(-1)[0], role: slot.role, group: slot.group,
       color: PALETTE[candidatesPayload.candidates.length % PALETTE.length], photo: "", logo: "",
-      aliases: [slot.name], social: [], positions: {
+      aliases: [...new Set([slot.name, slot.name.split(" ").slice(-1)[0]].filter((a) => a.length >= 5))], social: [], positions: {
         perfil: [{ summary: `Los medios informan su candidatura: ${slot.name}${slot.group ? " (" + slot.group + ")" : ""}.`, quote: first.quote, source: hostLabel(first.host), url: first.url, date: first.date, auto: true }]
       }, stances: {}
     });
@@ -427,6 +539,7 @@ async function main() {
       }
     }
     for (const [id, hits] of Object.entries(pending.withdrawals)) console.log(`[pendiente de confirmar] posible baja de ${id}: ${hits.map((h) => h.host).join(", ")}`);
+    for (const [id, hits] of Object.entries(pending.groups)) console.log(`[pendiente de confirmar] posible cambio de agrupación de ${id}: ${hits.map((h) => h.group + " (" + h.host + ")").join(", ")}`);
     for (const [id, slot] of Object.entries(pending.newCandidates)) console.log(`[pendiente de confirmar] posible candidato nuevo ${slot.name}: ${slot.sources.map((s) => s.host).join(", ")}`);
   }
   if (process.env.CHANGELOG_FILE) {
@@ -437,5 +550,12 @@ async function main() {
 
 function isHttp(url) { return /^https?:\/\//i.test(String(url || "")); }
 function hostLabel(host) { return host; }
+
+// Una nota ya vista no se vuelve a leer, salvo los enlaces de Google Noticias que no se pudieron abrir (se reintentan cada 12 horas).
+function seenBefore(stamp, now) {
+  if (!stamp) return false;
+  if (stamp.result === "unresolved") return now.getTime() - Date.parse(stamp.at) < 12 * 3600000;
+  return true;
+}
 
 main().catch((error) => { console.error(error); process.exit(1); });

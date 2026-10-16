@@ -17,7 +17,7 @@
     }
   },
   "topics": [
-    { "id": "formula", "label": "Fórmulas", "icon": "users" },
+    { "id": "formula", "label": "Fórmulas", "icon": "users", "latestOnly": true },
     { "id": "perfil", "label": "Perfiles", "icon": "user" },
     { "id": "vinculos", "label": "Alianzas", "icon": "link" },
     { "id": "futbol", "label": "Fútbol", "icon": "ball" },

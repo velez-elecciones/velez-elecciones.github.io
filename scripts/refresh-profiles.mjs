@@ -270,7 +270,9 @@ async function main() {
 
     let result;
     try {
-      result = parseJson(await askModel(buildPrompt(item, text, active(), topics, questions), item));
+      const answer = await askModel(buildPrompt(item, text, active(), topics, questions), item);
+      if (DRY) console.log(`\n--- ${item.source}: ${item.title}\n    texto (inicio): ${text.slice(0, 700).replace(/\s+/g, " ")}\n    respuesta cruda del modelo: ${String(answer).slice(0, 900).replace(/\s+/g, " ")}`);
+      result = parseJson(answer);
     } catch (error) {
       console.warn("El modelo falló:", item.url, String(error));
       // Sin permiso, modelo inexistente o cupo agotado: no tiene sentido seguir con el resto.
@@ -283,7 +285,7 @@ async function main() {
     const date = item.published.slice(0, 10);
     if (DRY) {
       const byId = new Map(active().map((c) => [c.id, c]));
-      console.log(`\n--- ${item.source}: ${item.title}\n    texto leído: ${text.length} caracteres`);
+      console.log(`    texto leído: ${text.length} caracteres`);
       const check = (kind, p, extra) => {
         const c = byId.get(p && p.candidate);
         const verdict = !c ? "candidato desconocido" : !quoteOk(p.quote, haystack) ? "la cita NO aparece textual en la nota" : !mentions(c, haystack) ? "el candidato no se nombra en la nota" : "ACEPTADA";

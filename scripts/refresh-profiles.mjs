@@ -64,8 +64,15 @@ function slug(text) {
 
 function escapeRe(text) { return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
+const NAMED_ENTITIES = {
+  aacute: "á", eacute: "é", iacute: "í", oacute: "ó", uacute: "ú", Aacute: "Á", Eacute: "É", Iacute: "Í", Oacute: "Ó", Uacute: "Ú",
+  ntilde: "ñ", Ntilde: "Ñ", uuml: "ü", Uuml: "Ü", agrave: "à", egrave: "è", ccedil: "ç", iquest: "¿", iexcl: "¡",
+  ldquo: "“", rdquo: "”", lsquo: "‘", rsquo: "’", laquo: "«", raquo: "»", ndash: "–", mdash: "—", hellip: "…", bull: "•", middot: "·", deg: "°"
+};
+
 function decodeEntities(text) {
   return text
+    .replace(/&([a-zA-Z]+);/g, (whole, name) => (Object.prototype.hasOwnProperty.call(NAMED_ENTITIES, name) ? NAMED_ENTITIES[name] : whole))
     .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
     .replace(/&nbsp;/g, " ").replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'")
@@ -109,7 +116,8 @@ PREGUNTAS DEL TEST PARA "stances"
 ${qs}
 
 REGLAS
-1. Solo incluí lo que el candidato dijo o propuso según la nota. No infieras, no completes con conocimiento previo, no uses opiniones del periodista.
+1. Temas "formula", "perfil" y "vinculos" (fórmula, trayectoria y alianzas): podés incluir hechos CONFIRMADOS que la nota informe sobre el candidato (quién lo acompaña en la fórmula, su cargo o trayectoria, qué agrupaciones o dirigentes lo apoyan), aunque los cuente el periodista. Solo hechos presentados como ciertos ("presentó", "anunció", "confirmó", "acompañará", "fue elegido"). Nunca rumores ni condicionales ("iría", "sería", "podría", "se especula", "trascendió").
+   En el resto de los temas y en "stances" solo incluí lo que el candidato dijo o propuso según la nota. En todos los casos: no infieras, no completes con conocimiento previo, no uses opiniones del periodista.
 2. Cada ítem lleva "quote": una cita TEXTUAL, copiada igual que en la nota (entre 25 y 300 caracteres). Si no hay una cita textual que lo respalde, no incluyas el ítem.
 3. "summary" en español rioplatense neutro, máximo 220 caracteres, en tercera persona, sin adjetivos valorativos.
 4. En "stances", "supports" lista las opciones que la declaración respalda claramente y "partial" las que respalda en parte. Si no está claro, usá listas vacías o no incluyas el ítem.

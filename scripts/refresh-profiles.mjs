@@ -85,7 +85,11 @@ function articleText(html) {
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<(nav|header|footer|aside|form|noscript|figure)[\s\S]*?<\/\1>/gi, " ");
   const paragraphs = (cleaned.match(/<(p|h1|h2|h3|li|blockquote)[^>]*>[\s\S]*?<\/\1>/gi) || [])
-    .map((block) => decodeEntities(block.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim())
+    .map((block) => decodeEntities(
+      block
+        .replace(/<\/?(a|b|i|em|strong|span|u|mark|small|sup|sub|font)(\s[^>]*)?>/gi, "") // etiquetas en línea: no agregan espacio
+        .replace(/<[^>]+>/g, " ")
+    ).replace(/\s+/g, " ").replace(/\s+([.,;:!?)])/g, "$1").trim())
     .filter((line) => line.length > 40);
   return paragraphs.join("\n").slice(0, MAX_TEXT);
 }

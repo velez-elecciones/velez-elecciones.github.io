@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "*/20 * * * *"
   workflow_dispatch:
+    inputs:
+      probar_modelo:
+        description: "Solo comprobar que el modelo de GitHub responde"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -22,6 +27,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Probar el modelo
+        if: ${{ inputs.probar_modelo }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/refresh-profiles.mjs --selftest
 
       - name: Buscar noticias y sondeos
         id: update

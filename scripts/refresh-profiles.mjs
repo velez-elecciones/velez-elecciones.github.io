@@ -196,6 +196,13 @@ async function main() {
     console.log("No hay modelo disponible (ni GITHUB_TOKEN, ni ANTHROPIC_API_KEY, ni OPENAI_API_KEY): no se actualizan posturas automáticamente.");
     return;
   }
+  // --selftest: solo comprueba que el modelo responde (se lanza a mano desde GitHub Actions).
+  if (process.argv.includes("--selftest")) {
+    const answer = await askModel('Respondé solo con este JSON, sin texto extra: {"ok":true}', { url: "selftest" });
+    console.log("Respuesta del modelo (" + provider + "):", answer.slice(0, 200));
+    if (!parseJson(answer)) { console.error("La respuesta no es JSON."); process.exit(1); }
+    return;
+  }
   await mkdir(DATA, { recursive: true });
   const now = new Date();
   const candidatesPayload = await readJson("candidates.json", null);

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Legado Vélez">
+  <path d="M32 4 56 14v18c0 16-10 26-24 30C18 58 8 48 8 32V14Z" fill="#0b2f6b" stroke="#f4d27a" stroke-width="3"/>
+  <path d="M18 30h28M32 16v28" stroke="#fff" stroke-width="4"/>
+  <circle cx="32" cy="30" r="3" fill="#f4d27a"/>
+  <text x="32" y="54" text-anchor="middle" fill="#f4d27a" font-family="Arial, sans-serif" font-size="7" font-weight="700">LEGADO</text>
+</svg>

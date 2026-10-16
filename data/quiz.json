@@ -1,0 +1,86 @@
+{
+  "updated": "2026-10-10T21:30:00-03:00",
+  "minCoverage": 3,
+  "questions": [
+    {
+      "id": "modelo",
+      "title": "¿Qué modelo jurídico debería tener Vélez?",
+      "options": [
+        { "id": "asoc_civil", "text": "Seguir como asociación civil sin fines de lucro, sin excepciones" },
+        { "id": "asoc_abierta", "text": "Seguir como asociación civil, pero abierta a que aporten recursos empresas y privados" },
+        { "id": "sad", "text": "Convertirse en una sociedad anónima deportiva" }
+      ]
+    },
+    {
+      "id": "naming",
+      "title": "¿Qué hacer con el nombre del estadio?",
+      "options": [
+        { "id": "naming_si", "text": "Vender un naming si se conserva el nombre Amalfitani y la empresa comparte los valores del club" },
+        { "id": "naming_cond", "text": "Solo con condiciones muy estrictas y con los fondos destinados a obras" },
+        { "id": "naming_no", "text": "No vender el nombre del estadio" }
+      ]
+    },
+    {
+      "id": "deficit",
+      "title": "¿Cuál es la mejor forma de reducir el déficit?",
+      "options": [
+        { "id": "mora", "text": "Cobrar mejor la cuota social y bajar la morosidad" },
+        { "id": "ingresos", "text": "Generar ingresos nuevos: naming, streaming y espacios comerciales" },
+        { "id": "gasto_fut", "text": "Planificar y ordenar el gasto del fútbol profesional" }
+      ]
+    },
+    {
+      "id": "futbol_proyecto",
+      "title": "¿Cómo debería manejarse el fútbol profesional?",
+      "options": [
+        { "id": "proyecto", "text": "Con un proyecto deportivo único y sostenido, con secretario técnico y entrenador definidos" },
+        { "id": "referente", "text": "Con el asesoramiento de un referente del mercado de pases, sin cargo directivo" },
+        { "id": "actual", "text": "Con la estructura actual, corrigiendo lo que haga falta" }
+      ]
+    },
+    {
+      "id": "amateur",
+      "title": "¿Qué hacer con el deporte amateur?",
+      "options": [
+        { "id": "ingresos_amateur", "text": "Conseguir ingresos nuevos para que no se recorte" },
+        { "id": "recorte_amateur", "text": "Ajustar su gasto para bajar el déficit" }
+      ]
+    },
+    {
+      "id": "obras",
+      "title": "¿Cómo debería crecer el club en infraestructura?",
+      "options": [
+        { "id": "plan", "text": "Con un plan de obras a 20 años, firmado por todas las fuerzas políticas" },
+        { "id": "terrenos", "text": "Pidiendo terrenos al Estado para ampliar el polideportivo" },
+        { "id": "no_ampliar", "text": "Mantener lo que hay y priorizar el gasto deportivo" }
+      ]
+    },
+    {
+      "id": "alianzas",
+      "title": "¿Cómo debería armarse la conducción?",
+      "options": [
+        { "id": "frente", "text": "Con un frente amplio que reúna varias agrupaciones antes de la elección" },
+        { "id": "propia", "text": "Con una lista propia, sin sumarse a un gran armado electoral" },
+        { "id": "despues", "text": "Compitiendo por separado y convocando a todos a trabajar juntos después de ganar" }
+      ]
+    },
+    {
+      "id": "socios",
+      "title": "¿Qué debería priorizar el club con sus socios?",
+      "options": [
+        { "id": "crecer", "text": "Sumar socios: llegar a los 100 mil" },
+        { "id": "participar", "text": "Más participación de socios e hinchas en las decisiones" },
+        { "id": "cobranza", "text": "Ordenar el sistema de socios y la cobranza de cuotas" }
+      ]
+    },
+    {
+      "id": "afa",
+      "title": "¿Cómo debería votar Vélez en la AFA?",
+      "options": [
+        { "id": "acompanar", "text": "Acompañando a la conducción para tener estabilidad" },
+        { "id": "criterio", "text": "Según el caso: acompañar si hay convicción y dar debate cuando no" },
+        { "id": "confrontar", "text": "Confrontando a la conducción de la AFA" }
+      ]
+    }
+  ]
+}

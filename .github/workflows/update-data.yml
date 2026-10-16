@@ -1,0 +1,60 @@
+name: Actualizar noticias, sondeos, candidatos y test
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  models: read
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Buscar noticias y sondeos
+        id: update
+        env:
+          REVIEW_BODY_FILE: ${{ runner.temp }}/review-body.md
+        run: node scripts/update-data.mjs
+
+      # Lee las notas nuevas y actualiza posturas, perfiles y respuestas del test.
+      # Usa GitHub Models con el token del propio flujo: no hace falta crear ninguna clave.
+      # Solo guarda lo que trae una cita textual que está en la nota.
+      - name: Actualizar posturas y test
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/refresh-profiles.mjs
+
+      - name: Regenerar el paquete de datos
+        run: node scripts/update-data.mjs --bundle-only
+
+      - name: Avisar si hay algo para revisar
+        if: steps.update.outputs.new_flags != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Revisar candidatos y posturas ($(date +%F))" \
+            --body-file "${{ runner.temp }}/review-body.md"
+
+      - name: Publicar si hay cambios
+        run: |
+          if [ -n "$(git status --porcelain data)" ]; then
+            git config user.name "actualizador-velez"
+            git config user.email "actions@users.noreply.github.com"
+            git add data
+            git commit -m "Actualiza datos"
+            git push
+          fi

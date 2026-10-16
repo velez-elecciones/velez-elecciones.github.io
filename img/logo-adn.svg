@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 56" role="img" aria-label="ADN Azul y Blanco">
+  <rect width="168" height="56" rx="3" fill="#1d6fe0"/>
+  <path d="M10 30c7-12 14-12 21 0s14 12 21 0" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M16 30c7-12 14-12 21 0s14 12 21 0" fill="none" stroke="#dbeafe" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+  <text x="62" y="26" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="16">ADN</text>
+  <text x="62" y="42" fill="#e8f1ff" font-family="Arial, sans-serif" font-size="9">Azul y Blanco</text>
+</svg>

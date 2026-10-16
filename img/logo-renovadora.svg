@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="La Renovadora">
+  <path d="M32 4 56 14v18c0 16-10 26-24 30C18 58 8 48 8 32V14Z" fill="#f4f7fb" stroke="#1d3f73" stroke-width="3"/>
+  <text x="32" y="36" text-anchor="middle" fill="#16386e" font-family="Arial Black, Arial, sans-serif" font-size="20">R</text>
+  <text x="32" y="50" text-anchor="middle" fill="#16386e" font-family="Arial, sans-serif" font-size="6">RENOV.</text>
+</svg>

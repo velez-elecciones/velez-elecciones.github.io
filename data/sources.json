@@ -1,0 +1,20 @@
+{
+  "feeds": [
+    { "name": "Newsdigitales", "url": "https://www.newsdigitales.com/rss", "kind": "media" },
+    { "name": "Diario CEMBA", "url": "https://www.cemba.com.ar/feed", "kind": "media" },
+    { "name": "MUY News", "url": "https://muynews.com/feed", "kind": "media" },
+    { "name": "Doble Amarilla", "url": "https://www.dobleamarilla.com.ar/rss", "kind": "media" },
+    { "name": "Reddit · r/VelezSarsfield", "url": "https://www.reddit.com/r/VelezSarsfield/.rss", "kind": "community" }
+  ],
+  "listed": [
+    { "name": "Sitio oficial de Vélez", "url": "https://velez.com.ar" },
+    { "name": "Doble Amarilla", "url": "https://www.dobleamarilla.com.ar" },
+    { "name": "Tribuna", "url": "https://tribuna.ar" },
+    { "name": "Diario CEMBA", "url": "https://www.cemba.com.ar" },
+    { "name": "Newsdigitales", "url": "https://www.newsdigitales.com" },
+    { "name": "MUY News", "url": "https://muynews.com" },
+    { "name": "TyC Sports", "url": "https://www.tycsports.com" },
+    { "name": "Olé", "url": "https://www.ole.com.ar" },
+    { "name": "Reddit r/VelezSarsfield", "url": "https://www.reddit.com/r/VelezSarsfield/" }
+  ]
+}

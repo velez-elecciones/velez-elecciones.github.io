@@ -80,19 +80,36 @@ function decodeEntities(text) {
     .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
 
-function articleText(html) {
-  const cleaned = html
+// Dónde termina la nota y empiezan las "notas relacionadas", comentarios, barras laterales y pie de página.
+const END_MARKERS = /<aside|<footer|<(?:div|section|ul|nav)[^>]*(?:class|id)=["']?[^"'>]*(?:related|relacionad|recomend|te-puede|lee-tambien|leer-tambien|mas-notas|ultimas-noticias|sidebar|lateral|comment|newsletter|taboola|outbrain)|(?:te puede interesar|le[eé] tambi[eé]n|mir[aá] tambi[eé]n|notas relacionadas|m[aá]s noticias|se[gq]u[ií] leyendo|tambi[eé]n te puede interesar)/i;
+
+// Se queda con el cuerpo de la nota: desde el título (h1) hasta las notas relacionadas.
+function mainBody(html) {
+  const start = html.search(/<h1[\s>]/i);
+  const from = start === -1 ? html : html.slice(start);
+  const end = from.slice(200).search(END_MARKERS);
+  return end === -1 ? from : from.slice(0, end + 200);
+}
+
+// Pasa el HTML a líneas de texto. No depende de que cada <p> esté cerrado (varios medios lo omiten).
+function linesOf(source) {
+  const cleaned = source
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<(nav|header|footer|aside|form|noscript|figure)[\s\S]*?<\/\1>/gi, " ");
-  const paragraphs = (cleaned.match(/<(p|h1|h2|h3|li|blockquote)[^>]*>[\s\S]*?<\/\1>/gi) || [])
-    .map((block) => decodeEntities(
-      block
-        .replace(/<\/?(a|b|i|em|strong|span|u|mark|small|sup|sub|font)(\s[^>]*)?>/gi, "") // etiquetas en línea: no agregan espacio
-        .replace(/<[^>]+>/g, " ")
-    ).replace(/\s+/g, " ").replace(/\s+([.,;:!?)])/g, "$1").trim())
+    .replace(/<(nav|header|footer|aside|form|noscript|figure|iframe|button|select|tadevel-sandbox)[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<\/?(a|b|i|em|strong|span|u|mark|small|sup|sub|font)(\s[^>]*)?>/gi, "") // etiquetas en línea: no agregan espacio
+    .replace(/<\/?(p|div|br|h[1-6]|li|ul|ol|blockquote|tr|section|article|time|table)(\s[^>]*)?\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, " ");
+  return decodeEntities(cleaned).split("\n")
+    .map((line) => line.replace(/\s+/g, " ").replace(/\s+([.,;:!?)])/g, "$1").trim())
     .filter((line) => line.length > 40);
-  return paragraphs.join("\n").slice(0, MAX_TEXT);
+}
+
+export function articleText(html) {
+  const body = linesOf(mainBody(html)).join("\n");
+  // Si el recorte dejó muy poco (página con otra estructura), se lee todo y el filtro de titulares ajenos cubre el resto.
+  const text = body.length >= MIN_TEXT ? body : linesOf(html).join("\n");
+  return text.slice(0, MAX_TEXT);
 }
 
 // Los enlaces de Google Noticias son redirecciones: se resuelve la nota real para poder leerla y citarla con su medio.
@@ -164,7 +181,8 @@ REGLAS
 6. Si la nota informa que un candidato conocido se bajó, declinó o retiró su candidatura, ponelo en "withdrawals" con la cita. Si la misma cita dice que se suma a la lista de otro candidato conocido (fusión o acuerdo), poné en "joins" el id de ese candidato; si no, dejalo vacío.
 7. Si la nota informa que un candidato conocido pasó a competir bajo otro nombre de agrupación, frente o lista (por una fusión o un acuerdo), ponelo en "groupChanges" con el nombre nuevo tal como lo escribe la nota y la cita.
 8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
-9. Si la nota no trae nada de esto, devolvé las listas vacías.
+9. Usá solo el cuerpo de la nota titulada abajo. Ignorá titulares, bajadas y avances de OTRAS notas que aparezcan en el texto (notas relacionadas, "te puede interesar", barras laterales).
+10. Si la nota no trae nada de esto, devolvé las listas vacías.
 
 FORMATO
 {"positions":[{"candidate":"id","topic":"id","summary":"...","quote":"..."}],
@@ -259,10 +277,17 @@ function namesOk(summary, haystack) {
 
 const FACT_TOPICS = new Set(["formula", "perfil", "vinculos"]);
 
+// Titulares de las demás notas conocidas: una cita que contiene el titular de OTRA nota viene de un recuadro de "relacionadas".
+let KNOWN_HEADLINES = [];
+let CURRENT_TITLE = "";
+
 // Motivo por el que se descarta una propuesta del modelo ("" si se acepta).
 function whyRejected(kind, p, candidate, haystack) {
   if (!p || !candidate) return "candidato desconocido";
   if (!quoteOk(p.quote, haystack)) return "la cita NO aparece textual en la nota";
+  const own = norm(CURRENT_TITLE);
+  const quoted = norm(p.quote);
+  if (KNOWN_HEADLINES.some((headline) => headline !== own && quoted.includes(headline))) return "la cita es el titular de otra nota";
   if (!mentions(candidate, haystack)) return "el candidato no se nombra en la nota";
   if (p.summary && !namesOk(p.summary, haystack)) return "el resumen nombra algo que no está en la nota";
   const factual = !(kind === "postura" || kind === "test") || FACT_TOPICS.has(p.topic);
@@ -332,6 +357,7 @@ async function main() {
       c.stances = {};
     }
   }
+  KNOWN_HEADLINES = (newsPayload.items || []).map((entry) => norm(entry.title)).filter((title) => title.length >= 30);
   const write = DRY ? async () => {} : writeFile;
   const oldest = now.getTime() - MAX_AGE_DAYS * 86400000;
   const queue = (newsPayload.items || [])
@@ -350,6 +376,7 @@ async function main() {
 
   for (const entry of queue) {
     const item = { ...entry }; // "item.url" pasa a ser la nota real si el enlace era de Google Noticias
+    CURRENT_TITLE = entry.title;
     const mark = (result) => {
       const stamp = { at: now.toISOString(), result };
       ledger.items[entry.url] = stamp;
@@ -605,4 +632,6 @@ function seenBefore(stamp, now) {
   return true;
 }
 
-main().catch((error) => { console.error(error); process.exit(1); });
+if (path.resolve(process.argv[1] || "") === fileURLToPath(import.meta.url)) {
+  main().catch((error) => { console.error(error); process.exit(1); });
+}

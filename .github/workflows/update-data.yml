@@ -2,7 +2,8 @@ name: Actualizar noticias, sondeos, candidatos y test
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    # GitHub demora o saltea las corridas que caen en minutos cargados (sobre todo a la hora en punto): se usan minutos "raros".
+    - cron: "9,29,49 * * * *"
   workflow_dispatch:
     inputs:
       probar_modelo:

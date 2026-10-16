@@ -251,9 +251,20 @@ function parseJson(text) {
   try { return JSON.parse(text.slice(start, end + 1)); } catch { return null; }
 }
 
+// Igual que norm() pero conserva las tildes: así una cita con "Vêlez" en vez de "Vélez" no pasa por textual.
+function exact(text) {
+  return String(text || "")
+    .normalize("NFC").toLowerCase()
+    .replace(/[“”«»„"]/g, '"').replace(/[‘’`´]/g, "'")
+    .replace(/[–—]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+let EXACT_TEXT = "";
+
 function quoteOk(quote, haystack) {
   const q = norm(quote);
-  return q.length >= 25 && q.length <= 320 && haystack.includes(q);
+  return q.length >= 25 && q.length <= 320 && haystack.includes(q) && (!EXACT_TEXT || EXACT_TEXT.includes(exact(quote)));
 }
 
 function mentions(candidate, haystack) {
@@ -409,6 +420,7 @@ async function main() {
     }
 
     const haystack = norm(text);
+    EXACT_TEXT = exact(text);
     let result;
     try {
       const prompt = buildPrompt(item, text, active(), topics, questions);
@@ -420,7 +432,7 @@ async function main() {
       if (broken.length) {
         if (DRY) console.log(`    ${broken.length} cita(s) no coinciden con la nota; se le pide corregirlas una vez`);
         const again = parseJson(await askModel(prompt + "\n\nCORRECCIÓN: estas citas tuyas NO aparecen textuales en la nota (cambiaste letras al copiar):\n" +
-          broken.map((q) => "- " + q).join("\n") + "\nRespondé de nuevo el JSON completo, copiando cada cita carácter por carácter desde el texto de la nota, o quitá el ítem si no podés.", item));
+          broken.map((q) => "- " + q).join("\n") + "\nRespondé de nuevo el JSON completo, copiando cada cita carácter por carácter (con las mismas tildes) desde el texto de la nota, o quitá el ítem si no podés.", item));
         if (again) {
           result = again;
           if (DRY) console.log(`    respuesta corregida: ${JSON.stringify(again).slice(0, 700)}`);

@@ -37,7 +37,30 @@ const NEWS_QUERIES = [
   "Cruzada Renovadora Vélez 2026 candidato",
   "Círculo El Fortín Plan Vé Primero Vélez elecciones",
   "Legado Vélez Agrupación Amalfitani elecciones Pugliese",
-  "ADN Azul y Blanco Montero propuestas Vélez"
+  "ADN Azul y Blanco Montero propuestas Vélez",
+  // Vida institucional que también mira el socio que vota: asambleas, balances, padrón, estatuto, dirigencia.
+  "Vélez Sarsfield asamblea memoria y balance",
+  "Vélez Sarsfield comisión directiva",
+  "Vélez Sarsfield dirigencia oficialismo oposición",
+  "Vélez Sarsfield cuota social padrón socios",
+  "Vélez Sarsfield estatuto sociedad anónima deportiva",
+  "Vélez Sarsfield Berlanga presidente del club",
+  "site:velez.com.ar asamblea memoria balance",
+  "site:velez.com.ar comisión directiva"
+];
+
+// Barrido general de Google Noticias: solo lo de los últimos 2 días, para que lo más nuevo no quede fuera del tope de resultados.
+const RECENT_QUERIES = [
+  "Vélez Sarsfield",
+  "Club Atlético Vélez Sarsfield",
+  "Vélez Sarsfield elecciones",
+  "Vélez Sarsfield candidato presidente",
+  "Vélez Sarsfield asamblea",
+  "Vélez Sarsfield dirigencia",
+  "Fortín elecciones agrupaciones",
+  "site:velez.com.ar",
+  "site:tribuna.ar Vélez",
+  "site:dobleamarilla.com.ar Vélez"
 ];
 
 const MUST_BE_VELEZ = /sarsfield|fort[ií]n|amalfitani|berlanga|pugliese|balestrini|ballestrini|bragarnik|g[aá]mez|legado v[eé]lez|primero v[eé]lez|adn azul|mazz?itelli|juan cruz montero|club atl[eé]tico v[eé]lez|presidente de v[eé]lez|oficialismo de v[eé]lez|(elecciones|comicios|candidat\w+|lista|socios|presidencia)\s+(en|de|a)\s+v[eé]lez/i;
@@ -212,7 +235,7 @@ function parseAtom(xml, feed) {
     const published = new Date(decode(tag(block, "updated")) || decode(tag(block, "published")));
     const description = decode(tag(block, "content")).replace(/submitted by.*$/i, "").trim();
     if (!title || !link || Number.isNaN(published.getTime())) continue;
-    items.push({ title, description, url: decode(link), published: published.toISOString(), source: feed.name, origin: "feed", kind: feed.kind });
+    items.push({ title, description, url: decode(link), published: published.toISOString(), source: feed.name, origin: "feed", kind: feed.kind, club: Boolean(feed.club) });
   }
   return items;
 }
@@ -225,7 +248,7 @@ async function readFeeds(feeds) {
       const xml = await get(feed.url);
       const items = /<entry[\s>]/.test(xml) && !/<item[\s>]/.test(xml)
         ? parseAtom(xml, feed)
-        : parseFeed(xml, "feed").map((item) => ({ ...item, kind: feed.kind, source: feed.kind === "community" ? feed.name : item.source }));
+        : parseFeed(xml, "feed").map((item) => ({ ...item, kind: feed.kind, club: Boolean(feed.club), source: feed.kind === "community" ? feed.name : item.source }));
       found.push(...items);
     } catch (error) {
       console.warn("Feed falló:", feed.url, String(error));
@@ -244,13 +267,13 @@ async function get(url) {
   return response.text();
 }
 
-async function search(query) {
+async function search(query, window = "60d", withBing = true) {
   const found = [];
   const bing = "https://www.bing.com/news/search?q=" + encodeURIComponent(query) + "&format=rss&setlang=es-AR&cc=AR";
-  const google = "https://news.google.com/rss/search?q=" + encodeURIComponent(query + " when:60d") + "&hl=es-419&gl=AR&ceid=AR:es-419";
-  const [b, g] = await Promise.allSettled([get(bing), get(google)]);
-  if (b.status === "fulfilled") found.push(...parseFeed(b.value, "bing"));
-  else console.warn("Bing falló:", query, String(b.reason));
+  const google = "https://news.google.com/rss/search?q=" + encodeURIComponent(query + " when:" + window) + "&hl=es-419&gl=AR&ceid=AR:es-419";
+  const [b, g] = await Promise.allSettled([withBing ? get(bing) : Promise.resolve(null), get(google)]);
+  if (b.status === "fulfilled" && b.value) found.push(...parseFeed(b.value, "bing"));
+  else if (b.status === "rejected") console.warn("Bing falló:", query, String(b.reason));
   if (g.status === "fulfilled") found.push(...parseFeed(g.value, "google"));
   else console.warn("Google falló:", query, String(g.reason));
   return found;
@@ -266,8 +289,16 @@ let TAGS = {};
 const COMMUNITY_ELECTION = /elecciones|comicios|candidat[oa]|junta electoral|padr[oó]n|agrupaci[oó]n/i;
 const COMMUNITY_CLUB = /club|socios?|presiden|lista|agrupaci|candidat|junta|comisi[oó]n/i;
 
+// Vida institucional del club que mira quien vota (asambleas, balance, padrón, estatuto, dirigencia).
+const INSTITUTIONAL = /asamblea|memoria y balance|junta electoral|padr[oó]n|estatuto|comisi[oó]n directiva|cuota social|sociedad an[oó]nima|dirigencia|oficialismo|oposici[oó]n/i;
+// Notas de partido o de mercado de pases: no son de la elección aunque nombren a la dirigencia.
+const MATCHDAY = /\bvs\.?\b|en vivo|alineaciones|formaciones|estad[ií]sticas|pron[oó]stico|resultado|\bgoles?\b|previa|d[oó]nde ver|tabla|fecha \d+|fichaje|refuerzo|mercado de pases|renov[oó] (su )?contrato|extiende su contrato/i;
+// Otros "Vélez" (Vélez-Málaga, política de España o de México) que no tienen nada que ver con el club.
+const OTHER_VELEZ = /m[aá]laga|psoe|ayuntamiento|alcalde|tabasco|morena|lleida|catalu[ñn]a/i;
+
 function isRelevant(item) {
   const text = item.title + " " + item.description;
+  if (OTHER_VELEZ.test(text)) return false;
   if (item.kind === "community") {
     const named = Object.values(TAGS).some((re) => re.test(text));
     return (COMMUNITY_ELECTION.test(item.title) && COMMUNITY_CLUB.test(text)) || (named && COMMUNITY_ELECTION.test(text));
@@ -276,7 +307,13 @@ function isRelevant(item) {
   const tagged = Object.values(TAGS).some((re) => re.test(text));
   // El título tiene que hablar de la elección; la descripción sola alcanza solo si nombra a un candidato.
   const election = MUST_BE_ELECTION.test(item.title) || (tagged && MUST_BE_ELECTION.test(item.description || ""));
-  return (MUST_BE_VELEZ.test(text) || known) && election;
+  const institutional = INSTITUTIONAL.test(item.title) && !MATCHDAY.test(item.title);
+  // Las notas del sitio oficial son de Vélez aunque el título no lo diga; las de las secciones de Vélez de los medios, solo si hablan de vida institucional.
+  if (item.source === "Sitio oficial de Vélez") return election || institutional;
+  if (item.club && institutional && !/dalmacio/i.test(text)) return true;
+  // En vida institucional alcanza con que el título nombre a Vélez ("Vélez fijó la fecha de la Asamblea").
+  const velezInTitle = /\bv[eé]lez\b/i.test(item.title) && !/dalmacio|v[eé]lez[- ]m[aá]laga/i.test(item.title);
+  return ((MUST_BE_VELEZ.test(text) || known) && election) || (velezInTitle && institutional);
 }
 
 function tagsFor(item) {
@@ -327,6 +364,10 @@ async function main() {
   for (const query of queries) {
     try { all.push(...await search(query)); } catch (error) { console.warn("Búsqueda falló:", query, String(error)); }
   }
+  // Barrido general de los últimos 2 días en Google Noticias (el filtro de relevancia descarta lo que no es de la elección ni del club).
+  for (const query of RECENT_QUERIES) {
+    try { all.push(...await search(query, "2d", false)); } catch (error) { console.warn("Barrido falló:", query, String(error)); }
+  }
   const sourcesPayload = await readJson("sources.json", { feeds: [], listed: [] });
   all.push(...await readFeeds(Array.isArray(sourcesPayload.feeds) ? sourcesPayload.feeds : []));
 
@@ -344,7 +385,7 @@ async function main() {
   const previous = await readJson("news.json", { items: [] });
   const previousItems = (previous.items || []).filter((item) => item && item.title && item.url && item.published);
   for (const item of previousItems) {
-    if (!isRelevant({ title: item.title, description: item.summary || "", kind: item.kind })) continue;
+    if (!isRelevant({ title: item.title, description: item.summary || "", kind: item.kind, source: item.source, club: item.club })) continue;
     const key = normalize(item.title);
     if (!byTitle.has(key) && new Date(item.published).getTime() >= oldest) byTitle.set(key, { ...item, description: item.description || "" });
   }
@@ -378,7 +419,8 @@ async function main() {
       source: item.source,
       published: item.published,
       tags: tagsFor(item),
-      ...(item.kind === "community" ? { kind: "community" } : {})
+      ...(item.kind === "community" ? { kind: "community" } : {}),
+      ...(item.club ? { club: true } : {})
     }));
 
   const fetchedAnything = all.length > 0;

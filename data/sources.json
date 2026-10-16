@@ -4,6 +4,9 @@
     { "name": "Diario CEMBA", "url": "https://www.cemba.com.ar/feed", "kind": "media" },
     { "name": "MUY News", "url": "https://muynews.com/feed", "kind": "media" },
     { "name": "Doble Amarilla", "url": "https://www.dobleamarilla.com.ar/rss", "kind": "media" },
+    { "name": "Olé", "url": "https://www.ole.com.ar/rss/velez/", "kind": "media", "club": true },
+    { "name": "Infobae", "url": "https://www.infobae.com/arc/outboundfeeds/rss/category/deportes/", "kind": "media" },
+    { "name": "La Nación", "url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/?outputType=xml&category_slug=deportes", "kind": "media" },
     { "name": "Reddit · r/VelezSarsfield", "url": "https://www.reddit.com/r/VelezSarsfield/.rss", "kind": "community" }
   ],
   "listed": [
@@ -15,6 +18,9 @@
     { "name": "MUY News", "url": "https://muynews.com" },
     { "name": "TyC Sports", "url": "https://www.tycsports.com" },
     { "name": "Olé", "url": "https://www.ole.com.ar" },
+    { "name": "Infobae", "url": "https://www.infobae.com" },
+    { "name": "La Nación", "url": "https://www.lanacion.com.ar" },
+    { "name": "Google Noticias", "url": "https://news.google.com" },
     { "name": "Reddit r/VelezSarsfield", "url": "https://www.reddit.com/r/VelezSarsfield/" }
   ]
 }

@@ -6,14 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       probar_modelo:
-        description: "Solo comprobar que el modelo de GitHub responde"
+        description: "Solo comprobar que el modelo responde (necesita GEMINI_API_KEY)"
         type: boolean
         default: false
 
 permissions:
   contents: write
   issues: write
-  models: read
 
 concurrency:
   group: update-data
@@ -31,7 +30,8 @@ jobs:
       - name: Probar el modelo
         if: ${{ inputs.probar_modelo }}
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: node scripts/refresh-profiles.mjs --selftest
 
       - name: Buscar noticias y sondeos
@@ -41,11 +41,12 @@ jobs:
         run: node scripts/update-data.mjs
 
       # Lee las notas nuevas y actualiza posturas, perfiles y respuestas del test.
-      # Usa GitHub Models con el token del propio flujo: no hace falta crear ninguna clave.
       # Solo guarda lo que trae una cita textual que está en la nota.
+      # Sin GEMINI_API_KEY este paso se saltea y el resto sigue funcionando.
       - name: Actualizar posturas y test
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: node scripts/refresh-profiles.mjs
 
       - name: Regenerar el paquete de datos
@@ -67,5 +68,6 @@ jobs:
             git config user.email "actions@users.noreply.github.com"
             git add data
             git commit -m "Actualiza datos"
+            git pull --rebase origin main
             git push
           fi

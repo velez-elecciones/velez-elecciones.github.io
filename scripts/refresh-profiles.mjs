@@ -3,11 +3,11 @@
 // cada candidato y SOLO guarda lo que trae una cita textual que aparece en la nota.
 //
 // Variables de entorno:
-//   GITHUB_TOKEN       en GitHub Actions ya existe: usa GitHub Models, sin crear claves ni pagar
-//   ANTHROPIC_API_KEY  o  OPENAI_API_KEY   (opcionales, tienen prioridad si existen)
-//   LLM_MODEL          opcional (por defecto openai/gpt-4o-mini en GitHub Models)
-//   LLM_PROVIDER       opcional: github | anthropic | openai | mock
-//   Si no hay ninguna, el script no hace nada y termina bien.
+//   GEMINI_API_KEY    clave gratuita de Google AI Studio (https://aistudio.google.com/apikey)
+//   ANTHROPIC_API_KEY o OPENAI_API_KEY   (alternativas, de pago)
+//   LLM_MODEL         opcional (por defecto gemini-3.5-flash-lite en Gemini)
+//   LLM_PROVIDER      opcional: gemini | anthropic | openai | mock
+//   Si no hay ninguna clave, el script no hace nada y termina bien.
 //   DATA_DIR           opcional, carpeta de datos (para pruebas)
 //   MOCK_ARTICLES_FILE y MOCK_LLM_FILE: solo con LLM_PROVIDER=mock (pruebas sin red)
 //   CHANGELOG_FILE     opcional: ruta donde dejar un resumen de cambios en texto
@@ -24,14 +24,13 @@ const MAX_ARTICLES = 12;
 const MAX_AGE_DAYS = 14;
 const MAX_PER_TOPIC = 5;
 const MIN_TEXT = 500;
-const MAX_TEXT = 7500; // entra en el límite de entrada del plan gratuito de GitHub Models
+const MAX_TEXT = 7500;
 const LEDGER_MAX = 600;
 const CONFIRM_HOSTS = 2;
 const PALETTE = ["#7c3aed", "#0f766e", "#b45309", "#be185d", "#4d7c0f", "#475569"];
 
-// Sin claves propias, en GitHub Actions se usa GitHub Models con el token del propio flujo (no hay que crear nada).
 const provider = (process.env.LLM_PROVIDER ||
-  (process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : process.env.GITHUB_TOKEN ? "github" : "")).toLowerCase();
+  (process.env.GEMINI_API_KEY ? "gemini" : process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : "")).toLowerCase();
 
 class ModelError extends Error {
   constructor(message, status) { super(message); this.status = status; }
@@ -155,21 +154,20 @@ async function askModel(prompt, article) {
     const body = await response.json();
     return body.choices?.[0]?.message?.content || "";
   }
-  if (provider === "github") {
-    const response = await fetch("https://models.github.ai/inference/chat/completions", {
+  if (provider === "gemini") {
+    const model = process.env.LLM_MODEL || "gemini-3.5-flash-lite";
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/vnd.github+json",
-        authorization: "Bearer " + process.env.GITHUB_TOKEN,
-        "x-github-api-version": "2022-11-28"
-      },
-      body: JSON.stringify({ model: process.env.LLM_MODEL || "openai/gpt-4o-mini", temperature: 0, messages: [{ role: "user", content: prompt }] }),
+      headers: { "content-type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0, responseMimeType: "application/json" }
+      }),
       signal: AbortSignal.timeout(90000)
     });
-    if (!response.ok) throw new ModelError("GitHub Models " + response.status + " " + (await response.text()).slice(0, 200), response.status);
+    if (!response.ok) throw new ModelError("Gemini " + response.status + " " + (await response.text()).slice(0, 200), response.status);
     const body = await response.json();
-    return body.choices?.[0]?.message?.content || "";
+    return (body.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join("");
   }
   throw new Error("Proveedor no soportado: " + provider);
 }
@@ -193,7 +191,7 @@ function mentions(candidate, haystack) {
 
 async function main() {
   if (!provider) {
-    console.log("No hay modelo disponible (ni GITHUB_TOKEN, ni ANTHROPIC_API_KEY, ni OPENAI_API_KEY): no se actualizan posturas automáticamente.");
+    console.log("No hay GEMINI_API_KEY (ni otra clave): se saltea la actualización automática de posturas. Noticias y sondeos siguen funcionando.");
     return;
   }
   // --selftest: solo comprueba que el modelo responde (se lanza a mano desde GitHub Actions).

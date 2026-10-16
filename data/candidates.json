@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-10T21:30:00-03:00",
+  "updated": "2026-10-16T04:24:55.163Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -9,20 +9,57 @@
       "url": "https://www.dobleamarilla.com.ar/rosca/elecciones-en-velez--una-agrupacion-pidio-prohibir-el-uso-del-sello--primero-velez-_a6abc784558ce7a93cdfd4c68",
       "date": "2026-09-30",
       "items": [
-        { "label": "Cuándo y dónde", "text": "Domingo 15 de noviembre, de 8 a 18, en el Polideportivo José Ramón Feijóo (Av. Juan B. Justo 8900)." },
-        { "label": "Listas", "text": "Las listas completas se presentan hasta el 4 de noviembre a las 23:59." },
-        { "label": "Padrón", "text": "Provisorio desde el 30 de septiembre. El definitivo sale el 9 de noviembre, cuando termina el plazo para regularizar la cuota." },
-        { "label": "Para votar", "text": "Ser mayor de 18 años, tener 2 años de antigüedad y la cuota de septiembre de 2026 paga. Llevar carnet de socio (físico o digital) y DNI." }
+        {
+          "label": "Cuándo y dónde",
+          "text": "Domingo 15 de noviembre, de 8 a 18, en el Polideportivo José Ramón Feijóo (Av. Juan B. Justo 8900)."
+        },
+        {
+          "label": "Listas",
+          "text": "Las listas completas se presentan hasta el 4 de noviembre a las 23:59."
+        },
+        {
+          "label": "Padrón",
+          "text": "Provisorio desde el 30 de septiembre. El definitivo sale el 9 de noviembre, cuando termina el plazo para regularizar la cuota."
+        },
+        {
+          "label": "Para votar",
+          "text": "Ser mayor de 18 años, tener 2 años de antigüedad y la cuota de septiembre de 2026 paga. Llevar carnet de socio (físico o digital) y DNI."
+        }
       ]
     }
   },
   "topics": [
-    { "id": "formula", "label": "Fórmulas", "icon": "users", "latestOnly": true },
-    { "id": "perfil", "label": "Perfiles", "icon": "user" },
-    { "id": "vinculos", "label": "Alianzas", "icon": "link" },
-    { "id": "futbol", "label": "Fútbol", "icon": "ball" },
-    { "id": "sad", "label": "SAD", "icon": "shield" },
-    { "id": "finanzas", "label": "Finanzas", "icon": "coin" }
+    {
+      "id": "formula",
+      "label": "Fórmulas",
+      "icon": "users",
+      "latestOnly": true
+    },
+    {
+      "id": "perfil",
+      "label": "Perfiles",
+      "icon": "user"
+    },
+    {
+      "id": "vinculos",
+      "label": "Alianzas",
+      "icon": "link"
+    },
+    {
+      "id": "futbol",
+      "label": "Fútbol",
+      "icon": "ball"
+    },
+    {
+      "id": "sad",
+      "label": "SAD",
+      "icon": "shield"
+    },
+    {
+      "id": "finanzas",
+      "label": "Finanzas",
+      "icon": "coin"
+    }
   ],
   "candidates": [
     {
@@ -35,9 +72,17 @@
       "color": "#003da5",
       "photo": "img/pugliese.jpg",
       "logo": "img/logo-legado.png",
-      "aliases": ["pugliese", "legado vélez", "legado velez"],
+      "aliases": [
+        "pugliese",
+        "legado vélez",
+        "legado velez"
+      ],
       "social": [
-        { "label": "Instagram", "url": "https://www.instagram.com/nelsonpugliese/", "note": "Cuenta que Olé usa como crédito de sus fotos" }
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/nelsonpugliese/",
+          "note": "Cuenta que Olé usa como crédito de sus fotos"
+        }
       ],
       "positions": {
         "formula": [
@@ -138,51 +183,69 @@
       },
       "stances": {
         "modelo": {
-          "supports": ["asoc_civil"],
+          "supports": [
+            "asoc_civil"
+          ],
           "summary": "Apoyaría un “no a las SAD” y defiende que los clubes sigan como asociaciones civiles.",
           "source": "Newsdigitales",
           "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
           "date": "2026-04-17"
         },
         "naming": {
-          "supports": ["naming_cond"],
-          "partial": ["naming_si"],
+          "supports": [
+            "naming_cond"
+          ],
+          "partial": [
+            "naming_si"
+          ],
           "summary": "Analiza un naming, con un techo de US$ 2 a 3 M anuales, sin que “manche” el nombre Amalfitani y con fondos para obras.",
           "source": "Newsdigitales",
           "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
           "date": "2026-04-17"
         },
         "deficit": {
-          "supports": ["mora"],
-          "partial": ["ingresos"],
+          "supports": [
+            "mora"
+          ],
+          "partial": [
+            "ingresos"
+          ],
           "summary": "Propone un nuevo sistema de socios y cobranzas para bajar la morosidad; también explora el naming.",
           "source": "Newsdigitales",
           "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
           "date": "2026-04-17"
         },
         "obras": {
-          "supports": ["plan"],
+          "supports": [
+            "plan"
+          ],
           "summary": "Impulsó el Plan Integral de Obras 2025-2045, que buscan firmar entre todas las fuerzas políticas.",
           "source": "Doble Amarilla",
           "url": "https://www.dobleamarilla.com.ar/liga-/velez-presento-un-plan-de-infraestructura-pensando--en-un-modelo-de-club-a-20-anos-_a6892ab141fdc0cf56af047f5",
           "date": "2025-08-05"
         },
         "alianzas": {
-          "supports": ["frente"],
+          "supports": [
+            "frente"
+          ],
           "summary": "Busca integrar fuerzas: Legado Vélez reúne tres agrupaciones y en abril habló de 6 a 7 chances sobre 10 de lograr acuerdos.",
           "source": "Doble Amarilla",
           "url": "https://www.dobleamarilla.com.ar/rosca/el-vicepresidente-de-velez-confirmo-que-analizan-un-naming-para-el-estadio-y-hablo-del-panorama-politico-de-cara-a-las-elecciones-_a69e220e06472dd23a5ff4329",
           "date": "2026-04-17"
         },
         "socios": {
-          "supports": ["cobranza"],
+          "supports": [
+            "cobranza"
+          ],
           "summary": "Anunció un nuevo sistema de socios, enrolamiento y cobranzas para transparentar la mora.",
           "source": "Doble Amarilla",
           "url": "https://www.dobleamarilla.com.ar/rosca/el-vicepresidente-de-velez-confirmo-que-analizan-un-naming-para-el-estadio-y-hablo-del-panorama-politico-de-cara-a-las-elecciones-_a69e220e06472dd23a5ff4329",
           "date": "2026-04-17"
         },
         "afa": {
-          "supports": ["criterio"],
+          "supports": [
+            "criterio"
+          ],
           "summary": "No hay que levantar la mano “en forma sistemática”: acompañar con convicción y dar debate.",
           "source": "Olé",
           "url": "https://www.ole.com.ar/velez/velez-nelson-pugliese-afa-dirigencia_0_xWhFp7wzNZ.html"
@@ -199,9 +262,22 @@
       "color": "#c49212",
       "photo": "img/balestrini-face.jpg",
       "logo": "img/logo-primero.jpg",
-      "aliases": ["balestrini", "ballestrini", "primero vélez", "primero velez", "gámez", "gamez", "círculo el fortín", "circulo el fortin"],
+      "aliases": [
+        "balestrini",
+        "ballestrini",
+        "primero vélez",
+        "primero velez",
+        "gámez",
+        "gamez",
+        "círculo el fortín",
+        "circulo el fortin"
+      ],
       "social": [
-        { "label": "X de Primero Vélez", "url": "https://x.com/primerovelezok", "note": "Cuenta citada por Olé y Doble Amarilla" }
+        {
+          "label": "X de Primero Vélez",
+          "url": "https://x.com/primerovelezok",
+          "note": "Cuenta citada por Olé y Doble Amarilla"
+        }
       ],
       "positions": {
         "formula": [
@@ -246,6 +322,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/primero-velez-anuncio-a-federico-balestrini-como-su-candidato-en-las-elecciones--quienes-son-los-otros-postulantes-a-presidente_a6ac76fe31eb9026484a7b2e0",
             "date": "2026-09-30"
+          },
+          {
+            "summary": "Primero Vélez anunció que Federico Balestrini será su candidato y que el espacio quedó compuesto por las agrupaciones Círculo El Fortín y Plan Vé.",
+            "quote": "Primero Vélez anunció a Federico Balestrini como su candidato en las elecciones: quiénes son los otros postulantes a presidente El actual secretario general será el representante oficialista en los próximos comicios. El espacio político quedó compuesto por las agrupaciones “Círculo El Fortín” y “Plan Vé”.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/velez-fijo-dia-y-horario-para-la-asamblea-general-ordinaria-donde-tratara-memoria-y-balance--los-detalles_a6ad0efa80735cd39a2701982",
+            "date": "2026-10-15",
+            "auto": true
           }
         ],
         "futbol": [],
@@ -254,7 +338,9 @@
       },
       "stances": {
         "alianzas": {
-          "supports": ["propia"],
+          "supports": [
+            "propia"
+          ],
           "summary": "Se desmarcó del armado de Pugliese: busca “algo distinto al armado en el que estábamos participando”.",
           "quote": "Estamos construyendo algo distinto al armado en el que estábamos participando",
           "source": "Doble Amarilla",
@@ -262,7 +348,9 @@
           "date": "2026-09-30"
         },
         "socios": {
-          "supports": ["crecer"],
+          "supports": [
+            "crecer"
+          ],
           "summary": "Su lema de campaña: “Por un Vélez de 100 mil socios”.",
           "source": "Doble Amarilla",
           "url": "https://www.dobleamarilla.com.ar/rosca/primero-velez-anuncio-a-federico-balestrini-como-su-candidato-en-las-elecciones--quienes-son-los-otros-postulantes-a-presidente_a6ac76fe31eb9026484a7b2e0",
@@ -280,7 +368,11 @@
       "color": "#1a8fe8",
       "photo": "img/montero-face.jpg",
       "logo": "img/logo-adn.svg",
-      "aliases": ["juan cruz montero", "montero", "adn azul"],
+      "aliases": [
+        "juan cruz montero",
+        "montero",
+        "adn azul"
+      ],
       "social": [],
       "positions": {
         "formula": [
@@ -375,7 +467,10 @@
       },
       "stances": {
         "modelo": {
-          "supports": ["asoc_civil", "asoc_abierta"],
+          "supports": [
+            "asoc_civil",
+            "asoc_abierta"
+          ],
           "summary": "“Creemos solamente en el modelo de asociación civil”, pero con un modelo abierto en el que aporten recursos quienes quieran, alineados con los valores del club.",
           "quote": "Creemos solamente en el modelo de asociación civil",
           "source": "Diario CEMBA",
@@ -383,43 +478,59 @@
           "date": "2026-09-29"
         },
         "naming": {
-          "supports": ["naming_si"],
-          "partial": ["naming_cond"],
+          "supports": [
+            "naming_si"
+          ],
+          "partial": [
+            "naming_cond"
+          ],
           "summary": "Quiere un naming con una empresa alineada en valores, sin perder el nombre Amalfitani.",
           "source": "Diario CEMBA",
           "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
           "date": "2026-09-29"
         },
         "deficit": {
-          "supports": ["ingresos", "gasto_fut"],
+          "supports": [
+            "ingresos",
+            "gasto_fut"
+          ],
           "summary": "Generar ingresos nuevos (naming, streaming, espacios comerciales) y planificar el gasto del fútbol profesional.",
           "source": "Diario CEMBA",
           "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
           "date": "2026-09-29"
         },
         "futbol_proyecto": {
-          "supports": ["proyecto", "referente"],
+          "supports": [
+            "proyecto",
+            "referente"
+          ],
           "summary": "Un proyecto de fútbol sostenido, con secretario técnico y DT, y con Bragarnik como referente sin cargo directivo.",
           "source": "Diario CEMBA",
           "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
           "date": "2026-09-29"
         },
         "amateur": {
-          "supports": ["ingresos_amateur"],
+          "supports": [
+            "ingresos_amateur"
+          ],
           "summary": "En el amateur no pueden faltar recursos para viajes, indumentaria o infraestructura: hay que generar nuevos ingresos.",
           "source": "Diario CEMBA",
           "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
           "date": "2026-09-29"
         },
         "obras": {
-          "supports": ["terrenos"],
+          "supports": [
+            "terrenos"
+          ],
           "summary": "Ampliar el polideportivo con terrenos linderos de Playas Ferroviarias, gestionando con la AABE.",
           "source": "Diario CEMBA",
           "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
           "date": "2026-09-29"
         },
         "alianzas": {
-          "supports": ["despues"],
+          "supports": [
+            "despues"
+          ],
           "summary": "No cree en la integración electoral: si ganan, convocarían a los demás espacios al día siguiente.",
           "quote": "Si eso pasa, al día siguiente vamos a convocar a los demás espacios a trabajar integrados",
           "source": "Diario CEMBA",
@@ -427,7 +538,9 @@
           "date": "2026-09-29"
         },
         "socios": {
-          "supports": ["participar"],
+          "supports": [
+            "participar"
+          ],
           "summary": "“Un Vélez con participación real de los socios e hinchas”.",
           "quote": "Creo en un Vélez con participación real de los socios e hinchas",
           "source": "Doble Amarilla",
@@ -447,7 +560,13 @@
       "photo": "img/mazzitelli.png",
       "photoPosition": "center 22%",
       "logo": "img/logo-renovadora.svg",
-      "aliases": ["mazzitelli", "mazitelli", "renovadora vélez", "renovadora velez", "agrupación renovadora"],
+      "aliases": [
+        "mazzitelli",
+        "mazitelli",
+        "renovadora vélez",
+        "renovadora velez",
+        "agrupación renovadora"
+      ],
       "social": [],
       "positions": {
         "formula": [

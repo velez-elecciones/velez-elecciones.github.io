@@ -1,7 +1,23 @@
 {
-  "updated": "2026-10-16T03:50:03.408Z",
-  "checkedAt": "2026-10-16T04:23:07.833Z",
+  "updated": "2026-10-16T04:24:36.073Z",
+  "checkedAt": "2026-10-16T04:24:36.073Z",
   "items": [
+    {
+      "title": "Vélez fijó día y horario para la Asamblea General Ordinaria donde tratará memoria y balance: los detalles",
+      "summary": "La misma se realizará en el Salón Integral del Polideportivo y se dará a conocer el Ejercicio N° 116, comprendido entre el 1° de julio de 2025 y el 30 de junio de 2026. Será el último acto de Fabián B ...",
+      "url": "https://www.dobleamarilla.com.ar/rosca/velez-fijo-dia-y-horario-para-la-asamblea-general-ordinaria-donde-tratara-memoria-y-balance--los-detalles_a6ad0efa80735cd39a2701982",
+      "source": "Doble Amarilla",
+      "published": "2026-10-15T08:47:00.000Z",
+      "tags": []
+    },
+    {
+      "title": "Presentación de la Memoria y Balance",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcjhmSDVKall1YzU2UkVwekZ0R24taXpTV0tiVXZLRjRJd2I3LTVrbFZlQ3NCWnhlRFNZNGViUEJhaDZMaDhJdVJXaC1tcFZ6aGdOV3ZNNnNGT3ZZcmhsNEdGSkJXU25oNFhUMUF0WGlISDJDZS03VjJMYXBwTkwxZnBjaklTOFRfUThsbjJYaw?oc=5",
+      "source": "Sitio oficial de Vélez",
+      "published": "2026-10-14T22:00:00.000Z",
+      "tags": []
+    },
     {
       "title": "Raúl Gámez vuelve a Vélez como candidato a vicepresidente",
       "summary": "",
@@ -53,6 +69,14 @@
       ]
     },
     {
+      "title": "Elecciones 2026: Padrón provisorio",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNUUdNNEg0dHZBdGJ4cTdKcDVVdlI5aUtjRm5WdmRYSkdUQXFKUkloTXl3QncteTdyY0hTeFE1WENLay1VbEw1bmlqQVoyUkdOVFRDN0RmSEpySjQtX2RkNzNwXy01eUpITmlWOEdfSVlLNXZldlk4eHJoM2dpUTYwclo0c1pYcmdPbHgw?oc=5",
+      "source": "Sitio oficial de Vélez",
+      "published": "2026-09-30T07:00:00.000Z",
+      "tags": []
+    },
+    {
       "title": "El oficialismo de Vélez irá dividido a las elecciones: quiénes serían los candidatos",
       "summary": "Fabián Berlanga impulsa a Legado Vélez con Nelson Pugliese como candidato. Las agrupaciones de Federico Ballestrini y Augusto Costa irán unidas por otro la ...",
       "url": "https://www.newsdigitales.com/nota/346124/el-oficialismo-de-velez-ira-dividido-a-las-elecciones-quienes-serian-los-candidatos/",
@@ -74,53 +98,72 @@
       ]
     },
     {
+      "title": "La interna de Vélez: Christian Bragarnik aclaró su supuesta participación en la protesta de los jugadores contra la dirigencia",
+      "summary": "El presente deportivo contrasta con la situación institucional. Vélez es protagonista en el Torneo Clausura y en la Tabla Anual, pero internamente está agitado. El avenimiento de las elecciones partió ...",
+      "url": "https://www.clarin.com/deportes/interna-velez-christian-bragarnik-aclaro-supuesta-participacion-protesta-jugadores-dirigencia_0_jpXSkP6seN.html",
+      "source": "Clarín",
+      "published": "2026-09-23T17:19:00.000Z",
+      "tags": []
+    },
+    {
+      "title": "Vélez tras el fallo: pide suspender la Copa Argentina",
+      "summary": "Nelson Pugliese, vicepresidente de Vélez y candidato oficialista para las elecciones de fin de año en el Fortín, anunció que este mismo miércoles el club apelará el fallo del Tribunal de Disciplina ...",
+      "url": "https://www.ole.com.ar/velez/velez-nelsonpugliese-copaargentina-tribunaldedisciplina-boca_0_4cLiFLwUQY.html",
+      "source": "Olé",
+      "published": "2026-09-22T17:20:00.000Z",
+      "tags": [
+        "pugliese"
+      ]
+    },
+    {
+      "title": "Tensión en Vélez: la dirigencia pagó los sueldos atrasados, pero evalúa sancionar al plantel",
+      "summary": "La comisión directiva saldó los haberes de agosto tras la protesta de los futbolistas antes de jugar con Tigre. Sin embargo, se analiza un castigo económico. El clima en Liniers está lejos de calmarse ...",
+      "url": "https://www.minutouno.com/deportes/tension-velez-la-dirigencia-pago-los-sueldos-atrasados-pero-evalua-sancionar-al-plantel-n6325427",
+      "source": "Minuto Uno",
+      "published": "2026-09-22T14:08:00.000Z",
+      "tags": []
+    },
+    {
+      "title": "Junta Electoral 2026",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5VQ1BYOTdVTUxpeF94YU5ZLTV6ZXpISzZTT0VmZXJRTVRycjNUZlE5RzJZVmQwaGRxWXY5RFZveGJoWFBkWmlyMTFEYU9ucHlQRjJPbU9wWm4wSFZzUF95aTRQSjg5cWplTEJRT0phd294NkpFVWhOZ2Fn?oc=5",
+      "source": "Sitio oficial de Vélez",
+      "published": "2026-09-22T07:00:00.000Z",
+      "tags": []
+    },
+    {
+      "title": "Tras la protesta por falta de pago, la dirigencia de Vélez abonó sueldos y evaluará sanciones para algunos jugadores",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxNNUJyYjNYUHpIZm14YjRjQlNSTjUtYlY4STdSR2VKWXptalJKU29iZS1pLWJuREE3aU5fWFQtTmVRX01xV2ZLNW52LWxKczZYMFVNeUdXdHl5T2tvQXBPWGlZcGVCSUhMTEpLS1FrWXVWaURCV2NITUhERjNERDJhVzBTa1ExNUFONnQzYUZXM3NGQmpnUnlxOTd3MzFGYk81dGFUdml2TTJxWHZEenJWSHlUaU83QVRBQUxzbTlOZ2JWdE8wQUhnX0t1SU5ZZEhrSnZOWEFSb21KcmR6SHRrclE5Q2h1RmtuaWczMTlfSXBUTTVyMjgzS0VqYmhNU1BIRWNob1ZEemJkbjc5RlHSAZwCQVVfeXFMTjh1MDdFYi1pckM4bEZvOWg2eVNEeUl6UkpTLWpWbHRVQWV6OXNMOTR4NmRPamRHOUlKT3Bwd0ZTUkhqblNKYklOcS0xajliT0JXUjJuN3JSUkU1bFlzMEpKM0owT3hYT0NwM1BIQVFSX2lJaTd2bG1kckJtd0xwMkRJV3dDOUJ3VjBXZlo4bGowZm9nWGZud1JKTmJhUGwzMFhyZ1k1S3paYVE0QkhkMkR3Qkt6STZCb1dkRjNFN1dZTTByZ0d3MXFselkwTVJPQkppLXo2SXNYWk43aEFGbWFjdFl0VW10aXRqbGR6VE1vRjFYYW0yVHBYTEdZbjlBcXZFLWJOZ1VVNXNmZk5MZWNBRDZtMDhJa1NJUHQ?oc=5",
+      "source": "Doble Amarilla",
+      "published": "2026-09-22T07:00:00.000Z",
+      "tags": []
+    },
+    {
+      "title": "Ruptura en el oficialismo de Vélez: Círculo El Fortín se alejó del armado de Nelson Pugliese",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPVlRGX1U2VHlTbW1mZkFsbUxNaFc2X1pyaVZhTVpUbDBlWFhRUzRIbEt2TmxPYXhNYXdQanNod2FBR1B1bHg0U1FHRXRTSFRIMW4zdFhzN0FPSWhPclNEbTFMcV92bnd0Y1JtV3VsZHlxZWo1aXBvQ2pNRmpGXzFfREVlekVvaVQ0NzFPcHFIVlZtYi10ZWNQOElGVXB4a0ZwZFdId0hmeGYxUFZFTlBMZ0RFTmtQYkVzMDFYbzNha1FBY2lWQUo1QUlIbWg3eksyYThfNU9ZeExLbjFUTW9CUGZyOWMwTVNxX01iQW9B0gH8AUFVX3lxTFByMDZrY0l0YTdyRENkempna29yOHZhazUwMU1Ta2xRZHItRFJpNFFjM2ZSMHl4TnpORTNPdmdQUDdMbDFlMEdiR0xpSi1fTkhuMzVheU9hY3h2dGI3Q19UeV95YjNjdURQQy1qcDFpV1hyZWRpMTh5RW5rUFBxaWFhUjVoblBndzcxQVFKbTV4elBsVmxtZ3BMNV9vbXFpY3RMZV9VNnJtbk1EN0JqQi1fQVBmY0diOVB2QnlPTUx2MTZGMWdWZVU5UXpLY3FnTWlkZ0ZuOTZRMjc3c1V2RWFyYmVIN0Fic3U2SVZodWUyWF9JQTltd3htNkJiQQ?oc=5",
+      "source": "Doble Amarilla",
+      "published": "2026-09-16T07:00:00.000Z",
+      "tags": [
+        "pugliese",
+        "balestrini"
+      ]
+    },
+    {
+      "title": "Elecciones 2026: Fecha confirmada",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNaUhnZ1U3N01Pd3A0bUU5aWZ5TlZtVWpxN2lUQUZCZTJZQUg2N1FzQmN1emV3S3psbXpEdlg4WlNmNTZQMGFIaGFCc01sZnBubWtaYnRtSU5sdm5ERWxMMFF0QlpCRm45c1pWV3ZSaEtQaEdockVlTERCbnFUNDFUcmdaYWttX1VWNlE?oc=5",
+      "source": "Sitio oficial de Vélez",
+      "published": "2026-09-08T07:00:00.000Z",
+      "tags": []
+    },
+    {
       "title": "Renunció el titular de Coordinación Ejecutiva del PAMI para presentarse en las elecciones de Vélez",
       "summary": "",
       "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPUUhIT2xkVzZ5dGYtb2pQSlhsUXdtV3Vxd2I4RFg1Q3RSSWpMNkhoVWVMeFZ6ekNlUEROcXVUanBXckZxbDNuZ3Fpb3RaY2RpTmNiWWJZSlpXRmluLTlidjVZWFhPeXdpSkQ2R0tGUWNpc2VQUmpRTDhJUkNkUkM3WVpKMDFHWnY4OEl3OGpvS0VlQkVEbjl1MnhKdnlTZHdUcVQ5REVEQlFZZ0VFMUVVYWhwQnhKWU1Nclp0TlFfdXZWd0NfMWd6YmNjZG80X3lWREZnUHUzRUc5SXJpdzFzVndfSDBldEVpWDhuQU83NWfSAfYBQVVfeXFMTkh5Z3ZUd0I4M3F4anJfLXJ5VndyeTFBVEJ2WW5Xa28tSWtyOEpKSWo2b2duZkcxU2JFbU45ZnNoSzQwc1J0dTBNQ3F1TVBSTC1Ed1NsSVg0eXA3U0J0MW0xS2tTS1YzZWN3a3pZWEJIWjBLcjIwVFZBQWlpTm9oZTRySlFjSWhfVnZYb2ZIOXRCbXVXemlrWGVuN1h4eWx5dUgzOWlWdnl6ZjNwWkNsYmp0Q3NBNEFsb3JkMDRJUElPNE9zWl9pdzRhR0JKcm5KaUVkeWVDYVJ4QXpfX1F6UDhhREt5bmwxZ3RlaWFIdXlfc0psRGV3?oc=5",
       "source": "Diario El Cordillerano",
       "published": "2026-09-03T07:00:00.000Z",
-      "tags": []
-    },
-    {
-      "title": "Cambios en PAMI: renunció el titular de Coordinación Ejecutiva para presentarse como candidato en las elecciones de Vélez",
-      "summary": "",
-      "url": "https://tn.com.ar/politica/2026/09/02/cambios-en-pami-renuncio-el-titular-de-coordinacion-ejecutiva-para-presentarse-como-candidato-en-las-elecciones-de-velez/",
-      "source": "TN",
-      "published": "2026-09-02T12:22:00.000Z",
-      "tags": []
-    },
-    {
-      "title": "PAMI: renunció el coordinador general para ser candidato en Vélez y el Gobierno designó en su lugar a una funcionaria cercana a Santiago Caputo",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPYTJHUHdyX2owTzRkQng0OFM4ei1DLXl6MkVQT05vV180NGFpbF9GWkhQelNWdzNEUkliUTV5ZFl2dlQ5SWkyTzU2MlhtaFFuOFJYazdQQjN0ZFRpNlJEc0k5bjEyX0M5T0lwTW5zTFZEc0NUZWJ1YlJHNlhtaFB2Q25JS1NHX0IwakJnSGktSENtekhaNVRhTDF2WXBFZnQyaUxMRUExYUJpUmFaenctaHoxNnFwXzJUdDZuMzVMV3dObjlVa19RQVI5eVJENXNHV2tPQzVOb2hyVm5RUDZ3dU9ic2s1UTkwRTFFanYxTTZLZXY1ZzdiRQ?oc=5",
-      "source": "Clarín",
-      "published": "2026-09-02T07:00:00.000Z",
-      "tags": []
-    },
-    {
-      "title": "Quiénes están detrás de la nueva agrupación de Vélez ligada a Christian Bragarnik",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPLVd0RTFwWEF1RmJLRndGcHBxd0tyaFhaazU3VjNyaDBqVDRwV0tSSnQ1NFB1QkJDOFBPQUZKQmtkUWZfRUVvTU5fWnJYcXZlMDNhYXA2WGtyMDVrTWpYSms2QWxnNmwwMlAwSmJGajg1em5aSXVfc0hGSkplVEJDd1lLVU82Ui16NGZpbFpaUnRIeUI5OFB6XzMzOEZtbW50SE8wSmxXY2FfN0pGMkk1VnBWTzlBU2U5WjBMdHBxSDFsZw?oc=5",
-      "source": "Newsdigitales",
-      "published": "2026-08-30T07:00:00.000Z",
-      "tags": []
-    },
-    {
-      "title": "Reconocimiento de la Agrupación “ADN Azul y Blanco”",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOOXVWNjN1NnVkMm10LVktaF9SM29XdEJzU2tPVDRhbjYyZjBQaWdtMTlIRWhwOWZGempFc2xTbmlfTEx2RC1IdVVlSFRIdHhpWmE3V0RkR1o2dDlrc3N6dGU2Y1JOTUhmQjFqQXFuWjcxbm5vSUhydDVrY0J4cmhTSEMwZzRRck4wVmxUTGUtS3RJdm81c19KX2RB?oc=5",
-      "source": "Sitio oficial de Vélez",
-      "published": "2026-08-28T07:00:00.000Z",
-      "tags": [
-        "montero"
-      ]
-    },
-    {
-      "title": "Vélez reconoció a la agrupación de la que forma parte Christian Bragarnik, pero cuestionó el procedimiento de la IGJ",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxQU1ptQ0MwaGxPTXhrVzVwdFVxcnJNbDZ5ZEFqT2Y3Y3U3ZE1EOUFQZzJob2VMV3U1WHQwT0FQcFNjc2dLRzV5STJhWXlKUTZQTHc5UUZYU1EtT2FJbWE4dWt1a3R0cEhGRG0xSDMtYzdxQ0dRU2FCRDhfaV9lSlh6bEdRbzR0bEZhRVl4dVZhRG5wVENrLTBtalNmVXZJRnZCR3NNOG1qN0ZkRGRZaVJRa0l4WDJOeXYwM3huNER3TEhNcUY3SVdNTHRiYmJTY0hVOWgxQ2lUWnJOdU0yQ2NkTVhlYUR4ZWFvTG5mVkQyNkttNzNpcHFKTXlBdnlIcHlqRnJpbEd4aDk1amppZWfSAZwCQVVfeXFMTmdhQU8xNTgySnBudXdnd0V2T3BacTlPN0sweHlnVXpkLVBBVXEyaEhLN3Npa0xETHgzTVQyckMwTmhxR1FGZm9MRm05X2lkX1RlZGlYdDczbmFEU3FqZ2Yzd0ZnUVF1aV9QcFhXRDg3amRUMFA3S29OOFEtUHhaaU0wY3NObzNOZ0kxOTZ1LWVRTWxrMnNKT2ZIRnhYeUpuSE1hXzlwbFZYc2xoVlcyUlVfcl9TS21CLWI4TE9aUUMteEx1a2p3ZHdjSk5XbXJrYWFYS18tSTNiUmhFMTdBczA1d21WM1lTdlAzbWlLeHU5SVdyME14WEJjV0ExRmtqOVNVZkpibFpfLWNXdlhnUE9oREltSlE2VUVsVDM?oc=5",
-      "source": "Doble Amarilla",
-      "published": "2026-08-28T07:00:00.000Z",
       "tags": []
     }
   ],
@@ -156,6 +199,18 @@
     {
       "name": "Olé",
       "url": "https://www.ole.com.ar"
+    },
+    {
+      "name": "Infobae",
+      "url": "https://www.infobae.com"
+    },
+    {
+      "name": "La Nación",
+      "url": "https://www.lanacion.com.ar"
+    },
+    {
+      "name": "Google Noticias",
+      "url": "https://news.google.com"
     },
     {
       "name": "Reddit r/VelezSarsfield",

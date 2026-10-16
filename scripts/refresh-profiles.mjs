@@ -32,6 +32,10 @@ const PALETTE = ["#7c3aed", "#0f766e", "#b45309", "#be185d", "#4d7c0f", "#475569
 const provider = (process.env.LLM_PROVIDER ||
   (process.env.GEMINI_API_KEY ? "gemini" : process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : "")).toLowerCase();
 
+// DRY_RUN=1: no escribe nada, solo muestra qué se guardaría. FORCE_ALL=1: vuelve a leer notas ya procesadas o citadas.
+const DRY = process.env.DRY_RUN === "1";
+const FORCE = process.env.FORCE_ALL === "1";
+
 class ModelError extends Error {
   constructor(message, status) { super(message); this.status = status; }
 }
@@ -223,10 +227,18 @@ async function main() {
     Object.values(c.stances || {}).forEach((s) => cited.add(s.url));
   }
 
+  // En la prueba en seco con FORCE_ALL se parte de perfiles vacíos (en memoria) para ver todo lo que se extraería.
+  if (DRY && FORCE) {
+    for (const c of candidatesPayload.candidates) {
+      c.positions = Object.fromEntries(Object.keys(c.positions || {}).map((k) => [k, []]));
+      c.stances = {};
+    }
+  }
+  const write = DRY ? async () => {} : writeFile;
   const oldest = now.getTime() - MAX_AGE_DAYS * 86400000;
   const queue = (newsPayload.items || [])
     .filter((item) => item && isHttp(item.url) && item.title && Date.parse(item.published) >= oldest)
-    .filter((item) => !ledger.items[item.url] && !cited.has(item.url))
+    .filter((item) => FORCE || (!ledger.items[item.url] && !cited.has(item.url)))
     .filter((item) => hostOf(item.url) !== "news.google.com")
     .filter((item) => item.kind !== "community" && !/reddit\.com|youtube\.com/.test(hostOf(item.url)))
     .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
@@ -364,18 +376,31 @@ async function main() {
       process.exit(1);
     }
     candidatesPayload.updated = now.toISOString();
-    await writeFile(path.join(DATA, "candidates.json"), JSON.stringify(candidatesPayload, null, 2) + "\n");
+    await write(path.join(DATA, "candidates.json"), JSON.stringify(candidatesPayload, null, 2) + "\n");
   }
 
   const keep = Object.entries(ledger.items).sort((a, b) => Date.parse(b[1].at) - Date.parse(a[1].at)).slice(0, LEDGER_MAX);
-  await writeFile(path.join(DATA, "processed.json"), JSON.stringify({ items: Object.fromEntries(keep) }, null, 2) + "\n");
-  await writeFile(path.join(DATA, "pending.json"), JSON.stringify(pending, null, 2) + "\n");
+  await write(path.join(DATA, "processed.json"), JSON.stringify({ items: Object.fromEntries(keep) }, null, 2) + "\n");
+  await write(path.join(DATA, "pending.json"), JSON.stringify(pending, null, 2) + "\n");
   if (log.length) {
     changelog.entries = [...log, ...(changelog.entries || [])].slice(0, 200);
-    await writeFile(path.join(DATA, "changelog.json"), JSON.stringify(changelog, null, 2) + "\n");
+    await write(path.join(DATA, "changelog.json"), JSON.stringify(changelog, null, 2) + "\n");
+  }
+  if (DRY) {
+    console.log("\n=== PRUEBA EN SECO: esto es lo que se guardaría (no se escribió nada) ===");
+    for (const c of candidatesPayload.candidates) {
+      for (const [topic, items] of Object.entries(c.positions || {})) {
+        for (const item of items.filter((x) => x.auto)) console.log(`[${c.name}] ${topic}: ${item.summary}\n    cita: «${item.quote}»\n    ${item.url}`);
+      }
+      for (const [qid, s] of Object.entries(c.stances || {})) {
+        if (s.auto) console.log(`[${c.name}] test ${qid} -> respalda: ${s.supports.join(",") || "-"} | parcial: ${s.partial.join(",") || "-"}: ${s.summary}\n    cita: «${s.quote}»\n    ${s.url}`);
+      }
+    }
+    for (const [id, hits] of Object.entries(pending.withdrawals)) console.log(`[pendiente de confirmar] posible baja de ${id}: ${hits.map((h) => h.host).join(", ")}`);
+    for (const [id, slot] of Object.entries(pending.newCandidates)) console.log(`[pendiente de confirmar] posible candidato nuevo ${slot.name}: ${slot.sources.map((s) => s.host).join(", ")}`);
   }
   if (process.env.CHANGELOG_FILE) {
-    await writeFile(process.env.CHANGELOG_FILE, log.map((e) => `- ${e.text} ([${e.source}](${e.url}))`).join("\n") + "\n");
+    await write(process.env.CHANGELOG_FILE, log.map((e) => `- ${e.text} ([${e.source}](${e.url}))`).join("\n") + "\n");
   }
   console.log(changed ? `Cambios aplicados: ${log.length}.` : "Sin cambios en candidatos.");
 }

@@ -9,6 +9,10 @@ on:
         description: "Solo comprobar que el modelo responde (necesita GEMINI_API_KEY)"
         type: boolean
         default: false
+      probar_extraccion:
+        description: "Prueba en seco: muestra en el registro lo que se extraería de las notas recientes, sin guardar nada"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,6 +37,15 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: node scripts/refresh-profiles.mjs --selftest
+
+      - name: Prueba en seco de la extracción
+        if: ${{ inputs.probar_extraccion }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          DRY_RUN: "1"
+          FORCE_ALL: "1"
+        run: node scripts/refresh-profiles.mjs
 
       - name: Buscar noticias y sondeos
         id: update

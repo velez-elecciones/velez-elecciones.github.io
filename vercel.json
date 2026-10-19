@@ -1,6 +1,20 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "velez-elecciones.vercel.app" }],
+      "destination": "https://velezelecciones.vercel.app/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "velez-elecciones.vercel.app" }],
+      "destination": "https://velezelecciones.vercel.app/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

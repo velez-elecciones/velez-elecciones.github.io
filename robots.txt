@@ -7,4 +7,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://velez-elecciones.vercel.app/sitemap.xml
+Sitemap: https://velezelecciones.vercel.app/sitemap.xml

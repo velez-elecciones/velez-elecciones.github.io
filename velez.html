@@ -52,7 +52,7 @@
             background-position: center, center top;
             background-attachment: fixed, fixed;
             background-repeat: no-repeat;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
         a { color: inherit; }
         h1, h2, h3, h4, p { margin: 0; }
@@ -65,22 +65,69 @@
 
         .page { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* Cabecera */
+        /* Cabecera fija: título, marcador en negativo y fecha */
         .top {
-            display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-            padding: 16px 24px;
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; gap: 10px 16px; flex-wrap: wrap;
+            padding: 12px 24px;
             background: var(--blue);
             color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 12, 40, .28);
         }
-        .top-crest { width: 52px; height: 60px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
-        .top-title { flex: 1 1 260px; min-width: 0; }
-        .top-title h1 { font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
-        .top-title p { margin-top: 2px; font-size: 15px; opacity: .85; }
-        .top-date { text-align: right; font-size: 15px; line-height: 1.35; }
-        .top-date strong { display: block; font-size: 16px; }
+        .top-crest { width: 48px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title { flex: 1 1 200px; min-width: 0; }
+        .top-title h1 { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 13.5px; opacity: .85; }
+        .top-name-short { display: none; }
+        #comicios-short { display: none; }
+        .top-match {
+            flex: 1 1 100%; min-width: 0; order: 4;
+            display: flex; justify-content: center; align-items: stretch; gap: 8px;
+        }
+        .top-date { flex: 0 1 auto; margin-left: auto; text-align: right; font-size: 13.5px; line-height: 1.3; }
+        .top-date strong { display: block; font-size: 14.5px; }
         .top-date span { opacity: .85; }
+        @media (min-width: 980px) {
+            .top-title { flex: 0 1 auto; max-width: 42%; }
+            .top-match { flex: 1 1 220px; order: 0; }
+            .top-date { flex: 0 0 auto; margin-left: 0; }
+        }
+
+        .hm {
+            display: flex; flex-direction: column; justify-content: center; gap: 2px;
+            min-width: 0; flex: 0 1 auto;
+            padding: 4px 10px;
+            border: 1px solid rgba(255, 255, 255, .42);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+        a.hm:hover { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .78); }
+        .hm-k {
+            display: flex; align-items: center; gap: 6px;
+            min-width: 0;
+            font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+            color: rgba(255, 255, 255, .72);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .hm.live .hm-k { color: #fff; }
+        .hm-dot {
+            width: 7px; height: 7px; flex: 0 0 auto;
+            border: 1.5px solid #fff; border-radius: 50%;
+            animation: mtPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes mtPulse { 0%, 100% { opacity: 1; } 50% { opacity: .28; } }
+        .hm-line {
+            font-size: 13px; font-weight: 650;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .hm-line b { font-weight: 800; }
+        .hm-sc { font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+        .hm-pen { font-size: 11px; font-weight: 650; opacity: .75; }
 
         .flow { padding: 20px 24px 8px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; width: 100%; }
+        .flow > *, #candidates-grid { scroll-margin-top: 88px; }
 
         /* Tarjetas base */
         .card {
@@ -132,7 +179,9 @@
             transition: transform .2s ease, box-shadow .2s ease;
         }
         .cd-card:not(.cd-full) { cursor: pointer; }
-        .cd-card:not(.cd-full):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
+        @media (hover: hover) {
+            .cd-card:not(.cd-full):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
+        }
         .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; }
         .cd-photo { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; flex: 0 0 auto; background: #fff; }
         .cd-id { min-width: 0; flex: 1 1 auto; }
@@ -303,36 +352,6 @@
         .poll-mentions a:hover { background: #e4eefb; }
         .poll-mentions strong { color: var(--blue); margin-right: 6px; }
 
-        /* Partidos de Vélez */
-        .match { padding: 14px 20px 12px; }
-        .match-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-        .match-body.one { grid-template-columns: minmax(0, 1fr); }
-        .mt-col { min-width: 0; padding: 0 22px; }
-        .mt-col:first-child { padding-left: 0; }
-        .mt-col:last-child { padding-right: 0; }
-        .mt-col + .mt-col { border-left: 1px solid var(--line); }
-        .mt-label { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 12.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
-        .mt-chip { font-size: 13.5px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--muted); }
-        .mt-chip.win { color: #0a7a3d; }
-        .mt-chip.draw { color: #9a6a00; }
-        .mt-chip.loss { color: #b3261e; }
-        .mt-label.live, .mt-label.live .mt-chip { color: #c0261b; }
-        .mt-dot { width: 8px; height: 8px; border-radius: 50%; background: #d92d20; animation: mtPulse 1.6s ease-in-out infinite; }
-        @keyframes mtPulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-        .mt-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 8px; margin-top: 8px; font-size: 16px; line-height: 1.2; color: #0b1c3a; }
-        .mt-team { display: flex; align-items: center; gap: 7px; min-width: 0; }
-        .mt-team:last-child { justify-content: flex-end; }
-        .mt-team .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .mt-team.is-velez .n { font-weight: 800; }
-        .mt-crest { width: 24px; height: 24px; object-fit: contain; flex: 0 0 auto; }
-        .mt-score { font-size: 22px; font-weight: 800; letter-spacing: .02em; color: var(--blue); white-space: nowrap; }
-        .mt-score small { display: block; font-size: 12px; font-weight: 650; letter-spacing: 0; color: var(--muted); text-align: center; }
-        .mt-vs { flex: 0 0 auto; font-size: 14px; font-weight: 700; color: var(--muted); }
-        .mt-sub { margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--muted); }
-        .mt-goals { margin-top: 4px; font-size: 14px; line-height: 1.4; color: #1e3355; }
-        .mt-goals .ic { width: 1em; height: 1em; }
-        .mt-src { margin-top: 4px; font-size: 13.5px; }
-
         #toast {
             position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 40;
             max-width: min(92vw, 420px); padding: 10px 14px; border-radius: 10px;
@@ -345,18 +364,36 @@
         .site-credit { text-align: center; padding: 10px 8px 24px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 
         @media (max-width: 720px) {
-            .top { padding: 14px 16px; }
-            .top-title h1 { font-size: 21px; }
-            .top-date { text-align: left; width: 100%; }
-            .flow { padding: 14px 12px 4px; gap: 14px; }
+            .top { padding: 8px 12px; gap: 6px 8px; }
+            .top-crest { width: 32px; height: 38px; padding: 2px; border-radius: 8px; }
+            .top-title { flex: 1 1 0; }
+            .top-title h1 { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .top-title p { display: none; }
+            .top-name-full { display: none; }
+            .top-name-short { display: inline; }
+            .top-match { justify-content: stretch; }
+            .top-date { font-size: 11px; max-width: none; line-height: 1.2; }
+            .top-date strong, #comicios-line { display: none; }
+            #comicios-short { display: block; white-space: nowrap; }
+            .hm { flex: 1 1 0; flex-direction: row; align-items: center; gap: 6px; padding: 5px 8px; }
+            .hm-k { display: none; }
+            .hm.live { gap: 8px; }
+            .hm.live .hm-k { display: flex; max-width: 40%; }
+            .hm-line { font-size: 12px; flex: 1 1 auto; min-width: 0; }
+            .flow { padding: 12px 12px 4px; gap: 12px; }
+            .flow > *, #candidates-grid { scroll-margin-top: 72px; }
             .sec, .cmp { padding: 14px; }
             .sec-head h2 { font-size: 17px; }
             .feed-checked { display: none; }
+            .cd-grid { gap: 10px; }
+            .cd-card:not(.cd-full) .cd-body { display: none; }
+            .cd-head { padding: 10px 12px; gap: 10px; }
+            .cd-photo { width: 56px; height: 56px; border-radius: 12px; }
+            .cd-id h3 { font-size: 18px; }
+            .cd-group { font-size: 13.5px; }
+            .cd-foot { padding: 8px 12px 12px; }
+            .cd-card:not(.cd-full) .cd-foot .btn { flex: 1 1 auto; }
             .cd-topics { padding: 14px 14px 4px; }
-            .match { padding: 14px; }
-            .match-body { grid-template-columns: minmax(0, 1fr); }
-            .mt-col { padding: 0; }
-            .mt-col + .mt-col { border-left: 0; border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
             .news-thumb { width: 72px; height: 50px; }
             .poll-row { grid-template-columns: 1fr 52px; }
             .poll-track { grid-column: 1 / -1; order: 3; }
@@ -405,21 +442,18 @@
         <header class="top">
             <img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield">
             <div class="top-title">
-                <h1>Elecciones Vélez Sarsfield 2026</h1>
+                <h1>Elecciones <span class="top-name-full">Vélez Sarsfield</span><span class="top-name-short">Vélez</span> 2026</h1>
                 <p id="top-sub">Candidatos, noticias y sondeos</p>
             </div>
+            <div id="top-match" class="top-match hidden" aria-label="Partidos de Vélez" aria-live="polite"></div>
             <div class="top-date">
                 <strong id="cal-day"></strong>
                 <span id="comicios-line"></span>
+                <span id="comicios-short"></span>
             </div>
         </header>
 
         <main class="flow">
-
-            <!-- Partidos de Vélez: en vivo, último resultado y próximo (se dibuja con data/matches.json y la API pública de ESPN) -->
-            <section id="sec-match" class="card match hidden" aria-label="Partidos de Vélez" aria-live="polite">
-                <div id="match-body" class="match-body"></div>
-            </section>
 
             <!-- Barra del candidato abierto (solo visible cuando hay uno desplegado) -->
             <section id="sec-compare" class="card cmp hidden">
@@ -795,13 +829,14 @@
             const election = toDate(DATA.election.date);
             const line = document.getElementById("comicios-line");
             const credit = document.getElementById("site-credit");
-            if (!election) { line.textContent = ""; return; }
+            const short = document.getElementById("comicios-short");
+            if (!election) { line.textContent = ""; if (short) short.textContent = ""; return; }
             const label = new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "long", timeZone: BA }).format(election);
             const days = Math.ceil((election.getTime() - now.getTime()) / 86400000);
-            if (days > 1) line.textContent = "Faltan " + days + " días para el " + label;
-            else if (days === 1) line.textContent = "Mañana es el " + label;
-            else if (days === 0) line.textContent = "Hoy es el " + label;
-            else line.textContent = "Elecciones del " + label;
+            if (days > 1) { line.textContent = "Faltan " + days + " días para el " + label; if (short) short.textContent = "Faltan " + days + " días"; }
+            else if (days === 1) { line.textContent = "Mañana es el " + label; if (short) short.textContent = "Mañana"; }
+            else if (days === 0) { line.textContent = "Hoy es el " + label; if (short) short.textContent = "Hoy"; }
+            else { line.textContent = "Elecciones del " + label; if (short) short.textContent = label; }
             if (credit) credit.textContent = "Elecciones de Vélez Sarsfield · " + (DATA.election.long || label);
         }
 
@@ -1213,113 +1248,59 @@
             };
         }
 
-        function velezSide(m) { return m.home.id === VELEZ_ID ? m.home : m.away; }
         function teamName(side) {
             if (side.id === VELEZ_ID) return "Vélez";
             const raw = String(side.short || side.name || "").replace(/\s*\([^)]*\)\s*/g, " ").replace(/\s+/g, " ").trim();
             return raw || side.short || side.name;
-        }
-        function crestOf(side) { return side.id === VELEZ_ID ? "img/escudo-velez.svg" : side.logo; }
-
-        function matchTeam(side, mirror) {
-            const crest = crestOf(side) ? '<img class="mt-crest" src="' + esc(crestOf(side)) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">' : "";
-            const name = '<span class="n">' + esc(teamName(side)) + "</span>";
-            return '<span class="mt-team' + (side.id === VELEZ_ID ? " is-velez" : "") + '">' + (mirror ? name + crest : crest + name) + "</span>";
-        }
-
-        function matchDay(iso) {
-            return new Intl.DateTimeFormat("es-AR", { weekday: "short", day: "numeric", month: "short", timeZone: BA }).format(new Date(iso)).replace(/[.,]/g, "");
         }
 
         function matchTime(iso) {
             return new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: BA }).format(new Date(iso));
         }
 
-        function whenLabel(m) {
-            const kick = Date.parse(m.date);
-            const days = Math.round((new Date(dayKey(new Date(kick))) - new Date(dayKey(new Date()))) / 86400000);
-            if (days > 1) return "en " + days + " días";
-            if (days === 1) return "mañana";
-            const mins = Math.round((kick - Date.now()) / 60000);
-            if (mins <= 0) return "ya comenzó";
-            if (mins >= 180) return "hoy";
-            return "empieza en " + (mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min");
-        }
-
-        function resultChip(m) {
-            const me = velezSide(m);
-            const other = me === m.home ? m.away : m.home;
-            if (me.score === null || other.score === null) return "";
-            let kind = me.score > other.score ? "win" : me.score < other.score ? "loss" : "draw";
-            let text = kind === "win" ? "Victoria" : kind === "loss" ? "Derrota" : "Empate";
-            if (kind === "draw" && me.shootout !== null && other.shootout !== null && me.shootout !== other.shootout) {
-                kind = me.shootout > other.shootout ? "win" : "loss";
-                text = kind === "win" ? "Victoria por penales" : "Derrota por penales";
-            }
-            return '<span class="mt-chip ' + kind + '">' + text + "</span>";
-        }
-
-        function scoreHtml(m) {
-            if (m.state === "pre") return '<span class="mt-vs">vs</span>';
-            const pens = m.home.shootout !== null && m.away.shootout !== null ? "<small>(" + m.home.shootout + "-" + m.away.shootout + " pen.)</small>" : "";
-            return '<span class="mt-score">' + (m.home.score ?? 0) + " – " + (m.away.score ?? 0) + pens + "</span>";
-        }
-
-        function matchRow(m) {
-            return '<div class="mt-teams">' + matchTeam(m.home, false) + scoreHtml(m) + matchTeam(m.away, true) + "</div>";
-        }
-
-        function matchSub(parts) {
-            return '<p class="mt-sub">' + parts.filter(Boolean).map(esc).join(" · ") + "</p>";
-        }
-
-        function goalsLine(m) {
-            if (!Array.isArray(m.goals) || !m.goals.length) return "";
-            const parts = [m.home, m.away].map((side) => {
-                const list = m.goals.filter((g) => g.team === side.id)
-                    .map((g) => (g.player || "Gol") + " " + g.clock + (g.penalty ? " (p)" : "") + (g.ownGoal ? " (en contra)" : ""));
-                return list.length ? "<strong>" + esc(teamName(side)) + ":</strong> " + list.map(esc).join(", ") : "";
-            }).filter(Boolean);
-            return parts.length ? '<p class="mt-goals">' + ic("ball") + " " + parts.join(" · ") + "</p>" : "";
-        }
-
-        function matchSource(m) {
-            return isUrl(m.url)
-                ? '<p class="mt-src"><a class="source-link" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">Fuente: ESPN ' + ic("external") + "</a></p>"
+        function scoreLine(m) {
+            const pens = m.home.shootout !== null && m.away.shootout !== null
+                ? ' <span class="hm-pen">(' + m.home.shootout + "-" + m.away.shootout + ")</span>"
                 : "";
+            return "<b>" + esc(teamName(m.home)) + '</b> <span class="hm-sc">' + (m.home.score ?? 0) + "–" + (m.away.score ?? 0) + "</span> <b>" + esc(teamName(m.away)) + "</b>" + pens;
         }
 
-        function liveColumn(m) {
-            const label = MATCH_STATUS[m.status] || m.clock || "En juego";
-            return '<div class="mt-col"><p class="mt-label live"><span class="mt-dot" aria-hidden="true"></span>En vivo<span class="mt-chip">' + esc(label) + "</span></p>" +
-                matchRow(m) + matchSub([m.competition, m.stage, m.venue]) + goalsLine(m) + matchSource(m) + "</div>";
+        function headerBox(kind, kicker, line, m) {
+            const live = kind === "live";
+            const tag = isUrl(m.url) ? "a" : "div";
+            const href = tag === "a" ? ' href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer"' : "";
+            const eye = live ? '<span class="hm-dot" aria-hidden="true"></span>' : "";
+            return "<" + tag + ' class="hm' + (live ? " live" : "") + '"' + href + ">" +
+                '<span class="hm-k">' + eye + esc(kicker) + "</span>" +
+                '<span class="hm-line">' + line + "</span></" + tag + ">";
         }
 
-        function lastColumn(m) {
-            const extra = m.status === "STATUS_FINAL_AET" ? '<span class="mt-chip">tras alargue</span>' : "";
-            return '<div class="mt-col"><p class="mt-label">Último partido' + resultChip(m) + extra + "</p>" +
-                matchRow(m) + matchSub([m.competition, m.stage, matchDay(m.date), m.venue]) + goalsLine(m) + matchSource(m) + "</div>";
+        function headerLive(m) {
+            return headerBox("live", "En vivo · " + (MATCH_STATUS[m.status] || m.clock || "En juego"), scoreLine(m), m);
         }
 
-        function nextColumn(m) {
-            const note = m.status && m.status !== "STATUS_SCHEDULED" ? MATCH_STATUS[m.status] : "";
-            const chip = note ? '<span class="mt-chip loss">' + esc(note) + "</span>" : '<span class="mt-chip">' + esc(whenLabel(m)) + "</span>";
-            const mine = velezSide(m) === m.home ? "Local" : "Visitante";
-            return '<div class="mt-col"><p class="mt-label">Próximo partido' + chip + "</p>" + matchRow(m) +
-                matchSub([m.competition, m.stage, matchDay(m.date) + " · " + matchTime(m.date), m.venue, mine]) + matchSource(m) + "</div>";
+        function headerLast(m) {
+            return headerBox("last", "Último", scoreLine(m), m);
+        }
+
+        function headerNext(m) {
+            const other = m.home.id === VELEZ_ID ? m.away : m.home;
+            const note = m.status && m.status !== "STATUS_SCHEDULED"
+                ? MATCH_STATUS[m.status]
+                : new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "numeric", timeZone: BA }).format(new Date(m.date)) + " · " + matchTime(m.date);
+            return headerBox("next", "Próximo", "vs " + esc(teamName(other)) + ' <span class="hm-pen">' + esc(note) + "</span>", m);
         }
 
         function renderMatches() {
             const view = matchView();
-            const cols = [];
-            if (view.live) cols.push(liveColumn(view.live));
-            else if (view.last) cols.push(lastColumn(view.last));
-            if (view.next) cols.push(nextColumn(view.next));
-            const html = cols.join("");
-            const body = document.getElementById("match-body");
-            if (html !== matchHtml) { matchHtml = html; body.innerHTML = html; }
-            body.classList.toggle("one", cols.length === 1);
-            document.getElementById("sec-match").classList.toggle("hidden", !cols.length);
+            const parts = [];
+            if (view.live) parts.push(headerLive(view.live));
+            else if (view.last) parts.push(headerLast(view.last));
+            if (view.next) parts.push(headerNext(view.next));
+            const html = parts.join("");
+            const el = document.getElementById("top-match");
+            if (html !== matchHtml) { matchHtml = html; el.innerHTML = html; }
+            el.classList.toggle("hidden", !parts.length);
         }
 
         // El partido que hay que seguir de cerca: en juego, por empezar (25 minutos antes) o que debería haber terminado y no se confirmó.

@@ -3,6 +3,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/velez.html",
+      "destination": "https://velezelecciones.com/",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [{ "type": "host", "value": "www.velezelecciones.com" }],
       "destination": "https://velezelecciones.com/",

@@ -167,6 +167,28 @@
         .cmp-focus { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; }
         .cmp-focus p { font-size: 17px; font-weight: 650; color: var(--ink); }
 
+        .topic-bar {
+            display: flex; justify-content: center;
+            padding: 8px 10px;
+        }
+        .topic-btns {
+            display: flex; flex-wrap: nowrap; align-items: stretch;
+            width: 100%; gap: 8px;
+            overflow-x: auto;
+        }
+        .topic-btns .btn {
+            flex: 1 1 0; min-width: 0;
+            white-space: nowrap;
+        }
+        .topic-btns .btn .ic { width: 1.15em; height: 1.15em; }
+        .topic-cmp {
+            display: grid; gap: 18px;
+            grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+            align-items: stretch;
+        }
+        .tc-card { cursor: default; }
+        .tc-card .cd-sum { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+
         /* Candidaturas que se bajaron */
         .drops { padding: 12px 20px; font-size: 15px; line-height: 1.5; color: var(--muted); }
         .drops p + p { margin-top: 4px; }
@@ -178,9 +200,9 @@
             display: flex; flex-direction: column; overflow: hidden;
             transition: transform .2s ease, box-shadow .2s ease;
         }
-        .cd-card:not(.cd-full) { cursor: pointer; }
+        .cd-card:not(.cd-full):not(.tc-card) { cursor: pointer; }
         @media (hover: hover) {
-            .cd-card:not(.cd-full):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
+            .cd-card:not(.cd-full):not(.tc-card):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
         }
         .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; }
         .cd-photo { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; flex: 0 0 auto; background: #fff; }
@@ -387,20 +409,33 @@
             .feed-checked { display: none; }
             .cd-grid { gap: 10px; grid-template-columns: 1fr 1fr; }
             .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
-            .cd-card:not(.cd-full) .cd-body,
-            .cd-card:not(.cd-full) .cd-foot { display: none; }
-            .cd-card:not(.cd-full) .cd-head {
+            .cd-card:not(.cd-full):not(.tc-card) .cd-body,
+            .cd-card:not(.cd-full):not(.tc-card) .cd-foot { display: none; }
+            .cd-card:not(.cd-full):not(.tc-card) .cd-head {
                 flex: 1; flex-direction: column; align-items: center; justify-content: center;
                 gap: 8px; padding: 12px 10px 14px; text-align: center;
             }
-            .cd-card:not(.cd-full) .cd-photo { width: 86px; height: 86px; border-radius: 16px; }
-            .cd-card:not(.cd-full) .cd-role { font-size: 10px; padding: 1px 8px; }
-            .cd-card:not(.cd-full) .cd-id h3 {
+            .cd-card:not(.cd-full):not(.tc-card) .cd-photo { width: 86px; height: 86px; border-radius: 16px; }
+            .cd-card:not(.cd-full):not(.tc-card) .cd-role { font-size: 10px; padding: 1px 8px; }
+            .cd-card:not(.cd-full):not(.tc-card) .cd-id h3 {
                 font-size: 15px; margin-top: 5px;
                 display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
             }
-            .cd-card:not(.cd-full) .cd-group { font-size: 12px; justify-content: center; margin-top: 3px; }
-            .cd-card:not(.cd-full) .cd-group img { width: 16px; height: 16px; }
+            .cd-card:not(.cd-full):not(.tc-card) .cd-group { font-size: 12px; justify-content: center; margin-top: 3px; }
+            .cd-card:not(.cd-full):not(.tc-card) .cd-group img { width: 16px; height: 16px; }
+            .topic-bar { padding: 6px; }
+            .topic-btns { gap: 6px; }
+            .topic-btns .btn { padding: 8px 0; }
+            .topic-lab { display: none; }
+            .topic-cmp { gap: 10px; grid-template-columns: 1fr 1fr; }
+            .tc-card .cd-head { padding: 10px; gap: 8px; }
+            .tc-card .cd-photo { width: 44px; height: 44px; border-radius: 10px; }
+            .tc-card .cd-role { font-size: 10px; padding: 0 7px; }
+            .tc-card .cd-id h3 { font-size: 14px; margin-top: 2px; }
+            .tc-card .cd-group { font-size: 11.5px; }
+            .tc-card .cd-group img { width: 14px; height: 14px; }
+            .tc-card .cd-body { padding: 10px 10px 8px; display: block; }
+            .tc-card .cd-sum { font-size: 13.5px; -webkit-line-clamp: 6; }
             .cd-full .cd-head { padding: 12px; gap: 10px; }
             .cd-full .cd-photo { width: 64px; height: 64px; }
             .cd-full .cd-id h3 { font-size: 18px; }
@@ -476,6 +511,11 @@
             </section>
 
             <section class="cd-grid" id="candidates-grid" aria-live="polite"></section>
+
+            <nav id="sec-topics" class="card topic-bar hidden" aria-label="Comparar por tema">
+                <div id="topic-btns" class="topic-btns"></div>
+            </nav>
+            <section id="sec-topic-cmp" class="topic-cmp hidden" aria-live="polite"></section>
 
             <section id="sec-drops" class="card drops hidden" aria-label="Candidaturas que se bajaron"></section>
 
@@ -566,6 +606,7 @@
         // En la vista general solo se resumen estos temas; al abrir un candidato se ven todos los que tengan fuente.
         const SUMMARY_TOPICS = ["formula", "perfil", "vinculos"];
         let focusId = null;
+        let topicId = null;
         const seenItems = new Set();
         let newKeys = new Set();
         let refreshLock = false;
@@ -662,7 +703,10 @@
             list.forEach((c) => { byId[c.id] = c; });
             markNewItems(list);
             if (focusId && !byId[focusId]) focusId = null;
+            if (topicId && !DATA.topics.some((t) => t.id === topicId)) topicId = null;
             renderGrid();
+            renderTopicBar();
+            renderTopicCompare();
             renderDrops();
             renderVoteInfo();
             paintCalendar();
@@ -814,7 +858,10 @@
         function focusCandidate(id) {
             if (!byId[id]) return;
             focusId = id;
+            topicId = null;
             renderGrid();
+            renderTopicBar();
+            renderTopicCompare();
             document.getElementById("sec-compare").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
         }
 
@@ -822,6 +869,52 @@
             focusId = null;
             renderGrid();
             document.getElementById("candidates-grid").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+
+        function renderTopicBar() {
+            const bar = document.getElementById("sec-topics");
+            const box = document.getElementById("topic-btns");
+            const topics = DATA.topics.filter((t) => t && t.id && t.label);
+            bar.classList.toggle("hidden", !topics.length);
+            box.innerHTML = topics.map((t) => {
+                const on = t.id === topicId;
+                return '<button type="button" class="btn small' + (on ? " active" : "") + '" data-topic="' + esc(t.id) + '" aria-pressed="' + on + '" title="' + esc(t.label) + '">' +
+                    ic(t.icon || "user") + '<span class="topic-lab"> ' + esc(t.label) + "</span></button>";
+            }).join("");
+        }
+
+        function topicCompareCard(c, topic) {
+            const items = sortedItems(c.positions && c.positions[topic.id]);
+            const cap = topic.latestOnly ? 1 : Math.min(2, items.length || 1);
+            const body = items.length
+                ? items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("")
+                : '<p class="cd-empty">Todavía no hay una postura publicada con fuente.</p>';
+            return '<article class="card cd-card tc-card" style="--c:' + colorOf(c) + '">' +
+                headHtml(c) + '<section class="cd-body">' + body + "</section></article>";
+        }
+
+        function renderTopicCompare() {
+            const box = document.getElementById("sec-topic-cmp");
+            const topic = topicId && DATA.topics.find((t) => t.id === topicId);
+            if (!topic || !DATA.candidates.length) {
+                box.classList.add("hidden");
+                box.innerHTML = "";
+                return;
+            }
+            box.classList.remove("hidden");
+            box.style.setProperty("--n", String(DATA.candidates.length || 1));
+            box.innerHTML = DATA.candidates.map((c) => topicCompareCard(c, topic)).join("");
+        }
+
+        function setTopicCompare(id) {
+            topicId = topicId === id ? null : id;
+            if (topicId && focusId) {
+                focusId = null;
+                renderGrid();
+            }
+            renderTopicBar();
+            renderTopicCompare();
+            if (topicId) document.getElementById("sec-topic-cmp").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
         }
 
         function renderVoteInfo() {
@@ -1593,6 +1686,8 @@
         }
 
         document.addEventListener("click", (event) => {
+            const topic = event.target.closest("[data-topic]");
+            if (topic) { event.stopPropagation(); setTopicCompare(topic.dataset.topic); return; }
             const focus = event.target.closest("[data-focus]");
             if (focus) { event.stopPropagation(); focusCandidate(focus.dataset.focus); return; }
             if (event.target.closest("[data-unfocus]")) { clearFocus(); return; }
@@ -1602,6 +1697,7 @@
         });
 
         document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && topicId) { setTopicCompare(topicId); return; }
             if (event.key === "Escape" && focusId) { clearFocus(); return; }
             if ((event.key === "Enter" || event.key === " ") && event.target.matches && event.target.matches("[data-card]")) {
                 event.preventDefault();

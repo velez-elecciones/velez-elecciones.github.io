@@ -1,0 +1,147 @@
+{
+  "updated": "2026-10-18T23:55:53.829Z",
+  "checkedAt": "2026-10-18T23:55:53.829Z",
+  "source": "ESPN",
+  "team": {
+    "id": "21",
+    "name": "Vélez Sarsfield"
+  },
+  "last": {
+    "id": "401841616",
+    "league": "arg.1",
+    "competition": "Liga Profesional",
+    "stage": "Clausura",
+    "date": "2026-10-17T23:00:00.000Z",
+    "state": "post",
+    "status": "STATUS_FULL_TIME",
+    "completed": true,
+    "clock": "90'+6'",
+    "venue": "José Amalfitani",
+    "url": "https://www.espn.com/soccer/match/_/gameId/401841616/gimnasia-mendoza-velez-sarsfield",
+    "home": {
+      "id": "21",
+      "name": "Vélez Sarsfield",
+      "short": "Vélez",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+      "score": 1,
+      "shootout": null,
+      "winner": true
+    },
+    "away": {
+      "id": "11972",
+      "name": "Gimnasia (Mendoza)",
+      "short": "Gimnasia (M)",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11972.png",
+      "score": 0,
+      "shootout": null,
+      "winner": false
+    },
+    "goals": [
+      {
+        "team": "21",
+        "player": "Thiago Silvero",
+        "clock": "85'",
+        "penalty": false,
+        "ownGoal": false
+      }
+    ]
+  },
+  "upcoming": [
+    {
+      "id": "401841639",
+      "league": "arg.1",
+      "competition": "Liga Profesional",
+      "stage": "Clausura",
+      "date": "2026-10-26T00:30:00.000Z",
+      "state": "pre",
+      "status": "STATUS_SCHEDULED",
+      "completed": false,
+      "clock": "0'",
+      "venue": "Alfredo Terrera",
+      "url": "https://www.espn.com/soccer/match/_/gameId/401841639/velez-sarsfield-central-cordoba-santiago-del-estero",
+      "home": {
+        "id": "11989",
+        "name": "Central Córdoba (Santiago del Estero)",
+        "short": "C. Córdoba (SE)",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11989.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "away": {
+        "id": "21",
+        "name": "Vélez Sarsfield",
+        "short": "Vélez",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "goals": []
+    },
+    {
+      "id": "401841646",
+      "league": "arg.1",
+      "competition": "Liga Profesional",
+      "stage": "Clausura",
+      "date": "2026-10-31T22:15:00.000Z",
+      "state": "pre",
+      "status": "STATUS_SCHEDULED",
+      "completed": false,
+      "clock": "0'",
+      "venue": "José Amalfitani",
+      "url": "https://www.espn.com/soccer/match/_/gameId/401841646/san-lorenzo-velez-sarsfield",
+      "home": {
+        "id": "21",
+        "name": "Vélez Sarsfield",
+        "short": "Vélez",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "away": {
+        "id": "18",
+        "name": "San Lorenzo",
+        "short": "San Lorenzo",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "goals": []
+    },
+    {
+      "id": "401841660",
+      "league": "arg.1",
+      "competition": "Liga Profesional",
+      "stage": "Clausura",
+      "date": "2026-11-08T20:00:00.000Z",
+      "state": "pre",
+      "status": "STATUS_SCHEDULED",
+      "completed": false,
+      "clock": "0'",
+      "venue": "15 de Abril",
+      "url": "https://www.espn.com/soccer/match/_/gameId/401841660/velez-sarsfield-union-santa-fe",
+      "home": {
+        "id": "20",
+        "name": "Unión (Santa Fe)",
+        "short": "Unión (SF)",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "away": {
+        "id": "21",
+        "name": "Vélez Sarsfield",
+        "short": "Vélez",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "goals": []
+    }
+  ]
+}

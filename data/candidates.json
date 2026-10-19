@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16T04:24:55.163Z",
+  "updated": "2026-10-18T23:55:00.000Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -286,6 +286,13 @@
             "source": "Tribuna",
             "url": "https://tribuna.ar/articulos/raul-gamez-vuelve-a-la-politica-de-velez-y-sera-candidato-a-vicepresidente",
             "date": "2026-10-10"
+          },
+          {
+            "summary": "Definió la fórmula con Gámez como “Renovación, experiencia y juventud, el combo perfecto”. Lo tiene como “hombre de consulta permanente”.",
+            "quote": "Renovación, experiencia y juventud, el combo perfecto",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
           }
         ],
         "perfil": [
@@ -304,6 +311,13 @@
           }
         ],
         "vinculos": [
+          {
+            "summary": "Criticó que Berlanga se aliara con agrupaciones opositoras que impulsan a Pugliese: la gestión nació con cuatro fuerzas que decidían en conjunto y, tras el título de 2024, ese esquema cambió.",
+            "quote": "Pienso que se torció el camino",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          },
           {
             "summary": "La Agrupación José Amalfitani pidió a la Junta Electoral que prohíba usar el nombre “Primero Vélez” a alianzas distintas de la original.",
             "source": "Doble Amarilla",
@@ -324,29 +338,102 @@
             "date": "2026-09-30"
           }
         ],
-        "futbol": [],
+        "futbol": [
+          {
+            "summary": "Quiere que Guillermo y Gustavo Barros Schelotto sigan: su contrato vence en diciembre.",
+            "quote": "Nos interesa muchísimo que continúen",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          }
+        ],
         "sad": [],
-        "finanzas": []
+        "finanzas": [
+          {
+            "summary": "El fútbol profesional representa cerca del 70% de los egresos. El déficit operativo lo recibieron en torno a US$ 1,5 M mensuales y esperan una cifra “significativamente menor” en la próxima asamblea.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          },
+          {
+            "summary": "Hoy el club necesita vender dos o tres jugadores por año para equilibrarse; la meta es vender “por conveniencia y no por necesidad”.",
+            "quote": "por conveniencia y no por necesidad",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          },
+          {
+            "summary": "Apoya las disciplinas amateurs (más de 25.000 personas por fin de semana) y un fondo de reserva de cerca del 7% de cada venta de juveniles para obras: iluminación del estadio, pista de atletismo y cancha de hockey.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          }
+        ]
       },
       "stances": {
         "alianzas": {
           "supports": [
             "propia"
           ],
-          "summary": "Se desmarcó del armado de Pugliese: busca “algo distinto al armado en el que estábamos participando”.",
-          "quote": "Estamos construyendo algo distinto al armado en el que estábamos participando",
-          "source": "Doble Amarilla",
-          "url": "https://www.dobleamarilla.com.ar/rosca/primero-velez-anuncio-a-federico-balestrini-como-su-candidato-en-las-elecciones--quienes-son-los-otros-postulantes-a-presidente_a6ac76fe31eb9026484a7b2e0",
-          "date": "2026-09-30"
+          "summary": "La alianza de Berlanga con agrupaciones opositoras “torció el camino” de una gestión que nació colegiada.",
+          "quote": "Pienso que se torció el camino",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
         },
         "socios": {
           "supports": [
             "crecer"
           ],
-          "summary": "Su lema de campaña: “Por un Vélez de 100 mil socios”.",
-          "source": "Doble Amarilla",
-          "url": "https://www.dobleamarilla.com.ar/rosca/primero-velez-anuncio-a-federico-balestrini-como-su-candidato-en-las-elecciones--quienes-son-los-otros-postulantes-a-presidente_a6ac76fe31eb9026484a7b2e0",
-          "date": "2026-10-08"
+          "partial": [
+            "participar"
+          ],
+          "summary": "El club ya supera los 80.000 socios y aspira a 100.000. Defiende una gestión “transparente, pero también cercana al socio”.",
+          "quote": "transparente, pero también cercana al socio",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
+        },
+        "futbol_proyecto": {
+          "supports": [
+            "actual"
+          ],
+          "summary": "Quiere la continuidad de Guillermo y Gustavo Barros Schelotto.",
+          "quote": "Nos interesa muchísimo que continúen",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
+        },
+        "deficit": {
+          "supports": [
+            "ingresos"
+          ],
+          "partial": [
+            "gasto_fut"
+          ],
+          "summary": "Ingresos récord de sponsoreo y recitales, y menos dependencia de vender jugadores para equilibrar las cuentas.",
+          "quote": "por conveniencia y no por necesidad",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
+        },
+        "amateur": {
+          "supports": [
+            "ingresos_amateur"
+          ],
+          "summary": "Remarcó el apoyo a las disciplinas amateurs, con más de 25.000 personas por fin de semana en el club.",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
+        },
+        "obras": {
+          "supports": [
+            "plan"
+          ],
+          "summary": "Un fondo de reserva (cerca del 7% de cada venta de juveniles) destinado a obras: iluminación del estadio, pista de atletismo y cancha de hockey.",
+          "source": "Newsdigitales",
+          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+          "date": "2026-10-18"
         }
       }
     },

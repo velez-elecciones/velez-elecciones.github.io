@@ -65,6 +65,12 @@ jobs:
           LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: node scripts/refresh-profiles.mjs
 
+      # Último resultado y próximos partidos de Vélez (ESPN). El marcador en vivo lo pide el navegador; esto es el respaldo.
+      # Si ESPN no responde, se conserva lo anterior y el resto de la actualización sigue.
+      - name: Buscar partidos de Vélez
+        continue-on-error: true
+        run: node scripts/update-matches.mjs
+
       - name: Regenerar el paquete de datos
         run: node scripts/update-data.mjs --bundle-only
 

@@ -5,6 +5,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { downloadHead, goodImage, pageImage, resolveGoogleNews, thumbnail } from "./lib.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, "data");
@@ -193,6 +194,38 @@ function attr(block, name, attribute) {
   return match ? match[1] : "";
 }
 
+function attrOf(markup, name) {
+  const match = markup.match(new RegExp("(?:^|[\\s<:-])" + name + "\\s*=\\s*[\"']([^\"']+)[\"']", "i"));
+  return match ? match[1] : "";
+}
+
+// Foto que trae el propio feed: la miniatura de Bing, un enclosure o media:content, o la primera <img> del contenido.
+function feedImage(block, origin, base) {
+  if (origin === "bing") {
+    const raw = decode(tag(block, "News:Image"));
+    return raw ? goodImage(raw + "&w=480&h=270&c=14", base) : "";
+  }
+  const text = block.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+  const candidates = [];
+  for (const markup of text.match(/<media:(?:content|thumbnail)\b[^>]*>/gi) || []) {
+    const type = attrOf(markup, "type") || attrOf(markup, "medium");
+    if (!type || /image/i.test(type)) candidates.push(attrOf(markup, "url"));
+  }
+  for (const markup of text.match(/<enclosure\b[^>]*>/gi) || []) {
+    const url = attrOf(markup, "url");
+    if (/image/i.test(attrOf(markup, "type")) || /\.(jpe?g|png|webp)(\?|$)/i.test(url)) candidates.push(url);
+  }
+  for (const markup of text.match(/<img\b[^>]*>/gi) || []) {
+    if (/\b(?:width|height)\s*=\s*["']?1["']?(?:\s|\/|>)/i.test(markup)) continue; // pixeles de seguimiento
+    candidates.push(attrOf(markup, "src") || attrOf(markup, "data-src"));
+  }
+  for (const value of candidates) {
+    const ok = value && goodImage(value, base);
+    if (ok) return ok;
+  }
+  return "";
+}
+
 function parseFeed(xml, origin) {
   const items = [];
   const blocks = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
@@ -221,7 +254,8 @@ function parseFeed(xml, origin) {
       url: link,
       published: published.toISOString(),
       source: sourceName(origin === "google" && outletUrl ? outletUrl : link, outlet),
-      origin
+      origin,
+      image: feedImage(block, origin, link) || undefined
     });
   }
   return items;
@@ -325,6 +359,63 @@ async function readJson(file, fallback) {
   try { return JSON.parse(await readFile(path.join(DATA, file), "utf8")); } catch { return fallback; }
 }
 
+// Fotos de las notas. Se reutiliza lo ya resuelto en corridas anteriores; si el feed trae una foto se reduce y se guarda;
+// para el resto se abre la nota y se toma su imagen principal (con un tope por corrida para no demorar la actualización).
+const MAX_PAGE_LOOKUPS = 12;
+const MAX_IMAGE_TRIES = 3;
+
+async function findImage(item) {
+  let url = item.url;
+  if (hostOf(url) === "news.google.com") url = await resolveGoogleNews(url);
+  return pageImage(await downloadHead(url), url);
+}
+
+async function pool(list, work) {
+  const queue = [...list];
+  await Promise.all(Array.from({ length: Math.min(4, queue.length) }, async () => {
+    while (queue.length) await work(queue.shift());
+  }));
+}
+
+// image con texto = miniatura lista; image "" = ya se buscó y no hay una utilizable; sin image = falta resolverla.
+export async function fillImages(items, previousItems, tools = { thumbnail, findImage }) {
+  const before = new Map();
+  for (const old of previousItems || []) {
+    if (typeof old.image === "string" || old.imageTries) { before.set(old.url, old); before.set(normalize(old.title), old); }
+  }
+  const raw = []; // el feed ya trajo una foto: solo falta reducirla
+  const search = []; // hay que abrir la nota
+  for (const item of items) {
+    if (item.kind === "community") continue;
+    // Sin "origin" es una nota de corridas anteriores: lo que tenga ya está resuelto.
+    if (item.origin === undefined && typeof item.image === "string") continue;
+    const known = before.get(item.url) || before.get(normalize(item.title));
+    if (known && known.image) { item.image = known.image; continue; }
+    if (item.image) { raw.push(item); continue; }
+    if (known && known.image === "") { item.image = ""; continue; }
+    if (known && known.imageTries) item.imageTries = known.imageTries;
+    if ((item.imageTries || 0) >= MAX_IMAGE_TRIES) { item.image = ""; continue; }
+    search.push(item);
+  }
+  await pool(raw, async (item) => {
+    const thumb = await tools.thumbnail(item.image);
+    if (thumb) item.image = thumb;
+    else { item.image = undefined; search.push(item); } // la foto del feed no sirve: se prueba con la de la nota
+  });
+  const queue = search.slice(0, MAX_PAGE_LOOKUPS);
+  await pool(queue, async (item) => {
+    try {
+      const found = await tools.findImage(item);
+      item.image = found ? await tools.thumbnail(found) : "";
+    } catch (error) {
+      item.imageTries = (item.imageTries || 0) + 1;
+      console.warn("No se pudo buscar la foto de:", item.url, String(error).slice(0, 120));
+      if (item.imageTries >= MAX_IMAGE_TRIES) item.image = "";
+    }
+  });
+  return { fromFeed: raw.length, searched: queue.length, pending: search.length - queue.length };
+}
+
 async function main() {
   await mkdir(DATA, { recursive: true });
   const now = new Date();
@@ -347,7 +438,8 @@ async function main() {
       news: await readJson("news.json", { items: [] }),
       polls: await readJson("polls.json", { polls: [], mentions: [] }),
       candidates: candidatesPayload,
-      quiz: quizPayload
+      quiz: quizPayload,
+      matches: await readJson("matches.json", null)
     };
     await writeFile(path.join(DATA, "live.js"), "window.VELEZ_DATA = " + JSON.stringify(live) + ";\n");
     console.log("live.js regenerado.");
@@ -411,6 +503,9 @@ async function main() {
   const mixed = [...fromMedia.slice(0, MAX_NEWS - fromCommunity.length), ...fromCommunity]
     .sort((a, b) => new Date(b.published) - new Date(a.published));
 
+  const imageStats = await fillImages(mixed, previousItems);
+  console.log(`Fotos: ${mixed.filter((item) => item.image).length} de ${mixed.length} notas (${imageStats.fromFeed} traídas por el feed, ${imageStats.searched} buscadas en la nota, ${imageStats.pending} pendientes).`);
+
   const news = mixed
     .map((item) => ({
       title: item.title,
@@ -420,7 +515,10 @@ async function main() {
       published: item.published,
       tags: tagsFor(item),
       ...(item.kind === "community" ? { kind: "community" } : {}),
-      ...(item.club ? { club: true } : {})
+      ...(item.club ? { club: true } : {}),
+      // image: foto de la nota ("" = la nota no tiene una utilizable). imageTries: intentos fallidos de buscarla.
+      ...(typeof item.image === "string" ? { image: item.image } : {}),
+      ...(typeof item.image !== "string" && item.imageTries ? { imageTries: item.imageTries } : {})
     }));
 
   const fetchedAnything = all.length > 0;
@@ -485,7 +583,7 @@ async function main() {
   await writeFile(path.join(DATA, "news.json"), JSON.stringify(newsPayload, null, 2) + "\n");
   await writeFile(path.join(DATA, "polls.json"), JSON.stringify(pollsPayload, null, 2) + "\n");
   await writeFile(path.join(DATA, "review.json"), JSON.stringify(reviewPayload, null, 2) + "\n");
-  const live = { news: newsPayload, polls: pollsPayload, candidates: candidatesPayload, quiz: quizPayload };
+  const live = { news: newsPayload, polls: pollsPayload, candidates: candidatesPayload, quiz: quizPayload, matches: await readJson("matches.json", null) };
   await writeFile(path.join(DATA, "live.js"), "window.VELEZ_DATA = " + JSON.stringify(live) + ";\n");
 
   // En GitHub Actions avisa si hay algo nuevo para revisar (el flujo abre un issue).

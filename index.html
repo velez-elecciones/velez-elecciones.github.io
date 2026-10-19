@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elecciones Vélez 2026</title>
+    <title>Elecciones Vélez Sarsfield 2026</title>
+    <link rel="canonical" href="https://velez-elecciones.vercel.app/">
+    <link rel="icon" href="img/escudo-velez.svg" type="image/svg+xml">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
     <meta name="description" content="Elecciones de Vélez Sarsfield 2026: candidatos, posturas con fuente, noticias y sondeos que se actualizan solos.">
     <meta property="og:title" content="Elecciones Vélez 2026: candidatos, noticias y sondeos">
     <meta property="og:description" content="Leé qué dijo cada candidato, con la fuente, y seguí las noticias y los sondeos de la elección.">
@@ -21,10 +25,1616 @@
     <meta name="twitter:image" content="https://velez-elecciones.vercel.app/img/preview.png?v=2">
     <meta name="twitter:image:alt" content="Elecciones Vélez 2026: candidatos, noticias y sondeos. Domingo 15 de noviembre.">
     <meta name="theme-color" content="#003da5">
-    <script>location.replace("velez.html" + location.search + location.hash);</script>
-    <meta http-equiv="refresh" content="0; url=velez.html">
+
+    <style>
+        :root {
+            --blue: #003da5;
+            --blue-soft: #1a8fe8;
+            --ink: #10203a;
+            --muted: #5a6b85;
+            --line: rgba(0, 61, 165, .12);
+            --paper: #ffffff;
+            --wash: #f3f7fc;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+            background-color: #001433;
+            background-image:
+                linear-gradient(180deg, rgba(0, 28, 92, .62), rgba(0, 16, 58, .78)),
+                url("img/fondo-amalfitani.jpg");
+            background-size: auto, cover;
+            background-position: center, center top;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat;
+            overflow-x: hidden;
+        }
+        a { color: inherit; }
+        h1, h2, h3, h4, p { margin: 0; }
+        .hidden { display: none !important; }
+        .no-select { -webkit-user-select: none; user-select: none; }
+        button { font: inherit; }
+
+        /* Iconos de contorno: toman el color del texto (blanco sobre azul, azul sobre blanco) */
+        .ic { width: 1.2em; height: 1.2em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+
+        .page { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Cabecera */
+        .top {
+            display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+            padding: 16px 24px;
+            background: var(--blue);
+            color: #fff;
+        }
+        .top-crest { width: 52px; height: 60px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title { flex: 1 1 260px; min-width: 0; }
+        .top-title h1 { font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 15px; opacity: .85; }
+        .top-date { text-align: right; font-size: 15px; line-height: 1.35; }
+        .top-date strong { display: block; font-size: 16px; }
+        .top-date span { opacity: .85; }
+
+        .flow { padding: 20px 24px 8px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; width: 100%; }
+
+        /* Tarjetas base */
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 30, 90, .08);
+        }
+        .sec { padding: 18px 20px; }
+        .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+        .sec-head h2 { flex: 1 1 auto; display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: var(--blue); letter-spacing: .01em; text-transform: uppercase; }
+        .sec-head .meta { color: var(--muted); font-size: 14px; white-space: nowrap; }
+
+        /* Botones */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 61, 165, .3);
+            background: #fff;
+            color: var(--blue);
+            font-weight: 650;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background .15s, color .15s, border-color .15s;
+        }
+        .btn:hover { background: #eaf2fd; }
+        .btn.active, .btn.solid { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .btn.solid:hover { background: #0a4cc2; }
+        .btn.small { padding: 6px 11px; font-size: 13px; }
+        .btn.on-blue { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .7); }
+        .btn.on-blue:hover { background: rgba(255, 255, 255, .14); }
+        .btn:focus-visible, .cd-card:focus-visible, .cd-mini:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+
+        /* Comparación por tema */
+        .cmp { padding: 16px 20px; display: grid; gap: 12px; justify-items: center; text-align: center; }
+        .cmp-focus { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; }
+        .cmp-focus p { font-size: 17px; font-weight: 650; color: var(--ink); }
+
+        /* Candidaturas que se bajaron */
+        .drops { padding: 12px 20px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+        .drops p + p { margin-top: 4px; }
+        .drops strong { color: var(--ink); }
+
+        /* Candidatos */
+        .cd-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); align-items: stretch; }
+        .cd-card {
+            display: flex; flex-direction: column; overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .cd-card:not(.cd-full) { cursor: pointer; }
+        .cd-card:not(.cd-full):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
+        .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; }
+        .cd-photo { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; flex: 0 0 auto; background: #fff; }
+        .cd-id { min-width: 0; flex: 1 1 auto; }
+        .cd-role { display: inline-block; padding: 1px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+        .cd-id h3 { margin-top: 4px; font-size: 21px; line-height: 1.15; font-weight: 750; }
+        .cd-group { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 15px; opacity: .92; }
+        .cd-group img { width: 22px; height: 22px; object-fit: contain; background: #fff; border-radius: 6px; padding: 1px; }
+        .cd-body { flex: 1 1 auto; padding: 16px 16px 6px; }
+        .cd-kicker { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+        .cd-item { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+        .cd-item:last-child { border-bottom: 0; margin-bottom: 4px; }
+        .cd-item.cd-new { background: #eef5ff; border-radius: 8px; padding: 8px; margin-left: -8px; margin-right: -8px; }
+        .cd-sum { font-size: 16px; line-height: 1.45; }
+        .cd-card:not(.cd-full) .cd-topic { margin-bottom: 4px; }
+        .cd-card:not(.cd-full) .cd-sum { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .cd-src { margin-top: 6px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+        a.source-link { color: var(--blue); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+        a.source-link .ic { width: .95em; height: .95em; }
+        .cd-age { color: #9a6a00; font-weight: 650; }
+        .cd-auto { margin-left: 6px; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); }
+        .cd-empty { margin: 2px 0 12px; font-size: 15px; line-height: 1.45; color: var(--muted); font-style: italic; }
+        .cd-notes:empty { display: none; }
+        .cd-notes { padding: 12px 16px; border-top: 1px solid var(--line); }
+        .cd-note { display: block; margin-bottom: 6px; padding: 8px 10px; border-radius: 10px; background: var(--wash); font-size: 14px; line-height: 1.35; text-decoration: none; }
+        .cd-note:hover { background: #e4eefb; }
+        .cd-note strong { color: var(--blue); margin-right: 4px; }
+        .cd-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 12px 16px 16px; margin-top: auto; }
+        .cd-social { display: flex; gap: 12px; flex-wrap: wrap; font-size: 14px; }
+
+        /* Candidato abierto: el resto queda minimizado */
+        .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
+        .cd-card { min-width: 0; }
+        .cd-minis { display: flex; flex-wrap: wrap; gap: 10px; }
+        .cd-mini {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px 14px 6px 6px;
+            background: #fff; color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 12px; cursor: pointer;
+            transition: background .15s;
+        }
+        .cd-mini:hover { background: #eaf2fd; }
+        .cd-mini img { width: 38px; height: 38px; border-radius: 9px; object-fit: cover; }
+        .cd-mini span { display: block; font-weight: 700; font-size: 15px; line-height: 1.15; text-align: left; }
+        .cd-mini small { display: block; font-size: 12.5px; color: var(--muted); text-align: left; }
+        .cd-full .cd-photo { width: 92px; height: 92px; }
+        .cd-full .cd-id h3 { font-size: 26px; }
+        /* Las posturas se reparten en columnas parejas (la cantidad la calcula layoutTopics): nunca queda una sola suelta en una fila nueva. */
+        .cd-topics { --cols: 1; display: flex; flex-wrap: wrap; gap: 4px 28px; padding: 18px 20px 6px; }
+        .cd-topics > .cd-empty { flex: 1 1 100%; }
+        .cd-topic { flex: 1 1 calc((100% - (var(--cols) - 1) * 28px) / var(--cols) - 1px); min-width: 0; padding-bottom: 12px; }
+        .cd-topic .cd-empty { margin-bottom: 4px; }
+        .cd-full .cd-notes { display: block; }
+        .cd-full .cd-notes:empty { display: none; }
+
+        /* Cómo votar */
+        .vote-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+        .vote-item { padding: 12px 14px; border-radius: 12px; background: var(--wash); }
+        .vote-item strong { display: block; margin-bottom: 2px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+        .vote-src { margin-top: 12px; font-size: 14px; color: var(--muted); }
+
+        /* Carrusel de noticias */
+        .feed-nav { display: flex; gap: 6px; }
+        .feed-nav button {
+            width: 36px; height: 36px; display: grid; place-items: center;
+            border-radius: 50%; border: 1px solid rgba(0, 61, 165, .3);
+            background: #fff; color: var(--blue); cursor: pointer;
+            transition: background .15s, color .15s;
+        }
+        .feed-nav button:hover { background: var(--blue); color: #fff; }
+        .feed-empty { padding: 18px 4px; color: var(--muted); }
+        .news-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 2px 2px 6px; outline: none; }
+        .news-track::-webkit-scrollbar { display: none; }
+        .news-item {
+            flex: 0 0 100%; scroll-snap-align: start;
+            display: flex; flex-direction: column; gap: 8px; min-height: 200px;
+            padding: 16px; border-radius: 14px; background: #fff;
+            border: 1px solid var(--line);
+            color: var(--ink); text-decoration: none;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+        .news-item:hover, .news-item:focus-visible { transform: translateY(-3px); border-color: var(--blue-soft); box-shadow: 0 12px 26px rgba(0, 61, 165, .14); }
+        @media (min-width: 720px) { .news-item { flex-basis: calc((100% - 14px) / 2); } }
+        @media (min-width: 1180px) { .news-item { flex-basis: calc((100% - 28px) / 3); } }
+        .news-meta { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--muted); }
+        .news-meta strong { color: var(--blue); }
+        .news-tags { display: flex; flex-wrap: nowrap; gap: 6px; overflow: hidden; }
+        .news-tag { flex: 0 0 auto; white-space: nowrap; padding: 1px 10px; border-radius: 999px; border: 1px solid var(--c, var(--blue)); color: var(--c, var(--blue)); font-size: 12px; font-weight: 700; }
+        .news-head { display: flex; align-items: flex-start; gap: 12px; }
+        .news-head .news-title { flex: 1 1 auto; min-width: 0; }
+        /* Foto de la nota: chica y apagada, recupera color al pasar el mouse. Si no carga, se quita y el título ocupa todo el ancho. */
+        .news-thumb {
+            flex: 0 0 auto; width: 84px; height: 56px; object-fit: cover; border-radius: 9px;
+            display: block; background: var(--wash); opacity: .88; filter: saturate(.75);
+            transition: opacity .18s ease, filter .18s ease;
+        }
+        .news-item:hover .news-thumb, .news-item:focus-visible .news-thumb { opacity: 1; filter: none; }
+        .news-title { font-size: 18px; line-height: 1.3; font-weight: 750; color: #0b1c3a; }
+        .news-summary { font-size: 15px; line-height: 1.4; color: #3b4d6b; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-open { margin-top: auto; padding-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: var(--blue); }
+        .news-item:hover .news-open { text-decoration: underline; }
+        .news-progress { height: 3px; margin-top: 10px; border-radius: 3px; background: var(--line); overflow: hidden; }
+        .news-progress span { display: block; height: 100%; width: 0; background: var(--blue); }
+        @keyframes newsProgress { from { width: 0; } to { width: 100%; } }
+
+        /* Test */
+        .qz-start { text-align: center; padding: 16px 8px; display: grid; gap: 10px; justify-items: center; }
+        .qz-start h3 { font-size: 20px; color: #0b1c3a; }
+        .qz-start p { max-width: 640px; color: #3b4d6b; }
+        .qz-fine { font-size: 14px; color: var(--muted); }
+        .qz-shared { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: #fff7e0; border: 1px solid #e6c36a; color: #5b4300; font-size: 15px; }
+        .qz-progress { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; letter-spacing: .05em; color: var(--muted); }
+        .qz-bar { width: 160px; height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+        .qz-bar > div { height: 100%; background: var(--blue); transition: width .3s ease; }
+        #quiz-question-title { margin: 6px 0 14px; font-size: 22px; line-height: 1.3; color: #0b1c3a; }
+        .qz-options { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .qz-opt { justify-content: flex-start; text-align: left; line-height: 1.4; padding: 12px 14px; font-weight: 550; }
+        .qz-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-top: 14px; }
+        .qz-actions.center { justify-content: center; }
+        .qz-headline { text-align: center; margin-bottom: 14px; color: var(--blue); }
+        .qz-headline .ic { width: 38px; height: 38px; stroke-width: 1.4; }
+        .qz-headline h3 { margin-top: 4px; font-size: 20px; color: #0b1c3a; }
+        .qr-list { display: grid; gap: 10px; max-width: 760px; margin: 0 auto; }
+        .qr-row { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; padding: 12px; border-radius: 12px; background: var(--wash); border: 1px solid var(--line); }
+        .qr-row.qr-top { background: #fff; border-color: var(--c); box-shadow: inset 4px 0 0 var(--c); }
+        .qr-row.qr-weak { opacity: .78; }
+        .qr-photo { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+        .qr-name { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
+        .qr-name strong { font-size: 17px; color: #0b1c3a; }
+        .qr-name span { font-size: 14px; color: var(--muted); }
+        .qr-track { height: 8px; margin: 6px 0 4px; border-radius: 8px; background: var(--line); overflow: hidden; }
+        .qr-track span { display: block; height: 100%; border-radius: 8px; background: var(--c); transition: width .6s ease; }
+        .qr-note { font-size: 13.5px; line-height: 1.35; color: var(--muted); }
+        .qr-pct { font-size: 26px; font-weight: 800; color: var(--c); min-width: 64px; text-align: right; }
+        .qd { max-width: 760px; margin: 14px auto 0; }
+        .qd > summary { cursor: pointer; font-weight: 700; color: var(--blue); padding: 8px 0; }
+        .qd-q { padding: 10px 0; border-top: 1px solid var(--line); }
+        .qd-q h4 { font-size: 16px; color: #0b1c3a; }
+        .qd-pick { margin: 3px 0 6px; font-size: 14px; color: var(--muted); }
+        .qd-q ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+        .qd-q li { font-size: 14.5px; line-height: 1.4; }
+        .qd-q li.qd-none { color: #7a889d; }
+        .qd-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+        .qd-match { color: #0a7a3d; font-style: normal; font-weight: 700; }
+        .qd-partial { color: #9a6a00; font-style: normal; font-weight: 700; }
+        .qd-miss { color: #b3261e; font-style: normal; font-weight: 700; }
+
+        /* Sondeos */
+        .polls-body { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .poll-card { padding: 14px 16px; border-radius: 14px; background: #fff; border: 1px solid var(--line); }
+        .poll-card-head { margin-bottom: 10px; }
+        .poll-card-head strong { display: block; font-size: 18px; color: #0b1c3a; }
+        .poll-card-head span { font-size: 14px; color: var(--muted); }
+        .poll-avg { border-color: var(--blue); }
+        .poll-row { display: grid; grid-template-columns: minmax(120px, 1.3fr) 2fr 52px; gap: 8px; align-items: center; margin: 7px 0; font-size: 14px; }
+        .poll-name { color: #1e3355; font-weight: 600; line-height: 1.2; }
+        .poll-track { height: 10px; border-radius: 8px; background: var(--line); overflow: hidden; }
+        .poll-fill { display: block; height: 100%; border-radius: 8px; background: var(--blue); transition: width .5s ease; }
+        .poll-value { text-align: right; }
+        .poll-link { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 700; color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+        .poll-empty { grid-column: 1 / -1; display: flex; gap: 14px; align-items: center; padding: 18px 20px; border-radius: 14px; background: var(--wash); border: 1px dashed rgba(0, 61, 165, .3); color: #1e3355; }
+        .poll-empty .ic { width: 30px; height: 30px; color: var(--blue); stroke-width: 1.4; }
+        .poll-empty strong { display: block; font-size: 17px; color: #0b1c3a; }
+        .poll-empty p { margin-top: 4px; font-size: 15px; color: #3b4d6b; }
+        .poll-mentions { grid-column: 1 / -1; display: grid; gap: 6px; }
+        .poll-mentions h3 { font-size: 16px; color: var(--blue); }
+        .poll-mentions a { font-size: 15px; text-decoration: none; padding: 8px 10px; border-radius: 8px; background: var(--wash); }
+        .poll-mentions a:hover { background: #e4eefb; }
+        .poll-mentions strong { color: var(--blue); margin-right: 6px; }
+
+        /* Partidos de Vélez */
+        .match { padding: 14px 20px 12px; }
+        .match-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+        .match-body.one { grid-template-columns: minmax(0, 1fr); }
+        .mt-col { min-width: 0; padding: 0 22px; }
+        .mt-col:first-child { padding-left: 0; }
+        .mt-col:last-child { padding-right: 0; }
+        .mt-col + .mt-col { border-left: 1px solid var(--line); }
+        .mt-label { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 12.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+        .mt-chip { font-size: 13.5px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--muted); }
+        .mt-chip.win { color: #0a7a3d; }
+        .mt-chip.draw { color: #9a6a00; }
+        .mt-chip.loss { color: #b3261e; }
+        .mt-label.live, .mt-label.live .mt-chip { color: #c0261b; }
+        .mt-dot { width: 8px; height: 8px; border-radius: 50%; background: #d92d20; animation: mtPulse 1.6s ease-in-out infinite; }
+        @keyframes mtPulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+        .mt-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 8px; margin-top: 8px; font-size: 16px; line-height: 1.2; color: #0b1c3a; }
+        .mt-team { display: flex; align-items: center; gap: 7px; min-width: 0; }
+        .mt-team:last-child { justify-content: flex-end; }
+        .mt-team .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .mt-team.is-velez .n { font-weight: 800; }
+        .mt-crest { width: 24px; height: 24px; object-fit: contain; flex: 0 0 auto; }
+        .mt-score { font-size: 22px; font-weight: 800; letter-spacing: .02em; color: var(--blue); white-space: nowrap; }
+        .mt-score small { display: block; font-size: 12px; font-weight: 650; letter-spacing: 0; color: var(--muted); text-align: center; }
+        .mt-vs { flex: 0 0 auto; font-size: 14px; font-weight: 700; color: var(--muted); }
+        .mt-sub { margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--muted); }
+        .mt-goals { margin-top: 4px; font-size: 14px; line-height: 1.4; color: #1e3355; }
+        .mt-goals .ic { width: 1em; height: 1em; }
+        .mt-src { margin-top: 4px; font-size: 13.5px; }
+
+        #toast {
+            position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 40;
+            max-width: min(92vw, 420px); padding: 10px 14px; border-radius: 10px;
+            background: var(--blue); color: #fff; font-size: 14px; font-weight: 600;
+            opacity: 0; pointer-events: none; transition: opacity .2s ease;
+        }
+        #toast.show { opacity: 1; }
+        .site-sources { padding: 18px 24px 0; text-align: center; font-size: 13.5px; line-height: 1.7; color: rgba(255, 255, 255, .75); }
+        .site-sources a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+        .site-credit { text-align: center; padding: 10px 8px 24px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+
+        @media (max-width: 720px) {
+            .top { padding: 14px 16px; }
+            .top-title h1 { font-size: 21px; }
+            .top-date { text-align: left; width: 100%; }
+            .flow { padding: 14px 12px 4px; gap: 14px; }
+            .sec, .cmp { padding: 14px; }
+            .sec-head h2 { font-size: 17px; }
+            .feed-checked { display: none; }
+            .cd-topics { padding: 14px 14px 4px; }
+            .match { padding: 14px; }
+            .match-body { grid-template-columns: minmax(0, 1fr); }
+            .mt-col { padding: 0; }
+            .mt-col + .mt-col { border-left: 0; border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+            .news-thumb { width: 72px; height: 50px; }
+            .poll-row { grid-template-columns: 1fr 52px; }
+            .poll-track { grid-column: 1 / -1; order: 3; }
+            .qr-row { grid-template-columns: 44px 1fr auto; gap: 10px; padding: 10px; }
+            .qr-photo { width: 44px; height: 44px; }
+            .qr-pct { font-size: 22px; min-width: 52px; }
+            .qz-bar { width: 100px; }
+            #quiz-question-title { font-size: 19px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; animation: none !important; }
+        }
+    </style>
 </head>
 <body>
-    <p><a href="velez.html">Entrar a Elecciones Vélez 2026</a></p>
+
+    <!-- Íconos de contorno -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+        <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m12 7 4 3-1.5 4.5h-5L8 10z"/><path d="M12 2v5M16 10l5-1.5M14.5 14.5 18 19M9.5 14.5 6 19M8 10 3 8.5"/></symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+        <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-.8-1.5-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2s1.2 1.7 2.8 2 2.8.8 2.8 2-1.2 2-2.8 2c-1.3 0-2.4-.4-2.9-1.3M12 6v2M12 16v2"/></symbol>
+        <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="18" rx="1.5"/></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></symbol>
+        <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-4"/></symbol>
+        <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+        <symbol id="i-vote" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></symbol>
+        <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+        <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+        <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+        <symbol id="i-back" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+        <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .6 1.8 2 1.8 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></symbol>
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+        <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    </svg>
+
+    <div class="page">
+
+        <header class="top">
+            <img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield">
+            <div class="top-title">
+                <h1>Elecciones Vélez Sarsfield 2026</h1>
+                <p id="top-sub">Candidatos, noticias y sondeos</p>
+            </div>
+            <div class="top-date">
+                <strong id="cal-day"></strong>
+                <span id="comicios-line"></span>
+            </div>
+        </header>
+
+        <main class="flow">
+
+            <!-- Partidos de Vélez: en vivo, último resultado y próximo (se dibuja con data/matches.json y la API pública de ESPN) -->
+            <section id="sec-match" class="card match hidden" aria-label="Partidos de Vélez" aria-live="polite">
+                <div id="match-body" class="match-body"></div>
+            </section>
+
+            <!-- Barra del candidato abierto (solo visible cuando hay uno desplegado) -->
+            <section id="sec-compare" class="card cmp hidden">
+                <div id="cmp-focus" class="cmp-focus">
+                    <button type="button" class="btn solid" data-unfocus><svg class="ic"><use href="#i-grid"/></svg> Ver todos los candidatos</button>
+                    <p id="focus-name"></p>
+                </div>
+            </section>
+
+            <section class="cd-grid" id="candidates-grid" aria-live="polite"></section>
+
+            <section id="sec-drops" class="card drops hidden" aria-label="Candidaturas que se bajaron"></section>
+
+            <section id="sec-vote" class="card sec hidden">
+                <div class="sec-head"><h2><svg class="ic"><use href="#i-vote"/></svg> Cómo se vota</h2></div>
+                <div id="vote-body"></div>
+            </section>
+
+            <section id="sec-news" class="card sec">
+                <div class="sec-head no-select">
+                    <h2><svg class="ic"><use href="#i-megaphone"/></svg> Novedades</h2>
+                    <span id="news-checked" class="meta feed-checked"></span>
+                    <div class="feed-nav">
+                        <button type="button" id="news-prev" aria-label="Notas anteriores"><svg class="ic"><use href="#i-left"/></svg></button>
+                        <button type="button" id="news-next" aria-label="Notas siguientes"><svg class="ic"><use href="#i-right"/></svg></button>
+                    </div>
+                </div>
+                <div id="news-track" class="news-track" tabindex="0" aria-live="off"></div>
+                <div class="news-progress" aria-hidden="true"><span id="news-bar"></span></div>
+            </section>
+
+            <!-- El test está apagado mientras data/quiz.json tenga "enabled": false -->
+            <section id="sec-quiz" class="card sec hidden">
+                <div class="sec-head no-select">
+                    <h2><svg class="ic"><use href="#i-help"/></svg> Test electoral</h2>
+                    <button type="button" onclick="resetQuiz()" class="btn small"><svg class="ic"><use href="#i-reset"/></svg> Reiniciar</button>
+                </div>
+
+                <div id="quiz-box">
+                    <div id="shared-result" class="qz-shared hidden"></div>
+
+                    <div id="quiz-start" class="qz-start">
+                        <h3>¿No sabés a quién votar este 15 de noviembre?</h3>
+                        <p id="quiz-intro"></p>
+                        <p class="qz-fine">Cada navegador guarda su propio test. Compartir un resultado no pisa el de otra persona.</p>
+                        <button id="btn-start-quiz" type="button" onclick="startQuiz()" class="btn solid">Comenzar el test</button>
+                    </div>
+
+                    <div id="quiz-questions" class="hidden no-select">
+                        <div class="qz-progress">
+                            <span id="quiz-progress-text"></span>
+                            <div class="qz-bar"><div id="quiz-progress-bar"></div></div>
+                        </div>
+                        <h3 id="quiz-question-title"></h3>
+                        <div id="quiz-options" class="qz-options"></div>
+                        <div class="qz-actions">
+                            <button type="button" onclick="quizBack()" class="btn small" id="quiz-back"><svg class="ic"><use href="#i-left"/></svg> Anterior</button>
+                            <button type="button" onclick="quizSkip()" class="btn small">No tengo opinión</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-results" class="hidden"></div>
+                </div>
+            </section>
+
+            <section id="sec-polls" class="card sec">
+                <div class="sec-head no-select">
+                    <h2><svg class="ic"><use href="#i-chart"/></svg> Sondeos</h2>
+                    <span id="polls-checked" class="meta feed-checked"></span>
+                </div>
+                <div id="polls-body" class="polls-body"></div>
+            </section>
+
+        </main>
+
+        <p class="site-sources hidden" id="site-sources"></p>
+        <div class="site-credit no-select" id="site-credit">Elecciones de Vélez Sarsfield</div>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="data/live.js"></script>
+    <script>
+        const BOOT = window.VELEZ_DATA || {};
+        const LIVE_MS = 60000;
+        const BA = "America/Argentina/Buenos_Aires";
+        const QUIZ_KEY = "velez-comicios-2026-quiz-v2";
+        const SKIP = "_skip";
+        const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const NEWS_TICK_MS = 5000;
+
+        // Todo lo que se dibuja sale de data/candidates.json y data/quiz.json.
+        const DATA = { candidates: [], withdrawn: [], topics: [], election: {}, quiz: { enabled: false, questions: [], minCoverage: 3 } };
+        let byId = {};
+        let candSig = "";
+        let quizSig = "";
+        let booted = false;
+        // En la vista general solo se resumen estos temas; al abrir un candidato se ven todos los que tengan fuente.
+        const SUMMARY_TOPICS = ["formula", "perfil", "vinculos"];
+        let focusId = null;
+        const seenItems = new Set();
+        let newKeys = new Set();
+        let refreshLock = false;
+        let newsItems = [];
+        let newsSignature = "";
+        let pollsSignature = "";
+        let lastNews = null;
+        let lastPolls = null;
+        let newsTimer = null;
+        let newsHold = false;
+        let quizIndex = 0;
+        let quizState = { answers: {}, done: false };
+        let lastResult = null;
+
+        function esc(value) {
+            return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+
+        function ic(name) { return '<svg class="ic" aria-hidden="true"><use href="#i-' + esc(name) + '"/></svg>'; }
+        function isUrl(value) { return /^https?:\/\//i.test(String(value || "")); }
+
+        function toast(message) {
+            const el = document.getElementById("toast");
+            el.textContent = message;
+            el.classList.add("show");
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => el.classList.remove("show"), 2800);
+        }
+
+        function dataUrl(file) { return new URL("data/" + file, new URL(".", location.href)).href; }
+
+        async function fetchJson(file) {
+            const response = await fetch(dataUrl(file) + "?t=" + Date.now(), { cache: "no-store" });
+            if (!response.ok) throw new Error(String(response.status));
+            return response.json();
+        }
+
+        function toDate(value) {
+            if (!value) return null;
+            const date = new Date(String(value).length === 10 ? value + "T12:00:00-03:00" : value);
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        function dayKey(date) { return new Intl.DateTimeFormat("en-CA", { timeZone: BA }).format(date); }
+
+        function shortDate(value) {
+            const date = toDate(value);
+            if (!date) return "";
+            return new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "short", year: "numeric", timeZone: BA }).format(date).replace(/\./g, "");
+        }
+
+        function monthsAgo(value) {
+            const date = toDate(value);
+            return date ? Math.floor((Date.now() - date.getTime()) / (30.4 * 86400000)) : 0;
+        }
+
+        function relativeDay(iso) {
+            const date = toDate(iso);
+            if (!date) return "";
+            const diff = Math.round((new Date(dayKey(new Date())) - new Date(dayKey(date))) / 86400000);
+            if (diff <= 0) return "Hoy";
+            if (diff === 1) return "Ayer";
+            return new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "short", timeZone: BA }).format(date).replace(".", "");
+        }
+
+        function checkedLabel(iso) {
+            const date = toDate(iso);
+            if (!date) return "";
+            const when = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: BA }).format(date);
+            return "Revisado " + relativeDay(iso).toLowerCase() + ", " + when;
+        }
+
+        // -------------------------------------------------------------
+        // CANDIDATOS
+        // -------------------------------------------------------------
+        function validCandidate(c) { return c && typeof c.id === "string" && c.id && c.name && c.status !== "withdrawn"; }
+        function colorOf(c) { return (c && /^#[0-9a-f]{3,8}$/i.test(c.color || "")) ? c.color : "#003da5"; }
+        function shortOf(c) { return c.short || c.name; }
+        function photoOf(c) { return c.photo || "img/escudo-velez.svg"; }
+        function posStyle(c) { return c.photoPosition ? ' style="object-position:' + esc(c.photoPosition) + '"' : ""; }
+
+        function setCandidates(payload) {
+            const list = payload && Array.isArray(payload.candidates) ? payload.candidates.filter(validCandidate) : [];
+            if (!list.length) return false;
+            const signature = JSON.stringify(payload);
+            if (signature === candSig) return false;
+            const first = candSig === "";
+            candSig = signature;
+            DATA.candidates = list;
+            DATA.withdrawn = (payload.candidates || []).filter((c) => c && c.id && c.name && c.status === "withdrawn");
+            DATA.election = payload.election || {};
+            DATA.topics = Array.isArray(payload.topics) && payload.topics.length ? payload.topics : [{ id: "perfil", label: "Perfiles", icon: "user" }];
+            byId = {};
+            list.forEach((c) => { byId[c.id] = c; });
+            markNewItems(list);
+            if (focusId && !byId[focusId]) focusId = null;
+            renderGrid();
+            renderDrops();
+            renderVoteInfo();
+            paintCalendar();
+            renderQuizIntro();
+            if (lastNews) { newsSignature = ""; setNews(lastNews); }
+            if (lastPolls) { pollsSignature = ""; setPolls(lastPolls); }
+            if (DATA.quiz.enabled && !document.getElementById("quiz-results").classList.contains("hidden")) showResults(false);
+            return !first;
+        }
+
+        function itemKey(id, topic, item) { return [id, topic, item.url, item.summary].join("|"); }
+
+        // Marca como nuevo lo que no estaba en la lectura anterior (la primera lectura no marca nada).
+        function markNewItems(list) {
+            const before = new Set(seenItems);
+            seenItems.clear();
+            list.forEach((c) => Object.keys(c.positions || {}).forEach((topic) =>
+                (c.positions[topic] || []).forEach((item) => seenItems.add(itemKey(c.id, topic, item)))));
+            newKeys = before.size ? new Set(Array.from(seenItems).filter((key) => !before.has(key))) : new Set();
+        }
+
+        function sortedItems(items) {
+            return (items || []).filter((item) => item && item.summary && isUrl(item.url))
+                .map((item, index) => ({ item, index }))
+                .sort((a, b) => {
+                    const da = toDate(a.item.date); const db = toDate(b.item.date);
+                    if (da && db) return db - da || a.index - b.index;
+                    if (da) return -1;
+                    if (db) return 1;
+                    return a.index - b.index;
+                }).map((entry) => entry.item);
+        }
+
+        function itemHtml(c, topic, item) {
+            const when = shortDate(item.date);
+            const old = item.date && monthsAgo(item.date) >= 3 ? ' <span class="cd-age">· hace ' + monthsAgo(item.date) + " meses</span>" : "";
+            const auto = item.auto ? '<span class="cd-auto" title="Resumen generado automáticamente a partir de la nota. Verificalo en la fuente.">automático</span>' : "";
+            return '<div class="cd-item' + (newKeys.has(itemKey(c.id, topic, item)) ? " cd-new" : "") + '"><p class="cd-sum">' + esc(item.summary) + "</p>" +
+                '<p class="cd-src"><a class="source-link" href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer"' +
+                (item.quote ? ' title="' + esc("«" + item.quote + "»") + '"' : "") + ">Fuente: " + esc(item.source || "ver la nota") + (when ? " · " + esc(when) : "") +
+                " " + ic("external") + "</a>" + old + auto + "</p></div>";
+        }
+
+        // Solo se muestran los temas que tienen al menos una postura con fuente; "limit" resume a lo más reciente.
+        // Los temas "latestOnly" (la fórmula) muestran solo lo más reciente: si cambia, lo anterior deja de verse.
+        function topicBlock(c, topic, limit) {
+            const items = sortedItems(c.positions && c.positions[topic.id]);
+            if (!items.length) return "";
+            const cap = topic.latestOnly ? 1 : (limit || items.length);
+            return '<section class="cd-topic"><p class="cd-kicker">' + ic(topic.icon || "user") + esc(topic.label) + "</p>" +
+                items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("") + "</section>";
+        }
+
+        // Vista general: fórmula, perfil y alianzas, una sola nota por tema.
+        function bodyHtml(c) {
+            const html = SUMMARY_TOPICS.map((id) => DATA.topics.find((t) => t.id === id)).filter(Boolean)
+                .map((topic) => topicBlock(c, topic, 1)).join("");
+            return html || '<p class="cd-empty">Todavía no hay información publicada con fuente sobre ' + esc(shortOf(c)) + ". Se vuelve a buscar sola.</p>";
+        }
+
+        function socialHtml(c) {
+            return (c.social || []).filter((s) => s && isUrl(s.url)).map((s) => {
+                const host = (() => { try { return new URL(s.url).hostname; } catch { return ""; } })();
+                const icon = /instagram/.test(host) ? "instagram" : /(^|\.)x\.com|twitter/.test(host) ? "x" : "globe";
+                return '<a class="source-link" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer"' + (s.note ? ' title="' + esc(s.note) + '"' : "") + ">" + ic(icon) + " " + esc(s.label || "Redes") + "</a>";
+            }).join("");
+        }
+
+        function headHtml(c, extra) {
+            return '<div class="cd-head no-select"><img class="cd-photo" src="' + esc(photoOf(c)) + '" alt="' + esc(c.name) + '"' + posStyle(c) + ">" +
+                '<div class="cd-id"><span class="cd-role">' + esc(c.role || "Candidato") + "</span><h3>" + esc(c.name) + "</h3>" +
+                '<p class="cd-group">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : "") + esc(c.group || "") + "</p></div>" + (extra || "") + "</div>";
+        }
+
+        function cardHtml(c) {
+            return '<article id="col-' + esc(c.id) + '" class="card cd-card" tabindex="0" data-card="' + esc(c.id) + '" style="--c:' + colorOf(c) + '" aria-label="Ver todo sobre ' + esc(c.name) + '">' +
+                headHtml(c) +
+                '<section class="cd-body" id="cd-body-' + esc(c.id) + '">' + bodyHtml(c) + "</section>" +
+                '<div class="cd-foot no-select"><button type="button" class="btn small" data-focus="' + esc(c.id) + '">Ver todas sus posturas ' + ic("right") + "</button>" +
+                '<span class="cd-social">' + socialHtml(c) + "</span></div></article>";
+        }
+
+        function fullCardHtml(c) {
+            return '<article id="col-' + esc(c.id) + '" class="card cd-card cd-full" style="--c:' + colorOf(c) + '">' + headHtml(c) +
+                '<div class="cd-topics">' + (DATA.topics.map((t) => topicBlock(c, t)).join("") || '<p class="cd-empty">Todavía no hay posturas publicadas con fuente. Se vuelve a buscar sola.</p>') + "</div>" +
+                '<section class="cd-notes" id="cd-notes-' + esc(c.id) + '"></section>' +
+                '<div class="cd-foot no-select"><span class="cd-social">' + socialHtml(c) + "</span></div></article>";
+        }
+
+        function minisHtml(exceptId) {
+            return '<div class="cd-minis no-select">' + DATA.candidates.filter((c) => c.id !== exceptId).map((c) =>
+                '<button type="button" class="cd-mini" data-focus="' + esc(c.id) + '" style="--c:' + colorOf(c) + '"><img src="' + esc(photoOf(c)) + '" alt=""' + posStyle(c) + ">" +
+                "<div><span>" + esc(shortOf(c)) + "</span><small>" + esc(c.group || "") + "</small></div></button>").join("") + "</div>";
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById("candidates-grid");
+            const focused = focusId && byId[focusId];
+            grid.classList.toggle("is-focus", Boolean(focused));
+            grid.innerHTML = focused ? minisHtml(focusId) + fullCardHtml(focused) : DATA.candidates.map(cardHtml).join("");
+            document.getElementById("sec-compare").classList.toggle("hidden", !focused);
+            document.getElementById("focus-name").textContent = focused ? "Estás viendo todo lo de " + focused.name + " (" + (focused.group || "") + ")" : "";
+            renderNotes();
+            layoutTopics();
+        }
+
+        // Reparte los temas en columnas parejas según el ancho: si entran todos en una fila van todos juntos;
+        // si no, se equilibran las filas y la última se estira para no dejar un hueco.
+        const TOPIC_MIN = 190;
+        const TOPIC_GAP = 28;
+        function layoutTopics() {
+            document.querySelectorAll(".cd-topics").forEach((box) => {
+                const count = box.querySelectorAll(":scope > .cd-topic").length;
+                if (!count) return;
+                const style = getComputedStyle(box);
+                const width = box.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+                const fit = Math.max(1, Math.min(count, Math.floor((width + TOPIC_GAP) / (TOPIC_MIN + TOPIC_GAP))));
+                const rows = Math.ceil(count / fit);
+                box.style.setProperty("--cols", String(Math.ceil(count / rows)));
+            });
+        }
+
+        // Candidaturas que se bajaron (por baja o fusión), con la fuente que lo informó.
+        function renderDrops() {
+            const box = document.getElementById("sec-drops");
+            const lines = DATA.withdrawn.filter((c) => c.withdrawal && isUrl(c.withdrawal.url)).map((c) => {
+                const w = c.withdrawal;
+                const to = w.joins && byId[w.joins] ? " y se suma a la lista de <strong>" + esc(byId[w.joins].name) + "</strong>" : "";
+                const when = shortDate(w.date);
+                return "<p><strong>" + esc(c.name) + "</strong> bajó su candidatura" + to + ". " +
+                    '<a class="source-link" href="' + esc(w.url) + '" target="_blank" rel="noopener noreferrer">Fuente: ' + esc(w.source || "ver la nota") + (when ? " · " + esc(when) : "") + " " + ic("external") + "</a></p>";
+            });
+            box.classList.toggle("hidden", !lines.length);
+            box.innerHTML = lines.join("");
+        }
+
+        function renderNotes() {
+            DATA.candidates.forEach((c) => {
+                const el = document.getElementById("cd-notes-" + c.id);
+                if (!el) return;
+                const notes = newsItems.filter((n) => (n.tags || []).includes(c.id)).slice(0, 4);
+                el.innerHTML = notes.length
+                    ? '<p class="cd-kicker">' + ic("megaphone") + "Últimas notas</p>" + notes.map((n) =>
+                        '<a class="cd-note" href="' + esc(n.url) + '" target="_blank" rel="noopener noreferrer"><strong>' + esc(n.source) + " · " + esc(relativeDay(n.published)) + "</strong> " + esc(n.title) + "</a>").join("")
+                    : "";
+            });
+        }
+
+        function focusCandidate(id) {
+            if (!byId[id]) return;
+            focusId = id;
+            renderGrid();
+            document.getElementById("sec-compare").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+
+        function clearFocus() {
+            focusId = null;
+            renderGrid();
+            document.getElementById("candidates-grid").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+
+        function renderVoteInfo() {
+            const info = DATA.election && DATA.election.info;
+            const section = document.getElementById("sec-vote");
+            const items = info && Array.isArray(info.items) ? info.items.filter((i) => i && i.label && i.text) : [];
+            section.classList.toggle("hidden", !items.length);
+            if (!items.length) return;
+            document.getElementById("vote-body").innerHTML =
+                '<div class="vote-grid">' + items.map((i) => '<div class="vote-item"><strong>' + esc(i.label) + "</strong>" + esc(i.text) + "</div>").join("") + "</div>" +
+                (isUrl(info.url) ? '<p class="vote-src"><a class="source-link" href="' + esc(info.url) + '" target="_blank" rel="noopener noreferrer">Fuente: ' + esc(info.source || "ver la nota") + (info.date ? " · " + esc(shortDate(info.date)) : "") + " " + ic("external") + "</a></p>" : "");
+        }
+
+        function paintCalendar() {
+            const now = new Date();
+            document.getElementById("cal-day").textContent = new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: BA }).format(now).replace(/^./, (ch) => ch.toUpperCase());
+            const election = toDate(DATA.election.date);
+            const line = document.getElementById("comicios-line");
+            const credit = document.getElementById("site-credit");
+            if (!election) { line.textContent = ""; return; }
+            const label = new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "long", timeZone: BA }).format(election);
+            const days = Math.ceil((election.getTime() - now.getTime()) / 86400000);
+            if (days > 1) line.textContent = "Faltan " + days + " días para el " + label;
+            else if (days === 1) line.textContent = "Mañana es el " + label;
+            else if (days === 0) line.textContent = "Hoy es el " + label;
+            else line.textContent = "Elecciones del " + label;
+            if (credit) credit.textContent = "Elecciones de Vélez Sarsfield · " + (DATA.election.long || label);
+        }
+
+        // -------------------------------------------------------------
+        // TEST: preguntas editoriales; las respuestas de cada candidato
+        // salen de sus declaraciones con fuente.
+        // -------------------------------------------------------------
+        function validQuestion(q) {
+            return q && q.id && q.title && Array.isArray(q.options) && q.options.length >= 2 && q.options.every((o) => o && o.id && o.text);
+        }
+
+        // "enabled": false en data/quiz.json apaga el test (la sección, el resultado compartido y el subtítulo).
+        function applyQuizVisibility() {
+            const on = DATA.quiz.enabled && DATA.quiz.questions.length > 0;
+            document.getElementById("sec-quiz").classList.toggle("hidden", !on);
+            document.getElementById("top-sub").textContent = on ? "Candidatos, noticias, sondeos y test del socio" : "Candidatos, noticias y sondeos";
+            if (!on) document.getElementById("shared-result").classList.add("hidden");
+        }
+
+        function setQuizData(payload) {
+            const list = payload && Array.isArray(payload.questions) ? payload.questions.filter(validQuestion) : [];
+            if (!list.length) return false;
+            const signature = JSON.stringify(payload);
+            if (signature === quizSig) return false;
+            const wasOn = DATA.quiz.enabled;
+            quizSig = signature;
+            DATA.quiz = { enabled: payload.enabled !== false, questions: list, minCoverage: Number(payload.minCoverage) > 0 ? Number(payload.minCoverage) : 3 };
+            renderQuizIntro();
+            applyQuizVisibility();
+            if (DATA.quiz.enabled && !wasOn && booted) { restoreQuiz(); showSharedResult(); }
+            return true;
+        }
+
+        function questions() { return DATA.quiz.questions; }
+
+        function renderQuizIntro() {
+            const el = document.getElementById("quiz-intro");
+            if (!el) return;
+            const n = questions().length;
+            el.textContent = n
+                ? "Respondé " + n + " preguntas. Comparamos tus respuestas con lo que cada candidato dijo en público, y cada coincidencia lleva el enlace a su fuente."
+                : "Estamos preparando las preguntas.";
+        }
+
+        function readQuiz() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(QUIZ_KEY) || "null");
+                if (saved && typeof saved.answers === "object" && saved.answers) return saved;
+            } catch (err) { /* sin almacenamiento */ }
+            return null;
+        }
+
+        function writeQuiz() {
+            try { localStorage.setItem(QUIZ_KEY, JSON.stringify({ answers: quizState.answers, done: quizState.done, savedAt: Date.now() })); } catch (err) { /* privado */ }
+        }
+
+        function showQuizScreen(id) {
+            ["quiz-start", "quiz-questions", "quiz-results"].forEach((screen) => document.getElementById(screen).classList.toggle("hidden", screen !== id));
+        }
+
+        function firstOpen() {
+            const idx = questions().findIndex((q) => !(q.id in quizState.answers));
+            return idx === -1 ? questions().length : idx;
+        }
+
+        function startQuiz() {
+            if (!questions().length) { toast("Todavía no hay preguntas cargadas"); return; }
+            quizIndex = firstOpen();
+            if (quizIndex >= questions().length) { quizState.done = true; writeQuiz(); showResults(true); return; }
+            quizState.done = false;
+            showQuizScreen("quiz-questions");
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const qs = questions();
+            const q = qs[quizIndex];
+            document.getElementById("quiz-progress-text").textContent = "PREGUNTA " + (quizIndex + 1) + " DE " + qs.length;
+            document.getElementById("quiz-progress-bar").style.width = ((quizIndex + 1) / qs.length * 100) + "%";
+            document.getElementById("quiz-question-title").textContent = q.title;
+            document.getElementById("quiz-back").style.visibility = quizIndex > 0 ? "visible" : "hidden";
+            const box = document.getElementById("quiz-options");
+            box.innerHTML = "";
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn qz-opt" + (quizState.answers[q.id] === opt.id ? " active" : "");
+                btn.textContent = (index + 1) + ". " + opt.text;
+                btn.onclick = () => answer(q.id, opt.id);
+                box.appendChild(btn);
+            });
+        }
+
+        function answer(qid, optionId) {
+            quizState.answers[qid] = optionId;
+            quizIndex += 1;
+            if (quizIndex >= questions().length) {
+                quizState.done = true;
+                writeQuiz();
+                showResults(true);
+                return;
+            }
+            writeQuiz();
+            showQuestion();
+        }
+
+        function quizSkip() { const q = questions()[quizIndex]; if (q) answer(q.id, SKIP); }
+
+        function quizBack() {
+            if (quizIndex <= 0) return;
+            quizIndex -= 1;
+            showQuestion();
+        }
+
+        function scoreQuiz() {
+            const answered = questions().filter((q) => {
+                const pick = quizState.answers[q.id];
+                return pick && pick !== SKIP && q.options.some((o) => o.id === pick);
+            });
+            const need = DATA.quiz.minCoverage;
+            const rows = DATA.candidates.map((c) => {
+                let sum = 0; let n = 0;
+                const detail = answered.map((q) => {
+                    const pick = quizState.answers[q.id];
+                    const st = c.stances && c.stances[q.id];
+                    if (!st || !isUrl(st.url) || !st.summary) return { q, state: "none" };
+                    const score = (st.supports || []).includes(pick) ? 1 : (st.partial || []).includes(pick) ? 0.5 : 0;
+                    sum += score; n += 1;
+                    return { q, st, state: score === 1 ? "match" : score === 0.5 ? "partial" : "miss" };
+                });
+                return { c, n, total: answered.length, pct: n ? Math.round(sum / n * 100) : null, ranked: n >= need, detail };
+            });
+            rows.sort((a, b) => (b.ranked - a.ranked) || ((b.pct ?? -1) - (a.pct ?? -1)));
+            return { rows, answered: answered.length, need };
+        }
+
+        const STATE_LABEL = { match: "Coincide", partial: "Coincide en parte", miss: "Plantea otra cosa", none: "Sin declaración publicada" };
+        const STATE_ICON = { match: "✔", partial: "≈", miss: "✖", none: "–" };
+
+        function rowHtml(r, top) {
+            const note = r.pct === null
+                ? "Todavía no hay declaraciones publicadas para comparar."
+                : r.ranked
+                    ? "Se compararon " + r.n + " de tus " + r.total + " respuestas con declaraciones suyas."
+                    : "Datos insuficientes: solo " + r.n + " de tus " + r.total + " respuestas se pudieron comparar. No entra en el ranking.";
+            return '<div class="qr-row' + (top ? " qr-top" : "") + (r.ranked ? "" : " qr-weak") + '" style="--c:' + colorOf(r.c) + '">' +
+                '<img class="qr-photo" src="' + esc(photoOf(r.c)) + '" alt=""' + posStyle(r.c) + ">" +
+                '<div><div class="qr-name"><strong>' + esc(r.c.name) + "</strong><span>" + esc(r.c.group || "") + "</span></div>" +
+                '<div class="qr-track"><span style="width:' + (r.ranked ? Math.max(3, r.pct) : 0) + '%"></span></div>' +
+                '<p class="qr-note">' + esc(note) + "</p></div>" +
+                '<div class="qr-pct">' + (r.ranked ? r.pct + "%" : "–") + "</div></div>";
+        }
+
+        function detailHtml(result) {
+            const answered = questions().filter((q) => result.rows.length && result.rows[0].detail.some((d) => d.q.id === q.id));
+            return answered.map((q) => {
+                const pick = q.options.find((o) => o.id === quizState.answers[q.id]);
+                const lines = result.rows.map((r) => {
+                    const d = r.detail.find((x) => x.q.id === q.id);
+                    const dot = '<span class="qd-dot" style="background:' + colorOf(r.c) + '"></span>';
+                    if (!d || d.state === "none") return '<li class="qd-none">' + dot + "<strong>" + esc(shortOf(r.c)) + ":</strong> sin declaración publicada sobre esto.</li>";
+                    return "<li>" + dot + "<strong>" + esc(shortOf(r.c)) + '</strong> <em class="qd-' + d.state + '">' + STATE_ICON[d.state] + " " + STATE_LABEL[d.state] + ".</em> " +
+                        esc(d.st.summary) + ' <a class="source-link" href="' + esc(d.st.url) + '" target="_blank" rel="noopener noreferrer">' + esc(d.st.source || "Fuente") + (d.st.date ? " · " + esc(shortDate(d.st.date)) : "") + " " + ic("external") + "</a></li>";
+                }).join("");
+                return '<div class="qd-q"><h4>' + esc(q.title) + '</h4><p class="qd-pick">Elegiste: ' + esc(pick ? pick.text : "") + "</p><ul>" + lines + "</ul></div>";
+            }).join("");
+        }
+
+        function showResults(save) {
+            showQuizScreen("quiz-results");
+            const result = scoreQuiz();
+            const ranked = result.rows.filter((r) => r.ranked);
+            const bestPct = ranked.length ? ranked[0].pct : null;
+            const winners = ranked.filter((r) => r.pct === bestPct);
+            let headline;
+            if (!result.answered) headline = "Salteaste todas las preguntas, así que no hay nada para comparar.";
+            else if (!ranked.length) headline = "Todavía no hay suficientes declaraciones publicadas para armar un ranking con tus respuestas.";
+            else if (winners.length > 1) headline = "Empate de afinidad: " + winners.map((w) => w.c.name).join(" y ") + " (" + bestPct + "%).";
+            else headline = "Mayor afinidad según lo que dijeron: " + winners[0].c.name + " (" + bestPct + "%).";
+            lastResult = ranked.length ? { w: winners[0].c.id, pct: Object.fromEntries(result.rows.filter((r) => r.pct !== null).map((r) => [r.c.id, r.pct])) } : null;
+            document.getElementById("quiz-results").innerHTML =
+                '<div class="qz-headline">' + ic("trophy") + "<h3>" + esc(headline) + "</h3></div>" +
+                '<div class="qr-list">' + result.rows.map((r) => rowHtml(r, winners.includes(r) && ranked.length > 0)).join("") + "</div>" +
+                '<p class="qz-fine" style="text-align:center;margin-top:12px">Solo cuentan declaraciones públicas con fuente. Si un candidato no habló de un tema, esa pregunta no suma ni resta. Es una guía, no un consejo de voto.</p>' +
+                '<details class="qd"><summary>Ver pregunta por pregunta, con la fuente de cada postura</summary>' + detailHtml(result) + "</details>" +
+                '<div class="qz-actions center">' +
+                '<button type="button" onclick="shareMyResult()" class="btn solid">' + ic("share") + " Compartir mi resultado</button>" +
+                (lastResult ? '<button type="button" onclick="seeWinner()" class="btn">Ver a ' + esc(shortOf(byId[lastResult.w])) + " " + ic("right") + "</button>" : "") +
+                "</div>";
+            if (save) writeQuiz();
+        }
+
+        function seeWinner() { if (lastResult) focusCandidate(lastResult.w); }
+
+        function restoreQuiz() {
+            const saved = readQuiz();
+            const button = document.getElementById("btn-start-quiz");
+            if (!saved) return;
+            quizState = { answers: saved.answers || {}, done: Boolean(saved.done) };
+            if (!questions().length) return;
+            const open = firstOpen();
+            if (open >= questions().length && Object.keys(quizState.answers).length) {
+                quizState.done = true;
+                showResults(false);
+                return;
+            }
+            if (Object.keys(quizState.answers).length) {
+                button.textContent = quizState.done ? "Hay preguntas nuevas · continuar (" + (open + 1) + ")" : "Continuar el test (pregunta " + (open + 1) + ")";
+            }
+        }
+
+        function resetQuiz() {
+            try { localStorage.removeItem(QUIZ_KEY); } catch (err) { /* privado */ }
+            quizState = { answers: {}, done: false };
+            quizIndex = 0;
+            lastResult = null;
+            document.getElementById("btn-start-quiz").textContent = "Comenzar el test";
+            showQuizScreen("quiz-start");
+            document.getElementById("quiz-box").scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        function shareToken(payload) {
+            const json = JSON.stringify(payload);
+            const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+            const url = new URL(location.href);
+            url.hash = "r=" + b64;
+            return url.toString();
+        }
+
+        function readShareToken() {
+            const match = location.hash.match(/r=([A-Za-z0-9_-]+)/);
+            if (!match) return null;
+            try {
+                const b64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
+                const padded = b64 + "=".repeat((4 - (b64.length % 4)) % 4);
+                return JSON.parse(decodeURIComponent(escape(atob(padded))));
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function showSharedResult() {
+            const shared = readShareToken();
+            const box = document.getElementById("shared-result");
+            const other = shared && byId[shared.w];
+            if (!other || !shared.pct) { box.classList.add("hidden"); return; }
+            const pct = Number(shared.pct[shared.w]);
+            const mine = lastResult && byId[lastResult.w];
+            const mineLine = mine ? " El tuyo, en este navegador, sigue siendo " + mine.name + "." : " El tuyo se guarda aparte cuando termines las preguntas.";
+            box.innerHTML = "<strong>Resultado compartido:</strong> " + esc(other.name) + " (" + esc(other.group || "") + ")" + (Number.isFinite(pct) ? ", " + pct + "% de afinidad" : "") + "." + esc(mineLine);
+            box.classList.remove("hidden");
+        }
+
+        async function shareMyResult() {
+            if (!lastResult) { toast("Todavía no hay un resultado para compartir"); return; }
+            const url = shareToken({ v: 2, w: lastResult.w, pct: lastResult.pct });
+            const win = byId[lastResult.w];
+            const text = "Mi afinidad en las elecciones de Vélez 2026: " + win.name + " (" + (win.group || "") + "). Hacé el test: " + url;
+            try {
+                if (navigator.share) { await navigator.share({ title: "Test Elecciones Vélez 2026", text, url }); return; }
+            } catch (err) {
+                if (err && err.name === "AbortError") return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                toast("Enlace copiado. Quien lo abra hace su propio test.");
+            } catch (err) {
+                toast(url);
+            }
+        }
+
+        // -------------------------------------------------------------
+        // PARTIDOS DE VÉLEZ: último resultado, próximo y marcador en vivo.
+        // La base es data/matches.json (la guarda la actualización automática con datos de ESPN).
+        // Mientras hay un partido por empezar o en juego, el navegador consulta el scoreboard público de ESPN.
+        // -------------------------------------------------------------
+        const VELEZ_ID = "21";
+        const ESPN_API = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
+        const MATCH_LIVE_MS = 30000;
+        const MATCH_NEAR_MS = 60000;
+        const MATCH_IDLE_MS = 600000;
+        const matchStore = new Map();
+        const matchMisses = new Map();
+        let matchHtml = "";
+        let matchTimer = null;
+        let matchFails = 0;
+        let matchBusy = false;
+        let matchLast = 0;
+
+        // >>> interpretación de eventos de ESPN: copia exacta en scripts/update-matches.mjs
+        const COMPETITIONS = {
+          "arg.1": "Liga Profesional",
+          "arg.copa": "Copa Argentina",
+          "arg.supercopa": "Supercopa Argentina",
+          "conmebol.libertadores": "Copa Libertadores",
+          "conmebol.sudamericana": "Copa Sudamericana",
+          "conmebol.recopa": "Recopa Sudamericana"
+        };
+
+        // Fases que ESPN escribe en inglés.
+        const ROUNDS = {
+          "round of 64": "32avos de final", "round of 32": "16avos de final", "round of 16": "Octavos de final",
+          "quarterfinals": "Cuartos de final", "quarterfinal": "Cuartos de final", "semifinals": "Semifinal", "semifinal": "Semifinal",
+          "final": "Final", "group stage": "Fase de grupos", "playoffs": "Playoffs"
+        };
+
+        // Esta función se repite igual en velez.html (el navegador interpreta los eventos del scoreboard con la misma lógica).
+        function normalizeEvent(e, fallbackLeague = "") {
+          const comp = e && Array.isArray(e.competitions) ? e.competitions[0] : null;
+          if (!comp || !Array.isArray(comp.competitors) || comp.competitors.length !== 2) return null;
+          const home = comp.competitors.find((c) => c.homeAway === "home");
+          const away = comp.competitors.find((c) => c.homeAway === "away");
+          if (!home || !away || !home.team || !away.team) return null;
+          const status = comp.status || e.status || {};
+          const type = status.type || {};
+          const league = (e.league && e.league.slug) || fallbackLeague || "";
+          const numberOf = (value) => {
+            const raw = value && typeof value === "object" ? (value.value ?? value.displayValue) : value;
+            const n = raw === undefined || raw === null || raw === "" ? NaN : Number(raw);
+            return Number.isFinite(n) ? n : null;
+          };
+          const side = (c) => ({
+            id: String(c.team.id),
+            name: String(c.team.displayName || c.team.name || "").trim(),
+            short: String(c.team.shortDisplayName || c.team.displayName || "").trim(),
+            logo: c.team.logo || (Array.isArray(c.team.logos) && c.team.logos[0] ? c.team.logos[0].href : "") || "",
+            score: numberOf(c.score),
+            shootout: numberOf(c.shootoutScore),
+            winner: c.winner === true
+          });
+          const sides = { home: side(home), away: side(away) };
+          const shootout = sides.home.shootout !== null || sides.away.shootout !== null;
+
+          // Goles (solo el scoreboard los trae). Si hubo definición por penales, sus remates vienen mezclados con los goles: no se listan.
+          const goals = shootout ? [] : (Array.isArray(comp.details) ? comp.details : [])
+            .filter((d) => d && d.scoringPlay === true && d.team)
+            .map((d) => ({
+              team: String(d.team.id),
+              player: String((d.athletesInvolved && d.athletesInvolved[0] && (d.athletesInvolved[0].displayName || d.athletesInvolved[0].shortName)) || "").trim(),
+              clock: String((d.clock && d.clock.displayValue) || "").trim(),
+              penalty: d.penaltyKick === true,
+              ownGoal: d.ownGoal === true
+            }));
+
+          const roundText = String((e.seasonType && e.seasonType.name) || "").replace(/^torneo\s+/i, "").trim();
+          const note = String(comp.altGameNote || (comp.notes && comp.notes[0] && comp.notes[0].headline) || "");
+          const roundKey = (note.split(",").pop() || roundText).trim().toLowerCase();
+          const stage = ROUNDS[roundKey] || (league === "arg.1" ? roundText : (ROUNDS[roundText.toLowerCase()] || ""));
+          const link = (Array.isArray(e.links) ? e.links : []).find((l) => l && /espn\.com\/soccer\/match/i.test(l.href || ""));
+          const date = new Date(e.date || comp.date);
+
+          return {
+            id: String(e.id),
+            league,
+            competition: COMPETITIONS[league] || String((e.league && (e.league.shortName || e.league.name)) || "").replace(/^argentine\s+/i, "") || "",
+            stage,
+            date: Number.isNaN(date.getTime()) ? "" : date.toISOString(),
+            state: type.state || "pre",
+            status: type.name || "",
+            completed: type.completed === true,
+            clock: String(status.displayClock || "").trim(),
+            venue: String((comp.venue && comp.venue.fullName) || "").trim(),
+            url: link ? link.href : "",
+            home: sides.home,
+            away: sides.away,
+            goals
+          };
+        }
+        // <<< fin de la interpretación de eventos de ESPN
+
+        const MATCH_STATUS = {
+            STATUS_FULL_TIME: "Final", STATUS_FINAL: "Final", STATUS_FINAL_AET: "Final (alargue)", STATUS_FINAL_PEN: "Final (penales)",
+            STATUS_HALFTIME: "Entretiempo", STATUS_END_OF_REGULATION: "Fin del tiempo reglamentario", STATUS_SHOOTOUT: "Penales",
+            STATUS_POSTPONED: "Postergado", STATUS_DELAYED: "Demorado", STATUS_RAIN_DELAY: "Demorado", STATUS_SUSPENDED: "Suspendido",
+            STATUS_CANCELED: "Cancelado", STATUS_ABANDONED: "Abandonado", STATUS_FORFEIT: "Por reglamento"
+        };
+        const MATCH_OFF = ["STATUS_POSTPONED", "STATUS_CANCELED", "STATUS_ABANDONED", "STATUS_FORFEIT"];
+
+        function validMatch(m) {
+            return Boolean(m && m.id && m.date && !Number.isNaN(Date.parse(m.date)) && m.home && m.away && m.home.id && m.away.id);
+        }
+
+        function stateRank(m) { return m.state === "post" ? 2 : m.state === "in" ? 1 : 0; }
+
+        // De cada partido se guarda la versión más avanzada (programado < en juego < terminado); con el mismo avance, la más reciente.
+        function mergeMatch(m) {
+            const old = matchStore.get(m.id);
+            if (!old || stateRank(m) > stateRank(old) || (stateRank(m) === stateRank(old) && (m.fetchedAt || 0) >= (old.fetchedAt || 0))) matchStore.set(m.id, m);
+        }
+
+        function setMatches(payload) {
+            if (!payload || typeof payload !== "object") return;
+            const stamp = Date.parse(payload.checkedAt || payload.updated || "") || 0;
+            [payload.last].concat(Array.isArray(payload.upcoming) ? payload.upcoming : []).forEach((m) => {
+                if (validMatch(m)) mergeMatch(Object.assign({}, m, { fetchedAt: stamp }));
+            });
+            renderMatches();
+            if (!matchTimer && !matchBusy) scheduleMatchPoll();
+        }
+
+        function matchView() {
+            const now = Date.now();
+            const all = Array.from(matchStore.values());
+            const byDate = (a, b) => Date.parse(a.date) - Date.parse(b.date);
+            return {
+                live: all.filter((m) => m.state === "in" && now - Date.parse(m.date) < 6 * 3600000).sort(byDate)[0] || null,
+                last: all.filter((m) => m.state === "post" && m.completed).sort(byDate).pop() || null,
+                next: all.filter((m) => m.state === "pre" && Date.parse(m.date) >= now - 4 * 3600000).sort(byDate)[0] || null
+            };
+        }
+
+        function velezSide(m) { return m.home.id === VELEZ_ID ? m.home : m.away; }
+        function teamName(side) {
+            if (side.id === VELEZ_ID) return "Vélez";
+            const raw = String(side.short || side.name || "").replace(/\s*\([^)]*\)\s*/g, " ").replace(/\s+/g, " ").trim();
+            return raw || side.short || side.name;
+        }
+        function crestOf(side) { return side.id === VELEZ_ID ? "img/escudo-velez.svg" : side.logo; }
+
+        function matchTeam(side, mirror) {
+            const crest = crestOf(side) ? '<img class="mt-crest" src="' + esc(crestOf(side)) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">' : "";
+            const name = '<span class="n">' + esc(teamName(side)) + "</span>";
+            return '<span class="mt-team' + (side.id === VELEZ_ID ? " is-velez" : "") + '">' + (mirror ? name + crest : crest + name) + "</span>";
+        }
+
+        function matchDay(iso) {
+            return new Intl.DateTimeFormat("es-AR", { weekday: "short", day: "numeric", month: "short", timeZone: BA }).format(new Date(iso)).replace(/[.,]/g, "");
+        }
+
+        function matchTime(iso) {
+            return new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: BA }).format(new Date(iso));
+        }
+
+        function whenLabel(m) {
+            const kick = Date.parse(m.date);
+            const days = Math.round((new Date(dayKey(new Date(kick))) - new Date(dayKey(new Date()))) / 86400000);
+            if (days > 1) return "en " + days + " días";
+            if (days === 1) return "mañana";
+            const mins = Math.round((kick - Date.now()) / 60000);
+            if (mins <= 0) return "ya comenzó";
+            if (mins >= 180) return "hoy";
+            return "empieza en " + (mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min");
+        }
+
+        function resultChip(m) {
+            const me = velezSide(m);
+            const other = me === m.home ? m.away : m.home;
+            if (me.score === null || other.score === null) return "";
+            let kind = me.score > other.score ? "win" : me.score < other.score ? "loss" : "draw";
+            let text = kind === "win" ? "Victoria" : kind === "loss" ? "Derrota" : "Empate";
+            if (kind === "draw" && me.shootout !== null && other.shootout !== null && me.shootout !== other.shootout) {
+                kind = me.shootout > other.shootout ? "win" : "loss";
+                text = kind === "win" ? "Victoria por penales" : "Derrota por penales";
+            }
+            return '<span class="mt-chip ' + kind + '">' + text + "</span>";
+        }
+
+        function scoreHtml(m) {
+            if (m.state === "pre") return '<span class="mt-vs">vs</span>';
+            const pens = m.home.shootout !== null && m.away.shootout !== null ? "<small>(" + m.home.shootout + "-" + m.away.shootout + " pen.)</small>" : "";
+            return '<span class="mt-score">' + (m.home.score ?? 0) + " – " + (m.away.score ?? 0) + pens + "</span>";
+        }
+
+        function matchRow(m) {
+            return '<div class="mt-teams">' + matchTeam(m.home, false) + scoreHtml(m) + matchTeam(m.away, true) + "</div>";
+        }
+
+        function matchSub(parts) {
+            return '<p class="mt-sub">' + parts.filter(Boolean).map(esc).join(" · ") + "</p>";
+        }
+
+        function goalsLine(m) {
+            if (!Array.isArray(m.goals) || !m.goals.length) return "";
+            const parts = [m.home, m.away].map((side) => {
+                const list = m.goals.filter((g) => g.team === side.id)
+                    .map((g) => (g.player || "Gol") + " " + g.clock + (g.penalty ? " (p)" : "") + (g.ownGoal ? " (en contra)" : ""));
+                return list.length ? "<strong>" + esc(teamName(side)) + ":</strong> " + list.map(esc).join(", ") : "";
+            }).filter(Boolean);
+            return parts.length ? '<p class="mt-goals">' + ic("ball") + " " + parts.join(" · ") + "</p>" : "";
+        }
+
+        function matchSource(m) {
+            return isUrl(m.url)
+                ? '<p class="mt-src"><a class="source-link" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">Fuente: ESPN ' + ic("external") + "</a></p>"
+                : "";
+        }
+
+        function liveColumn(m) {
+            const label = MATCH_STATUS[m.status] || m.clock || "En juego";
+            return '<div class="mt-col"><p class="mt-label live"><span class="mt-dot" aria-hidden="true"></span>En vivo<span class="mt-chip">' + esc(label) + "</span></p>" +
+                matchRow(m) + matchSub([m.competition, m.stage, m.venue]) + goalsLine(m) + matchSource(m) + "</div>";
+        }
+
+        function lastColumn(m) {
+            const extra = m.status === "STATUS_FINAL_AET" ? '<span class="mt-chip">tras alargue</span>' : "";
+            return '<div class="mt-col"><p class="mt-label">Último partido' + resultChip(m) + extra + "</p>" +
+                matchRow(m) + matchSub([m.competition, m.stage, matchDay(m.date), m.venue]) + goalsLine(m) + matchSource(m) + "</div>";
+        }
+
+        function nextColumn(m) {
+            const note = m.status && m.status !== "STATUS_SCHEDULED" ? MATCH_STATUS[m.status] : "";
+            const chip = note ? '<span class="mt-chip loss">' + esc(note) + "</span>" : '<span class="mt-chip">' + esc(whenLabel(m)) + "</span>";
+            const mine = velezSide(m) === m.home ? "Local" : "Visitante";
+            return '<div class="mt-col"><p class="mt-label">Próximo partido' + chip + "</p>" + matchRow(m) +
+                matchSub([m.competition, m.stage, matchDay(m.date) + " · " + matchTime(m.date), m.venue, mine]) + matchSource(m) + "</div>";
+        }
+
+        function renderMatches() {
+            const view = matchView();
+            const cols = [];
+            if (view.live) cols.push(liveColumn(view.live));
+            else if (view.last) cols.push(lastColumn(view.last));
+            if (view.next) cols.push(nextColumn(view.next));
+            const html = cols.join("");
+            const body = document.getElementById("match-body");
+            if (html !== matchHtml) { matchHtml = html; body.innerHTML = html; }
+            body.classList.toggle("one", cols.length === 1);
+            document.getElementById("sec-match").classList.toggle("hidden", !cols.length);
+        }
+
+        // El partido que hay que seguir de cerca: en juego, por empezar (25 minutos antes) o que debería haber terminado y no se confirmó.
+        function matchTracked() {
+            const now = Date.now();
+            return Array.from(matchStore.values()).filter((m) =>
+                m.state !== "post" && m.league && MATCH_OFF.indexOf(m.status) === -1 && (matchMisses.get(m.id) || 0) < 3 &&
+                Date.parse(m.date) - now <= 25 * 60000 && now - Date.parse(m.date) <= 36 * 3600000
+            ).sort((a, b) => Date.parse(a.date) - Date.parse(b.date))[0] || null;
+        }
+
+        function dayCode(date, zone) { return new Intl.DateTimeFormat("en-CA", { timeZone: zone }).format(date).replace(/-/g, ""); }
+
+        async function espnJson(url) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 9000);
+            try {
+                const response = await fetch(url, { cache: "no-store", signal: controller.signal });
+                if (!response.ok) throw new Error(String(response.status));
+                return await response.json();
+            } finally {
+                clearTimeout(timer);
+            }
+        }
+
+        async function pollMatch(m) {
+            const kick = new Date(m.date);
+            for (const day of Array.from(new Set([dayCode(kick, BA), dayCode(kick, "UTC")]))) {
+                const board = await espnJson(ESPN_API + m.league + "/scoreboard?dates=" + day);
+                const found = (board.events || []).find((e) => String(e.id) === m.id);
+                const fresh = found && normalizeEvent(found, m.league);
+                if (!fresh) continue;
+                matchMisses.delete(m.id);
+                mergeMatch(Object.assign({}, m, fresh, {
+                    stage: fresh.stage || m.stage, venue: fresh.venue || m.venue, url: fresh.url || m.url,
+                    competition: fresh.competition || m.competition, fetchedAt: Date.now()
+                }));
+                return;
+            }
+            matchMisses.set(m.id, (matchMisses.get(m.id) || 0) + 1);
+        }
+
+        function scheduleMatchPoll() {
+            clearTimeout(matchTimer);
+            const tracked = matchTracked();
+            let delay;
+            if (tracked) {
+                delay = tracked.state === "in" ? MATCH_LIVE_MS : Date.now() - Date.parse(tracked.date) > 4 * 3600000 ? MATCH_IDLE_MS : MATCH_NEAR_MS;
+            } else {
+                const next = matchView().next;
+                delay = Math.min(1800000, Math.max(30000, next ? Date.parse(next.date) - 25 * 60000 - Date.now() : 1800000));
+            }
+            matchTimer = setTimeout(runMatchPoll, delay * (1 + Math.min(matchFails, 4)));
+        }
+
+        async function runMatchPoll() {
+            if (matchBusy) return;
+            matchBusy = true;
+            clearTimeout(matchTimer);
+            matchTimer = null;
+            try {
+                const tracked = matchTracked();
+                if (tracked && !document.hidden) {
+                    try { await pollMatch(tracked); matchFails = 0; } catch (error) { matchFails += 1; }
+                    matchLast = Date.now();
+                }
+                renderMatches();
+            } finally {
+                matchBusy = false;
+                scheduleMatchPoll();
+            }
+        }
+
+        function initMatches() {
+            document.addEventListener("visibilitychange", () => {
+                if (!document.hidden && Date.now() - matchLast > 10000) runMatchPoll();
+            });
+            setInterval(renderMatches, 30000);
+            runMatchPoll();
+        }
+
+        // -------------------------------------------------------------
+        // NOVEDADES: notas reales, carrusel que avanza solo
+        // -------------------------------------------------------------
+        function newsCard(item) {
+            // Todas las notas llevan una etiqueta (así los títulos quedan alineados): el candidato si la nota es de uno o dos,
+            // y "VÉLEZ" cuando no se puede atribuir a uno en particular (sin candidatos o con tres o más).
+            const people = (item.tags || []).filter((key) => byId[key]);
+            const community = item.kind === "community";
+            const labels = [];
+            if (community) labels.push('<span class="news-tag">Comunidad de hinchas</span>');
+            if (people.length && people.length <= (community ? 1 : 2)) {
+                people.forEach((key) => labels.push('<span class="news-tag" style="--c:' + colorOf(byId[key]) + '">' + esc(shortOf(byId[key])) + "</span>"));
+            }
+            if (!labels.length) labels.push('<span class="news-tag">VÉLEZ</span>');
+            // Foto de la nota (miniatura chica que guarda la actualización automática). Si no carga se quita sola.
+            const photo = /^https:\/\//i.test(item.image || "")
+                ? '<img class="news-thumb" src="' + esc(item.image) + '" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">'
+                : "";
+            return '<a class="news-item" href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer">' +
+                '<span class="news-meta"><strong>' + esc(item.source) + "</strong><span>" + esc(relativeDay(item.published)) + "</span></span>" +
+                '<span class="news-tags">' + labels.join("") + "</span>" +
+                '<span class="news-head"><span class="news-title">' + esc(item.title) + "</span>" + photo + "</span>" +
+                (item.summary ? '<span class="news-summary">' + esc(item.summary) + "</span>" : "") +
+                '<span class="news-open">Leer la nota ' + ic("external") + "</span></a>";
+        }
+
+        function setNews(payload) {
+            lastNews = payload;
+            const items = (payload && Array.isArray(payload.items) ? payload.items : []).filter((item) => item && item.title && isUrl(item.url));
+            const checked = document.getElementById("news-checked");
+            if (checked) checked.textContent = checkedLabel(payload && (payload.checkedAt || payload.updated));
+            renderSources(payload && payload.sources);
+            const signature = items.map((item) => item.url + "\t" + (item.image || "")).join("|");
+            if (signature === newsSignature) return;
+            newsSignature = signature;
+            newsItems = items;
+            const track = document.getElementById("news-track");
+            track.innerHTML = items.length
+                ? items.map(newsCard).join("")
+                : '<p class="feed-empty">Todavía no hay notas nuevas sobre la elección. Se vuelven a buscar solas.</p>';
+            track.scrollLeft = 0;
+            restartNewsProgress();
+            renderNotes();
+        }
+
+        function renderSources(list) {
+            const el = document.getElementById("site-sources");
+            const sources = (Array.isArray(list) ? list : []).filter((s) => s && s.name && isUrl(s.url));
+            el.classList.toggle("hidden", !sources.length);
+            el.innerHTML = sources.length
+                ? "Dónde buscamos: " + sources.map((s) => '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + "</a>").join(" · ")
+                : "";
+        }
+
+        function newsStep() {
+            const track = document.getElementById("news-track");
+            const cards = track.querySelectorAll(".news-item");
+            return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
+        }
+
+        function newsGo(direction) {
+            const track = document.getElementById("news-track");
+            const step = newsStep();
+            const max = track.scrollWidth - track.clientWidth;
+            let target = track.scrollLeft + direction * step;
+            if (direction > 0 && track.scrollLeft >= max - 4) target = 0;
+            else if (direction < 0 && track.scrollLeft <= 4) target = max;
+            track.scrollTo({ left: target, behavior: reduceMotion ? "auto" : "smooth" });
+            restartNewsProgress();
+        }
+
+        function restartNewsProgress() {
+            const bar = document.getElementById("news-bar");
+            if (!bar) return;
+            bar.style.animation = "none";
+            void bar.offsetWidth;
+            if (!reduceMotion && newsItems.length > 1) bar.style.animation = "newsProgress " + NEWS_TICK_MS + "ms linear forwards";
+            clearTimeout(newsTimer);
+            if (reduceMotion || newsItems.length < 2) return;
+            newsTimer = setTimeout(function tick() {
+                if (newsHold || document.hidden) { newsTimer = setTimeout(tick, 600); return; }
+                newsGo(1);
+            }, NEWS_TICK_MS);
+        }
+
+        function initNewsCarousel() {
+            const track = document.getElementById("news-track");
+            const pause = () => { newsHold = true; const bar = document.getElementById("news-bar"); if (bar) bar.style.animationPlayState = "paused"; };
+            const resume = () => { newsHold = false; const bar = document.getElementById("news-bar"); if (bar) bar.style.animationPlayState = "running"; };
+            track.addEventListener("mouseenter", pause);
+            track.addEventListener("mouseleave", resume);
+            track.addEventListener("focusin", pause);
+            track.addEventListener("focusout", resume);
+            track.addEventListener("touchstart", pause, { passive: true });
+            track.addEventListener("touchend", () => setTimeout(resume, 3500), { passive: true });
+            document.getElementById("news-prev").addEventListener("click", () => newsGo(-1));
+            document.getElementById("news-next").addEventListener("click", () => newsGo(1));
+            track.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowRight") { event.preventDefault(); newsGo(1); }
+                if (event.key === "ArrowLeft") { event.preventDefault(); newsGo(-1); }
+            });
+        }
+
+        // -------------------------------------------------------------
+        // SONDEOS: solo encuestas publicadas, cada una con su enlace
+        // -------------------------------------------------------------
+        function pollKeys() { return DATA.candidates.map((c) => c.id).concat("indecisos"); }
+
+        function pollLabel(key) {
+            if (key === "indecisos") return "Indecisos";
+            const c = byId[key];
+            return c ? shortOf(c) + (c.group ? " · " + c.group : "") : key;
+        }
+
+        function pollColor(key) { return key === "indecisos" ? "#9aa9bb" : colorOf(byId[key]); }
+
+        function validPoll(poll) {
+            return poll && poll.pollster && isUrl(poll.url) && poll.results && pollKeys().some((key) => Number.isFinite(Number(poll.results[key])));
+        }
+
+        function pollBars(results) {
+            const rows = pollKeys().filter((key) => Number.isFinite(Number(results[key])));
+            const top = Math.max(1, ...rows.map((key) => Number(results[key])));
+            return rows.map((key) => {
+                const value = Number(results[key]);
+                return '<div class="poll-row"><span class="poll-name">' + esc(pollLabel(key)) + "</span>" +
+                    '<span class="poll-track"><span class="poll-fill" style="background:' + pollColor(key) + ";width:" + Math.max(2, value / top * 100) + '%"></span></span>' +
+                    '<strong class="poll-value">' + (Math.round(value * 10) / 10) + "%</strong></div>";
+            }).join("");
+        }
+
+        function pollCard(poll) {
+            const details = [poll.field, poll.sample].filter(Boolean).map(esc).join(" · ");
+            const host = (() => { try { return new URL(poll.url).hostname.replace(/^www\./, ""); } catch { return "fuente"; } })();
+            return '<article class="poll-card"><div class="poll-card-head"><strong>' + esc(poll.pollster) + "</strong>" +
+                "<span>" + esc(relativeDay(poll.published)) + (details ? " · " + details : "") + "</span></div>" +
+                pollBars(poll.results) +
+                '<a class="poll-link" href="' + esc(poll.url) + '" target="_blank" rel="noopener noreferrer">Ver el sondeo en ' + esc(host) + " " + ic("external") + "</a></article>";
+        }
+
+        function pollAverage(polls) {
+            const out = {};
+            pollKeys().forEach((key) => {
+                const values = polls.map((poll) => Number(poll.results[key])).filter(Number.isFinite);
+                if (values.length === polls.length) out[key] = values.reduce((a, b) => a + b, 0) / values.length;
+            });
+            return out;
+        }
+
+        function setPolls(payload) {
+            lastPolls = payload;
+            const polls = (payload && Array.isArray(payload.polls) ? payload.polls : []).filter(validPoll)
+                .sort((a, b) => new Date(b.published) - new Date(a.published));
+            const mentions = (payload && Array.isArray(payload.mentions) ? payload.mentions : []).filter((item) => item && item.title && isUrl(item.url));
+            const checked = document.getElementById("polls-checked");
+            if (checked) checked.textContent = checkedLabel(payload && (payload.checkedAt || payload.updated));
+            const signature = JSON.stringify([polls, mentions]);
+            if (signature === pollsSignature) return;
+            pollsSignature = signature;
+            let html = "";
+            if (polls.length) {
+                if (polls.length > 1) {
+                    html += '<article class="poll-card poll-avg"><div class="poll-card-head"><strong>Promedio de ' + polls.length + ' sondeos</strong><span>Solo las encuestas de abajo</span></div>' + pollBars(pollAverage(polls)) + "</article>";
+                }
+                html += polls.map(pollCard).join("");
+            } else {
+                html += '<div class="poll-empty">' + ic("search") + "<div><strong>Todavía no se publicó ninguna encuesta sobre esta elección.</strong>" +
+                    "<p>Se buscan sondeos nuevos de forma automática. Cuando aparezca uno con su fuente, se muestra acá con el enlace.</p></div></div>";
+            }
+            if (mentions.length) {
+                html += '<div class="poll-mentions"><h3>Notas que hablan de encuestas</h3>' + mentions.map((item) =>
+                    '<a href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer"><strong>' + esc(item.source) + "</strong> " + esc(item.title) + "</a>").join("") + "</div>";
+            }
+            document.getElementById("polls-body").innerHTML = html;
+        }
+
+        // -------------------------------------------------------------
+        // ACTUALIZACIÓN: todo se vuelve a leer cada minuto
+        // -------------------------------------------------------------
+        async function refreshLive() {
+            if (refreshLock) return;
+            refreshLock = true;
+            let changed = false;
+            try {
+                const [news, polls, candidates, quiz, matches] = await Promise.allSettled([
+                    fetchJson("news.json"), fetchJson("polls.json"), fetchJson("candidates.json"), fetchJson("quiz.json"), fetchJson("matches.json")
+                ]);
+                if (candidates.status === "fulfilled") changed = setCandidates(candidates.value) || changed;
+                if (quiz.status === "fulfilled") setQuizData(quiz.value);
+                if (news.status === "fulfilled") setNews(news.value);
+                if (polls.status === "fulfilled") setPolls(polls.value);
+                if (matches.status === "fulfilled") setMatches(matches.value);
+            } finally {
+                refreshLock = false;
+            }
+            if (changed) toast("Se actualizaron los candidatos o sus posturas");
+        }
+
+        document.addEventListener("click", (event) => {
+            const focus = event.target.closest("[data-focus]");
+            if (focus) { event.stopPropagation(); focusCandidate(focus.dataset.focus); return; }
+            if (event.target.closest("[data-unfocus]")) { clearFocus(); return; }
+            if (event.target.closest("a, button")) return;
+            const card = event.target.closest("[data-card]");
+            if (card) focusCandidate(card.dataset.card);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && focusId) { clearFocus(); return; }
+            if ((event.key === "Enter" || event.key === " ") && event.target.matches && event.target.matches("[data-card]")) {
+                event.preventDefault();
+                focusCandidate(event.target.dataset.card);
+            }
+        });
+
+        window.onload = function () {
+            initNewsCarousel();
+            setCandidates(BOOT.candidates);
+            setQuizData(BOOT.quiz);
+            if (candSig === "") {
+                document.getElementById("candidates-grid").innerHTML = '<p class="card sec feed-empty">Estamos cargando los candidatos. Si no aparecen en unos segundos, recargá la página.</p>';
+            }
+            paintCalendar();
+            setNews(BOOT.news || { items: [] });
+            setPolls(BOOT.polls || { polls: [], mentions: [] });
+            setMatches(BOOT.matches);
+            initMatches();
+            if (DATA.quiz.enabled) { restoreQuiz(); showSharedResult(); }
+            booted = true;
+            window.addEventListener("resize", () => requestAnimationFrame(layoutTopics));
+            if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(document.getElementById("candidates-grid"));
+            refreshLive();
+            setInterval(refreshLive, LIVE_MS);
+        };
+    </script>
 </body>
 </html>

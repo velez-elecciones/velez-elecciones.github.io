@@ -16,6 +16,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { validate } from "./update-data.mjs";
+import { downloadHtml, resolveGoogleNews } from "./lib.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, "data");
@@ -112,49 +113,6 @@ export function articleText(html) {
   return text.slice(0, MAX_TEXT);
 }
 
-// Los enlaces de Google Noticias son redirecciones: se resuelve la nota real para poder leerla y citarla con su medio.
-// Si Google cambia el mecanismo, falla sin romper nada y la nota queda sin leer.
-async function resolveGoogleNews(url) {
-  const id = new URL(url).pathname.split("/").pop();
-  try {
-    const raw = Buffer.from(id.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("latin1");
-    const direct = raw.match(/https?:\/\/[\x21-\x7e]+/);
-    if (direct) return direct[0];
-  } catch { /* se sigue con el otro método */ }
-  const agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
-  const page = await fetch("https://news.google.com/rss/articles/" + id + "?hl=es-419&gl=AR&ceid=AR:es-419", {
-    headers: { "user-agent": agent }, signal: AbortSignal.timeout(15000)
-  });
-  const html = await page.text();
-  const signature = html.match(/data-n-a-sg="([^"]+)"/);
-  const stamp = html.match(/data-n-a-ts="([^"]+)"/);
-  if (!signature || !stamp) throw new Error("Google Noticias no devolvió la firma (" + page.status + ")");
-  const inner = JSON.stringify([
-    "garturlreq",
-    [["es-419", "AR", ["FINANCE_TOP_INDICES", "WEB_TEST_1_0_0"], null, null, 1, 1, "AR:es-419", null, 180, null, null, null, null, null, 0, 1], "es-419", "AR", 1, [2, 4, 8], 1, 1, null, 0, 0, null, 0],
-    id, Number(stamp[1]), signature[1]
-  ]);
-  const response = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded;charset=UTF-8", "user-agent": agent },
-    body: "f.req=" + encodeURIComponent(JSON.stringify([[["Fbv4je", inner, null, "generic"]]])),
-    signal: AbortSignal.timeout(15000)
-  });
-  const found = (await response.text()).match(/garturlres\\",\\"(https?:[^"\\]+)/);
-  if (!found) throw new Error("Google Noticias no devolvió la nota (" + response.status + ")");
-  return JSON.parse('"' + found[1] + '"');
-}
-
-async function download(url) {
-  const response = await fetch(url, {
-    headers: { "user-agent": "Mozilla/5.0 (compatible; VelezElecciones/1.0)", "accept-language": "es-AR,es;q=0.9" },
-    redirect: "follow",
-    signal: AbortSignal.timeout(20000)
-  });
-  if (!response.ok) throw new Error(String(response.status));
-  return response.text();
-}
-
 function buildPrompt(article, text, candidates, topics, questions) {
   const cand = candidates.map((c) => `- ${c.id}: ${c.name} (${(c.aliases || []).join(", ")})`).join("\n");
   const tops = topics.map((t) => `- ${t.id}: ${t.label}`).join("\n");
@@ -183,7 +141,9 @@ REGLAS
 8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
 9. Usá solo el cuerpo de la nota titulada abajo. Ignorá titulares, bajadas y avances de OTRAS notas que aparezcan en el texto (notas relacionadas, "te puede interesar", barras laterales).
 10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
-11. Si la nota no trae nada de esto, devolvé las listas vacías.
+11. En "topic" y "question" usá EXACTAMENTE uno de los ids de las listas de arriba (por ejemplo "finanzas", "futbol", "vinculos"). No inventes temas nuevos: si una declaración no encaja en ninguno, no la incluyas.
+12. Revisá la nota entera. Si un candidato habla de varios temas, devolvé un ítem por tema (hasta 6 por candidato). Una declaración puede venir contada por el periodista ("detalló que…", "planteó…", "reveló…", "aseguró que…"): en ese caso "quote" es esa oración de la nota, copiada igual. Los datos del club que el candidato cita (déficit, ventas, socios) cuentan como lo que dijo, no como hechos tuyos.
+13. Si la nota no trae nada de esto, devolvé las listas vacías.
 
 FORMATO
 {"positions":[{"candidate":"id","topic":"id","summary":"...","quote":"..."}],
@@ -293,10 +253,15 @@ const FACT_TOPICS = new Set(["formula", "perfil", "vinculos"]);
 // Titulares de las demás notas conocidas: una cita que contiene el titular de OTRA nota viene de un recuadro de "relacionadas".
 let KNOWN_HEADLINES = [];
 let CURRENT_TITLE = "";
+// Ids válidos de temas y de preguntas del test: el modelo a veces inventa uno ("socios") y ese ítem no tiene dónde mostrarse.
+let TOPIC_IDS = new Set();
+let QUESTION_IDS = new Set();
 
 // Motivo por el que se descarta una propuesta del modelo ("" si se acepta).
 function whyRejected(kind, p, candidate, haystack) {
   if (!p || !candidate) return "candidato desconocido";
+  if (kind === "postura" && !TOPIC_IDS.has(p.topic)) return "el tema «" + p.topic + "» no existe en la lista";
+  if (kind === "test" && !QUESTION_IDS.has(p.question)) return "la pregunta «" + p.question + "» no existe en el test";
   if (!quoteOk(p.quote, haystack)) return "la cita NO aparece textual en la nota";
   const own = norm(CURRENT_TITLE);
   const quoted = norm(p.quote);
@@ -443,6 +408,8 @@ async function main() {
   const active = () => candidatesPayload.candidates.filter((c) => c.status !== "withdrawn");
   const topics = candidatesPayload.topics;
   const questions = quizPayload.questions;
+  TOPIC_IDS = new Set(topics.map((t) => t.id));
+  QUESTION_IDS = new Set(questions.map((q) => q.id));
   const cited = new Set();
   for (const c of candidatesPayload.candidates) {
     for (const items of Object.values(c.positions || {})) items.forEach((item) => cited.add(item.url));
@@ -497,7 +464,7 @@ async function main() {
           if (/reddit\.com|youtube\.com/.test(hostOf(item.url))) { mark("skipped"); continue; }
           if (!FORCE && cited.has(item.url)) { mark("cited"); continue; }
         }
-        text = articleText(await download(item.url));
+        text = articleText(await downloadHtml(item.url));
       }
     } catch (error) {
       console.warn("No se pudo leer:", item.url, String(error));

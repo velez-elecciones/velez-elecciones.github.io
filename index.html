@@ -199,7 +199,7 @@
             transition: transform .2s ease, box-shadow .2s ease;
         }
         .tc-card { cursor: default; }
-        .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; }
+        .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; position: relative; }
         .cd-photo { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; flex: 0 0 auto; background: #fff; }
         .cd-id { min-width: 0; flex: 1 1 auto; }
         .cd-role { display: inline-block; padding: 1px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
@@ -218,6 +218,13 @@
             text-decoration: none; opacity: .82; white-space: nowrap;
         }
         .cd-all:hover { opacity: 1; }
+        .cd-more {
+            display: none;
+            position: absolute; top: 8px; right: 8px;
+            width: 32px; height: 32px; padding: 0; border: 0; background: none;
+            color: #fff; cursor: pointer;
+        }
+        .cd-more .ic { width: 26px; height: 26px; stroke-width: 1.85; }
         .cd-body { flex: 1 1 auto; padding: 16px 16px 6px; }
         .cd-kicker { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
         .cd-item { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
@@ -427,6 +434,17 @@
             .cd-grid { gap: 10px; grid-template-columns: 1fr 1fr; }
             .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
             .cd-all { display: none; }
+            .tc-card .cd-more { display: grid; place-items: center; }
+            .cd-grid.is-idle .tc-card { background: var(--blue); }
+            .cd-grid.is-idle .tc-card .cd-head {
+                flex: 1; flex-direction: column; align-items: center; justify-content: center;
+                gap: 8px; padding: 14px 12px 16px; text-align: center;
+            }
+            .cd-grid.is-idle .tc-card .cd-photo { width: 78px; height: 78px; border-radius: 16px; }
+            .cd-grid.is-idle .tc-card .cd-role { font-size: 10px; padding: 1px 8px; }
+            .cd-grid.is-idle .tc-card .cd-id { width: 100%; }
+            .cd-grid.is-idle .tc-card .cd-id h3 { font-size: 15px; margin-top: 4px; }
+            .cd-grid.is-idle .tc-card .cd-group { justify-content: center; font-size: 12px; }
             .tc-card .cd-head {
                 flex-direction: column; align-items: flex-start;
                 padding: 10px; gap: 8px;
@@ -486,6 +504,7 @@
         <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
         <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
         <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></symbol>
         <symbol id="i-back" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></symbol>
         <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
         <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
@@ -615,8 +634,9 @@
         let quizSig = "";
         let booted = false;
         const DEFAULT_TOPIC = "formula";
+        const MOBILE_MQ = window.matchMedia("(max-width: 720px)");
         let focusId = null;
-        let topicId = DEFAULT_TOPIC;
+        let topicId = null;
         const seenItems = new Set();
         let newKeys = new Set();
         let refreshLock = false;
@@ -713,7 +733,7 @@
             list.forEach((c) => { byId[c.id] = c; });
             markNewItems(list);
             if (focusId && !byId[focusId]) focusId = null;
-            if (!topicId || !DATA.topics.some((t) => t.id === topicId)) topicId = defaultTopicId();
+            syncTopicId();
             renderTopicBar();
             renderGrid();
             renderDrops();
@@ -785,10 +805,13 @@
             const more = opts.open
                 ? '<button type="button" class="cd-all" data-focus="' + esc(c.id) + '">Ver todas las posturas</button>'
                 : "";
+            const plus = opts.open
+                ? '<button type="button" class="cd-more" data-focus="' + esc(c.id) + '" aria-label="Ver todas las posturas de ' + esc(c.name) + '">' + ic("plus") + "</button>"
+                : "";
             return '<div class="cd-head no-select"><img class="cd-photo" src="' + esc(photoOf(c)) + '" alt="' + esc(c.name) + '"' + posStyle(c) + ">" +
                 '<div class="cd-id"><span class="cd-role">' + esc(c.role || "Candidato") + "</span>" + name +
                 '<p class="cd-group">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : "") + esc(c.group || "") + "</p>" +
-                more + "</div>" + (opts.extra || "") + "</div>";
+                more + "</div>" + plus + (opts.extra || "") + "</div>";
         }
 
         function fullCardHtml(c) {
@@ -808,6 +831,7 @@
             const grid = document.getElementById("candidates-grid");
             const focused = focusId && byId[focusId];
             grid.classList.toggle("is-focus", Boolean(focused));
+            grid.classList.toggle("is-idle", !focused && !topicId);
             document.getElementById("sec-compare").classList.toggle("hidden", !focused);
             document.getElementById("focus-name").textContent = focused ? "Estás viendo todo lo de " + focused.name + " (" + (focused.group || "") + ")" : "";
             if (focused) {
@@ -817,9 +841,9 @@
                 layoutTopics();
                 return;
             }
-            const topic = DATA.topics.find((t) => t.id === topicId) || DATA.topics[0];
+            const topic = topicId && DATA.topics.find((t) => t.id === topicId);
             grid.style.setProperty("--n", String(DATA.candidates.length || 1));
-            grid.innerHTML = topic ? DATA.candidates.map((c) => topicCompareCard(c, topic)).join("") : "";
+            grid.innerHTML = DATA.candidates.map((c) => topicCompareCard(c, topic)).join("");
         }
 
         // Reparte los temas en columnas parejas según el ancho: si entran todos en una fila van todos juntos;
@@ -864,8 +888,15 @@
             });
         }
 
+        function isMobileView() { return MOBILE_MQ.matches; }
+
         function defaultTopicId() {
             return DATA.topics.some((t) => t.id === DEFAULT_TOPIC) ? DEFAULT_TOPIC : ((DATA.topics[0] && DATA.topics[0].id) || null);
+        }
+
+        function syncTopicId() {
+            if (topicId && !DATA.topics.some((t) => t.id === topicId)) topicId = null;
+            if (!isMobileView() && !topicId) topicId = defaultTopicId();
         }
 
         function focusCandidate(id) {
@@ -878,7 +909,7 @@
 
         function clearFocus() {
             focusId = null;
-            if (!topicId) topicId = defaultTopicId();
+            if (!topicId && !isMobileView()) topicId = defaultTopicId();
             renderTopicBar();
             renderGrid();
             document.getElementById("sec-topics").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
@@ -900,6 +931,10 @@
         }
 
         function topicCompareCard(c, topic) {
+            if (!topic) {
+                return '<article class="card cd-card tc-card" style="--c:' + colorOf(c) + '">' +
+                    headHtml(c, { open: true }) + "</article>";
+            }
             const items = sortedItems(c.positions && c.positions[topic.id]);
             const cap = topic.latestOnly ? 1 : Math.min(2, items.length || 1);
             const body = items.length
@@ -911,7 +946,7 @@
 
         function setTopicCompare(id) {
             if (!DATA.topics.some((t) => t.id === id)) return;
-            topicId = id;
+            topicId = (isMobileView() && topicId === id) ? null : id;
             focusId = null;
             renderTopicBar();
             renderGrid();
@@ -1712,6 +1747,13 @@
             if (DATA.quiz.enabled) { restoreQuiz(); showSharedResult(); }
             booted = true;
             window.addEventListener("resize", () => requestAnimationFrame(layoutTopics));
+            const onViewport = () => {
+                const before = topicId;
+                syncTopicId();
+                if (topicId !== before && !focusId) { renderTopicBar(); renderGrid(); }
+            };
+            if (MOBILE_MQ.addEventListener) MOBILE_MQ.addEventListener("change", onViewport);
+            else if (MOBILE_MQ.addListener) MOBILE_MQ.addListener(onViewport);
             if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(document.getElementById("candidates-grid"));
             refreshLive();
             setInterval(refreshLive, LIVE_MS);

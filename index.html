@@ -160,7 +160,7 @@
         .btn.small { padding: 6px 11px; font-size: 13px; }
         .btn.on-blue { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .7); }
         .btn.on-blue:hover { background: rgba(255, 255, 255, .14); }
-        .btn:focus-visible, .cd-card:focus-visible, .cd-mini:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+        .btn:focus-visible, .cd-name:focus-visible, .cd-all:focus-visible, .cd-mini:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
 
         /* Comparación por tema */
         .cmp { padding: 16px 20px; display: grid; gap: 12px; justify-items: center; text-align: center; }
@@ -174,53 +174,60 @@
         .topic-btns {
             display: flex; flex-wrap: nowrap; align-items: stretch;
             width: 100%; gap: 8px;
-            overflow-x: auto;
+            overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
         }
+        .topic-btns::-webkit-scrollbar { display: none; }
         .topic-btns .btn {
             flex: 1 1 0; min-width: 0;
             white-space: nowrap;
         }
-        .topic-btns .btn .ic { width: 1.15em; height: 1.15em; }
-        .topic-cmp {
-            display: grid; gap: 18px;
-            grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
-            align-items: stretch;
-        }
-        .tc-card { cursor: default; }
-        .tc-card .cd-sum { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+        .topic-btns .btn .ic { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
 
         /* Candidaturas que se bajaron */
         .drops { padding: 12px 20px; font-size: 15px; line-height: 1.5; color: var(--muted); }
         .drops p + p { margin-top: 4px; }
         .drops strong { color: var(--ink); }
 
-        /* Candidatos */
-        .cd-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); align-items: stretch; }
+        /* Candidatos: una columna por persona, alineadas al tema elegido arriba */
+        .cd-grid {
+            display: grid; gap: 18px;
+            grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+            align-items: stretch;
+        }
         .cd-card {
             display: flex; flex-direction: column; overflow: hidden;
             transition: transform .2s ease, box-shadow .2s ease;
         }
-        .cd-card:not(.cd-full):not(.tc-card) { cursor: pointer; }
-        @media (hover: hover) {
-            .cd-card:not(.cd-full):not(.tc-card):hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 30, 90, .16); }
-        }
+        .tc-card { cursor: default; }
         .cd-head { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--blue); color: #fff; }
         .cd-photo { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; flex: 0 0 auto; background: #fff; }
         .cd-id { min-width: 0; flex: 1 1 auto; }
         .cd-role { display: inline-block; padding: 1px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
         .cd-id h3 { margin-top: 4px; font-size: 21px; line-height: 1.15; font-weight: 750; }
+        .cd-name {
+            display: inline; margin: 0; padding: 0; border: 0; background: none;
+            color: inherit; font: inherit; font-weight: inherit; cursor: pointer; text-align: left;
+            text-decoration: none;
+        }
+        .cd-name:hover { opacity: .82; }
         .cd-group { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 15px; opacity: .92; }
-        .cd-group img { width: 22px; height: 22px; object-fit: contain; background: #fff; border-radius: 6px; padding: 1px; }
+        .cd-group img { width: 22px; height: 22px; object-fit: contain; background: #fff; border-radius: 6px; padding: 1px; flex: 0 0 auto; }
+        .cd-all {
+            display: block; margin: 7px 0 0; padding: 0; border: 0; background: none;
+            color: inherit; font-size: 13px; font-weight: 650; cursor: pointer; text-align: left;
+            text-decoration: none; opacity: .82; white-space: nowrap;
+        }
+        .cd-all:hover { opacity: 1; }
         .cd-body { flex: 1 1 auto; padding: 16px 16px 6px; }
         .cd-kicker { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
         .cd-item { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
         .cd-item:last-child { border-bottom: 0; margin-bottom: 4px; }
         .cd-item.cd-new { background: #eef5ff; border-radius: 8px; padding: 8px; margin-left: -8px; margin-right: -8px; }
         .cd-sum { font-size: 16px; line-height: 1.45; }
-        .cd-card:not(.cd-full) .cd-topic { margin-bottom: 4px; }
-        .cd-card:not(.cd-full) .cd-sum { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .tc-card .cd-sum { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
         .cd-src { margin-top: 6px; font-size: 14px; line-height: 1.35; color: var(--muted); }
-        a.source-link { color: var(--blue); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+        a.source-link { color: var(--blue); font-weight: 650; text-decoration: none; }
+        a.source-link:hover { color: #0a4cc2; }
         a.source-link .ic { width: .95em; height: .95em; }
         .cd-age { color: #9a6a00; font-weight: 650; }
         .cd-auto { margin-left: 6px; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); }
@@ -385,6 +392,16 @@
         .site-sources a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
         .site-credit { text-align: center; padding: 10px 8px 24px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 
+        @media (max-width: 1080px) {
+            .cd-grid { gap: 14px; grid-template-columns: 1fr 1fr; }
+            .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
+        }
+        @media (max-width: 860px) {
+            .topic-bar { padding: 6px; }
+            .topic-btns { gap: 6px; }
+            .topic-btns .btn { padding: 8px 0; }
+            .topic-lab { display: none; }
+        }
         @media (max-width: 720px) {
             .top { padding: 8px 12px; gap: 6px 8px; }
             .top-crest { width: 32px; height: 38px; padding: 2px; border-radius: 8px; }
@@ -409,33 +426,28 @@
             .feed-checked { display: none; }
             .cd-grid { gap: 10px; grid-template-columns: 1fr 1fr; }
             .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-body,
-            .cd-card:not(.cd-full):not(.tc-card) .cd-foot { display: none; }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-head {
-                flex: 1; flex-direction: column; align-items: center; justify-content: center;
-                gap: 8px; padding: 12px 10px 14px; text-align: center;
+            .cd-all { display: none; }
+            .tc-card .cd-head {
+                flex-direction: column; align-items: flex-start;
+                padding: 10px; gap: 8px;
             }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-photo { width: 86px; height: 86px; border-radius: 16px; }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-role { font-size: 10px; padding: 1px 8px; }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-id h3 {
-                font-size: 15px; margin-top: 5px;
-                display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-            }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-group { font-size: 12px; justify-content: center; margin-top: 3px; }
-            .cd-card:not(.cd-full):not(.tc-card) .cd-group img { width: 16px; height: 16px; }
-            .topic-bar { padding: 6px; }
-            .topic-btns { gap: 6px; }
-            .topic-btns .btn { padding: 8px 0; }
-            .topic-lab { display: none; }
-            .topic-cmp { gap: 10px; grid-template-columns: 1fr 1fr; }
-            .tc-card .cd-head { padding: 10px; gap: 8px; }
-            .tc-card .cd-photo { width: 44px; height: 44px; border-radius: 10px; }
+            .tc-card .cd-photo { width: 48px; height: 48px; border-radius: 10px; }
+            .tc-card .cd-id { width: 100%; }
             .tc-card .cd-role { font-size: 10px; padding: 0 7px; }
-            .tc-card .cd-id h3 { font-size: 14px; margin-top: 2px; }
-            .tc-card .cd-group { font-size: 11.5px; }
+            .tc-card .cd-id h3 {
+                font-size: 15px; margin-top: 3px;
+                overflow-wrap: break-word; word-break: normal;
+            }
+            .tc-card .cd-group {
+                font-size: 12px; min-width: 0;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
             .tc-card .cd-group img { width: 14px; height: 14px; }
-            .tc-card .cd-body { padding: 10px 10px 8px; display: block; }
+            .tc-card .cd-body { padding: 10px 10px 8px; }
             .tc-card .cd-sum { font-size: 13.5px; -webkit-line-clamp: 6; }
+            .tc-card .cd-src { font-size: 12px; }
+            .tc-card .source-link .ic { display: none; }
+            .tc-card .cd-empty { font-size: 13px; margin-bottom: 6px; }
             .cd-full .cd-head { padding: 12px; gap: 10px; }
             .cd-full .cd-photo { width: 64px; height: 64px; }
             .cd-full .cd-id h3 { font-size: 18px; }
@@ -502,6 +514,10 @@
 
         <main class="flow">
 
+            <nav id="sec-topics" class="card topic-bar hidden" aria-label="Comparar por tema">
+                <div id="topic-btns" class="topic-btns"></div>
+            </nav>
+
             <!-- Barra del candidato abierto (solo visible cuando hay uno desplegado) -->
             <section id="sec-compare" class="card cmp hidden">
                 <div id="cmp-focus" class="cmp-focus">
@@ -511,11 +527,6 @@
             </section>
 
             <section class="cd-grid" id="candidates-grid" aria-live="polite"></section>
-
-            <nav id="sec-topics" class="card topic-bar hidden" aria-label="Comparar por tema">
-                <div id="topic-btns" class="topic-btns"></div>
-            </nav>
-            <section id="sec-topic-cmp" class="topic-cmp hidden" aria-live="polite"></section>
 
             <section id="sec-drops" class="card drops hidden" aria-label="Candidaturas que se bajaron"></section>
 
@@ -603,10 +614,9 @@
         let candSig = "";
         let quizSig = "";
         let booted = false;
-        // En la vista general solo se resumen estos temas; al abrir un candidato se ven todos los que tengan fuente.
-        const SUMMARY_TOPICS = ["formula", "perfil", "vinculos"];
+        const DEFAULT_TOPIC = "formula";
         let focusId = null;
-        let topicId = null;
+        let topicId = DEFAULT_TOPIC;
         const seenItems = new Set();
         let newKeys = new Set();
         let refreshLock = false;
@@ -703,10 +713,9 @@
             list.forEach((c) => { byId[c.id] = c; });
             markNewItems(list);
             if (focusId && !byId[focusId]) focusId = null;
-            if (topicId && !DATA.topics.some((t) => t.id === topicId)) topicId = null;
-            renderGrid();
+            if (!topicId || !DATA.topics.some((t) => t.id === topicId)) topicId = defaultTopicId();
             renderTopicBar();
-            renderTopicCompare();
+            renderGrid();
             renderDrops();
             renderVoteInfo();
             paintCalendar();
@@ -760,13 +769,6 @@
                 items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("") + "</section>";
         }
 
-        // Vista general: fórmula, perfil y alianzas, una sola nota por tema.
-        function bodyHtml(c) {
-            const html = SUMMARY_TOPICS.map((id) => DATA.topics.find((t) => t.id === id)).filter(Boolean)
-                .map((topic) => topicBlock(c, topic, 1)).join("");
-            return html || '<p class="cd-empty">Todavía no hay información publicada con fuente sobre ' + esc(shortOf(c)) + ". Se vuelve a buscar sola.</p>";
-        }
-
         function socialHtml(c) {
             return (c.social || []).filter((s) => s && isUrl(s.url)).map((s) => {
                 const host = (() => { try { return new URL(s.url).hostname; } catch { return ""; } })();
@@ -775,18 +777,18 @@
             }).join("");
         }
 
-        function headHtml(c, extra) {
+        function headHtml(c, opts) {
+            opts = opts || {};
+            const name = opts.open
+                ? '<h3><button type="button" class="cd-name" data-focus="' + esc(c.id) + '">' + esc(c.name) + "</button></h3>"
+                : "<h3>" + esc(c.name) + "</h3>";
+            const more = opts.open
+                ? '<button type="button" class="cd-all" data-focus="' + esc(c.id) + '">Ver todas las posturas</button>'
+                : "";
             return '<div class="cd-head no-select"><img class="cd-photo" src="' + esc(photoOf(c)) + '" alt="' + esc(c.name) + '"' + posStyle(c) + ">" +
-                '<div class="cd-id"><span class="cd-role">' + esc(c.role || "Candidato") + "</span><h3>" + esc(c.name) + "</h3>" +
-                '<p class="cd-group">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : "") + esc(c.group || "") + "</p></div>" + (extra || "") + "</div>";
-        }
-
-        function cardHtml(c) {
-            return '<article id="col-' + esc(c.id) + '" class="card cd-card" tabindex="0" data-card="' + esc(c.id) + '" style="--c:' + colorOf(c) + '" aria-label="Ver todo sobre ' + esc(c.name) + '">' +
-                headHtml(c) +
-                '<section class="cd-body" id="cd-body-' + esc(c.id) + '">' + bodyHtml(c) + "</section>" +
-                '<div class="cd-foot no-select"><button type="button" class="btn small" data-focus="' + esc(c.id) + '">Ver todas sus posturas ' + ic("right") + "</button>" +
-                '<span class="cd-social">' + socialHtml(c) + "</span></div></article>";
+                '<div class="cd-id"><span class="cd-role">' + esc(c.role || "Candidato") + "</span>" + name +
+                '<p class="cd-group">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : "") + esc(c.group || "") + "</p>" +
+                more + "</div>" + (opts.extra || "") + "</div>";
         }
 
         function fullCardHtml(c) {
@@ -806,11 +808,18 @@
             const grid = document.getElementById("candidates-grid");
             const focused = focusId && byId[focusId];
             grid.classList.toggle("is-focus", Boolean(focused));
-            grid.innerHTML = focused ? minisHtml(focusId) + fullCardHtml(focused) : DATA.candidates.map(cardHtml).join("");
             document.getElementById("sec-compare").classList.toggle("hidden", !focused);
             document.getElementById("focus-name").textContent = focused ? "Estás viendo todo lo de " + focused.name + " (" + (focused.group || "") + ")" : "";
-            renderNotes();
-            layoutTopics();
+            if (focused) {
+                grid.style.removeProperty("--n");
+                grid.innerHTML = minisHtml(focusId) + fullCardHtml(focused);
+                renderNotes();
+                layoutTopics();
+                return;
+            }
+            const topic = DATA.topics.find((t) => t.id === topicId) || DATA.topics[0];
+            grid.style.setProperty("--n", String(DATA.candidates.length || 1));
+            grid.innerHTML = topic ? DATA.candidates.map((c) => topicCompareCard(c, topic)).join("") : "";
         }
 
         // Reparte los temas en columnas parejas según el ancho: si entran todos en una fila van todos juntos;
@@ -855,30 +864,37 @@
             });
         }
 
+        function defaultTopicId() {
+            return DATA.topics.some((t) => t.id === DEFAULT_TOPIC) ? DEFAULT_TOPIC : ((DATA.topics[0] && DATA.topics[0].id) || null);
+        }
+
         function focusCandidate(id) {
             if (!byId[id]) return;
             focusId = id;
-            topicId = null;
-            renderGrid();
             renderTopicBar();
-            renderTopicCompare();
+            renderGrid();
             document.getElementById("sec-compare").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
         }
 
         function clearFocus() {
             focusId = null;
+            if (!topicId) topicId = defaultTopicId();
+            renderTopicBar();
             renderGrid();
-            document.getElementById("candidates-grid").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+            document.getElementById("sec-topics").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
         }
 
         function renderTopicBar() {
             const bar = document.getElementById("sec-topics");
             const box = document.getElementById("topic-btns");
             const topics = DATA.topics.filter((t) => t && t.id && t.label);
-            bar.classList.toggle("hidden", !topics.length);
+            const open = Boolean(focusId && byId[focusId]);
+            bar.classList.toggle("hidden", !topics.length || open);
+            if (!topics.length) return;
             box.innerHTML = topics.map((t) => {
                 const on = t.id === topicId;
-                return '<button type="button" class="btn small' + (on ? " active" : "") + '" data-topic="' + esc(t.id) + '" aria-pressed="' + on + '" title="' + esc(t.label) + '">' +
+                return '<button type="button" class="btn small' + (on ? " active" : "") + '" data-topic="' + esc(t.id) + '" aria-pressed="' + on + '"' +
+                    (on ? ' aria-current="true"' : "") + ' title="' + esc(t.label) + '">' +
                     ic(t.icon || "user") + '<span class="topic-lab"> ' + esc(t.label) + "</span></button>";
             }).join("");
         }
@@ -890,31 +906,15 @@
                 ? items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("")
                 : '<p class="cd-empty">Todavía no hay una postura publicada con fuente.</p>';
             return '<article class="card cd-card tc-card" style="--c:' + colorOf(c) + '">' +
-                headHtml(c) + '<section class="cd-body">' + body + "</section></article>";
-        }
-
-        function renderTopicCompare() {
-            const box = document.getElementById("sec-topic-cmp");
-            const topic = topicId && DATA.topics.find((t) => t.id === topicId);
-            if (!topic || !DATA.candidates.length) {
-                box.classList.add("hidden");
-                box.innerHTML = "";
-                return;
-            }
-            box.classList.remove("hidden");
-            box.style.setProperty("--n", String(DATA.candidates.length || 1));
-            box.innerHTML = DATA.candidates.map((c) => topicCompareCard(c, topic)).join("");
+                headHtml(c, { open: true }) + '<section class="cd-body">' + body + "</section></article>";
         }
 
         function setTopicCompare(id) {
-            topicId = topicId === id ? null : id;
-            if (topicId && focusId) {
-                focusId = null;
-                renderGrid();
-            }
+            if (!DATA.topics.some((t) => t.id === id)) return;
+            topicId = id;
+            focusId = null;
             renderTopicBar();
-            renderTopicCompare();
-            if (topicId) document.getElementById("sec-topic-cmp").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+            renderGrid();
         }
 
         function renderVoteInfo() {
@@ -1691,18 +1691,10 @@
             const focus = event.target.closest("[data-focus]");
             if (focus) { event.stopPropagation(); focusCandidate(focus.dataset.focus); return; }
             if (event.target.closest("[data-unfocus]")) { clearFocus(); return; }
-            if (event.target.closest("a, button")) return;
-            const card = event.target.closest("[data-card]");
-            if (card) focusCandidate(card.dataset.card);
         });
 
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && topicId) { setTopicCompare(topicId); return; }
-            if (event.key === "Escape" && focusId) { clearFocus(); return; }
-            if ((event.key === "Enter" || event.key === " ") && event.target.matches && event.target.matches("[data-card]")) {
-                event.preventDefault();
-                focusCandidate(event.target.dataset.card);
-            }
+            if (event.key === "Escape" && focusId) clearFocus();
         });
 
         window.onload = function () {

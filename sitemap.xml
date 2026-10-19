@@ -4,4 +4,8 @@
     <loc>https://velezelecciones.com/</loc>
     <changefreq>hourly</changefreq>
   </url>
+  <url>
+    <loc>https://velezelecciones.com/como-funciona.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

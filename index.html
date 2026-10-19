@@ -415,9 +415,18 @@
             opacity: 0; pointer-events: none; transition: opacity .2s ease;
         }
         #toast.show { opacity: 1; }
-        .site-sources { padding: 18px 24px 0; text-align: center; font-size: 13.5px; line-height: 1.7; color: rgba(255, 255, 255, .75); }
-        .site-sources a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-        .site-credit { text-align: center; padding: 10px 8px 24px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+        .site-foot { padding: 8px 24px 24px; text-align: center; }
+        .site-sources { padding: 18px 0 0; text-align: center; font-size: 13.5px; line-height: 1.7; color: rgba(255, 255, 255, .75); }
+        .site-sources a { color: #fff; text-decoration: none; }
+        .site-sources a:hover { color: #fff; }
+        .site-nav { margin-top: 14px; }
+        .site-nav a {
+            color: #fff; font-size: 14px; font-weight: 650;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .4);
+        }
+        .site-nav a:hover { border-bottom-color: #fff; }
+        .site-credit { text-align: center; padding: 10px 8px 0; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 
         @media (max-width: 1080px) {
             .cd-grid { gap: 14px; grid-template-columns: 1fr 1fr; }
@@ -447,6 +456,7 @@
             .hm.live .hm-k { display: flex; max-width: 40%; }
             .hm-line { font-size: 12px; flex: 1 1 auto; min-width: 0; }
             .flow { padding: 12px 12px 4px; gap: 12px; }
+            .site-foot { padding: 8px 12px 20px; }
             .flow > *, #candidates-grid { scroll-margin-top: 72px; }
             .sec, .cmp { padding: 14px; }
             .sec-head h2 { font-size: 17px; }
@@ -631,8 +641,13 @@
 
         </main>
 
-        <p class="site-sources hidden" id="site-sources"></p>
-        <div class="site-credit no-select" id="site-credit">Elecciones de Vélez Sarsfield</div>
+        <footer class="site-foot">
+            <p class="site-sources hidden" id="site-sources"></p>
+            <nav class="site-nav">
+                <a href="como-funciona.html" target="_blank" rel="noopener noreferrer">Cómo funciona el sitio</a>
+            </nav>
+            <div class="site-credit no-select" id="site-credit">Elecciones de Vélez Sarsfield</div>
+        </footer>
     </div>
 
     <div id="toast" role="status" aria-live="polite"></div>

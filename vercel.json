@@ -4,14 +4,38 @@
   "redirects": [
     {
       "source": "/",
+      "has": [{ "type": "host", "value": "www.velezelecciones.com" }],
+      "destination": "https://velezelecciones.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.velezelecciones.com" }],
+      "destination": "https://velezelecciones.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "velezelecciones.vercel.app" }],
+      "destination": "https://velezelecciones.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "velezelecciones.vercel.app" }],
+      "destination": "https://velezelecciones.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
       "has": [{ "type": "host", "value": "velez-elecciones.vercel.app" }],
-      "destination": "https://velezelecciones.vercel.app/",
+      "destination": "https://velezelecciones.com/",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "velez-elecciones.vercel.app" }],
-      "destination": "https://velezelecciones.vercel.app/:path*",
+      "destination": "https://velezelecciones.com/:path*",
       "permanent": true
     }
   ],

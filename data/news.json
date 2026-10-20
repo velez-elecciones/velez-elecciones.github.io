@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-20T19:29:51.686Z",
-  "checkedAt": "2026-10-20T19:29:51.686Z",
+  "updated": "2026-10-20T22:43:52.807Z",
+  "checkedAt": "2026-10-20T22:43:52.807Z",
   "items": [
     {
       "title": "🎙️ Entrevista a FEDERICO BALESTRINI, candidato a PRESIDENTE de #Vélez",
@@ -160,12 +160,23 @@
     },
     {
       "title": "Vélez tras el fallo: pide suspender la Copa Argentina",
-      "summary": "",
+      "summary": "Nelson Pugliese, vicepresidente de Vélez y candidato oficialista para las elecciones de fin de año en el Fortín, anunció que este mismo miércoles el club apelará el fallo del Tribunal de Disciplina ...",
       "url": "https://www.ole.com.ar/velez/velez-nelsonpugliese-copaargentina-tribunaldedisciplina-boca_0_4cLiFLwUQY.html",
       "source": "Olé",
       "published": "2026-09-22T17:20:00.000Z",
-      "tags": [],
+      "tags": [
+        "pugliese"
+      ],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F09%2F22%2FKzn6YkUhR_2000x1500__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
+    {
+      "title": "Tensión en Vélez: la dirigencia pagó los sueldos atrasados, pero evalúa sancionar al plantel",
+      "summary": "La comisión directiva saldó los haberes de agosto tras la protesta de los futbolistas antes de jugar con Tigre. Sin embargo, se analiza un castigo económico. El clima en Liniers está lejos de calmarse ...",
+      "url": "https://www.minutouno.com/deportes/tension-velez-la-dirigencia-pago-los-sueldos-atrasados-pero-evalua-sancionar-al-plantel-n6325427",
+      "source": "Minuto Uno",
+      "published": "2026-09-22T14:08:00.000Z",
+      "tags": [],
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fmedia.minutouno.com%2Fp%2Fdf95def5d2b3b1c107f855df2a637a0a%2Fadjuntos%2F150%2Fimagenes%2F041%2F367%2F0041367779%2Festadio-jose-amalfitani-cancha-velezjpg.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
       "title": "Junta Electoral 2026",
@@ -175,15 +186,6 @@
       "published": "2026-09-22T07:00:00.000Z",
       "tags": [],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fvelez.com.ar%2Fimg%2Fnoticias%2F26%2F09-22-elecciones.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "Tras la protesta por falta de pago, la dirigencia de Vélez abonó sueldos y evaluará sanciones para algunos jugadores",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxNNUJyYjNYUHpIZm14YjRjQlNSTjUtYlY4STdSR2VKWXptalJKU29iZS1pLWJuREE3aU5fWFQtTmVRX01xV2ZLNW52LWxKczZYMFVNeUdXdHl5T2tvQXBPWGlZcGVCSUhMTEpLS1FrWXVWaURCV2NITUhERjNERDJhVzBTa1ExNUFONnQzYUZXM3NGQmpnUnlxOTd3MzFGYk81dGFUdml2TTJxWHZEenJWSHlUaU83QVRBQUxzbTlOZ2JWdE8wQUhnX0t1SU5ZZEhrSnZOWEFSb21KcmR6SHRrclE5Q2h1RmtuaWczMTlfSXBUTTVyMjgzS0VqYmhNU1BIRWNob1ZEemJkbjc5RlHSAZwCQVVfeXFMTjh1MDdFYi1pckM4bEZvOWg2eVNEeUl6UkpTLWpWbHRVQWV6OXNMOTR4NmRPamRHOUlKT3Bwd0ZTUkhqblNKYklOcS0xajliT0JXUjJuN3JSUkU1bFlzMEpKM0owT3hYT0NwM1BIQVFSX2lJaTd2bG1kckJtd0xwMkRJV3dDOUJ3VjBXZlo4bGowZm9nWGZud1JKTmJhUGwzMFhyZ1k1S3paYVE0QkhkMkR3Qkt6STZCb1dkRjNFN1dZTTByZ0d3MXFselkwTVJPQkppLXo2SXNYWk43aEFGbWFjdFl0VW10aXRqbGR6VE1vRjFYYW0yVHBYTEdZbjlBcXZFLWJOZ1VVNXNmZk5MZWNBRDZtMDhJa1NJUHQ?oc=5",
-      "source": "Doble Amarilla",
-      "published": "2026-09-22T07:00:00.000Z",
-      "tags": [],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-app.tadevel-cdn.com%2Fhostname%2Fwww.dobleamarilla.com.ar%2Fapi%2Fv1%2Fimage%2Farticle%2F6ab27a65d43fe7d685f0f2eb%2Ffacebook%3Fv%3Dc612a548ab336752a38a7c5b43f5a4d3%26s%3D62288e93bba5a9491e772e1f2b65df48&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

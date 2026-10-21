@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-18T23:55:53.829Z",
-  "checkedAt": "2026-10-21T05:59:16.483Z",
+  "updated": "2026-10-21T11:41:48.207Z",
+  "checkedAt": "2026-10-21T11:41:48.207Z",
   "source": "ESPN",
   "team": {
     "id": "21",
@@ -57,7 +57,7 @@
       "status": "STATUS_SCHEDULED",
       "completed": false,
       "clock": "0'",
-      "venue": "Alfredo Terrera",
+      "venue": "'Estadio Único Madre de Ciudades",
       "url": "https://www.espn.com/soccer/match/_/gameId/401841639/velez-sarsfield-central-cordoba-santiago-del-estero",
       "home": {
         "id": "11989",

@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-22T01:58:03.580Z",
-  "checkedAt": "2026-10-22T01:58:03.580Z",
+  "updated": "2026-10-22T07:29:57.022Z",
+  "checkedAt": "2026-10-22T07:29:57.022Z",
   "items": [
     {
       "title": "🎙️ Entrevista a FEDERICO BALESTRINI, candidato a PRESIDENTE de #Vélez",
@@ -162,12 +162,23 @@
     },
     {
       "title": "La interna de Vélez: Christian Bragarnik aclaró su supuesta participación en la protesta de los jugadores contra la dirigencia",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxObzBsbEJaY1JJbWcyZkM2YlNFM1FpbHRIUHZIemlWd2pWN3lfYl95ZHo2a1ZRR3J6WTh1U0t1ZFpQY3Nud3hKU0tkTWoyWml5VUpmVVRXVE1GRHk2M3QxczdWRDR1SkxEdmoyejh1alVGMTBuZ0tRZ1BTU2dJYmd0dVNJdUZScXR6UTBHSEszNWk1TUFhVHNmVUFMNG5vYnNONmZmb3hDd2Z0eHkxdkZxQWZNXzNxN3ctWkxqdmlna3JnRjRVdWxldHpSNWhubmN0UW0wQ2JBLTlLZkZpMTNKRmN3NTA3N2VoeW5WNm5JQQ?oc=5",
-      "source": "ElSello.Info",
-      "published": "2026-09-24T01:57:36.000Z",
+      "summary": "El presente deportivo contrasta con la situación institucional. Vélez es protagonista en el Torneo Clausura y en la Tabla Anual, pero internamente está agitado. El avenimiento de las elecciones partió ...",
+      "url": "https://www.clarin.com/deportes/interna-velez-christian-bragarnik-aclaro-supuesta-participacion-protesta-jugadores-dirigencia_0_jpXSkP6seN.html",
+      "source": "Clarín",
+      "published": "2026-09-23T17:19:00.000Z",
       "tags": [],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.clarin.com%2Fimg%2F2019%2F02%2F21%2F5CHiSgSez_1256x620__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
+    {
+      "title": "Vélez tras el fallo: pide suspender la Copa Argentina",
+      "summary": "Nelson Pugliese, vicepresidente de Vélez y candidato oficialista para las elecciones de fin de año en el Fortín, anunció que este mismo miércoles el club apelará el fallo del Tribunal de Disciplina ...",
+      "url": "https://www.ole.com.ar/velez/velez-nelsonpugliese-copaargentina-tribunaldedisciplina-boca_0_4cLiFLwUQY.html",
+      "source": "Olé",
+      "published": "2026-09-22T17:20:00.000Z",
+      "tags": [
+        "pugliese"
+      ],
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F09%2F22%2FKzn6YkUhR_2000x1500__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
       "title": "Tensión en Vélez: la dirigencia pagó los sueldos atrasados, pero evalúa sancionar al plantel",
@@ -177,15 +188,6 @@
       "published": "2026-09-22T14:08:00.000Z",
       "tags": [],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fmedia.minutouno.com%2Fp%2Fdf95def5d2b3b1c107f855df2a637a0a%2Fadjuntos%2F150%2Fimagenes%2F041%2F367%2F0041367779%2Festadio-jose-amalfitani-cancha-velezjpg.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "Junta Electoral 2026",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5VQ1BYOTdVTUxpeF94YU5ZLTV6ZXpISzZTT0VmZXJRTVRycjNUZlE5RzJZVmQwaGRxWXY5RFZveGJoWFBkWmlyMTFEYU9ucHlQRjJPbU9wWm4wSFZzUF95aTRQSjg5cWplTEJRT0phd294NkpFVWhOZ2Fn?oc=5",
-      "source": "Sitio oficial de Vélez",
-      "published": "2026-09-22T07:00:00.000Z",
-      "tags": [],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fvelez.com.ar%2Fimg%2Fnoticias%2F26%2F09-22-elecciones.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

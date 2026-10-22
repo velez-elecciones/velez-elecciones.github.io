@@ -6,6 +6,11 @@
     <changefreq>hourly</changefreq>
   </url>
   <url>
+    <loc>https://velezelecciones.com/red.html</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://velezelecciones.com/como-funciona.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>

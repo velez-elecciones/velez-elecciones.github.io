@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red neuronal de candidatos · Elecciones Vélez 2026</title>
+    <script>
+        if (/\.github\.io$/i.test(location.hostname)) {
+            location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
+        }
+    </script>
+    <link rel="canonical" href="https://velezelecciones.com/red.html">
+    <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Las palabras que más se repiten en las notas de los candidatos a las elecciones de Vélez 2026, y de qué nota sale cada una.">
+    <meta property="og:title" content="Red neuronal de candidatos · Elecciones Vélez 2026">
+    <meta property="og:description" content="Las palabras que más se repiten en las notas de cada candidato, y la fuente de cada una.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:site_name" content="Elecciones Vélez 2026">
+    <meta property="og:url" content="https://velezelecciones.com/red.html">
+    <meta property="og:image" content="https://velezelecciones.com/img/preview.png?v=2">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Red neuronal de candidatos · Elecciones Vélez 2026">
+    <meta name="twitter:description" content="Las palabras que más se repiten en las notas de cada candidato, y la fuente de cada una.">
+    <meta name="theme-color" content="#003da5">
+    <style>
+        :root {
+            --blue: #003da5;
+            --ink: #10203a;
+            --muted: #5a6b85;
+            --line: rgba(0, 61, 165, .12);
+            --paper: #ffffff;
+            --wash: #f3f7fc;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+            background-color: #001433;
+            background-image:
+                linear-gradient(180deg, rgba(0, 28, 92, .62), rgba(0, 16, 58, .78)),
+                url("img/fondo-amalfitani.jpg");
+            background-size: auto, cover;
+            background-position: center, center top;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, p { margin: 0; }
+        button { font: inherit; }
+        .page { min-height: 100vh; display: flex; flex-direction: column; }
+        .top {
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; gap: 10px 16px;
+            padding: 12px 24px;
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 12, 40, .28);
+        }
+        .top a { color: #fff; }
+        .top-crest { width: 48px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title h1 { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 13.5px; opacity: .85; }
+        .intro {
+            margin: 0;
+            padding: 14px 24px 12px;
+            color: rgba(255, 255, 255, .9);
+            font-size: 14.5px;
+            line-height: 1.45;
+            max-width: 920px;
+        }
+        .workspace {
+            flex: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 14px;
+            padding: 0 20px 18px;
+            min-height: 0;
+        }
+        .stage {
+            position: relative;
+            min-height: 560px;
+            height: calc(100vh - 168px);
+            background:
+                radial-gradient(circle at 50% 46%, rgba(0, 61, 165, .06), transparent 62%),
+                var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 30, 90, .08);
+            overflow: hidden;
+        }
+        #wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+        .link {
+            fill: none;
+            stroke-linecap: round;
+            stroke-width: 1.35;
+            opacity: .42;
+            stroke-dasharray: 1.6 7;
+            animation: flow 7s linear infinite;
+        }
+        .stage.is-hot .link { opacity: .1; }
+        .stage.is-hot .link.is-on { opacity: .95; stroke-width: 2.3; stroke-dasharray: none; animation: none; }
+        @keyframes flow { to { stroke-dashoffset: -34; } }
+        .node {
+            position: absolute;
+            left: 0; top: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+            transform-origin: center;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .node:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+        .stage.is-hot .node { opacity: .22; }
+        .stage.is-hot .node.is-on { opacity: 1; }
+        .node.cand {
+            width: max-content;
+            min-width: 84px;
+            max-width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 2;
+        }
+        .node.cand img, .node.cand .fallback {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--c);
+            background: #fff;
+            box-shadow: 0 6px 16px rgba(0, 30, 90, .12);
+        }
+        .node.cand .fallback {
+            display: grid; place-items: center;
+            font-size: 22px; font-weight: 800; color: var(--c);
+        }
+        .node.cand span {
+            max-width: 110px;
+            font-size: 12px; font-weight: 800; letter-spacing: .04em;
+            text-transform: uppercase; color: var(--c); line-height: 1.15;
+        }
+        .node.word {
+            z-index: 3;
+            padding: 4px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 61, 165, .2);
+            background: var(--wash);
+            font-weight: 750;
+            line-height: 1.2;
+            white-space: nowrap;
+            color: var(--ink);
+        }
+        .node.word.is-on {
+            background: #fff;
+            border-color: var(--c, var(--blue));
+            box-shadow: 0 8px 18px rgba(0, 40, 110, .14);
+        }
+        .notes {
+            min-height: 0;
+            max-height: calc(100vh - 168px);
+            display: flex;
+            flex-direction: column;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 30, 90, .08);
+            padding: 14px 14px 8px;
+        }
+        .notes-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+        .notes-head h2 {
+            flex: 1;
+            font-size: 16px; font-weight: 800; color: var(--blue);
+            letter-spacing: .03em; text-transform: uppercase;
+        }
+        .notes-close {
+            border: 0; background: transparent; color: var(--muted);
+            font-weight: 650; cursor: pointer; padding: 4px 2px;
+        }
+        .notes-close:hover { color: var(--blue); }
+        .notes-body { overflow: auto; padding-top: 10px; }
+        .notes-empty { color: var(--muted); font-size: 14.5px; }
+        .notes-meta { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+        .note {
+            padding: 10px 0;
+            border-top: 1px solid var(--line);
+        }
+        .note:first-of-type { border-top: 0; padding-top: 0; }
+        .note-who { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; font-weight: 700; color: var(--blue); }
+        .note-who i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .note-ex { margin-top: 4px; font-size: 14.5px; }
+        .note-ex mark { background: rgba(0, 61, 165, .12); color: inherit; font-weight: 750; padding: 0 2px; border-radius: 3px; }
+        .note a { display: inline-block; margin-top: 4px; color: var(--blue); font-size: 13.5px; font-weight: 700; }
+        .note a:hover { color: #0a4cc2; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .chips button {
+            border: 1px solid rgba(0, 61, 165, .22);
+            background: var(--wash);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--ink);
+        }
+        .chips button:hover { border-color: var(--blue); color: var(--blue); }
+        .back {
+            display: inline-block;
+            margin: 0 24px 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 650;
+            border-bottom: 1px solid rgba(255, 255, 255, .4);
+        }
+        .back:hover { border-bottom-color: #fff; }
+        .site-credit {
+            text-align: center;
+            padding: 8px 8px 22px;
+            color: rgba(255, 255, 255, .75);
+            font-size: 13px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+        .stage-empty {
+            position: absolute; inset: 0;
+            display: grid; place-items: center;
+            padding: 24px; text-align: center; color: var(--muted);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .link { animation: none; }
+        }
+        @media (max-width: 860px) {
+            .top { padding: 8px 12px; }
+            .top-crest { width: 32px; height: 38px; padding: 2px; border-radius: 8px; }
+            .top-title h1 { font-size: 14px; }
+            .top-title p { display: none; }
+            .intro { padding: 12px 14px 10px; font-size: 13.5px; }
+            .workspace { grid-template-columns: 1fr; padding: 0 12px 12px; }
+            .stage { height: 72vh; min-height: 480px; }
+            .notes { max-height: none; }
+            .back { margin-left: 14px; }
+            .node.cand img, .node.cand .fallback { width: 46px; height: 46px; border-width: 2px; }
+            .node.cand span { font-size: 10px; }
+            .node.word { padding: 2px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="top">
+            <a href="./"><img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield"></a>
+            <div class="top-title">
+                <h1><a href="./">Elecciones Vélez 2026</a></h1>
+                <p>Red neuronal de candidatos</p>
+            </div>
+        </header>
+        <p class="intro">Palabras que más se repiten en las notas de cada candidato, sin conectores. Quedan los temas de la campaña y los nombres que aparecen en esas notas. Pasá el mouse y hacé clic para ver la fuente.</p>
+        <div class="workspace">
+            <div id="stage" class="stage" aria-label="Red neuronal de candidatos">
+                <svg id="wires" aria-hidden="true"></svg>
+            </div>
+            <aside id="notes" class="notes">
+                <div class="notes-head">
+                    <h2 id="notes-title">Notas</h2>
+                    <button type="button" id="notes-close" class="notes-close" hidden>Cerrar</button>
+                </div>
+                <div id="notes-body" class="notes-body">
+                    <p class="notes-empty">Elegí una palabra para ver de qué notas sale.</p>
+                </div>
+            </aside>
+        </div>
+        <a class="back" href="./">Volver a la portada</a>
+        <p class="site-credit">Elecciones de Vélez Sarsfield</p>
+    </div>
+    <noscript><p>Esta vista necesita el navegador para armar la red a partir de las notas.</p></noscript>
+    <script src="data/live.js"></script>
+    <script>
+        const BA = "America/Argentina/Buenos_Aires";
+        const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const stage = document.getElementById("stage");
+        const svg = document.getElementById("wires");
+        const notesTitle = document.getElementById("notes-title");
+        const notesBody = document.getElementById("notes-body");
+        const notesClose = document.getElementById("notes-close");
+
+        const STOP = new Set(("a al algo alguna algunas alguno algunos ante bajo bien cada como con contra cual cuales cuando de del desde donde durante e el ella ellas ellos en entre era eran es esa esas ese esos eso esta estan estas este estos fue fueron ha han hay hasta hacia la las le les lo los mas me mi mis mucho muy ni no nos o os para pero poco por porque pues que se segun sin sobre son su sus tan tanto te tu tus un una unas unos y ya tambien solo solamente aun incluso asi aqui ahi alli hoy ahora despues antes siempre nunca menos parte forma manera vez veces ser estar haber tener hacer poder decir dijo dice quiere queremos puedo puede pueden creo creemos pienso piensa vamos van va voy ir hace tiene habia esto aquello candidate club velez candidato candidatos presidente vicepresidente elecciones eleccion electoral nota fuente general nuevo nueva nuevos tres dos uno nombre nombres plan sistema modelo actual cerca personas generar quiere anos ano mil us dolar dolares millones puntos chances dia dias otro quienes " +
+            "impulsa alejo quita estamos mano vender unidas tras suma serian reune propone llega iran fuerzas espacio levantar torcio todos sistematica siguiente real perfecto necesidad grande distinto demas debatir combo camino vuelve sera postulantes pidio cuatro octubre noviembre enero febrero marzo abril mayo junio julio agosto septiembre diciembre abogado oficial ruptura presento plantea newsdigitales ballestrini tribuna ole infobae clarin tyc cemba minuto amarilla").split(/\s+/));
+        const THEME = new Set("oficialismo oposicion agrupacion agrupaciones primero legado fortin circulo renovadora cruzada velezana unidad adn socios socio hinchas hincha amalfitani futbol afa sad estadio naming obras infraestructura gestion armado acuerdos acuerdo sello deficit ingresos deuda cobranzas morosidad balance asamblea memoria profesional amateur clubes participacion puertas abiertas renovacion experiencia juventud asociacion civil sociedades debate construir compartir conveniencia opositores excandidatos berlanga gamez bragarnik aimaro rado".split(/\s+/));
+        const GIVEN = new Set("fabian raul christian gaston lalo jose augusto nelson federico ignacio juan cruz".split(/\s+/));
+        const SHORT_OK = new Set(["sad", "afa", "adn"]);
+
+        let cloud = [];
+        let pieces = [];
+        let candById = {};
+        let wordById = new Map();
+        let nodes = [];
+        let links = [];
+        let hover = null;
+        let lock = null;
+        let builtSig = "";
+        let resizeTimer = 0;
+
+        function fold(value) {
+            return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+        function esc(value) {
+            return String(value || "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+        function wordRe(key) {
+            const accent = { a: "[aá]", e: "[eé]", i: "[ií]", o: "[oó]", u: "[uúü]", n: "[nñ]" };
+            const body = [...key].map((ch) => accent[ch] || ch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("");
+            return new RegExp("(^|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ])(" + body + ")(?![A-Za-zÁÉÍÓÚÜÑáéíóúüñ])", "i");
+        }
+        function tokens(text) {
+            return String(text || "").match(/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9]+/g) || [];
+        }
+        function shortDate(value) {
+            const date = value ? new Date(value) : null;
+            if (!date || Number.isNaN(date.getTime())) return "";
+            return new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "short", year: "numeric", timeZone: BA }).format(date).replace(/\./g, "");
+        }
+        function cap() {
+            return stage.clientWidth < 700 ? 12 : 24;
+        }
+
+        function collect(payload, news) {
+            const active = ((payload && payload.candidates) || []).filter((c) => c && c.status === "active" && c.id && c.name);
+            const names = new Set(STOP);
+            active.forEach((c) => {
+                tokens(c.name + " " + (c.short || "")).forEach((part) => {
+                    const key = fold(part);
+                    if (key.length >= 3) names.add(key);
+                });
+            });
+            names.add("mazitelli");
+            names.add("ballestrini");
+            const list = [];
+            const seen = new Set();
+            function push(piece) {
+                const text = String(piece.text || "").trim();
+                if (!text) return;
+                const key = piece.cid + "|" + (piece.url || "") + "|" + (piece.quote ? "q" : "s") + "|" + text.toLowerCase().slice(0, 160);
+                if (seen.has(key)) return;
+                seen.add(key);
+                piece.text = text;
+                list.push(piece);
+            }
+            active.forEach((c) => {
+                Object.values(c.positions || {}).forEach((items) => {
+                    (items || []).forEach((item) => {
+                        if (!item) return;
+                        if (item.quote) push({ cid: c.id, text: item.quote, url: item.url, date: item.date, source: item.source, quote: true });
+                        if (item.summary) push({ cid: c.id, text: item.summary, url: item.url, date: item.date, source: item.source, quote: false });
+                    });
+                });
+            });
+            const ids = new Set(active.map((c) => c.id));
+            ((news && news.items) || []).forEach((item) => {
+                const text = [item.title, item.summary].filter(Boolean).join(". ");
+                (item.tags || []).forEach((tag) => {
+                    if (!ids.has(tag)) return;
+                    push({ cid: tag, text: text, url: item.url, date: item.published, source: item.source, quote: false });
+                });
+            });
+            return { active, pieces: list, names };
+        }
+
+        function rankWords(active, list, names) {
+            const stats = new Map();
+            list.forEach((piece) => {
+                const seen = new Set();
+                tokens(piece.text).forEach((raw) => {
+                    const key = fold(raw);
+                    if (seen.has(key) || names.has(key) || GIVEN.has(key)) return;
+                    if (key.length < 4 && !SHORT_OK.has(key)) return;
+                    if (/^\d+$/.test(key)) return;
+                    seen.add(key);
+                    let row = stats.get(key);
+                    if (!row) {
+                        row = { key: key, df: 0, quoteDf: 0, cands: new Set(), forms: new Map(), caps: 0, total: 0 };
+                        stats.set(key, row);
+                    }
+                    row.df += 1;
+                    row.total += 1;
+                    if (/^[A-ZÁÉÍÓÚÜÑ]/.test(raw)) row.caps += 1;
+                    if (piece.quote) row.quoteDf += 1;
+                    row.cands.add(piece.cid);
+                    row.forms.set(raw, (row.forms.get(raw) || 0) + 1);
+                });
+            });
+            const ranked = [];
+            [...stats.keys()].forEach((key) => {
+                if (!stats.has(key)) return;
+                const stem = key.endsWith("es") && key.length > 5 ? key.slice(0, -2) : (key.endsWith("s") && key.length > 4 ? key.slice(0, -1) : "");
+                if (!stem || stem === key || !stats.has(stem)) return;
+                const plural = stats.get(key);
+                const singular = stats.get(stem);
+                singular.df += plural.df;
+                singular.quoteDf += plural.quoteDf;
+                singular.caps += plural.caps;
+                singular.total += plural.total;
+                plural.cands.forEach((id) => singular.cands.add(id));
+                plural.forms.forEach((count, form) => singular.forms.set(form, (singular.forms.get(form) || 0) + count));
+                singular.aliases = [...new Set([...(singular.aliases || [stem]), key])];
+                stats.delete(key);
+            });
+            stats.forEach((row) => {
+                if (row.df < 2) return;
+                const proper = row.total >= 2 && row.caps / row.total >= 0.6;
+                const quoted = row.quoteDf >= 2 && row.key.length >= 6;
+                if (!THEME.has(row.key) && !proper && !quoted) return;
+                if (!THEME.has(row.key) && proper && STOP.has(row.key)) return;
+                let score = row.df * 2 + row.quoteDf * 2;
+                if (row.cands.size >= 2) score += 3;
+                if (THEME.has(row.key)) score += 4;
+                if (proper && !GIVEN.has(row.key)) score += 2;
+                row.score = score;
+                row.proper = proper;
+                ranked.push(row);
+            });
+            ranked.sort((a, b) => b.score - a.score || b.df - a.df || a.key.localeCompare(b.key));
+            const picked = ranked.slice(0, 24);
+            const present = new Set();
+            picked.forEach((row) => row.cands.forEach((id) => present.add(id)));
+            active.forEach((c) => {
+                if (present.has(c.id)) return;
+                const extra = ranked.find((row) => row.cands.has(c.id) && !picked.includes(row));
+                if (extra) picked.push(extra);
+            });
+            return picked.map((row) => ({
+                id: row.key,
+                label: labelOf(row),
+                score: row.score,
+                df: row.df,
+                cands: [...row.cands],
+                aliases: row.aliases || [row.key],
+                color: row.cands.size === 1 ? (candById[[...row.cands][0]] || {}).color || "#003da5" : "#003da5"
+            }));
+        }
+
+        function labelOf(row) {
+            if (SHORT_OK.has(row.key)) return row.key.toUpperCase();
+            const ranked = [...row.forms.entries()].sort((a, b) => b[1] - a[1]);
+            const top = ranked[0][0];
+            if (row.caps / row.total >= 0.5) {
+                const capForm = ranked.find(([form]) => /^[A-ZÁÉÍÓÚÜÑ]/.test(form));
+                return capForm ? capForm[0] : top;
+            }
+            const low = ranked.find(([form]) => /^[a-záéíóúüñ]/.test(form));
+            return low ? low[0] : top;
+        }
+
+        function layout() {
+            const w = stage.clientWidth;
+            const h = stage.clientHeight;
+            svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+            svg.setAttribute("width", w);
+            svg.setAttribute("height", h);
+            const cands = nodes.filter((n) => n.kind === "cand");
+            const words = nodes.filter((n) => n.kind === "word");
+            const narrow = w < 700;
+            const cx = w / 2;
+            const cy = h / 2;
+            const rx = Math.max(narrow ? 72 : 90, w / 2 - (narrow ? 62 : 108));
+            const ry = Math.max(narrow ? 72 : 80, h / 2 - (narrow ? 56 : 86));
+            cands.forEach((node, i) => {
+                const angle = -Math.PI / 2 + (i * Math.PI * 2) / cands.length;
+                node.x = cx + Math.cos(angle) * rx;
+                node.y = cy + Math.sin(angle) * ry;
+                node.pin = true;
+            });
+            const groups = new Map();
+            words.forEach((node) => {
+                const key = node.cands.slice().sort().join(",");
+                if (!groups.has(key)) groups.set(key, []);
+                groups.get(key).push(node);
+            });
+            groups.forEach((group) => {
+                const linked = group[0].cands.map((id) => cands.find((n) => n.id === id)).filter(Boolean);
+                const ax = linked.reduce((sum, n) => sum + n.x, 0) / (linked.length || 1);
+                const ay = linked.reduce((sum, n) => sum + n.y, 0) / (linked.length || 1);
+                const dx = ax - cx;
+                const dy = ay - cy;
+                const len = Math.hypot(dx, dy) || 1;
+                const px = -dy / len;
+                const py = dx / len;
+                const mix = linked.length === 1 ? (narrow ? 0.38 : 0.5) : (narrow ? 0.2 : 0.3);
+                group.forEach((node, i) => {
+                    const spread = (i - (group.length - 1) / 2) * (narrow ? 30 : 52);
+                    node.homeX = cx + (dx / len) * len * mix + px * spread;
+                    node.homeY = cy + (dy / len) * len * mix + py * spread;
+                    node.x = node.homeX;
+                    node.y = node.homeY;
+                    node.pin = false;
+                });
+            });
+            const pad = 8;
+            const separate = (gap, spring) => {
+                for (let i = 0; i < nodes.length; i += 1) {
+                    for (let j = i + 1; j < nodes.length; j += 1) {
+                        const a = nodes[i];
+                        const b = nodes[j];
+                        const dx = b.x - a.x;
+                        const dy = b.y - a.y;
+                        const dist = Math.hypot(dx, dy) || 0.1;
+                        const min = a.r + b.r + gap;
+                        if (dist >= min) continue;
+                        const push = min - dist;
+                        const ux = dx / dist;
+                        const uy = dy / dist;
+                        if (!a.pin && !b.pin) {
+                            a.x -= ux * push * 0.5; a.y -= uy * push * 0.5;
+                            b.x += ux * push * 0.5; b.y += uy * push * 0.5;
+                        } else if (!a.pin) {
+                            a.x -= ux * push; a.y -= uy * push;
+                        } else if (!b.pin) {
+                            b.x += ux * push; b.y += uy * push;
+                        }
+                    }
+                }
+                words.forEach((node) => {
+                    if (spring) {
+                        node.x += (node.homeX - node.x) * 0.05;
+                        node.y += (node.homeY - node.y) * 0.05;
+                    }
+                    node.x = Math.max(node.r + pad, Math.min(w - node.r - pad, node.x));
+                    node.y = Math.max(node.r + pad, Math.min(h - node.r - pad, node.y));
+                });
+            };
+            for (let step = 0; step < 160; step += 1) separate(narrow ? 10 : 14, true);
+            for (let step = 0; step < 80; step += 1) separate(narrow ? 8 : 12, false);
+            nodes.forEach((node) => {
+                node.el.style.left = (node.x - node.w / 2) + "px";
+                node.el.style.top = (node.y - node.h / 2) + "px";
+            });
+        }
+
+        function paint(t) {
+            nodes.forEach((node) => {
+                const ox = reduce ? 0 : Math.sin(t * node.sp + node.ph) * node.amp;
+                const oy = reduce ? 0 : Math.cos(t * node.sp * 0.8 + node.ph) * node.amp;
+                node.ox = ox;
+                node.oy = oy;
+                const scale = node.hot ? 1.08 : 1;
+                node.el.style.transform = "translate(" + ox.toFixed(2) + "px," + oy.toFixed(2) + "px) scale(" + scale + ")";
+            });
+            links.forEach((link) => {
+                const a = point(link.a);
+                const b = point(link.b);
+                link.path.setAttribute("d", curve(a, b, link.bend));
+            });
+        }
+        function point(node) {
+            return { x: node.x + (node.ox || 0), y: node.y + (node.oy || 0), w: node.w, h: node.h };
+        }
+        function curve(a, b, bend) {
+            const p = rim(a, b);
+            const q = rim(b, a);
+            const mx = (p.x + q.x) / 2;
+            const my = (p.y + q.y) / 2;
+            const dx = q.x - p.x;
+            const dy = q.y - p.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const cx = mx + (-dy / len) * bend;
+            const cy = my + (dx / len) * bend;
+            return "M " + p.x.toFixed(1) + " " + p.y.toFixed(1) + " Q " + cx.toFixed(1) + " " + cy.toFixed(1) + " " + q.x.toFixed(1) + " " + q.y.toFixed(1);
+        }
+        function rim(node, toward) {
+            const dx = toward.x - node.x;
+            const dy = toward.y - node.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const ux = dx / len;
+            const uy = dy / len;
+            const rx = Math.max(10, node.w / 2);
+            const ry = Math.max(10, node.h / 2);
+            const radius = (rx * ry) / (Math.sqrt((ry * ux) ** 2 + (rx * uy) ** 2) || 1);
+            return { x: node.x + ux * radius, y: node.y + uy * radius };
+        }
+
+        function draw() {
+            stage.querySelectorAll(".node, .stage-empty").forEach((el) => el.remove());
+            svg.replaceChildren();
+            nodes = [];
+            links = [];
+            wordById = new Map();
+            const active = Object.values(candById);
+            if (!cloud.length) {
+                const empty = document.createElement("p");
+                empty.className = "stage-empty";
+                empty.textContent = "Todavía no hay suficientes palabras repetidas en las notas.";
+                stage.appendChild(empty);
+                showEmpty();
+                return;
+            }
+            const shown = cloud.slice(0, cap());
+            active.forEach((c, i) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "node cand";
+                btn.dataset.kind = "cand";
+                btn.dataset.id = c.id;
+                btn.style.setProperty("--c", c.color || "#003da5");
+                btn.setAttribute("aria-label", c.short + ". Ver las palabras de sus notas");
+                const img = document.createElement("img");
+                img.alt = "";
+                img.src = c.photo || "img/escudo-velez.svg";
+                if (c.photoPosition) img.style.objectPosition = c.photoPosition;
+                img.addEventListener("error", () => {
+                    const mark = document.createElement("b");
+                    mark.className = "fallback";
+                    mark.textContent = (c.short || c.name || "?").slice(0, 1);
+                    img.replaceWith(mark);
+                });
+                const name = document.createElement("span");
+                name.textContent = c.short || c.name;
+                btn.append(img, name);
+                stage.appendChild(btn);
+                nodes.push({ kind: "cand", id: c.id, el: btn, w: 96, h: 88, r: 54, amp: 3.2, sp: 0.28 + i * 0.04, ph: i * 1.3, color: c.color });
+            });
+            const max = Math.max(...shown.map((w) => w.score));
+            const min = Math.min(...shown.map((w) => w.score));
+            shown.forEach((word, i) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "node word";
+                btn.dataset.kind = "word";
+                btn.dataset.id = word.id;
+                btn.style.setProperty("--c", word.color);
+                btn.style.fontSize = (13 + ((word.score - min) / (max - min || 1)) * 7).toFixed(1) + "px";
+                btn.textContent = word.label;
+                const noteCount = notesFor(word.id).length;
+                btn.setAttribute("aria-label", word.label + ", en " + noteCount + (noteCount === 1 ? " nota" : " notas") + ". Ver las notas");
+                stage.appendChild(btn);
+                const rect = btn.getBoundingClientRect();
+                const node = {
+                    kind: "word", id: word.id, el: btn, label: word.label, cands: word.cands, df: word.df,
+                    w: rect.width, h: rect.height, r: Math.hypot(rect.width, rect.height) / 2,
+                    amp: 6 + (i % 4), sp: 0.42 + (i % 5) * 0.06, ph: i * 0.7, hot: false
+                };
+                nodes.push(node);
+                wordById.set(word.id, node);
+            });
+            nodes.forEach((node) => {
+                if (node.kind !== "cand") return;
+                const rect = node.el.getBoundingClientRect();
+                node.w = rect.width || node.w;
+                node.h = rect.height || node.h;
+                node.r = Math.max(node.w, node.h) / 2;
+            });
+            layout();
+            let bend = -16;
+            shown.forEach((word) => {
+                word.cands.forEach((cid) => {
+                    const a = nodes.find((n) => n.kind === "cand" && n.id === cid);
+                    const b = wordById.get(word.id);
+                    if (!a || !b) return;
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("class", "link");
+                    path.setAttribute("stroke", (candById[cid] && candById[cid].color) || "#003da5");
+                    path.style.animationDuration = (6 + (links.length % 5)) + "s";
+                    svg.appendChild(path);
+                    links.push({ a: a, b: b, path: path, bend: bend, wordId: word.id, candId: cid });
+                    bend = bend > 0 ? -(12 + (links.length % 3) * 6) : (12 + (links.length % 3) * 6);
+                });
+            });
+            paint(0);
+            applyHot();
+            if (lock && lock.kind === "word" && !wordById.has(lock.id)) clearLock();
+            else if (lock) showLock();
+        }
+
+        function focusNow() { return hover || lock; }
+        function applyHot() {
+            const focus = focusNow();
+            const onWords = new Set();
+            const onCands = new Set();
+            if (focus && focus.kind === "word" && wordById.has(focus.id)) {
+                onWords.add(focus.id);
+                wordById.get(focus.id).cands.forEach((id) => onCands.add(id));
+            } else if (focus && focus.kind === "cand" && candById[focus.id]) {
+                onCands.add(focus.id);
+                wordById.forEach((node) => {
+                    if (node.cands.includes(focus.id)) onWords.add(node.id);
+                });
+            }
+            stage.classList.toggle("is-hot", onWords.size + onCands.size > 0);
+            nodes.forEach((node) => {
+                const on = node.kind === "word" ? onWords.has(node.id) : onCands.has(node.id);
+                node.hot = !!(on && focus && node.kind === "word" && node.id === focus.id);
+                node.el.classList.toggle("is-on", on);
+                if (node.kind === "word") node.el.setAttribute("aria-pressed", lock && lock.kind === "word" && lock.id === node.id ? "true" : "false");
+            });
+            links.forEach((link) => {
+                link.path.classList.toggle("is-on", onWords.has(link.wordId) && onCands.has(link.candId));
+            });
+        }
+
+        function keysOf(id) {
+            const word = cloud.find((item) => item.id === id);
+            return (word && word.aliases) || [id];
+        }
+        function matches(text, id) {
+            return keysOf(id).some((key) => wordRe(key).test(text));
+        }
+        function excerptHtml(text, id) {
+            const key = keysOf(id).find((item) => wordRe(item).test(text)) || id;
+            const re = wordRe(key);
+            const found = re.exec(text);
+            if (!found) {
+                const cut = text.slice(0, 170);
+                return esc(cut) + (text.length > 170 ? "…" : "");
+            }
+            const start = found.index + found[1].length;
+            const end = start + found[2].length;
+            let a = Math.max(0, start - 78);
+            let b = Math.min(text.length, end + 90);
+            let pre = text.slice(a, start);
+            let post = text.slice(end, b);
+            if (a > 0) {
+                const cut = pre.indexOf(" ");
+                if (cut >= 0) pre = pre.slice(cut + 1);
+                pre = "… " + pre;
+            }
+            if (b < text.length) {
+                const cut = post.lastIndexOf(" ");
+                if (cut > 0) post = post.slice(0, cut);
+                post += " …";
+            }
+            return esc(pre) + "<mark>" + esc(text.slice(start, end)) + "</mark>" + esc(post);
+        }
+        function notesFor(wordId) {
+            const grouped = new Map();
+            pieces.forEach((piece) => {
+                if (!matches(piece.text, wordId)) return;
+                const key = (piece.url || piece.text.slice(0, 40)) + "|" + piece.cid;
+                const prev = grouped.get(key);
+                if (!prev || (piece.quote && !prev.quote)) grouped.set(key, piece);
+            });
+            return [...grouped.values()].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+        }
+        function whoHtml(cids) {
+            return cids.map((id) => {
+                const c = candById[id];
+                if (!c) return "";
+                return '<i style="background:' + esc(c.color || "#003da5") + '"></i> ' + esc(c.short || c.name);
+            }).join(" ");
+        }
+        function showEmpty() {
+            notesTitle.textContent = "Notas";
+            notesClose.hidden = true;
+            notesBody.innerHTML = '<p class="notes-empty">Elegí una palabra para ver de qué notas sale.</p>';
+        }
+        function showLock() {
+            if (!lock) { showEmpty(); return; }
+            notesClose.hidden = false;
+            if (lock.kind === "cand") {
+                const c = candById[lock.id];
+                notesTitle.textContent = c ? c.short : "Notas";
+                const own = [...wordById.values()].filter((node) => node.cands.includes(lock.id));
+                notesBody.innerHTML = '<p class="notes-meta">Palabras que aparecen en sus notas. Elegí una para ver la fuente.</p>' +
+                    '<div class="chips">' + own.map((node) => '<button type="button" data-word="' + esc(node.id) + '">' + esc(node.label) + "</button>").join("") + "</div>";
+                return;
+            }
+            const node = wordById.get(lock.id);
+            const rows = notesFor(lock.id);
+            notesTitle.textContent = node ? node.label : "Notas";
+            if (!rows.length) {
+                notesBody.innerHTML = '<p class="notes-empty">No encontré la nota de esta palabra.</p>';
+                return;
+            }
+            notesBody.innerHTML = '<p class="notes-meta">' + rows.length + (rows.length === 1 ? " nota" : " notas") + "</p>" +
+                rows.map((piece) => {
+                    const when = shortDate(piece.date);
+                    return '<article class="note"><p class="note-who">' + whoHtml([piece.cid]) + "</p>" +
+                        '<p class="note-ex">' + excerptHtml(piece.text, lock.id) + "</p>" +
+                        (piece.url ? '<a href="' + esc(piece.url) + '" target="_blank" rel="noopener noreferrer">' + esc(piece.source || "Leer la nota") + (when ? " · " + esc(when) : "") + "</a>" : "") +
+                        "</article>";
+                }).join("");
+        }
+        function selectWord(id) {
+            lock = { kind: "word", id: id };
+            hover = null;
+            showLock();
+            applyHot();
+            if (window.matchMedia("(max-width: 860px)").matches) {
+                document.getElementById("notes").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+            }
+        }
+        function selectCand(id) {
+            lock = { kind: "cand", id: id };
+            hover = null;
+            showLock();
+            applyHot();
+        }
+        function clearLock() {
+            lock = null;
+            showEmpty();
+            applyHot();
+        }
+
+        function build(payload, news) {
+            const bag = collect(payload, news);
+            candById = {};
+            bag.active.forEach((c) => { candById[c.id] = c; });
+            pieces = bag.pieces;
+            cloud = rankWords(bag.active, bag.pieces, bag.names);
+            draw();
+        }
+
+        stage.addEventListener("mouseover", (event) => {
+            const node = event.target.closest(".node");
+            const next = node ? { kind: node.dataset.kind, id: node.dataset.id } : null;
+            if ((hover && hover.id) === (next && next.id) && (hover && hover.kind) === (next && next.kind)) return;
+            hover = next;
+            applyHot();
+        });
+        stage.addEventListener("mouseleave", () => { hover = null; applyHot(); });
+        stage.addEventListener("click", (event) => {
+            const node = event.target.closest(".node");
+            if (!node) { clearLock(); return; }
+            if (node.dataset.kind === "word") selectWord(node.dataset.id);
+            else selectCand(node.dataset.id);
+        });
+        notesBody.addEventListener("click", (event) => {
+            const chip = event.target.closest("[data-word]");
+            if (chip) selectWord(chip.dataset.word);
+        });
+        notesClose.addEventListener("click", clearLock);
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && lock) clearLock();
+        });
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { if (cloud.length || nodes.length) draw(); }, 150);
+        });
+
+        function tick(now) {
+            requestAnimationFrame(tick);
+            if (!reduce && nodes.length) paint(now / 1000);
+        }
+        requestAnimationFrame(tick);
+
+        const boot = window.VELEZ_DATA || {};
+        if (boot.candidates) {
+            builtSig = (boot.candidates.updated || "") + "|" + ((boot.news && (boot.news.updated || boot.news.checkedAt)) || "");
+            build(boot.candidates, boot.news);
+        }
+        Promise.all([
+            fetch("data/candidates.json", { cache: "no-cache" }).then((res) => res.ok ? res.json() : null).catch(() => null),
+            fetch("data/news.json", { cache: "no-cache" }).then((res) => res.ok ? res.json() : null).catch(() => null)
+        ]).then(([candidates, news]) => {
+            if (!candidates || !candidates.candidates) return;
+            const sig = (candidates.updated || "") + "|" + ((news && (news.updated || news.checkedAt)) || "");
+            if (sig === builtSig && cloud.length) return;
+            builtSig = sig;
+            build(candidates, news || boot.news);
+        });
+    </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

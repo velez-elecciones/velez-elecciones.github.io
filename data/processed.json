@@ -1,10 +1,14 @@
 {
   "items": {
-    "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBsSFFlUERFNXNrY1pyc2FlYy1PZW51SC1qVDhHZ2FwTm5hYjBJZElhaVN4QWRaSWZ5QW80bmhWenpmUUowOXZrdUtTQWpxQ1VrOV95MDh3?oc=5": {
-      "at": "2026-10-20T19:30:16.102Z",
+    "https://www.youtube.com/watch?v": {
+      "at": "2026-10-22T01:58:33.121Z",
       "result": "skipped"
     },
-    "https://www.youtube.com/watch?v": {
+    "https://news.google.com/rss/articles/CBMiVkFVX3lxTE45Z01BV0pqM3l1c29TR1pmakNPdzFwYmlpUk1wa1NPT3htZXpPU19BMG55MTJsQkQxbzEwOWlWNFpVVHVJdzdOOFctUFVTQXBiRVNWcDRB?oc=5": {
+      "at": "2026-10-22T01:58:33.121Z",
+      "result": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBsSFFlUERFNXNrY1pyc2FlYy1PZW51SC1qVDhHZ2FwTm5hYjBJZElhaVN4QWRaSWZ5QW80bmhWenpmUUowOXZrdUtTQWpxQ1VrOV95MDh3?oc=5": {
       "at": "2026-10-20T19:30:16.102Z",
       "result": "skipped"
     },

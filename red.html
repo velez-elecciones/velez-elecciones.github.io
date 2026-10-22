@@ -244,7 +244,10 @@
             .top-title p { display: none; }
             .intro { padding: 12px 14px 10px; font-size: 13.5px; }
             .workspace { grid-template-columns: 1fr; padding: 0 12px 12px; }
-            .stage { height: 72vh; min-height: 480px; }
+            .stage { height: calc(100vh - 250px); min-height: 300px; max-height: 640px; }
+            @supports (height: 100svh) {
+                .stage { height: calc(100svh - 196px); }
+            }
             .notes { max-height: none; }
             .back { margin-left: 14px; }
             .node.cand img, .node.cand .fallback { width: 46px; height: 46px; border-width: 2px; }
@@ -469,13 +472,24 @@
             const narrow = w < 700;
             const cx = w / 2;
             const cy = h / 2;
-            const rx = Math.max(narrow ? 72 : 90, w / 2 - (narrow ? 62 : 108));
-            const ry = Math.max(narrow ? 72 : 80, h / 2 - (narrow ? 56 : 86));
+            const halfW = Math.max(40, ...cands.map((n) => n.w / 2 + n.amp));
+            const halfH = Math.max(32, ...cands.map((n) => n.h / 2 + n.amp));
+            const insetX = halfW + (narrow ? 20 : 36);
+            const insetY = halfH + (narrow ? 36 : 40);
+            const rx = Math.max(36, w / 2 - insetX);
+            const ry = Math.max(36, h / 2 - insetY);
+            const inside = (node) => {
+                const slackX = node.w / 2 + node.amp + 10;
+                const slackY = node.h / 2 + node.amp + 10;
+                node.x = Math.max(slackX, Math.min(w - slackX, node.x));
+                node.y = Math.max(slackY, Math.min(h - slackY, node.y));
+            };
             cands.forEach((node, i) => {
                 const angle = -Math.PI / 2 + (i * Math.PI * 2) / cands.length;
                 node.x = cx + Math.cos(angle) * rx;
                 node.y = cy + Math.sin(angle) * ry;
                 node.pin = true;
+                inside(node);
             });
             const groups = new Map();
             words.forEach((node) => {
@@ -502,7 +516,6 @@
                     node.pin = false;
                 });
             });
-            const pad = 8;
             const separate = (gap, spring) => {
                 for (let i = 0; i < nodes.length; i += 1) {
                     for (let j = i + 1; j < nodes.length; j += 1) {
@@ -531,8 +544,10 @@
                         node.x += (node.homeX - node.x) * 0.05;
                         node.y += (node.homeY - node.y) * 0.05;
                     }
-                    node.x = Math.max(node.r + pad, Math.min(w - node.r - pad, node.x));
-                    node.y = Math.max(node.r + pad, Math.min(h - node.r - pad, node.y));
+                    const slackX = node.w / 2 + node.amp + 10;
+                    const slackY = node.h / 2 + node.amp + 10;
+                    node.x = Math.max(slackX, Math.min(w - slackX, node.x));
+                    node.y = Math.max(slackY, Math.min(h - slackY, node.y));
                 });
             };
             for (let step = 0; step < 160; step += 1) separate(narrow ? 10 : 14, true);
@@ -544,9 +559,15 @@
         }
 
         function paint(t) {
+            const w = stage.clientWidth;
+            const h = stage.clientHeight;
             nodes.forEach((node) => {
-                const ox = reduce ? 0 : Math.sin(t * node.sp + node.ph) * node.amp;
-                const oy = reduce ? 0 : Math.cos(t * node.sp * 0.8 + node.ph) * node.amp;
+                let ox = reduce ? 0 : Math.sin(t * node.sp + node.ph) * node.amp;
+                let oy = reduce ? 0 : Math.cos(t * node.sp * 0.8 + node.ph) * node.amp;
+                const slackX = node.w / 2 + 8;
+                const slackY = node.h / 2 + 8;
+                ox = Math.max(slackX - node.x, Math.min(w - slackX - node.x, ox));
+                oy = Math.max(slackY - node.y, Math.min(h - slackY - node.y, oy));
                 node.ox = ox;
                 node.oy = oy;
                 const scale = node.hot ? 1.08 : 1;

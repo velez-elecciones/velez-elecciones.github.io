@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-18T23:55:00.000Z",
+  "updated": "2026-10-23T10:24:32.636Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -308,6 +308,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/347037/balestrini-va-por-la-presidencia-de-velez-y-suma-un-apoyo-clave-raul-gamez/",
             "date": "2026-10-09"
+          },
+          {
+            "summary": "Federico Balestrini tiene 29 años, es abogado, secretario general de Vélez y egresado del instituto educativo del club.",
+            "quote": "Federico Balestrini tiene 29 años, es secretario general de Vélez Sarsfield y sueña con convertirse en el nuevo presidente.",
+            "source": "Infobae",
+            "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
+            "date": "2026-10-23",
+            "auto": true
           }
         ],
         "vinculos": [
@@ -336,6 +344,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/primero-velez-anuncio-a-federico-balestrini-como-su-candidato-en-las-elecciones--quienes-son-los-otros-postulantes-a-presidente_a6ac76fe31eb9026484a7b2e0",
             "date": "2026-09-30"
+          },
+          {
+            "summary": "Federico Balestrini cuenta con el apoyo de Raúl Gámez y su candidatura se gestó desde la agrupación Círculo El Fortín.",
+            "quote": "Federico Balestrini es uno de los candidatos de cara a las próximas elecciones en el club de Liniers",
+            "source": "Infobae",
+            "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
+            "date": "2026-10-23",
+            "auto": true
           }
         ],
         "futbol": [
@@ -345,6 +361,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
             "date": "2026-10-18"
+          },
+          {
+            "summary": "Balestrini anticipa que buscará renovar el contrato de Guillermo y Gustavo Barros Schelotto y evaluará la continuidad de la secretaría técnica.",
+            "quote": "En lo deportivo, el candidato anticipa que renovar el contrato de Guillermo y Gustavo Barros Schelotto sería una de las primeras medidas de su gestión",
+            "source": "Infobae",
+            "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
+            "date": "2026-10-23",
+            "auto": true
           }
         ],
         "sad": [],
@@ -385,14 +409,13 @@
           "supports": [
             "crecer"
           ],
-          "partial": [
-            "participar"
-          ],
-          "summary": "El club ya supera los 80.000 socios y aspira a 100.000. Defiende una gestión “transparente, pero también cercana al socio”.",
-          "quote": "transparente, pero también cercana al socio",
-          "source": "Newsdigitales",
-          "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
-          "date": "2026-10-18"
+          "partial": [],
+          "summary": "Balestrini plantea como objetivo principal para reducir el déficit alcanzar los 100 mil socios.",
+          "quote": "Uno de los ejes principales de la campaña es reducir el déficit operativo del club y el plan es concreto: alcanzar los 100.000 socios —actualmente hay poco más de 80 mil—.",
+          "source": "Infobae",
+          "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
+          "date": "2026-10-23",
+          "auto": true
         },
         "futbol_proyecto": {
           "supports": [

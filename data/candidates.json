@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T01:12:12.147Z",
+  "updated": "2026-10-24T17:40:44.830Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -97,6 +97,14 @@
             "source": "Tribuna",
             "url": "https://tribuna.ar/articulos/raul-gamez-vuelve-a-la-politica-de-velez-y-sera-candidato-a-vicepresidente",
             "date": "2026-10-10"
+          },
+          {
+            "summary": "Fabián Berlanga anunció que será candidato a vicepresidente primero de Nelson Pugliese por la lista Legado Vélez.",
+            "quote": "En diálogo con el canal oficial del \"Fortín\", el mandamás anunció que \"será candidato a vicepresidente primero, acompañando a Nelson Pugliese\", cabeza de la lista \"Legado Vélez\", una de las cuatro Agrupaciones que irán a los comicios.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/bombazo-del-oficialismo-de-velez-rumbo-a-las-elecciones--fabian-berlanga-anuncio-que-sera-vicepresidente-de-nelson-pugliese_a6adcc1a246fc870f0abf3885",
+            "date": "2026-10-24",
+            "auto": true
           }
         ],
         "perfil": [

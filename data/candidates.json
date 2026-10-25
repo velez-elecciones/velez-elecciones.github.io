@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T17:40:44.830Z",
+  "updated": "2026-10-25T20:01:31.632Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -104,6 +104,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/bombazo-del-oficialismo-de-velez-rumbo-a-las-elecciones--fabian-berlanga-anuncio-que-sera-vicepresidente-de-nelson-pugliese_a6adcc1a246fc870f0abf3885",
             "date": "2026-10-24",
+            "auto": true
+          },
+          {
+            "summary": "Fabián Berlanga será candidato a vicepresidente primero en la fórmula de Nelson Pugliese por la lista Legado Vélez.",
+            "quote": "Fabián Berlanga confirmó que será candidato a vicepresidente primero en la fórmula que encabeza Nelson Pugliese, cabeza de la lista “Legado Vélez”.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/348351/elecciones-en-velez-fabian-berlanga-decidio-integrar-la-lista-y-complica-a-pugliese/",
+            "date": "2026-10-25",
             "auto": true
           }
         ],
@@ -362,11 +370,11 @@
             "date": "2026-09-30"
           },
           {
-            "summary": "Federico Balestrini cuenta con el apoyo de Raúl Gámez y su candidatura se gestó desde la agrupación Círculo El Fortín.",
-            "quote": "Federico Balestrini es uno de los candidatos de cara a las próximas elecciones en el club de Liniers",
-            "source": "Infobae",
-            "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
-            "date": "2026-10-23",
+            "summary": "Federico Balestrini consiguió el apoyo del expresidente Raúl Gámez y la agrupación Plan Ve para su candidatura presidencial.",
+            "quote": "Balestrini logró el apoyo del expresidente Raúl Gámez, considerado un prócer del club, y la agrupación Plan Ve, en un armado que ofrece renovación pero también experiencia de gestión.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/348351/elecciones-en-velez-fabian-berlanga-decidio-integrar-la-lista-y-complica-a-pugliese/",
+            "date": "2026-10-25",
             "auto": true
           }
         ],

@@ -1,7 +1,16 @@
 {
-  "updated": "2026-10-26T17:35:58.082Z",
-  "checkedAt": "2026-10-26T17:35:58.082Z",
+  "updated": "2026-10-26T21:56:14.272Z",
+  "checkedAt": "2026-10-26T21:56:14.272Z",
   "items": [
+    {
+      "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
+      "summary": "Con un gran esfuerzo de los medios partidarios del club y el compromiso de los dirigentes, el Fortín protagonizará un hito para la democracias de las asociaciones civiles.",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-candidatos-debate-presidencial_0_RNchK96FWU.html",
+      "source": "Olé",
+      "published": "2026-10-26T12:44:00.000Z",
+      "tags": [],
+      "image": "https://www.bing.com/th?id=ONUT.4569Xa8VxM_tstdw4UHfUQ&pid=News&w=480&h=270&c=14"
+    },
     {
       "title": "Elecciones en Vélez: Fabián Berlanga decidió integrar la lista y complica a Pugliese",
       "summary": "El presidente del Fortín confirmó que será vice de Nelson Pugliese en “Legado Vélez”, a pesar del desgaste. Se vota el 15 de noviembre.",
@@ -180,18 +189,6 @@
         "pugliese"
       ],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-app.tadevel-cdn.com%2Fhostname%2Fwww.dobleamarilla.com.ar%2Fapi%2Fv1%2Fimage%2Farticle%2F6abaf41e05bd1aaa73e083bd%2Ffacebook%3Fv%3D8ad13526e2a7ff926dffe00d9aa4b763%26s%3Dbd4f81cbbbdc8a36d3042bc51f3b1024&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "El oficialismo de Vélez irá dividido a las elecciones: quiénes serían los candidatos",
-      "summary": "Fabián Berlanga impulsa a Legado Vélez con Nelson Pugliese como candidato. Las agrupaciones de Federico Ballestrini y Augusto Costa irán unidas por otro la ...",
-      "url": "https://www.newsdigitales.com/nota/346124/el-oficialismo-de-velez-ira-dividido-a-las-elecciones-quienes-serian-los-candidatos/",
-      "source": "Newsdigitales",
-      "published": "2026-09-28T16:59:00.000Z",
-      "tags": [
-        "pugliese",
-        "balestrini"
-      ],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.newsdigitales.com%2Fuploads%2Fnoticias%2F2%2F2026%2F09%2F20260929001916_g69bsrsxeaaqzmu.webp&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

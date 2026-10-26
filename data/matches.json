@@ -1,84 +1,80 @@
 {
-  "updated": "2026-10-21T11:41:48.207Z",
-  "checkedAt": "2026-10-26T00:45:56.582Z",
+  "updated": "2026-10-26T05:28:02.135Z",
+  "checkedAt": "2026-10-26T05:28:02.135Z",
   "source": "ESPN",
   "team": {
     "id": "21",
     "name": "Vélez Sarsfield"
   },
   "last": {
-    "id": "401841616",
+    "id": "401841639",
     "league": "arg.1",
     "competition": "Liga Profesional",
     "stage": "Clausura",
-    "date": "2026-10-17T23:00:00.000Z",
+    "date": "2026-10-26T00:30:00.000Z",
     "state": "post",
     "status": "STATUS_FULL_TIME",
     "completed": true,
-    "clock": "90'+6'",
-    "venue": "José Amalfitani",
-    "url": "https://www.espn.com/soccer/match/_/gameId/401841616/gimnasia-mendoza-velez-sarsfield",
+    "clock": "90'+2'",
+    "venue": "'Estadio Único Madre de Ciudades",
+    "url": "https://www.espn.com/soccer/match/_/gameId/401841639/velez-sarsfield-central-cordoba-santiago-del-estero",
     "home": {
-      "id": "21",
-      "name": "Vélez Sarsfield",
-      "short": "Vélez",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
-      "score": 1,
-      "shootout": null,
-      "winner": true
-    },
-    "away": {
-      "id": "11972",
-      "name": "Gimnasia (Mendoza)",
-      "short": "Gimnasia (M)",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11972.png",
+      "id": "11989",
+      "name": "Central Córdoba (Santiago del Estero)",
+      "short": "C. Córdoba (SE)",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11989.png",
       "score": 0,
       "shootout": null,
       "winner": false
     },
+    "away": {
+      "id": "21",
+      "name": "Vélez Sarsfield",
+      "short": "Vélez",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+      "score": 5,
+      "shootout": null,
+      "winner": true
+    },
     "goals": [
       {
         "team": "21",
-        "player": "Thiago Silvero",
-        "clock": "85'",
+        "player": "Matías Pellegrini",
+        "clock": "7'",
         "penalty": false,
+        "ownGoal": false
+      },
+      {
+        "team": "21",
+        "player": "Ronaldo Martínez",
+        "clock": "21'",
+        "penalty": false,
+        "ownGoal": false
+      },
+      {
+        "team": "21",
+        "player": "Ronaldo Martínez",
+        "clock": "58'",
+        "penalty": false,
+        "ownGoal": false
+      },
+      {
+        "team": "21",
+        "player": "Lucas Robertone",
+        "clock": "61'",
+        "penalty": false,
+        "ownGoal": false
+      },
+      {
+        "team": "21",
+        "player": "Ronaldo Martínez",
+        "clock": "83'",
+        "penalty": true,
         "ownGoal": false
       }
     ]
   },
   "upcoming": [
-    {
-      "id": "401841639",
-      "league": "arg.1",
-      "competition": "Liga Profesional",
-      "stage": "Clausura",
-      "date": "2026-10-26T00:30:00.000Z",
-      "state": "pre",
-      "status": "STATUS_SCHEDULED",
-      "completed": false,
-      "clock": "0'",
-      "venue": "'Estadio Único Madre de Ciudades",
-      "url": "https://www.espn.com/soccer/match/_/gameId/401841639/velez-sarsfield-central-cordoba-santiago-del-estero",
-      "home": {
-        "id": "11989",
-        "name": "Central Córdoba (Santiago del Estero)",
-        "short": "C. Córdoba (SE)",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11989.png",
-        "score": null,
-        "shootout": null,
-        "winner": false
-      },
-      "away": {
-        "id": "21",
-        "name": "Vélez Sarsfield",
-        "short": "Vélez",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
-        "score": null,
-        "shootout": null,
-        "winner": false
-      },
-      "goals": []
-    },
     {
       "id": "401841646",
       "league": "arg.1",

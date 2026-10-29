@@ -1,6 +1,17 @@
 {
-  "checkedAt": "2026-10-29T11:49:10.083Z",
+  "checkedAt": "2026-10-29T18:25:49.630Z",
   "flags": [
+    {
+      "kind": "posible-postura-nueva",
+      "title": "Legado Vélez anunció formalmente su lista para las elecciones: Pugliese como presidente y Berlanga vice",
+      "url": "https://www.dobleamarilla.com.ar/rosca/legado-velez-anuncio-formalmente-su-lista-para-las-elecciones--pugliese-como-presidente-y-berlanga-vice_a6ae35cf365ad849a4c41ce75",
+      "source": "Doble Amarilla",
+      "published": "2026-10-29T08:45:00.000Z",
+      "tags": [
+        "pugliese"
+      ],
+      "firstSeen": "2026-10-29T18:25:49.630Z"
+    },
     {
       "kind": "posible-candidato-nuevo",
       "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",

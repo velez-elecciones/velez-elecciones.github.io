@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T19:55:06.250Z",
+  "updated": "2026-10-29T18:26:17.189Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -112,6 +112,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/348351/elecciones-en-velez-fabian-berlanga-decidio-integrar-la-lista-y-complica-a-pugliese/",
             "date": "2026-10-25",
+            "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese encabeza la lista de Legado Vélez como candidato a presidente, acompañado por Fabián Berlanga como vicepresidente.",
+            "quote": "Legado Vélez presentó a los candidatos para la mesa directiva que buscarán formar parte de la gestión 2026-2029. El presidente será Nelson Pugliese, mientras que para los vicepresidentes quedaron definidos Fabián Berlanga, Gastón Aimaro y Eduardo “Lalo” Rado.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/legado-velez-anuncio-formalmente-su-lista-para-las-elecciones--pugliese-como-presidente-y-berlanga-vice_a6ae35cf365ad849a4c41ce75",
+            "date": "2026-10-29",
             "auto": true
           }
         ],

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T18:26:17.189Z",
+  "updated": "2026-10-29T22:55:32.414Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -348,6 +348,14 @@
             "url": "https://www.infobae.com/deportes/2026/10/23/viene-de-una-familia-con-tradicion-politica-tiene-el-apoyo-de-raul-gamez-y-suena-con-ser-uno-de-los-presidentes-mas-jovenes-de-velez/",
             "date": "2026-10-23",
             "auto": true
+          },
+          {
+            "summary": "La agrupación Primero Vélez busca sostener el rumbo de la conducción iniciada en 2023.",
+            "quote": "Entre los candidatos aparece Federico Balestrini, actual secretario de la institución, quien buscará la presidencia al frente de Primero Vélez, un espacio que propone sostener el rumbo de la conducción actual.",
+            "source": "La Noticia Web",
+            "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+            "date": "2026-10-29",
+            "auto": true
           }
         ],
         "vinculos": [
@@ -378,11 +386,11 @@
             "date": "2026-09-30"
           },
           {
-            "summary": "Balestrini encabeza la alianza Primero Vélez con el respaldo de Raúl Gámez y Augusto Costa.",
-            "quote": "El actual secretario del club encabeza la propuesta de la alianza ‘Primero Vélez’, que cuenta con el respaldo del histórico Raúl Gámez y del actual vicepresidente y ministro bonaerense, Augusto Costa.",
-            "source": "Primer Plano Online",
-            "url": "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/",
-            "date": "2026-10-28",
+            "summary": "Federico Balestrini encabeza Primero Vélez con el respaldo de Raúl Gámez y el apoyo de Augusto Costa.",
+            "quote": "Federico Balestrini, de 29 años, es funcionario de la Municipalidad de Morón y hermano mellizo del exconcejal Tomás Balestrini. Encabezará la lista Primero Vélez en las elecciones del 15 de noviembre, con el respaldo del histórico dirigente Raúl Gámez y el apoyo de Augusto Costa.",
+            "source": "La Noticia Web",
+            "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+            "date": "2026-10-29",
             "auto": true
           }
         ],
@@ -408,6 +416,14 @@
             "source": "Primer Plano Online",
             "url": "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/",
             "date": "2026-10-28",
+            "auto": true
+          },
+          {
+            "summary": "Primero Vélez propone un plantel competitivo para pelear todos los torneos.",
+            "quote": "“A diferencia de los otros candidatos, nuestro proyecto es claro: queremos un fútbol competitivo, que pelee todo lo que juegue. No nos conformamos con habernos salvado del descenso”",
+            "source": "La Noticia Web",
+            "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+            "date": "2026-10-29",
             "auto": true
           }
         ],
@@ -450,11 +466,11 @@
             "crecer"
           ],
           "partial": [],
-          "summary": "Balestrini propone consolidar un club modelo que alcance los 100 mil socios.",
-          "quote": "La intención, según explicó, es recuperar aquella etapa de resultados y extenderla a un proyecto institucional de mayor alcance. “Ese año queremos recrearlo y convertirnos en un club modelo que llegue a los 100.000 socios. Hoy tenemos arriba de 80.000, cifra que también es récord”, concluyó.",
-          "source": "Primer Plano Online",
-          "url": "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/",
-          "date": "2026-10-28",
+          "summary": "Balestrini plantea llegar a los 100 mil socios tras superar los 80 mil actuales.",
+          "quote": "“Ese año queremos recrearlo y convertirnos en un club modelo que llegue a los 100.000 socios. Hoy tenemos arriba de 80.000, cifra que también es récord”",
+          "source": "La Noticia Web",
+          "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+          "date": "2026-10-29",
           "auto": true
         },
         "futbol_proyecto": {

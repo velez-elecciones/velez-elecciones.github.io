@@ -1,5 +1,13 @@
 {
   "items": {
+    "https://news.google.com/rss/articles/CBMibkFVX3lxTE0yV0lmSDAySDNFbER6WnBBV0tWZlVTWHhYTEpjc1ZKWnVxdVc3Qk9VckNSaVFoN01HdW41RjdzLXgxVDBiSmV1bXl5WGExRWI3dW5jck95Wm0zWlRxd2V3aEwtM0hJN0hPVHNzbWtR?oc=5": {
+      "at": "2026-10-29T05:40:18.554Z",
+      "result": "skipped"
+    },
+    "https://m.youtube.com/watch?v": {
+      "at": "2026-10-29T05:40:18.554Z",
+      "result": "skipped"
+    },
     "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/": {
       "at": "2026-10-28T19:55:06.250Z",
       "result": "applied"

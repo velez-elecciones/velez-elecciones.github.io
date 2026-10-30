@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T22:55:32.414Z",
+  "updated": "2026-10-30T02:34:23.185Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -386,10 +386,10 @@
             "date": "2026-09-30"
           },
           {
-            "summary": "Federico Balestrini encabeza Primero Vélez con el respaldo de Raúl Gámez y el apoyo de Augusto Costa.",
-            "quote": "Federico Balestrini, de 29 años, es funcionario de la Municipalidad de Morón y hermano mellizo del exconcejal Tomás Balestrini. Encabezará la lista Primero Vélez en las elecciones del 15 de noviembre, con el respaldo del histórico dirigente Raúl Gámez y el apoyo de Augusto Costa.",
-            "source": "La Noticia Web",
-            "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+            "summary": "Federico Balestrini encabeza la lista Primero Vélez con el respaldo de Raúl Gámez y el ministro Augusto Costa.",
+            "quote": "Su candidatura cuenta con el respaldo del histórico dirigente Raúl Gámez y el apoyo del ministro bonaerense de Producción, Ciencia e Innovación Tecnológica, Augusto Costa.",
+            "source": "elconurbano.com.ar",
+            "url": "https://elconurbano.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/80867/",
             "date": "2026-10-29",
             "auto": true
           }
@@ -423,6 +423,14 @@
             "quote": "“A diferencia de los otros candidatos, nuestro proyecto es claro: queremos un fútbol competitivo, que pelee todo lo que juegue. No nos conformamos con habernos salvado del descenso”",
             "source": "La Noticia Web",
             "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
+            "date": "2026-10-29",
+            "auto": true
+          },
+          {
+            "summary": "Primero Vélez propone mantener un plantel competitivo que pelee por los títulos en lugar de evitar el descenso.",
+            "quote": "El proyecto, según el candidato, busca un fútbol competitivo que aspire a pelear cada torneo y no conformarse solo con haber zafado del descenso.",
+            "source": "elconurbano.com.ar",
+            "url": "https://elconurbano.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/80867/",
             "date": "2026-10-29",
             "auto": true
           }

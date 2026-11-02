@@ -1,5 +1,13 @@
 {
   "items": {
+    "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/": {
+      "at": "2026-11-02T05:55:24.183Z",
+      "result": "cited"
+    },
+    "https://news.google.com/rss/articles/CBMi2AFBVV95cUxORDFiNWxHNmk3UGlEaUFhSklNXzJIQ2NfQUM4NmVTLURQVWYtenZOSlhIVXpaWWg2b1ZnaURlUkF1SnNtU3dnVDk0VDRvWEdJTzByaHItWGZ6ZUVvZXRYbk5OYWlTOUZoVEVPUWVTc0d1WG9YOC1lbktIYlo1WXZrTjAwTDIyazZ2bXhUc0F6aFpUMXVuRGQydkJjRjhsLXpqZzhZYWRyazg3dGc4ZVZHVlN4RDlNUERJN3J4RzlyQkE5RkNySU1tQWU4eEwwblpEZHhYNnh2S1E?oc=5": {
+      "at": "2026-11-02T05:55:24.183Z",
+      "result": "cited"
+    },
     "https://www.youtube.com/watch?v": {
       "at": "2026-11-01T02:41:06.472Z",
       "result": "skipped"
@@ -47,10 +55,6 @@
     "https://m.youtube.com/watch?v": {
       "at": "2026-10-29T05:40:18.554Z",
       "result": "skipped"
-    },
-    "https://primerplanoonline.com.ar/federico-balestrini-busca-la-presidencia-de-velez-reivindica-la-gestion-y-promete-un-club-de-100-000-socios/": {
-      "at": "2026-10-28T19:55:06.250Z",
-      "result": "applied"
     },
     "https://www.ole.com.ar/futbol-primera/velez-elecciones-candidatos-debate-presidencial_0_RNchK96FWU.html": {
       "at": "2026-10-26T21:56:37.176Z",

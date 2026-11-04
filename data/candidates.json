@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T15:22:53.358Z",
+  "updated": "2026-11-04T21:26:29.443Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -99,14 +99,6 @@
             "date": "2026-10-10"
           },
           {
-            "summary": "Fabián Berlanga será candidato a vicepresidente primero en la fórmula de Nelson Pugliese por la lista Legado Vélez.",
-            "quote": "Fabián Berlanga confirmó que será candidato a vicepresidente primero en la fórmula que encabeza Nelson Pugliese, cabeza de la lista “Legado Vélez”.",
-            "source": "Newsdigitales",
-            "url": "https://www.newsdigitales.com/nota/348351/elecciones-en-velez-fabian-berlanga-decidio-integrar-la-lista-y-complica-a-pugliese/",
-            "date": "2026-10-25",
-            "auto": true
-          },
-          {
             "summary": "Nelson Pugliese encabeza la lista de Legado Vélez como candidato a presidente, acompañado por Fabián Berlanga como vicepresidente.",
             "quote": "Legado Vélez presentó a los candidatos para la mesa directiva que buscarán formar parte de la gestión 2026-2029. El presidente será Nelson Pugliese, mientras que para los vicepresidentes quedaron definidos Fabián Berlanga, Gastón Aimaro y Eduardo “Lalo” Rado.",
             "source": "Doble Amarilla",
@@ -120,6 +112,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-03",
+            "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese encabeza la fórmula oficialista de Legado Vélez para las elecciones.",
+            "quote": "La fórmula oficialista quedó encabezada por Pugliese, seguido por Gastón Aimaro y Eduardo Rado.",
+            "source": "Tribuna",
+            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
+            "date": "2026-11-04",
             "auto": true
           }
         ],
@@ -341,6 +341,14 @@
             "url": "https://www.dobleamarilla.com.ar/rosca/con-las-listas-definidas--seran-cuatro-los-candidatos-a-presidente-en-los-comicios-de-velez_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
             "auto": true
+          },
+          {
+            "summary": "Federico Balestrini encabeza Primero Vélez junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes.",
+            "quote": "Por su parte, Primero Vélez, con el Círculo El Fortín y Plan V ya desprendidos del oficialismo, va con Federico Balestrini como aspirante a la presidencia, junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes, respectivamente.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
+            "date": "2026-11-04",
+            "auto": true
           }
         ],
         "perfil": [
@@ -402,11 +410,11 @@
             "date": "2026-09-30"
           },
           {
-            "summary": "Federico Balestrini encabeza la lista Primero Vélez con el respaldo de Raúl Gámez y el ministro Augusto Costa.",
-            "quote": "Su candidatura cuenta con el respaldo del histórico dirigente Raúl Gámez y el apoyo del ministro bonaerense de Producción, Ciencia e Innovación Tecnológica, Augusto Costa.",
-            "source": "elconurbano.com.ar",
-            "url": "https://elconurbano.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/80867/",
-            "date": "2026-10-29",
+            "summary": "Federico Balestrini es el candidato a presidente por Primero Vélez.",
+            "quote": "Primero Vélez, con Federico Balestrini como candidato a presidente, estará acompañado por Carlos Figueroa, Florencia Encina y Gastón Trevisan como vices.",
+            "source": "Tribuna",
+            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
+            "date": "2026-11-04",
             "auto": true
           }
         ],
@@ -571,6 +579,14 @@
             "url": "https://www.dobleamarilla.com.ar/rosca/con-las-listas-definidas--seran-cuatro-los-candidatos-a-presidente-en-los-comicios-de-velez_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
             "auto": true
+          },
+          {
+            "summary": "Juan Cruz Montero es el candidato a presidente de ADN Azul y Blanco, acompañado por Pablo Torrielli, Horacio Sambataro y Alejandro Tirel.",
+            "quote": "Por último, ADN Azul y Blanco va con Juan Cruz Montero como candidato a presidente, mientras que Pablo Torrielli, Horacio Sambataro y Alejandro Tirel conforman el trinomio que lo acompañará en la toma de decisiones.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
+            "date": "2026-11-04",
+            "auto": true
           }
         ],
         "perfil": [
@@ -613,6 +629,14 @@
             "source": "Sitio oficial de Vélez",
             "url": "https://velez.com.ar/club/notas/2026/08/28/133440_reconocimiento-de-la-agrup-adn-azul-y-blanco",
             "date": "2026-08-28"
+          },
+          {
+            "summary": "Juan Cruz Montero es el candidato a presidente por ADN Azul y Blanco.",
+            "quote": "ADN Azul y Blanco lleva a Juan Cruz Montero como presidente, con Pablo Torrielli, Horacio Sambataro y Alejandro Tirel como vices.",
+            "source": "Tribuna",
+            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
+            "date": "2026-11-04",
+            "auto": true
           }
         ],
         "futbol": [
@@ -773,6 +797,14 @@
             "url": "https://www.dobleamarilla.com.ar/rosca/con-las-listas-definidas--seran-cuatro-los-candidatos-a-presidente-en-los-comicios-de-velez_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
             "auto": true
+          },
+          {
+            "summary": "Ignacio Mazzitelli es el aspirante a mandatario por Cruzada Renovadora, acompañado por Nahuel Pérez, Leandro González y Gonzalo Pérez.",
+            "quote": "En cuanto a Cruzada Renovadora, tiene a Ignacio Mazzitelli como aspirante a mandatario, mientras que lo acompañarán como vicepresidentes Nahuel Pérez, Leandro González y Gonzalo Pérez.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
+            "date": "2026-11-04",
+            "auto": true
           }
         ],
         "perfil": [
@@ -788,6 +820,14 @@
             "source": "TyC Sports",
             "url": "https://www.tycsports.com/liga-profesional-de-futbol/sorpresa-en-velez-vuelve-raul-gamez-para-las-elecciones-de-noviembre-id765441.html",
             "date": "2026-10-09"
+          },
+          {
+            "summary": "Ignacio Mazzitelli encabeza la postulación de Cruzada Renovadora.",
+            "quote": "Cruzada Renovadora postula a Ignacio Mazzitelli, junto a Nahuel Pérez, Leandro González y Gonzalo Pérez.",
+            "source": "Tribuna",
+            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
+            "date": "2026-11-04",
+            "auto": true
           }
         ],
         "futbol": [],

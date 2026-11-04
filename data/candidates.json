@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:34:23.185Z",
+  "updated": "2026-11-04T06:53:24.197Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -99,14 +99,6 @@
             "date": "2026-10-10"
           },
           {
-            "summary": "Fabián Berlanga anunció que será candidato a vicepresidente primero de Nelson Pugliese por la lista Legado Vélez.",
-            "quote": "En diálogo con el canal oficial del \"Fortín\", el mandamás anunció que \"será candidato a vicepresidente primero, acompañando a Nelson Pugliese\", cabeza de la lista \"Legado Vélez\", una de las cuatro Agrupaciones que irán a los comicios.",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/rosca/bombazo-del-oficialismo-de-velez-rumbo-a-las-elecciones--fabian-berlanga-anuncio-que-sera-vicepresidente-de-nelson-pugliese_a6adcc1a246fc870f0abf3885",
-            "date": "2026-10-24",
-            "auto": true
-          },
-          {
             "summary": "Fabián Berlanga será candidato a vicepresidente primero en la fórmula de Nelson Pugliese por la lista Legado Vélez.",
             "quote": "Fabián Berlanga confirmó que será candidato a vicepresidente primero en la fórmula que encabeza Nelson Pugliese, cabeza de la lista “Legado Vélez”.",
             "source": "Newsdigitales",
@@ -120,6 +112,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/legado-velez-anuncio-formalmente-su-lista-para-las-elecciones--pugliese-como-presidente-y-berlanga-vice_a6ae35cf365ad849a4c41ce75",
             "date": "2026-10-29",
+            "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese encabeza la lista de Legado Vélez para las elecciones del 15 de noviembre, con Gastón Aimaro como vicepresidente primero, Eduardo Rado como vicepresidente segundo y Fabián Berlanga como vicepresidente tercero.",
+            "quote": "La agrupación confirmó la composición de su propuesta para los comicios del 15 de noviembre. El actual dirigente del club integrará la nómina en un rol determinante.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
+            "date": "2026-11-03",
             "auto": true
           }
         ],
@@ -180,6 +180,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
             "date": "2026-04-17"
+          },
+          {
+            "summary": "Nelson Pugliese estará a cargo del fútbol profesional en caso de imponerse, mientras que Fabián Berlanga se hará cargo del fútbol amateur.",
+            "quote": "Según se informó junto con la presentación, Pugliese estará a cargo del fútbol profesional, mientras que Berlanga tendrá bajo su responsabilidad el fútbol amateur.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
+            "date": "2026-11-03",
+            "auto": true
           }
         ],
         "sad": [

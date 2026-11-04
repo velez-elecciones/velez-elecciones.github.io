@@ -1,7 +1,27 @@
 {
-  "updated": "2026-11-03T19:27:16.920Z",
-  "checkedAt": "2026-11-04T00:10:18.521Z",
+  "updated": "2026-11-04T06:53:04.784Z",
+  "checkedAt": "2026-11-04T06:53:04.784Z",
   "items": [
+    {
+      "title": "Con (otra) sorpresa, Vélez ya tiene las cuatro listas confirmadas para las elecciones",
+      "summary": "Las agrupaciones que competirán en los comicios del 15 de noviembre presentaron sus candidaturas con una novedad de último momento: Fabián Berlanga no irá por el cargo que había anticipado.",
+      "url": "https://www.tycsports.com/liga-profesional-de-futbol/con-otra-sorpresa-velez-ya-tiene-cuatro-listas-confirmadas-para-elecciones-id770268.html",
+      "source": "TyC Sports",
+      "published": "2026-11-03T16:05:00.000Z",
+      "tags": [],
+      "image": "https://www.bing.com/th?id=ONUT.wrzepixWkxDW6f1rodxxpg&pid=News&w=480&h=270&c=14"
+    },
+    {
+      "title": "‘Legado Vélez’ oficializó a Nelson Pugliese como candidato a presidente: el rol de Fabián Berlanga",
+      "summary": "La agrupación confirmó la composición de su propuesta para los comicios del 15 de noviembre. El actual dirigente del club integrará la nómina en un rol determinante.",
+      "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
+      "source": "Doble Amarilla",
+      "published": "2026-11-03T16:00:00.000Z",
+      "tags": [
+        "pugliese"
+      ],
+      "image": "https://www.bing.com/th?id=ONUT.DYFHIEh03xt4d7UKGVlDoQ&pid=News&w=480&h=270&c=14"
+    },
     {
       "title": "Memoria y Balance 25/26 aprobados",
       "summary": "",
@@ -169,24 +189,6 @@
         "balestrini"
       ],
       "image": "https://www.bing.com/th?id=ONUT.3G8Idbod8a8x20KPm_mipg&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "Vélez fijó día y horario para la Asamblea General Ordinaria donde tratará memoria y balance: los detalles",
-      "summary": "La misma se realizará en el Salón Integral del Polideportivo y se dará a conocer el Ejercicio N° 116, comprendido entre el 1° de julio de 2025 y el 30 de junio de 2026. Será el último acto de Fabián B ...",
-      "url": "https://www.dobleamarilla.com.ar/rosca/velez-fijo-dia-y-horario-para-la-asamblea-general-ordinaria-donde-tratara-memoria-y-balance--los-detalles_a6ad0efa80735cd39a2701982",
-      "source": "Doble Amarilla",
-      "published": "2026-10-15T08:47:00.000Z",
-      "tags": [],
-      "image": "https://www.bing.com/th?id=ONUT.j4t7X-BRNZ_0hN1O9cMegQ&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "Presentación de la Memoria y Balance",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcjhmSDVKall1YzU2UkVwekZ0R24taXpTV0tiVXZLRjRJd2I3LTVrbFZlQ3NCWnhlRFNZNGViUEJhaDZMaDhJdVJXaC1tcFZ6aGdOV3ZNNnNGT3ZZcmhsNEdGSkJXU25oNFhUMUF0WGlISDJDZS03VjJMYXBwTkwxZnBjaklTOFRfUThsbjJYaw?oc=5",
-      "source": "Sitio oficial de Vélez",
-      "published": "2026-10-14T07:00:00.000Z",
-      "tags": [],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fvelez.com.ar%2Fimg%2Fnoticias%2F26%2Fasambleaordinaria_2425___55_.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

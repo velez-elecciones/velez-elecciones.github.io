@@ -1,7 +1,29 @@
 {
-  "updated": "2026-11-04T21:26:07.501Z",
-  "checkedAt": "2026-11-05T08:34:40.479Z",
+  "updated": "2026-11-05T16:53:00.097Z",
+  "checkedAt": "2026-11-05T16:53:00.097Z",
   "items": [
+    {
+      "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
+      "summary": "Con un gran esfuerzo de los medios partidarios del club y el compromiso de los dirigentes, el Fortín protagonizará un hito para la democracias de las asociaciones civiles.",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-candidatos-debate-presidencial_0_RNchK96FWU.html",
+      "source": "Olé",
+      "published": "2026-11-05T14:14:00.000Z",
+      "tags": [],
+      "club": true,
+      "image": "https://www.bing.com/th?id=ONUT.4569Xa8VxM_tstdw4UHfUQ&pid=News&w=480&h=270&c=14"
+    },
+    {
+      "title": "Vélez oficializó 4 listas en una elección polarizada entre Balestrini y Pugliese-Berlanga",
+      "summary": "",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPbkhIOVNhQ3oxSmx4TXU3Tk5EaHNsSzdZS0h3R2U1SXllOGR1a1ZZek11Q1lQOVh2bmdUUllYSVRCQ2pBRXp6ODloeXZPNkpVaGc5SHRyZXpJY0dTbElxdHIxQ1JzMjQ0azNHd0o4MEdBQnBPN1dpalhGM1pud0NwTkU1WVV1a2pLbVkyejNWQmJqZF9INUFVanlWdlBoT0VueklIUDVLOXJNUHdiOUlVelJ2U0ZEUDhaeGRDdGphMkJNdmJPV0V2NEdoSkk?oc=5",
+      "source": "Newsdigitales",
+      "published": "2026-11-05T13:30:30.000Z",
+      "tags": [
+        "pugliese",
+        "balestrini"
+      ],
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.newsdigitales.com%2Fuploads%2Fnoticias%2F2%2F2026%2F11%2F20261105015453_portada-velez-2-1920x1080.webp&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
     {
       "title": "Vélez confirmó las listas para las elecciones y Berlanga bajó su candidatura principal",
       "summary": "",
@@ -143,15 +165,6 @@
       "image": "https://www.bing.com/th?id=ONUT.KiYnzJVBtlq6Gf8V5qraJA&pid=News&w=480&h=270&c=14"
     },
     {
-      "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
-      "summary": "Con un gran esfuerzo de los medios partidarios del club y el compromiso de los dirigentes, el Fortín protagonizará un hito para la democracias de las asociaciones civiles.",
-      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-candidatos-debate-presidencial_0_RNchK96FWU.html",
-      "source": "Olé",
-      "published": "2026-10-26T12:44:00.000Z",
-      "tags": [],
-      "image": "https://www.bing.com/th?id=ONUT.4569Xa8VxM_tstdw4UHfUQ&pid=News&w=480&h=270&c=14"
-    },
-    {
       "title": "Elecciones en Vélez: Fabián Berlanga decidió integrar la lista y complica a Pugliese",
       "summary": "",
       "url": "https://www.newsdigitales.com/nota/348351/elecciones-en-velez-fabian-berlanga-decidio-integrar-la-lista-y-complica-a-pugliese/",
@@ -183,17 +196,6 @@
         "pugliese"
       ],
       "image": "https://www.bing.com/th?id=ONUT.fsPlLofrT3YlfrjuDJ7jTA&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "🎙️ Entrevista a FEDERICO BALESTRINI, candidato a PRESIDENTE de #Vélez",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBsSFFlUERFNXNrY1pyc2FlYy1PZW51SC1qVDhHZ2FwTm5hYjBJZElhaVN4QWRaSWZ5QW80bmhWenpmUUowOXZrdUtTQWpxQ1VrOV95MDh3?oc=5",
-      "source": "YouTube",
-      "published": "2026-10-21T14:00:35.000Z",
-      "tags": [
-        "balestrini"
-      ],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.youtube.com%2Fimg%2Fdesktop%2Fyt_1200.png&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

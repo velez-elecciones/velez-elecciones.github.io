@@ -1,15 +1,6 @@
 {
-  "checkedAt": "2026-11-05T22:39:54.358Z",
+  "checkedAt": "2026-11-06T02:51:47.137Z",
   "flags": [
-    {
-      "kind": "posible-candidato-nuevo",
-      "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
-      "url": "https://www.ole.com.ar/previews-mode/1793887974/RNchK96FWU.html",
-      "source": "Olé",
-      "published": "2026-11-05T06:14:00.000Z",
-      "tags": [],
-      "firstSeen": "2026-11-05T16:53:00.097Z"
-    },
     {
       "kind": "posible-candidato-nuevo",
       "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
@@ -18,6 +9,15 @@
       "published": "2026-11-05T06:14:00.000Z",
       "tags": [],
       "firstSeen": "2026-11-05T22:39:54.358Z"
+    },
+    {
+      "kind": "posible-candidato-nuevo",
+      "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-candidatos-debate-presidencial_0_RNchK96FWU.html",
+      "source": "Olé",
+      "published": "2026-10-26T12:44:00.000Z",
+      "tags": [],
+      "firstSeen": "2026-11-06T02:51:47.137Z"
     }
   ]
 }

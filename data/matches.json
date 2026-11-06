@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-03T19:27:38.647Z",
-  "checkedAt": "2026-11-06T17:43:04.136Z",
+  "updated": "2026-11-06T22:26:59.518Z",
+  "checkedAt": "2026-11-06T22:26:59.518Z",
   "source": "ESPN",
   "team": {
     "id": "21",
@@ -74,18 +74,18 @@
       "competition": "Liga Profesional",
       "stage": "Clausura",
       "date": "2026-11-06T22:15:00.000Z",
-      "state": "pre",
-      "status": "STATUS_SCHEDULED",
+      "state": "in",
+      "status": "STATUS_FIRST_HALF",
       "completed": false,
-      "clock": "0'",
+      "clock": "8'",
       "venue": "15 de Abril",
-      "url": "https://www.espn.com/soccer/match/_/gameId/401841660/velez-sarsfield-union-santa-fe",
+      "url": "https://www.espn.com/soccer/match/_/gameId/401841660",
       "home": {
         "id": "20",
         "name": "Unión (Santa Fe)",
         "short": "Unión (SF)",
         "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20.png",
-        "score": null,
+        "score": 0,
         "shootout": null,
         "winner": false
       },
@@ -94,7 +94,7 @@
         "name": "Vélez Sarsfield",
         "short": "Vélez",
         "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
-        "score": null,
+        "score": 0,
         "shootout": null,
         "winner": false
       },

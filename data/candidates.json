@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T21:26:29.443Z",
+  "updated": "2026-11-06T10:46:15.570Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -99,14 +99,6 @@
             "date": "2026-10-10"
           },
           {
-            "summary": "Nelson Pugliese encabeza la lista de Legado Vélez como candidato a presidente, acompañado por Fabián Berlanga como vicepresidente.",
-            "quote": "Legado Vélez presentó a los candidatos para la mesa directiva que buscarán formar parte de la gestión 2026-2029. El presidente será Nelson Pugliese, mientras que para los vicepresidentes quedaron definidos Fabián Berlanga, Gastón Aimaro y Eduardo “Lalo” Rado.",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/rosca/legado-velez-anuncio-formalmente-su-lista-para-las-elecciones--pugliese-como-presidente-y-berlanga-vice_a6ae35cf365ad849a4c41ce75",
-            "date": "2026-10-29",
-            "auto": true
-          },
-          {
             "summary": "Nelson Pugliese encabeza la lista de Legado Vélez para las elecciones del 15 de noviembre, con Gastón Aimaro como vicepresidente primero, Eduardo Rado como vicepresidente segundo y Fabián Berlanga como vicepresidente tercero.",
             "quote": "La agrupación confirmó la composición de su propuesta para los comicios del 15 de noviembre. El actual dirigente del club integrará la nómina en un rol determinante.",
             "source": "Doble Amarilla",
@@ -120,6 +112,14 @@
             "source": "Tribuna",
             "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
             "date": "2026-11-04",
+            "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese estará acompañado por Gastón Aimaro como vicepresidente primero y Eduardo Lalo Rado como vicepresidente segundo.",
+            "quote": "Lo acompañan los ex-opositores Gastón Aimaro como vicepresidente primero y Eduardo “Lalo” Rado como vicepresidente segundo, dos dirigentes que en la última elección habían competido contra el actual oficialismo.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
+            "date": "2026-11-05",
             "auto": true
           }
         ],
@@ -348,6 +348,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
+            "auto": true
+          },
+          {
+            "summary": "Federico Balestrini encabeza la lista de Primero Vélez, acompañado por Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes.",
+            "quote": "Federico Balestrini, de 29 años y actual secretario general del club, será el candidato de Primero Vélez. Lo acompañarán Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
+            "date": "2026-11-05",
             "auto": true
           }
         ],
@@ -587,6 +595,14 @@
             "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
             "auto": true
+          },
+          {
+            "summary": "Juan Cruz Montero encabeza la fórmula de ADN Azul y Blanco, acompañado por Pablo Torrielli, Horacio Sambataro y Alejandro Tirel.",
+            "quote": "Por su parte, ADN Azul y Blanco presentará a Juan Cruz Montero, que irá acompañado por Pablo Torrielli, Horacio Sambataro y Alejandro Tirel.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
+            "date": "2026-11-05",
+            "auto": true
           }
         ],
         "perfil": [
@@ -804,6 +820,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/se-confirmaron-los-cuatro-candidatos-y-las-listas-que-competiran-en-las-elecciones-en-velez--todos-los-detalles_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-04",
+            "auto": true
+          },
+          {
+            "summary": "Ignacio Mazzitelli es el candidato a presidente de Cruzada Renovadora, acompañado por Nahuel Pérez, Leandro González y Gonzalo Pérez como vicepresidentes.",
+            "quote": "Desde la oposición, Cruzada Renovadora llevará a Ignacio Mazzitelli como candidato a presidente, con Nahuel Pérez, Leandro González y Gonzalo Pérez como vicepresidentes.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
+            "date": "2026-11-05",
             "auto": true
           }
         ],

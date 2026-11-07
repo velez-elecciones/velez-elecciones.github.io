@@ -1,104 +1,57 @@
 {
-  "updated": "2026-11-06T22:26:59.518Z",
-  "checkedAt": "2026-11-06T22:26:59.518Z",
+  "updated": "2026-11-07T02:18:07.239Z",
+  "checkedAt": "2026-11-07T02:18:07.239Z",
   "source": "ESPN",
   "team": {
     "id": "21",
     "name": "Vélez Sarsfield"
   },
   "last": {
-    "id": "401841646",
+    "id": "401841660",
     "league": "arg.1",
     "competition": "Liga Profesional",
     "stage": "Clausura",
-    "date": "2026-10-31T22:15:00.000Z",
+    "date": "2026-11-06T22:15:00.000Z",
     "state": "post",
     "status": "STATUS_FULL_TIME",
     "completed": true,
-    "clock": "90'+8'",
-    "venue": "José Amalfitani",
-    "url": "https://www.espn.com/soccer/match/_/gameId/401841646/san-lorenzo-velez-sarsfield",
+    "clock": "90'+5'",
+    "venue": "15 de Abril",
+    "url": "https://www.espn.com/soccer/match/_/gameId/401841660/velez-sarsfield-union-santa-fe",
     "home": {
+      "id": "20",
+      "name": "Unión (Santa Fe)",
+      "short": "Unión (SF)",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20.png",
+      "score": 2,
+      "shootout": null,
+      "winner": true
+    },
+    "away": {
       "id": "21",
       "name": "Vélez Sarsfield",
       "short": "Vélez",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
-      "score": 2,
-      "shootout": null,
-      "winner": false
-    },
-    "away": {
-      "id": "18",
-      "name": "San Lorenzo",
-      "short": "San Lorenzo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18.png",
-      "score": 2,
+      "score": 0,
       "shootout": null,
       "winner": false
     },
     "goals": [
       {
-        "team": "21",
-        "player": "Juan Policella",
-        "clock": "22'",
-        "penalty": false,
+        "team": "20",
+        "player": "Cristian Tarragona",
+        "clock": "12'",
+        "penalty": true,
         "ownGoal": false
       },
       {
-        "team": "21",
-        "player": "Matías Pellegrini",
-        "clock": "25'",
-        "penalty": false,
-        "ownGoal": false
-      },
-      {
-        "team": "18",
-        "player": "Alexis Cuello",
-        "clock": "45'+1'",
-        "penalty": false,
-        "ownGoal": false
-      },
-      {
-        "team": "18",
-        "player": "Rodrigo Auzmendi",
-        "clock": "81'",
+        "team": "20",
+        "player": "Cristian Tarragona",
+        "clock": "28'",
         "penalty": false,
         "ownGoal": false
       }
     ]
   },
-  "upcoming": [
-    {
-      "id": "401841660",
-      "league": "arg.1",
-      "competition": "Liga Profesional",
-      "stage": "Clausura",
-      "date": "2026-11-06T22:15:00.000Z",
-      "state": "in",
-      "status": "STATUS_FIRST_HALF",
-      "completed": false,
-      "clock": "8'",
-      "venue": "15 de Abril",
-      "url": "https://www.espn.com/soccer/match/_/gameId/401841660",
-      "home": {
-        "id": "20",
-        "name": "Unión (Santa Fe)",
-        "short": "Unión (SF)",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20.png",
-        "score": 0,
-        "shootout": null,
-        "winner": false
-      },
-      "away": {
-        "id": "21",
-        "name": "Vélez Sarsfield",
-        "short": "Vélez",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
-        "score": 0,
-        "shootout": null,
-        "winner": false
-      },
-      "goals": []
-    }
-  ]
+  "upcoming": []
 }

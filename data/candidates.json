@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T17:43:01.477Z",
+  "updated": "2026-11-07T09:04:29.142Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -99,14 +99,6 @@
             "date": "2026-10-10"
           },
           {
-            "summary": "Nelson Pugliese encabeza la lista de Legado Vélez para las elecciones del 15 de noviembre, con Gastón Aimaro como vicepresidente primero, Eduardo Rado como vicepresidente segundo y Fabián Berlanga como vicepresidente tercero.",
-            "quote": "La agrupación confirmó la composición de su propuesta para los comicios del 15 de noviembre. El actual dirigente del club integrará la nómina en un rol determinante.",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
-            "date": "2026-11-03",
-            "auto": true
-          },
-          {
             "summary": "Nelson Pugliese encabeza la fórmula oficialista de Legado Vélez para las elecciones.",
             "quote": "La fórmula oficialista quedó encabezada por Pugliese, seguido por Gastón Aimaro y Eduardo Rado.",
             "source": "Tribuna",
@@ -120,6 +112,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
             "date": "2026-11-05",
+            "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese estará acompañado por Gastón Aimaro como candidato a vicepresidente en la fórmula de Legado Vélez.",
+            "quote": "Nelson Pugliese recibe a Clarín junto a Gastón Aimaro, anfitrión y compañero de fórmula.",
+            "source": "Clarín",
+            "url": "https://www.clarin.com/deportes/nelson-pugliese-candidato-presidente-velez-imagino-guillermo-tentado-varios-clubes-quiere-continuar-queremos-continue_0_8lCOuRN6gM.html",
+            "date": "2026-11-07",
             "auto": true
           }
         ],
@@ -187,6 +187,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/rosca/-legado-velez--oficializo-a-nelson-pugliese-como-candidato-a-presidente--el-rol-de-fabian-berlanga_a6aea9037c5b4d02690d8e1b6",
             "date": "2026-11-03",
+            "auto": true
+          },
+          {
+            "summary": "Pugliese afirma que tienen la decisión tomada de que el cuerpo técnico de Guillermo Barros Schelotto continúe en el club.",
+            "quote": "lo que les puedo garantizar es que tenemos la decisión tomada de que el cuerpo técnico encabezado por Guillermo continúe dirigiendo al primer equipo de Vélez.",
+            "source": "Clarín",
+            "url": "https://www.clarin.com/deportes/nelson-pugliese-candidato-presidente-velez-imagino-guillermo-tentado-varios-clubes-quiere-continuar-queremos-continue_0_8lCOuRN6gM.html",
+            "date": "2026-11-07",
             "auto": true
           }
         ],

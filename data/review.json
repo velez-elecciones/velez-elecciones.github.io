@@ -1,15 +1,6 @@
 {
-  "checkedAt": "2026-11-08T02:27:50.839Z",
+  "checkedAt": "2026-11-08T09:24:57.947Z",
   "flags": [
-    {
-      "kind": "posible-candidato-nuevo",
-      "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
-      "url": "https://www.ole.com.ar/previews-mode/1793888017/RNchK96FWU.html",
-      "source": "Olé",
-      "published": "2026-11-05T06:14:00.000Z",
-      "tags": [],
-      "firstSeen": "2026-11-07T23:07:05.419Z"
-    },
     {
       "kind": "posible-candidato-nuevo",
       "title": "Histórico: Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
@@ -18,6 +9,15 @@
       "published": "2026-11-05T06:14:00.000Z",
       "tags": [],
       "firstSeen": "2026-11-07T02:17:45.890Z"
+    },
+    {
+      "kind": "posible-candidato-nuevo",
+      "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
+      "url": "https://www.ole.com.ar/previews-mode/1793888017/RNchK96FWU.html",
+      "source": "Olé",
+      "published": "2026-11-05T06:14:00.000Z",
+      "tags": [],
+      "firstSeen": "2026-11-07T23:07:05.419Z"
     }
   ]
 }

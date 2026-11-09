@@ -458,6 +458,18 @@
         .poll-mentions strong { color: var(--blue); margin-right: 6px; }
         .poll-mentions small { display: block; margin-top: 2px; font-size: 13.5px; color: var(--muted); }
 
+        /* Debate */
+        .debate { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 440px); gap: 24px; align-items: center; }
+        .debate-media { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0b1b3a; }
+        .debate-media img, .debate-media iframe { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; }
+        .debate-play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(255, 255, 255, .94); color: var(--blue); box-shadow: 0 6px 20px rgba(0, 0, 0, .35); transition: transform .15s; }
+        .debate-media:hover .debate-play { transform: scale(1.06); }
+        .debate-play svg { width: 28px; height: 28px; margin-left: 3px; fill: currentColor; }
+        .debate-badge { position: absolute; left: 10px; top: 10px; padding: 3px 9px; border-radius: 6px; background: #d92d20; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+        .debate-text p { margin-bottom: 12px; font-size: 15.5px; line-height: 1.45; color: #2b3d5c; }
+        .debate-text .btn { width: 100%; padding: 12px 16px; font-weight: 800; text-decoration: none; }
+        .debate-text p.debate-fine { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
+
         /* Encuesta del sitio */
         #enc-body { margin-bottom: 14px; }
         .enc-empty { padding: 14px 16px; border-radius: 14px; background: var(--wash); color: #3b4d6b; font-size: 15px; }
@@ -519,6 +531,8 @@
             .sec-head h2 { font-size: 17px; }
             .feed-checked { display: none; }
             a.red-entry, a.enc-cta { font-size: 14px; letter-spacing: .02em; padding: 12px 10px; }
+            .debate { grid-template-columns: 1fr; gap: 14px; }
+            .debate-play { width: 54px; height: 54px; margin: -27px 0 0 -27px; }
             .cd-grid { gap: 10px; grid-template-columns: 1fr 1fr; }
             .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
             .cd-all { display: none; }
@@ -625,6 +639,7 @@
         <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .6 1.8 2 1.8 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></symbol>
         <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
         <symbol id="i-net" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12.5" cy="9" r="2"/><circle cx="12.5" cy="15" r="2"/><circle cx="20" cy="12" r="2"/><path d="M7 6.7 10.5 8.4M7 12h3.5M7 17.3 10.5 15.6M14.5 9.7 18 11.3M14.5 14.3 18 12.7"/></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m10 9.2 4.8 2.8-4.8 2.8z"/></symbol>
         <symbol id="i-ballot" viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="9" rx="2"/><path d="M8 16h8"/><path d="M8 12V3h8v9"/><path d="m10 7.5 1.5 1.5L14 6.5"/></symbol>
         <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
         <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
@@ -662,6 +677,25 @@
             </section>
 
             <section class="cd-grid" id="candidates-grid" aria-live="polite"></section>
+
+            <section id="sec-debate" class="card sec">
+                <div class="sec-head no-select">
+                    <h2><svg class="ic"><use href="#i-play"/></svg> Debate presidencial</h2>
+                    <span id="debate-when" class="meta"></span>
+                </div>
+                <div class="debate">
+                    <a id="debate-media" class="debate-media" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer" aria-label="Ver el debate en YouTube">
+                        <img src="https://i.ytimg.com/vi/WohLyKJ4d_A/maxresdefault.jpg" alt="Vélez Debate 2026" loading="lazy" decoding="async">
+                        <span class="debate-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+                        <span id="debate-badge" class="debate-badge hidden">En vivo</span>
+                    </a>
+                    <div class="debate-text">
+                        <p>Los cuatro candidatos a presidente, en el debate que organizan los medios partidarios del club. Se transmite en vivo por el canal Velez Debate.</p>
+                        <a id="debate-cta" class="btn solid" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> <span id="debate-cta-text">Ver en YouTube</span></a>
+                        <p id="debate-fine" class="debate-fine">El canal no permite verlo dentro de otras páginas, por eso se abre en YouTube.</p>
+                    </div>
+                </div>
+            </section>
 
             <a class="btn solid red-entry" href="red.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-net"/></svg> Red neuronal de candidatos</a>
 
@@ -1845,6 +1879,49 @@
         }
 
         // -------------------------------------------------------------
+        // DEBATE: el canal no deja reproducirlo en otras páginas, así que se abre en YouTube.
+        // Si el canal habilita la inserción, con embed: true se reproduce acá mismo.
+        // -------------------------------------------------------------
+        const DEBATE = { id: "WohLyKJ4d_A", start: "2026-11-09T19:00:00-03:00", liveHours: 3, embed: false };
+        const AR_DAY = { timeZone: "America/Argentina/Buenos_Aires", year: "numeric", month: "2-digit", day: "2-digit" };
+
+        function setDebate() {
+            const start = Date.parse(DEBATE.start);
+            const now = Date.now();
+            const live = now >= start && now < start + DEBATE.liveHours * 3600000;
+            const done = now >= start + DEBATE.liveHours * 3600000;
+            const dayOf = (ms) => new Date(ms).toLocaleDateString("es-AR", AR_DAY);
+            const hour = Number(new Date(start).toLocaleTimeString("es-AR", { timeZone: "America/Argentina/Buenos_Aires", hour: "numeric", hour12: false })) + " h";
+            let when;
+            if (live) when = "En vivo ahora";
+            else if (done) when = "Grabación completa";
+            else if (start - now < 3600000) when = "Empieza en " + Math.max(1, Math.ceil((start - now) / 60000)) + " min";
+            else if (dayOf(start) === dayOf(now)) when = "Hoy a las " + hour;
+            else if (dayOf(start) === dayOf(now + 86400000)) when = "Mañana a las " + hour;
+            else when = new Date(start).toLocaleDateString("es-AR", { timeZone: "America/Argentina/Buenos_Aires", weekday: "long", day: "numeric", month: "long" }) + ", " + hour;
+            document.getElementById("debate-when").textContent = when;
+            document.getElementById("debate-badge").classList.toggle("hidden", !live);
+            document.getElementById("debate-cta-text").textContent = live ? "Ver en vivo en YouTube" : done ? "Ver la grabación en YouTube" : "Ver en YouTube";
+            document.getElementById("debate-fine").classList.toggle("hidden", DEBATE.embed);
+        }
+
+        function playDebateHere(event) {
+            if (!DEBATE.embed) return;
+            event.preventDefault();
+            const media = document.getElementById("debate-media");
+            const frame = document.createElement("iframe");
+            frame.src = "https://www.youtube-nocookie.com/embed/" + DEBATE.id + "?autoplay=1&rel=0";
+            frame.title = "Debate presidencial de Vélez";
+            frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+            frame.allowFullscreen = true;
+            frame.referrerPolicy = "strict-origin-when-cross-origin";
+            const box = document.createElement("div");
+            box.className = "debate-media";
+            box.appendChild(frame);
+            media.replaceWith(box);
+        }
+
+        // -------------------------------------------------------------
         // ENCUESTA DEL SITIO: se vota en encuesta.html, acá se ven los resultados
         // -------------------------------------------------------------
         const ENC_API = "/api/encuesta";
@@ -1908,6 +1985,7 @@
             refreshLock = true;
             let changed = false;
             refreshEncuesta();
+            setDebate();
             try {
                 const [news, polls, candidates, quiz, matches] = await Promise.allSettled([
                     fetchJson("news.json"), fetchJson("polls.json"), fetchJson("candidates.json"), fetchJson("quiz.json"), fetchJson("matches.json")
@@ -1958,6 +2036,8 @@
             if (MOBILE_MQ.addEventListener) MOBILE_MQ.addEventListener("change", onViewport);
             else if (MOBILE_MQ.addListener) MOBILE_MQ.addListener(onViewport);
             if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(document.getElementById("candidates-grid"));
+            setDebate();
+            document.getElementById("debate-media").addEventListener("click", playDebateHere);
             refreshLive();
             setInterval(refreshLive, LIVE_MS);
             document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshEncuesta(); });

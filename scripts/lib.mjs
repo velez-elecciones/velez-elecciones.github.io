@@ -133,7 +133,8 @@ export async function resolveGoogleNews(url) {
     body: "f.req=" + encodeURIComponent(JSON.stringify([[["Fbv4je", inner, null, "generic"]]])),
     signal: AbortSignal.timeout(15000)
   });
-  const found = (await response.text()).match(/garturlres\\",\\"(https?:[^"\\]+)/);
+  // La URL viene escapada dos veces ("=" llega como \\u003d): se aceptan esas barras para no cortarla en el primer parámetro.
+  const found = (await response.text()).match(/garturlres\\",\\"(https?:(?:[^"\\]|\\\\)+)\\"/);
   if (!found) throw new Error("Google Noticias no devolvió la nota (" + response.status + ")");
-  return JSON.parse('"' + found[1] + '"');
+  return JSON.parse('"' + found[1].replace(/\\\\/g, "\\") + '"');
 }

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿A quién votarías para presidente de Vélez? · Encuesta · Elecciones Vélez 2026</title>
+    <script>
+        if (/\.github\.io$/i.test(location.hostname)) {
+            location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
+        }
+    </script>
+    <link rel="canonical" href="https://velezelecciones.com/encuesta.html">
+    <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Encuesta abierta de Elecciones Vélez 2026: votá a quién elegirías para presidente de Vélez Sarsfield y mirá los resultados en vivo.">
+    <meta property="og:title" content="¿A quién votarías para presidente de Vélez?">
+    <meta property="og:description" content="Votá en la encuesta abierta de Elecciones Vélez 2026 y mirá los resultados en vivo. Cierra el domingo 15 a las 8.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:site_name" content="Elecciones Vélez 2026">
+    <meta property="og:url" content="https://velezelecciones.com/encuesta.html">
+    <meta property="og:image" content="https://velezelecciones.com/img/preview.png?v=2">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="¿A quién votarías para presidente de Vélez?">
+    <meta name="twitter:description" content="Votá en la encuesta abierta de Elecciones Vélez 2026 y mirá los resultados en vivo.">
+    <meta name="theme-color" content="#003da5">
+    <style>
+        :root {
+            --blue: #003da5;
+            --blue-soft: #1a8fe8;
+            --ink: #10203a;
+            --muted: #5a6b85;
+            --line: rgba(0, 61, 165, .12);
+            --paper: #ffffff;
+            --wash: #f3f7fc;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+            background-color: #001433;
+            background-image:
+                linear-gradient(180deg, rgba(0, 28, 92, .62), rgba(0, 16, 58, .78)),
+                url("img/fondo-amalfitani.jpg");
+            background-size: auto, cover;
+            background-position: center, center top;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat;
+        }
+        a { color: inherit; }
+        h1, h2, h3, p { margin: 0; }
+        button { font: inherit; }
+        .hidden { display: none !important; }
+        .ic { width: 1.2em; height: 1.2em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+        .page { min-height: 100vh; display: flex; flex-direction: column; }
+        .top {
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; gap: 10px 16px;
+            padding: 12px 24px;
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 12, 40, .28);
+        }
+        .top a { color: #fff; text-decoration: none; }
+        .top-crest { width: 48px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title h1 { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 13.5px; opacity: .85; }
+
+        .flow { width: 100%; max-width: 940px; margin: 0 auto; padding: 20px 20px 8px; display: grid; gap: 16px; }
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 30, 90, .08);
+        }
+        .vote { padding: 22px 22px 20px; }
+        .vote h1 { font-size: 27px; line-height: 1.15; font-weight: 800; color: var(--blue); letter-spacing: -.01em; }
+        .lead { margin-top: 8px; font-size: 15.5px; color: #3b4d6b; }
+        fieldset { margin: 20px 0 0; padding: 0; border: 0; min-width: 0; }
+        legend { padding: 0; margin-bottom: 10px; font-size: 13px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--blue); }
+        .segs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+        .opt {
+            position: relative;
+            display: flex; align-items: center; gap: 12px;
+            min-height: 54px;
+            padding: 10px 40px 10px 12px;
+            border: 1.5px solid rgba(0, 61, 165, .18);
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            transition: border-color .15s, background .15s, box-shadow .15s;
+            -webkit-user-select: none; user-select: none;
+        }
+        .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+        .opt:hover { border-color: rgba(0, 61, 165, .45); }
+        .opt.is-on { border-color: var(--blue); background: var(--wash); box-shadow: inset 0 0 0 1px var(--blue); }
+        .opt.is-focus { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+        .opt::after {
+            content: "";
+            position: absolute; right: 14px; top: 50%;
+            width: 18px; height: 18px; margin-top: -9px;
+            border: 2px solid rgba(0, 61, 165, .3); border-radius: 50%;
+            background: #fff;
+        }
+        .opt.is-on::after { border-color: var(--blue); background: var(--blue); box-shadow: inset 0 0 0 3px #fff; }
+        .opt-photo {
+            width: 48px; height: 48px; flex: 0 0 auto;
+            border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--c, var(--blue));
+            background: #fff;
+        }
+        .opt-none {
+            width: 48px; height: 48px; flex: 0 0 auto;
+            display: grid; place-items: center;
+            border-radius: 50%; border: 2px dashed rgba(90, 107, 133, .55);
+            color: var(--muted); font-size: 22px; font-weight: 800;
+        }
+        .opt-text { min-width: 0; line-height: 1.25; }
+        .opt-text strong { display: block; font-size: 16px; color: #0b1c3a; }
+        .opt-text span { display: block; font-size: 13.5px; color: var(--muted); }
+        .segs .opt { justify-content: center; text-align: center; padding: 12px 36px 12px 12px; font-weight: 700; color: #0b1c3a; }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 61, 165, .3);
+            background: #fff;
+            color: var(--blue);
+            font-weight: 650; font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .15s, color .15s, border-color .15s, opacity .15s;
+        }
+        .btn:hover { background: #eaf2fd; }
+        .btn.solid { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .btn.solid:hover { background: #0a4cc2; }
+        .btn:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+        .btn[disabled] { opacity: .45; cursor: not-allowed; }
+        .btn-vote {
+            width: 100%; margin-top: 20px;
+            padding: 14px 18px;
+            font-size: 16px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+        }
+        .msg { margin-top: 10px; min-height: 1.5em; font-size: 15px; font-weight: 650; color: var(--blue); text-align: center; }
+        .msg.is-error { color: #b42318; }
+        .closed { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--wash); border: 1px solid var(--line); font-size: 15.5px; color: #1e3355; }
+
+        .results { padding: 20px 22px 18px; }
+        .res-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+        .res-head h2 { flex: 1 1 auto; display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: var(--blue); letter-spacing: .01em; text-transform: uppercase; }
+        .res-meta { color: var(--muted); font-size: 14px; }
+        .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+        .res-block h3 { font-size: 15.5px; font-weight: 750; color: #0b1c3a; margin-bottom: 4px; }
+        .res-block h3 span { font-weight: 600; color: var(--muted); }
+        .res-row { display: grid; grid-template-columns: minmax(118px, 1.15fr) 2fr 46px; gap: 8px; align-items: center; margin: 8px 0; font-size: 14.5px; }
+        .res-name { font-weight: 650; color: #1e3355; line-height: 1.2; }
+        .res-mine { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--blue); border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--blue); vertical-align: 1px; }
+        .res-track { height: 10px; border-radius: 8px; background: var(--line); overflow: hidden; }
+        .res-fill { display: block; height: 100%; border-radius: 8px; transition: width .5s ease; }
+        .res-pct { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .res-empty { color: var(--muted); font-size: 15px; }
+        .fine { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+
+        .share { padding: 16px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .share p { flex: 1 1 220px; font-size: 16px; font-weight: 750; color: #0b1c3a; }
+
+        .back {
+            display: inline-block;
+            margin: 4px 0 0;
+            justify-self: start;
+            color: #fff;
+            font-size: 14px; font-weight: 650;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .4);
+        }
+        .back:hover { border-bottom-color: #fff; }
+        .site-credit { text-align: center; padding: 8px 8px 22px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+        #toast {
+            position: fixed; left: 50%; bottom: 22px; z-index: 50;
+            transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+            padding: 10px 16px; border-radius: 10px;
+            background: #0b1c3a; color: #fff; font-size: 14.5px; font-weight: 650;
+            transition: opacity .2s, transform .2s;
+        }
+        #toast.show { opacity: 1; transform: translate(-50%, 0); }
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+        }
+        @media (max-width: 720px) {
+            .top { padding: 8px 12px; }
+            .top-crest { width: 32px; height: 38px; padding: 2px; border-radius: 8px; }
+            .top-title h1 { font-size: 14px; }
+            .top-title p { font-size: 12px; margin-top: 0; }
+            .flow { padding: 12px 12px 4px; gap: 12px; }
+            .vote, .results { padding: 16px 14px; }
+            .vote h1 { font-size: 22px; }
+            .lead { font-size: 14.5px; }
+            .choices { grid-template-columns: 1fr; }
+            .segs .opt { padding: 10px 30px 10px 10px; font-size: 14.5px; }
+            .segs .opt::after { right: 10px; }
+            .res-grid { grid-template-columns: 1fr; }
+            .res-head h2 { font-size: 17px; }
+            .res-row { grid-template-columns: 1fr 46px; gap: 4px 8px; }
+            .res-track { grid-column: 1 / -1; order: 3; }
+            .share { padding: 14px; }
+            .share .btn { flex: 1 1 calc(50% - 4px); }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-vote" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-4"/></symbol>
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.4A8.4 8.4 0 1 1 21 11.5z"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
+    </svg>
+    <div class="page">
+        <header class="top">
+            <a href="./"><img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield"></a>
+            <div class="top-title">
+                <h1><a href="./">Elecciones Vélez 2026</a></h1>
+                <p>Encuesta del sitio</p>
+            </div>
+        </header>
+        <main class="flow">
+            <section class="card vote" aria-labelledby="vote-title">
+                <h1 id="vote-title">¿A quién votarías para presidente de Vélez?</h1>
+                <p class="lead" id="vote-lead">Encuesta abierta de este sitio. Cierra el domingo 15 de noviembre a las 8, cuando abre la votación en el club.</p>
+                <form id="vote-form" novalidate>
+                    <fieldset>
+                        <legend>1. ¿Votás el domingo 15?</legend>
+                        <div class="segs" id="segs">
+                            <label class="opt"><input type="radio" name="segment" value="socio"> Sí, soy socio o socia</label>
+                            <label class="opt"><input type="radio" name="segment" value="hincha"> No, soy hincha</label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>2. ¿A quién votarías?</legend>
+                        <div class="choices" id="choices"></div>
+                    </fieldset>
+                    <button type="submit" class="btn solid btn-vote" id="vote-btn" disabled><svg class="ic" aria-hidden="true"><use href="#i-vote"/></svg> <span id="vote-btn-text">Votar</span></button>
+                    <p class="msg" id="vote-msg" role="status" aria-live="polite"></p>
+                </form>
+                <p class="closed hidden" id="vote-closed">La encuesta cerró el domingo 15 a las 8, cuando abrió la votación en el club. Estos son los resultados finales.</p>
+            </section>
+
+            <section class="card results" id="results" aria-labelledby="res-title">
+                <div class="res-head">
+                    <h2 id="res-title"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg> Resultados</h2>
+                    <span class="res-meta" id="res-meta"></span>
+                </div>
+                <div id="res-body"><p class="res-empty">Cargando resultados…</p></div>
+                <p class="fine">Puede votar cualquiera que entre al sitio, sea socio o no. Se cuenta un voto por navegador y lo podés cambiar hasta el cierre. No es un sondeo con muestra: refleja lo que opinan quienes votaron acá, no lo que va a pasar el domingo.</p>
+            </section>
+
+            <section class="card share" aria-label="Compartir la encuesta">
+                <p>Mandala a otros velezanos</p>
+                <button type="button" class="btn solid" id="share-native"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> Compartir</button>
+                <a class="btn" id="share-wa" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp</a>
+                <a class="btn" id="share-x" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> X</a>
+                <button type="button" class="btn" id="share-copy"><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg> Copiar enlace</button>
+            </section>
+
+            <a class="back" href="./">Ver los candidatos y lo que dijo cada uno</a>
+        </main>
+        <p class="site-credit">Elecciones de Vélez Sarsfield</p>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="data/live.js"></script>
+    <script>
+        const API = "/api/encuesta";
+        const MINE_KEY = "velez-encuesta-2026";
+        const CLOSES_AT = "2026-11-15T08:00:00-03:00";
+        const REFRESH_MS = 30000;
+        const SHARE_URL = "https://velezelecciones.com/encuesta.html";
+        const SHARE_TEXT = "¿A quién votarías para presidente de Vélez? Votá en la encuesta de Elecciones Vélez 2026 y mirá los resultados:";
+        const BA = "America/Argentina/Buenos_Aires";
+
+        const form = document.getElementById("vote-form");
+        const choicesBox = document.getElementById("choices");
+        const voteBtn = document.getElementById("vote-btn");
+        const msg = document.getElementById("vote-msg");
+        let cands = [];
+        let byId = {};
+        let candSig = "";
+        let order = [];
+        let last = null;
+        let mine = readMine();
+        let sending = false;
+
+        function esc(value) {
+            return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+        function readMine() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(MINE_KEY) || "null");
+                return saved && saved.choice && saved.segment ? saved : null;
+            } catch { return null; }
+        }
+        function saveMine(value) {
+            mine = value;
+            try { localStorage.setItem(MINE_KEY, JSON.stringify(value)); } catch { /* sin almacenamiento local */ }
+        }
+        function toast(text) {
+            const el = document.getElementById("toast");
+            el.textContent = text;
+            el.classList.add("show");
+            clearTimeout(toast.timer);
+            toast.timer = setTimeout(() => el.classList.remove("show"), 2600);
+        }
+        function colorOf(c) { return c && /^#[0-9a-f]{3,8}$/i.test(c.color || "") ? c.color : "#003da5"; }
+        function labelOf(id) { return id === "indecisos" ? "Todavía no decidió" : (byId[id] ? byId[id].short || byId[id].name : id); }
+        function isOpen() { return last ? last.open !== false : Date.now() < Date.parse(CLOSES_AT); }
+
+        function shuffle(list) {
+            const out = list.slice();
+            for (let i = out.length - 1; i > 0; i -= 1) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [out[i], out[j]] = [out[j], out[i]];
+            }
+            return out;
+        }
+
+        function setCandidates(payload) {
+            const list = payload && Array.isArray(payload.candidates) ? payload.candidates.filter((c) => c && c.id && c.status !== "withdrawn") : [];
+            if (!list.length) return;
+            const signature = JSON.stringify(list.map((c) => [c.id, c.name, c.short, c.group, c.photo, c.photoPosition, c.color]));
+            if (signature === candSig) return;
+            candSig = signature;
+            cands = list;
+            byId = Object.fromEntries(list.map((c) => [c.id, c]));
+            const ids = list.map((c) => c.id);
+            order = order.filter((id) => ids.includes(id)).concat(shuffle(ids.filter((id) => !order.includes(id))));
+            renderChoices();
+            if (last) renderResults(last);
+        }
+
+        function renderChoices() {
+            const picked = (form.elements.choice && form.elements.choice.value) || (mine && mine.choice) || "";
+            choicesBox.innerHTML = order.map((id) => {
+                const c = byId[id];
+                const pos = c.photoPosition ? ' style="object-position:' + esc(c.photoPosition) + '"' : "";
+                return '<label class="opt" style="--c:' + colorOf(c) + '"><input type="radio" name="choice" value="' + esc(id) + '">' +
+                    '<img class="opt-photo" src="' + esc(c.photo || "img/escudo-velez.svg") + '" alt=""' + pos + ' onerror="this.src=\'img/escudo-velez.svg\'">' +
+                    '<span class="opt-text"><strong>' + esc(c.name) + "</strong><span>" + esc(c.group || "") + "</span></span></label>";
+            }).join("") +
+                '<label class="opt"><input type="radio" name="choice" value="indecisos"><span class="opt-none" aria-hidden="true">?</span>' +
+                '<span class="opt-text"><strong>Todavía no decidí</strong><span>Lo defino antes del domingo</span></span></label>';
+            if (picked) check("choice", picked);
+            syncForm();
+        }
+
+        function check(name, value) {
+            const input = form.querySelector('input[name="' + name + '"][value="' + value + '"]');
+            if (input) input.checked = true;
+        }
+
+        function syncForm() {
+            form.querySelectorAll(".opt").forEach((label) => {
+                const input = label.querySelector("input");
+                label.classList.toggle("is-on", input.checked);
+            });
+            const segment = form.elements.segment.value;
+            const choice = form.elements.choice ? form.elements.choice.value : "";
+            const same = mine && mine.choice === choice && mine.segment === segment;
+            voteBtn.disabled = sending || !segment || !choice || same || !isOpen();
+            document.getElementById("vote-btn-text").textContent = mine ? (same ? "Ya votaste" : "Cambiar mi voto") : "Votar";
+        }
+
+        function rows(counts, total) {
+            if (!total) return '<p class="res-empty">Todavía no hay votos.</p>';
+            const ids = Object.keys(counts).filter((id) => id === "indecisos" || byId[id]);
+            ids.sort((a, b) => (a === "indecisos") - (b === "indecisos") || counts[b] - counts[a]);
+            const top = Math.max(1, ...ids.map((id) => counts[id]));
+            return ids.map((id) => {
+                const pct = counts[id] * 100 / total;
+                const color = id === "indecisos" ? "#9aa9bb" : colorOf(byId[id]);
+                const tag = mine && mine.choice === id ? '<span class="res-mine">Tu voto</span>' : "";
+                return '<div class="res-row"><span class="res-name">' + esc(labelOf(id)) + tag + "</span>" +
+                    '<span class="res-track"><span class="res-fill" style="background:' + color + ";width:" + Math.max(counts[id] ? 2 : 0, counts[id] / top * 100) + '%"></span></span>' +
+                    '<strong class="res-pct">' + Math.round(pct) + "%</strong></div>";
+            }).join("");
+        }
+
+        function votes(n) { return n === 1 ? "1 voto" : n.toLocaleString("es-AR") + " votos"; }
+
+        function renderResults(data) {
+            last = data;
+            const when = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: BA }).format(new Date(data.updated || Date.now()));
+            document.getElementById("res-meta").textContent = votes(data.total) + " · actualizado " + when;
+            document.getElementById("res-body").innerHTML = '<div class="res-grid">' +
+                '<div class="res-block"><h3>Todos <span>· ' + votes(data.total) + "</span></h3>" + rows(data.todos || {}, data.total) + "</div>" +
+                '<div class="res-block"><h3>Solo quienes votan el domingo <span>· ' + votes(data.totalSocios) + "</span></h3>" + rows(data.socios || {}, data.totalSocios) + "</div></div>";
+            const closed = data.open === false;
+            form.classList.toggle("hidden", closed);
+            document.getElementById("vote-closed").classList.toggle("hidden", !closed);
+            if (closed) document.getElementById("vote-lead").textContent = "Encuesta abierta de este sitio. Ya cerró.";
+            syncForm();
+        }
+
+        function showError(text) {
+            msg.textContent = text;
+            msg.classList.add("is-error");
+        }
+
+        async function loadResults() {
+            try {
+                const response = await fetch(API, { cache: "no-store" });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(data.error || "");
+                renderResults(data);
+            } catch (error) {
+                if (!last) {
+                    document.getElementById("res-body").innerHTML = '<p class="res-empty">' + esc(error.message || "No se pudieron cargar los resultados.") + " Probá en un rato.</p>";
+                }
+            }
+        }
+
+        form.addEventListener("change", () => { msg.textContent = ""; msg.classList.remove("is-error"); syncForm(); });
+        form.addEventListener("focusin", (event) => { const label = event.target.closest(".opt"); if (label && event.target.matches(":focus-visible")) label.classList.add("is-focus"); });
+        form.addEventListener("focusout", (event) => { const label = event.target.closest(".opt"); if (label) label.classList.remove("is-focus"); });
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const segment = form.elements.segment.value;
+            const choice = form.elements.choice ? form.elements.choice.value : "";
+            if (!segment || !choice || sending) return;
+            const changing = Boolean(mine);
+            sending = true;
+            syncForm();
+            msg.classList.remove("is-error");
+            msg.textContent = "Guardando tu voto…";
+            try {
+                const response = await fetch(API, {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ choice, segment }),
+                    credentials: "same-origin"
+                });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(data.error || "No se pudo guardar el voto. Probá de nuevo en un rato.");
+                saveMine({ choice, segment, at: new Date().toISOString() });
+                renderResults(data);
+                msg.textContent = changing ? "Listo, cambiaste tu voto." : "Listo, tu voto quedó guardado.";
+                if (window.matchMedia("(max-width: 720px)").matches) document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                sending = false;
+                syncForm();
+            }
+        });
+
+        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT + " " + SHARE_URL);
+        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT) + "&url=" + encodeURIComponent(SHARE_URL);
+        const nativeShare = document.getElementById("share-native");
+        if (!navigator.share) nativeShare.classList.add("hidden");
+        nativeShare.addEventListener("click", () => {
+            navigator.share({ title: "Encuesta · Elecciones Vélez 2026", text: SHARE_TEXT, url: SHARE_URL }).catch(() => {});
+        });
+        document.getElementById("share-copy").addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(SHARE_URL);
+                toast("Enlace copiado");
+            } catch {
+                window.prompt("Copiá el enlace:", SHARE_URL);
+            }
+        });
+
+        if (mine) check("segment", mine.segment);
+        setCandidates((window.VELEZ_DATA || {}).candidates);
+        fetch("data/candidates.json", { cache: "no-cache" }).then((res) => res.ok ? res.json() : null).then(setCandidates).catch(() => {});
+        syncForm();
+        loadResults();
+        setInterval(() => { if (!document.hidden) loadResults(); }, REFRESH_MS);
+        document.addEventListener("visibilitychange", () => { if (!document.hidden) loadResults(); });
+    </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

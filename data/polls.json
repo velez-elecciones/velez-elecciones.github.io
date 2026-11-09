@@ -2,5 +2,14 @@
   "updated": "2026-10-10T20:15:00-03:00",
   "checkedAt": "2026-11-09T00:08:06.895Z",
   "polls": [],
-  "mentions": []
+  "mentions": [],
+  "open": [
+    {
+      "name": "OPINEMOS",
+      "title": "Elecciones en Vélez: ¿quién tiene que ser presidente?",
+      "url": "https://www.opinemos.com.ar/encuestas/velez/",
+      "note": "Encuesta online de participación abierta, sin muestra representativa. Los resultados se ven después de responder.",
+      "found": "2026-11-08"
+    }
+  ]
 }

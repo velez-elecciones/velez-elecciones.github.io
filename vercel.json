@@ -1,6 +1,9 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
+  "functions": {
+    "api/encuesta.mjs": { "includeFiles": "data/candidates.json" }
+  },
   "redirects": [
     {
       "source": "/velez.html",

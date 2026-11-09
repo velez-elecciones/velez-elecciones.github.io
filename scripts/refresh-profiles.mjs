@@ -15,7 +15,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { validate } from "./update-data.mjs";
+import { POLL_WORDS, validate } from "./update-data.mjs";
 import { downloadHtml, resolveGoogleNews } from "./lib.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -23,6 +23,8 @@ const DATA = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.jo
 
 const MAX_ARTICLES = 12;
 const MAX_AGE_DAYS = 14;
+// Una nota con una encuesta se lee aunque tenga hasta un mes y pasa primero en la fila.
+const POLL_MAX_AGE_DAYS = 30;
 const MAX_PER_TOPIC = 5;
 const MIN_TEXT = 500;
 const MAX_TEXT = 7500;
@@ -140,7 +142,7 @@ REGLAS
 7. Si la nota informa que un candidato conocido pasó a competir bajo otro nombre de agrupación, frente o lista (por una fusión o un acuerdo), ponelo en "groupChanges" con el nombre nuevo tal como lo escribe la nota y la cita.
 8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
 9. Usá solo el cuerpo de la nota titulada abajo. Ignorá titulares, bajadas y avances de OTRAS notas que aparezcan en el texto (notas relacionadas, "te puede interesar", barras laterales).
-10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
+10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. "online" es true si la nota dice que fue una encuesta abierta por internet o redes (cualquiera podía votar, sin muestra); si no, false. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
 11. En "topic" y "question" usá EXACTAMENTE uno de los ids de las listas de arriba (por ejemplo "finanzas", "futbol", "vinculos"). No inventes temas nuevos: si una declaración no encaja en ninguno, no la incluyas.
 12. Revisá la nota entera. Si un candidato habla de varios temas, devolvé un ítem por tema (hasta 6 por candidato). Una declaración puede venir contada por el periodista ("detalló que…", "planteó…", "reveló…", "aseguró que…"): en ese caso "quote" es esa oración de la nota, copiada igual. Los datos del club que el candidato cita (déficit, ventas, socios) cuentan como lo que dijo, no como hechos tuyos.
 13. Si la nota no trae nada de esto, devolvé las listas vacías.
@@ -151,7 +153,7 @@ FORMATO
  "withdrawals":[{"candidate":"id","joins":"id o vacío","quote":"..."}],
  "groupChanges":[{"candidate":"id","group":"nombre nuevo","quote":"..."}],
  "newCandidates":[{"name":"...","role":"Candidato a presidente","group":"agrupación o vacío","quote":"..."}],
- "polls":[{"pollster":"...","field":"...","sample":"...","results":{"id":35,"otroId":28,"indecisos":20},"quote":"..."}]}
+ "polls":[{"pollster":"...","field":"...","sample":"...","online":false,"results":{"id":35,"otroId":28,"indecisos":20},"quote":"..."}]}
 
 NOTA
 Título: ${article.title}
@@ -279,6 +281,8 @@ function whyRejected(kind, p, candidate, haystack) {
 // ---------------------------------------------------------------------------
 const MAX_POLLS = 10;
 const UNDECIDED_WORDS = ["indecis", "ns/nc", "nsnc", "no sabe", "no contesta", "sin definir", "no define", "ninguno", "en blanco"];
+// "online" se marca si la cita lo dice, o si el modelo lo propone y la nota lo respalda (nombrar Instagram en otro párrafo no alcanza solo).
+const ONLINE_WORDS = /\bonline\b|\bon line\b|redes sociales|en redes|twitter|instagram|facebook|tiktok|participacion abierta|encuesta abierta|autoadministrad|no probabilistic|no representativ|votaron los (usuarios|lectores|hinchas)/;
 
 function pctPattern(value) {
   const n = Number(value);
@@ -300,17 +304,35 @@ function spansOf(hay, words) {
   return out;
 }
 
-function distanceTo(at, spans) {
-  return spans.reduce((best, [start, end]) => Math.min(best, at < start ? start - at : at > end ? at - end : 0), Infinity);
+// De quién es un porcentaje: del nombre que lo antecede en la misma oración ("Pugliese tiene el 38%, Balestrini el 33%")
+// o del que lo sigue con "para", "de" o "a" ("el 38% para Pugliese"). Medir solo la distancia le daba el 38% a Balestrini.
+const OWNER_AFTER = /^\s*(?:para|de|a|al|por|a favor de)\s+(?:el\s+|la\s+)?$/;
+
+function pctOwner(hay, start, end, names) {
+  let before = null;
+  let after = null;
+  for (const name of names) {
+    if (name.end <= start && start - name.end <= 100 && (!before || name.end > before.end)) before = name;
+    if (name.start >= end && name.start - end <= 30 && (!after || name.start < after.start)) after = name;
+  }
+  const options = [];
+  if (before) {
+    const gap = hay.slice(before.end, start);
+    if (!/[.;!?]|\d\s?(?:%|por ciento)/.test(gap)) options.push({ key: before.key, score: /,|\sy\s/.test(gap) ? 2 : 0 });
+  }
+  if (after) {
+    const gap = hay.slice(end, after.start);
+    if (!gap.trim()) options.push({ key: after.key, score: 1 });
+    else if (OWNER_AFTER.test(gap)) options.push({ key: after.key, score: 0 });
+  }
+  options.sort((a, b) => a.score - b.score);
+  return options.length ? options[0].key : "";
 }
 
-// ¿Hay algún lugar de la nota donde ese porcentaje queda más cerca del nombre de este candidato que del de cualquier otro?
-function pollAttributed(hay, value, ownWords, otherWords) {
-  const own = spansOf(hay, ownWords);
-  const others = spansOf(hay, otherWords);
+// ¿Hay algún lugar de la nota donde ese porcentaje es de este candidato?
+function pollAttributed(hay, value, key, names) {
   for (const match of hay.matchAll(pctPattern(value))) {
-    const mine = distanceTo(match.index, own);
-    if (mine <= 140 && mine <= distanceTo(match.index, others)) return true;
+    if (pctOwner(hay, match.index, match.index + match[0].length, names) === key) return true;
   }
   return false;
 }
@@ -334,10 +356,12 @@ export function cleanPoll(p, actives, haystack) {
   if (keys.reduce((sum, key) => sum + results[key], 0) > 101) return reject("los porcentajes suman más de 100");
   const quoted = norm(p.quote);
   if (!keys.some((key) => pctPattern(results[key]).test(quoted))) return reject("la cita no muestra ningún porcentaje");
+  const names = [
+    ...actives.flatMap((c) => spansOf(haystack, nameWords(c)).map(([start, end]) => ({ key: c.id, start, end }))),
+    ...spansOf(haystack, UNDECIDED_WORDS).map(([start, end]) => ({ key: "indecisos", start, end }))
+  ];
   for (const key of keys) {
-    const own = key === "indecisos" ? UNDECIDED_WORDS : nameWords(known.get(key));
-    const others = actives.filter((c) => c.id !== key).flatMap(nameWords);
-    if (!pollAttributed(haystack, results[key], own, others)) {
+    if (!pollAttributed(haystack, results[key], key, names)) {
       return reject(`el ${results[key]}% de ${key} no figura junto a su nombre en la nota`);
     }
   }
@@ -345,7 +369,8 @@ export function cleanPoll(p, actives, haystack) {
     const value = String(text || "").trim().slice(0, 70);
     return value && haystack.includes(norm(value)) ? value : "";
   };
-  return { poll: { pollster, field: keepIfWritten(p.field), sample: keepIfWritten(p.sample), results } };
+  const online = ONLINE_WORDS.test(norm(p.quote)) || (p.online === true && ONLINE_WORDS.test(haystack));
+  return { poll: { pollster, field: keepIfWritten(p.field), sample: keepIfWritten(p.sample), results, ...(online ? { online: true } : {}) } };
 }
 
 function pollSignature(poll) {
@@ -427,11 +452,19 @@ async function main() {
   KNOWN_HEADLINES = (newsPayload.items || []).map((entry) => norm(entry.title)).filter((title) => title.length >= 30);
   const write = DRY ? async () => {} : writeFile;
   const oldest = now.getTime() - MAX_AGE_DAYS * 86400000;
-  const queue = (newsPayload.items || [])
-    .filter((item) => item && isHttp(item.url) && item.title && Date.parse(item.published) >= oldest)
+  const oldestPoll = now.getTime() - POLL_MAX_AGE_DAYS * 86400000;
+  const aboutPolls = (item) => POLL_WORDS.test(item.title + " " + (item.summary || ""));
+  // Además de Novedades, las notas sobre encuestas que update-data encontró y no entraron en el tope de noticias.
+  const candidatesToRead = [...(newsPayload.items || [])];
+  const listed = new Set(candidatesToRead.map((item) => item && item.url));
+  for (const item of Array.isArray(pollsPayload.mentions) ? pollsPayload.mentions : []) {
+    if (item && !listed.has(item.url)) { candidatesToRead.push(item); listed.add(item.url); }
+  }
+  const queue = candidatesToRead
+    .filter((item) => item && isHttp(item.url) && item.title && Date.parse(item.published) >= (aboutPolls(item) ? oldestPoll : oldest))
     .filter((item) => FORCE || (!seenBefore(ledger.items[item.url], now) && !cited.has(item.url)))
     .filter((item) => item.kind !== "community" && !/reddit\.com|youtube\.com/.test(hostOf(item.url)))
-    .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
+    .sort((a, b) => aboutPolls(b) - aboutPolls(a) || Date.parse(b.published) - Date.parse(a.published))
     .slice(0, MAX_ARTICLES);
 
   let articles = null;

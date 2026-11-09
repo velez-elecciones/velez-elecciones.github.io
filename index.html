@@ -456,6 +456,14 @@
         .poll-mentions a { font-size: 15px; text-decoration: none; padding: 8px 10px; border-radius: 8px; background: var(--wash); }
         .poll-mentions a:hover { background: #e4eefb; }
         .poll-mentions strong { color: var(--blue); margin-right: 6px; }
+        .poll-mentions small { display: block; margin-top: 2px; font-size: 13.5px; color: var(--muted); }
+
+        /* Encuesta del sitio */
+        #enc-body { margin-bottom: 14px; }
+        .enc-empty { padding: 14px 16px; border-radius: 14px; background: var(--wash); color: #3b4d6b; font-size: 15px; }
+        .enc-mine { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--blue); border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--blue); vertical-align: 1px; }
+        a.enc-cta { width: 100%; padding: 13px 18px; font-size: 15.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; }
+        .enc-fine { margin-top: 10px; text-align: center; font-size: 13.5px; color: var(--muted); }
 
         #toast {
             position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 40;
@@ -510,7 +518,7 @@
             .sec, .cmp { padding: 14px; }
             .sec-head h2 { font-size: 17px; }
             .feed-checked { display: none; }
-            a.red-entry { font-size: 14px; letter-spacing: .02em; padding: 12px 10px; }
+            a.red-entry, a.enc-cta { font-size: 14px; letter-spacing: .02em; padding: 12px 10px; }
             .cd-grid { gap: 10px; grid-template-columns: 1fr 1fr; }
             .cd-grid.is-focus { grid-template-columns: minmax(0, 1fr); }
             .cd-all { display: none; }
@@ -617,6 +625,7 @@
         <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .6 1.8 2 1.8 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></symbol>
         <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
         <symbol id="i-net" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12.5" cy="9" r="2"/><circle cx="12.5" cy="15" r="2"/><circle cx="20" cy="12" r="2"/><path d="M7 6.7 10.5 8.4M7 12h3.5M7 17.3 10.5 15.6M14.5 9.7 18 11.3M14.5 14.3 18 12.7"/></symbol>
+        <symbol id="i-ballot" viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="9" rx="2"/><path d="M8 16h8"/><path d="M8 12V3h8v9"/><path d="m10 7.5 1.5 1.5L14 6.5"/></symbol>
         <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
         <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
         <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
@@ -708,6 +717,16 @@
 
                     <div id="quiz-results" class="hidden"></div>
                 </div>
+            </section>
+
+            <section id="sec-encuesta" class="card sec">
+                <div class="sec-head no-select">
+                    <h2><svg class="ic"><use href="#i-ballot"/></svg> Encuesta del sitio</h2>
+                    <span id="enc-meta" class="meta"></span>
+                </div>
+                <div id="enc-body"></div>
+                <a id="enc-cta" class="btn solid enc-cta" href="encuesta.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-ballot"/></svg> <span id="enc-cta-text">Votá en la encuesta</span></a>
+                <p class="enc-fine">Encuesta abierta: puede votar cualquiera, un voto por navegador. No es un sondeo con muestra.</p>
             </section>
 
             <section id="sec-polls" class="card sec">
@@ -1775,7 +1794,7 @@
         }
 
         function pollCard(poll) {
-            const details = [poll.field, poll.sample].filter(Boolean).map(esc).join(" · ");
+            const details = [poll.online ? "Online, abierta" : "", poll.field, poll.sample].filter(Boolean).map(esc).join(" · ");
             const host = (() => { try { return new URL(poll.url).hostname.replace(/^www\./, ""); } catch { return "fuente"; } })();
             return '<article class="poll-card"><div class="poll-card-head"><strong>' + esc(poll.pollster) + "</strong>" +
                 "<span>" + esc(relativeDay(poll.published)) + (details ? " · " + details : "") + "</span></div>" +
@@ -1797,9 +1816,10 @@
             const polls = (payload && Array.isArray(payload.polls) ? payload.polls : []).filter(validPoll)
                 .sort((a, b) => new Date(b.published) - new Date(a.published));
             const mentions = (payload && Array.isArray(payload.mentions) ? payload.mentions : []).filter((item) => item && item.title && isUrl(item.url));
+            const open = (payload && Array.isArray(payload.open) ? payload.open : []).filter((item) => item && item.name && item.title && isUrl(item.url));
             const checked = document.getElementById("polls-checked");
             if (checked) checked.textContent = checkedLabel(payload && (payload.checkedAt || payload.updated));
-            const signature = JSON.stringify([polls, mentions]);
+            const signature = JSON.stringify([polls, mentions, open]);
             if (signature === pollsSignature) return;
             pollsSignature = signature;
             let html = "";
@@ -1809,8 +1829,13 @@
                 }
                 html += polls.map(pollCard).join("");
             } else {
-                html += '<div class="poll-empty">' + ic("search") + "<div><strong>Todavía no se publicó ninguna encuesta sobre esta elección.</strong>" +
+                html += '<div class="poll-empty">' + ic("search") + "<div><strong>Ningún medio publicó todavía una encuesta sobre esta elección.</strong>" +
                     "<p>Se buscan sondeos nuevos de forma automática. Cuando aparezca uno con su fuente, se muestra acá con el enlace.</p></div></div>";
+            }
+            if (open.length) {
+                html += '<div class="poll-mentions"><h3>Encuestas abiertas en otros sitios</h3>' + open.map((item) =>
+                    '<a href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer"><strong>' + esc(item.name) + "</strong> " + esc(item.title) +
+                    (item.note ? "<small>" + esc(item.note) + "</small>" : "") + "</a>").join("") + "</div>";
             }
             if (mentions.length) {
                 html += '<div class="poll-mentions"><h3>Notas que hablan de encuestas</h3>' + mentions.map((item) =>
@@ -1820,12 +1845,69 @@
         }
 
         // -------------------------------------------------------------
+        // ENCUESTA DEL SITIO: se vota en encuesta.html, acá se ven los resultados
+        // -------------------------------------------------------------
+        const ENC_API = "/api/encuesta";
+        const ENC_MINE_KEY = "velez-encuesta-2026";
+        let encSignature = "";
+        let encLoaded = false;
+
+        function encMine() {
+            try { return (JSON.parse(localStorage.getItem(ENC_MINE_KEY) || "null") || {}).choice || ""; } catch { return ""; }
+        }
+
+        function encRows(counts, total, mine) {
+            if (!total) return '<p class="enc-empty">Todavía no hay votos en este grupo.</p>';
+            const keys = pollKeys().filter((key) => Number.isFinite(Number(counts[key])));
+            keys.sort((a, b) => (a === "indecisos") - (b === "indecisos") || counts[b] - counts[a]);
+            const top = Math.max(1, ...keys.map((key) => counts[key]));
+            return keys.map((key) => {
+                const label = key === "indecisos" ? "Todavía no decidió" : pollLabel(key);
+                return '<div class="poll-row"><span class="poll-name">' + esc(label) + (mine === key ? '<span class="enc-mine">Tu voto</span>' : "") + "</span>" +
+                    '<span class="poll-track"><span class="poll-fill" style="background:' + pollColor(key) + ";width:" + Math.max(counts[key] ? 2 : 0, counts[key] / top * 100) + '%"></span></span>' +
+                    '<strong class="poll-value">' + Math.round(counts[key] * 100 / total) + "%</strong></div>";
+            }).join("");
+        }
+
+        function encVotes(n) { return n === 1 ? "1 voto" : Number(n || 0).toLocaleString("es-AR") + " votos"; }
+
+        function setEncuesta(data) {
+            if (!data || !data.todos) return;
+            const mine = encMine();
+            const signature = JSON.stringify([data.todos, data.socios, data.open, mine]);
+            encLoaded = true;
+            document.getElementById("enc-meta").textContent = data.open === false ? "Cerrada · " + encVotes(data.total) : encVotes(data.total);
+            document.getElementById("enc-cta-text").textContent = data.open === false ? "Ver los resultados finales" : mine ? "Cambiar mi voto o compartirla" : "Votá en la encuesta";
+            if (signature === encSignature) return;
+            encSignature = signature;
+            const body = document.getElementById("enc-body");
+            if (!data.total) {
+                body.innerHTML = '<p class="enc-empty">Todavía no hay votos. Abrí la encuesta, votá y mandala a otros velezanos.</p>';
+                return;
+            }
+            body.innerHTML = '<div class="polls-body">' +
+                '<article class="poll-card"><div class="poll-card-head"><strong>Todos</strong><span>' + encVotes(data.total) + "</span></div>" + encRows(data.todos, data.total, mine) + "</article>" +
+                '<article class="poll-card"><div class="poll-card-head"><strong>Solo quienes votan el domingo</strong><span>' + encVotes(data.totalSocios) + "</span></div>" + encRows(data.socios, data.totalSocios, mine) + "</article></div>";
+        }
+
+        async function refreshEncuesta() {
+            try {
+                const response = await fetch(ENC_API, { cache: "no-store" });
+                if (!response.ok) throw new Error(String(response.status));
+                setEncuesta(await response.json());
+            } catch {
+                if (!encLoaded) document.getElementById("enc-body").innerHTML = '<p class="enc-empty">No se pudieron cargar los resultados. Se vuelve a intentar en un minuto.</p>';
+            }
+        }
+
+        // -------------------------------------------------------------
         // ACTUALIZACIÓN: todo se vuelve a leer cada minuto
         // -------------------------------------------------------------
         async function refreshLive() {
             if (refreshLock) return;
             refreshLock = true;
             let changed = false;
+            refreshEncuesta();
             try {
                 const [news, polls, candidates, quiz, matches] = await Promise.allSettled([
                     fetchJson("news.json"), fetchJson("polls.json"), fetchJson("candidates.json"), fetchJson("quiz.json"), fetchJson("matches.json")
@@ -1878,6 +1960,8 @@
             if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(document.getElementById("candidates-grid"));
             refreshLive();
             setInterval(refreshLive, LIVE_MS);
+            document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshEncuesta(); });
+            window.addEventListener("storage", (event) => { if (event.key === ENC_MINE_KEY) refreshEncuesta(); });
         };
     </script>
     <script>

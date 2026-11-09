@@ -64,9 +64,23 @@ const RECENT_QUERIES = [
   "site:dobleamarilla.com.ar Vélez"
 ];
 
+// Encuestas: se buscan aparte y con una ventana de un mes, porque una nota con números puede quedar fuera del tope de noticias.
+const POLL_QUERIES = [
+  "Vélez encuesta elecciones",
+  "Vélez sondeo elecciones presidente",
+  "Vélez elecciones encuesta socios",
+  "Vélez elecciones quién gana encuesta",
+  "Vélez Sarsfield intención de voto",
+  "Vélez encuesta Pugliese Balestrini Montero Mazzitelli",
+  "site:dobleamarilla.com.ar Vélez encuesta",
+  "site:tribuna.ar Vélez encuesta elecciones"
+];
+const MAX_POLL_MENTIONS = 8;
+
 const MUST_BE_VELEZ = /sarsfield|fort[ií]n|amalfitani|berlanga|pugliese|balestrini|ballestrini|bragarnik|g[aá]mez|legado v[eé]lez|primero v[eé]lez|adn azul|mazz?itelli|juan cruz montero|club atl[eé]tico v[eé]lez|presidente de v[eé]lez|oficialismo de v[eé]lez|(elecciones|comicios|candidat\w+|lista|socios|presidencia)\s+(en|de|a)\s+v[eé]lez/i;
 const MUST_BE_ELECTION = /elecci|comicios|candidat|presidencia de v|agrupaci|legado v[eé]lez|primero v[eé]lez|adn azul|renovadora|padr[oó]n|junta electoral|encuesta|sondeo|intenci[oó]n de voto|listas? (de|para|opositora)/i;
-const POLL_WORDS = /encuesta|sondeo|intenci[oó]n de voto|relevamiento de opini/i;
+export const POLL_WORDS = /encuesta|sondeo|intenci[oó]n de voto|relevamiento de opini/i;
+const POLL_ABOUT_ELECTION = /elecci|comicios|candidat|presiden|voto|votar|socios|agrupaci|pugliese|balestrini|ballestrini|montero|mazz?itelli/i;
 
 // Señales para que una persona revise los datos (se escriben en data/review.json).
 const CANDIDACY = /candidat[oa]s? a (la )?presiden|lanz[oó] (su )?candidatura|encabezar[aá] (la )?lista|nuevo candidato|nueva lista|oficializ[oó] (su )?(lista|candidatura)/i;
@@ -460,6 +474,9 @@ async function main() {
   for (const query of RECENT_QUERIES) {
     try { all.push(...await search(query, "2d", false)); } catch (error) { console.warn("Barrido falló:", query, String(error)); }
   }
+  for (const query of POLL_QUERIES) {
+    try { all.push(...await search(query, "30d")); } catch (error) { console.warn("Búsqueda de encuestas falló:", query, String(error)); }
+  }
   const sourcesPayload = await readJson("sources.json", { feeds: [], listed: [] });
   all.push(...await readFeeds(Array.isArray(sourcesPayload.feeds) ? sourcesPayload.feeds : []));
 
@@ -534,13 +551,32 @@ async function main() {
 
   newsPayload.sources = Array.isArray(sourcesPayload.listed) ? sourcesPayload.listed : [];
 
+  // Notas que hablan de encuestas, de todo lo encontrado y no solo de las que entran en Novedades: refresh-profiles las lee buscando números.
   const pollsPrev = await readJson("polls.json", { polls: [], mentions: [] });
-  const mentions = news.filter((item) => POLL_WORDS.test(item.title + " " + item.summary)).slice(0, 6);
+  const mentions = fetchedAnything
+    ? kept
+      .filter((item) => {
+        const text = item.title + " " + (item.description || item.summary || "");
+        return POLL_WORDS.test(text) && POLL_ABOUT_ELECTION.test(text);
+      })
+      .slice(0, MAX_POLL_MENTIONS)
+      .map((item) => ({
+        title: item.title,
+        summary: item.description && normalize(item.description) !== normalize(item.title) ? item.description.slice(0, 260) : (item.summary || ""),
+        url: item.url,
+        source: item.source,
+        published: item.published,
+        tags: tagsFor(item),
+        ...(item.kind === "community" ? { kind: "community" } : {})
+      }))
+    : (Array.isArray(pollsPrev.mentions) ? pollsPrev.mentions : []);
   const pollsPayload = {
     updated: pollsPrev.updated || now.toISOString(),
     checkedAt: fetchedAnything ? now.toISOString() : (pollsPrev.checkedAt || now.toISOString()),
     polls: Array.isArray(pollsPrev.polls) ? pollsPrev.polls : [],
-    mentions
+    mentions,
+    // Encuestas abiertas de otros sitios (online, sin muestra), cargadas a mano con su enlace.
+    ...(Array.isArray(pollsPrev.open) && pollsPrev.open.length ? { open: pollsPrev.open } : {})
   };
 
   // Señales para revisar a mano: candidatos nuevos, bajas y notas con declaraciones más nuevas que los datos.

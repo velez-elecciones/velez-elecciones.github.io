@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-07T02:18:07.239Z",
-  "checkedAt": "2026-11-09T00:08:26.594Z",
+  "updated": "2026-11-09T06:26:12.145Z",
+  "checkedAt": "2026-11-09T06:26:12.145Z",
   "source": "ESPN",
   "team": {
     "id": "21",
@@ -53,5 +53,38 @@
       }
     ]
   },
-  "upcoming": []
+  "upcoming": [
+    {
+      "id": "401933760",
+      "league": "arg.1",
+      "competition": "Liga Profesional",
+      "stage": "Clausura - Round of 16",
+      "date": "2026-11-22T20:00:00.000Z",
+      "state": "pre",
+      "status": "STATUS_SCHEDULED",
+      "completed": false,
+      "clock": "0'",
+      "venue": "",
+      "url": "https://www.espn.com/soccer/match/_/gameId/401933760/belgrano-cordoba-velez-sarsfield",
+      "home": {
+        "id": "21",
+        "name": "Vélez Sarsfield",
+        "short": "Vélez",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "away": {
+        "id": "4",
+        "name": "Belgrano (Córdoba)",
+        "short": "Belgrano",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4.png",
+        "score": null,
+        "shootout": null,
+        "winner": false
+      },
+      "goals": []
+    }
+  ]
 }

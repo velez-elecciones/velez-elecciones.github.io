@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T06:26:04.612Z",
+  "updated": "2026-11-10T01:25:27.752Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -495,6 +495,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
             "date": "2026-10-18"
+          },
+          {
+            "summary": "Balestrini mencionó que recibieron el club con un pasivo corriente exigible y que es necesario corregir el déficit operativo y mejorar la generación de ingresos.",
+            "quote": "Nosotros recibimos un club con un pasivo corriente exigible en el corto plazo de 7,,000. Estamos hablando de algo que ya hemos comprobado que podemos solucionar y que podemos sacarlo adelante en lo próximo que queda para el club.",
+            "source": "Vélez Debate",
+            "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
+            "date": "2026-11-09",
+            "auto": true
           }
         ]
       },
@@ -514,11 +522,11 @@
             "crecer"
           ],
           "partial": [],
-          "summary": "Balestrini plantea llegar a los 100 mil socios tras superar los 80 mil actuales.",
-          "quote": "“Ese año queremos recrearlo y convertirnos en un club modelo que llegue a los 100.000 socios. Hoy tenemos arriba de 80.000, cifra que también es récord”",
-          "source": "La Noticia Web",
-          "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
-          "date": "2026-10-29",
+          "summary": "Balestrini planteó el objetivo de alcanzar los 100 mil socios mediante medidas claras y prolijas.",
+          "quote": "Queremos más socios, queremos llegar a 100,000 socios de una manera prolija, directa, con unas medidas claras para llevar adelante esto.",
+          "source": "Vélez Debate",
+          "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
+          "date": "2026-11-09",
           "auto": true
         },
         "futbol_proyecto": {
@@ -670,6 +678,14 @@
             "source": "Diario CEMBA",
             "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
             "date": "2026-09-29"
+          },
+          {
+            "summary": "Juan Cruz Montero propone un scouting profesional, jerarquizar el plantel con juveniles y refuerzos a tiempo, seguimiento de prestados y un departamento de sentido de pertenencia.",
+            "quote": "Vamos a trabajar de forma permanente con un scouting profesional para jerarquizar un plantel a la altura de lo que Vélez tiene que ser. Con el 60 o 70% de los juveniles, Vélez tocó el cielo con las manos y fue el campeón del mundo. Ese es el modelo que hay que replicar.",
+            "source": "Vélez Debate",
+            "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=4981s",
+            "date": "2026-11-09",
+            "auto": true
           }
         ],
         "sad": [
@@ -700,6 +716,14 @@
             "source": "Diario CEMBA",
             "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
             "date": "2026-09-29"
+          },
+          {
+            "summary": "Montero detalló que el club enfrenta 44 millones de dólares de deuda y un déficit operativo de 24.000 millones de pesos, y propuso reestructurar la deuda y profesionalizar el marketing.",
+            "quote": "El pasado 29 de octubre, la comisión directiva encabezada por Berrang Pulese nos presentaron el peor balance de los últimos 50 años. 44 millones de dólares de deuda, de los cuales 31 son exigibles en el corto plazo. 720 millones de pesos solo de intereses bancarios, 24,000 millones de pesos de déficit operativo.",
+            "source": "Vélez Debate",
+            "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
+            "date": "2026-11-09",
+            "auto": true
           }
         ]
       },
@@ -729,13 +753,15 @@
         },
         "deficit": {
           "supports": [
-            "ingresos",
-            "gasto_fut"
+            "ingresos"
           ],
-          "summary": "Generar ingresos nuevos (naming, streaming, espacios comerciales) y planificar el gasto del fútbol profesional.",
-          "source": "Diario CEMBA",
-          "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
-          "date": "2026-09-29"
+          "partial": [],
+          "summary": "Montero propuso generar nuevos ingresos a través de marketing y explotación comercial para reducir el déficit.",
+          "quote": "Por eso vamos a trabajar profesionalizando el área de marketing para generar , millones de dólares adicionales con nuevos sponsors. También vamos a trabajar en una explotación comercial de José Malfitani con incluido que nos va a generar otros 2 millones.",
+          "source": "Vélez Debate",
+          "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
+          "date": "2026-11-09",
+          "auto": true
         },
         "futbol_proyecto": {
           "supports": [

@@ -22,8 +22,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, "data");
 
 const MAX_ARTICLES = 12;
-// La transcripción del debate se lee aparte, de a tramos, para no ocupar todo el cupo de notas.
-const MAX_TRANSCRIPT = 8;
+// La transcripción del debate se lee aparte, de a tramos, para no ocupar el cupo de notas.
+// Un debate entero entra en una sola corrida: si no, el resto espera a un cron que GitHub suele saltear.
+const MAX_TRANSCRIPT = 24;
 const TRANSCRIPT_CHUNK = 4800;
 const MAX_AGE_DAYS = 14;
 // Una nota con una encuesta se lee aunque tenga hasta un mes y pasa primero en la fila.

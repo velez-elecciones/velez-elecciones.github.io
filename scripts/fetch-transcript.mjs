@@ -3,7 +3,7 @@
 // Se corre a mano: desde los servidores de GitHub, YouTube suele frenar estas consultas.
 // En los vivos, YouTube arma los subtítulos unas horas después de que termina la transmisión.
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -79,19 +79,21 @@ async function main() {
   const details = data.videoDetails || {};
   const micro = (data.microformat || {}).playerMicroformatRenderer || {};
   const live = micro.liveBroadcastDetails || {};
+  const file = path.join(DATA, "transcripts", id + ".json");
+  let previous = {};
+  try { previous = JSON.parse(await readFile(file, "utf8")); } catch { /* todavía no había archivo */ }
   const payload = {
     videoId: id,
     url: "https://www.youtube.com/watch?v=" + id,
     title: details.title || "",
     channel: details.author || "",
-    published: live.startTimestamp || micro.publishDate || "",
+    published: live.startTimestamp || micro.publishDate || micro.uploadDate || previous.published || "",
     duration: Number(details.lengthSeconds) || 0,
     captions: track.kind === "asr" ? "automáticos de YouTube" : "cargados por el canal",
     fetchedAt: new Date().toISOString(),
     segments
   };
   await mkdir(path.join(DATA, "transcripts"), { recursive: true });
-  const file = path.join(DATA, "transcripts", id + ".json");
   await writeFile(file, JSON.stringify(payload, null, 1) + "\n");
   const words = segments.reduce((sum, s) => sum + s.text.split(" ").length, 0);
   console.log(`${payload.title} (${payload.channel}): ${segments.length} frases, ${words} palabras, subtítulos ${payload.captions}. Guardado en ${path.relative(ROOT, file)}.`);

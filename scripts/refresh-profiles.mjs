@@ -1,6 +1,6 @@
 // Actualiza solo las posturas, perfiles y respuestas del test a partir de notas recientes.
-// Lee data/news.json, baja cada nota nueva, pide a un modelo de lenguaje que extraiga lo que dijo
-// cada candidato y SOLO guarda lo que trae una cita textual que aparece en la nota.
+// Lee data/news.json y data/transcripts/, baja cada nota nueva, pide a un modelo de lenguaje que extraiga
+// lo que dijo cada candidato y SOLO guarda lo que trae una cita textual que aparece en el texto.
 //
 // Variables de entorno:
 //   GEMINI_API_KEY    clave gratuita de Google AI Studio (https://aistudio.google.com/apikey)
@@ -12,7 +12,7 @@
 //   MOCK_ARTICLES_FILE y MOCK_LLM_FILE: solo con LLM_PROVIDER=mock (pruebas sin red)
 //   CHANGELOG_FILE     opcional: ruta donde dejar un resumen de cambios en texto
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { POLL_WORDS, validate } from "./update-data.mjs";
@@ -22,6 +22,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, "data");
 
 const MAX_ARTICLES = 12;
+// La transcripción del debate se lee aparte, de a tramos, para no ocupar todo el cupo de notas.
+const MAX_TRANSCRIPT = 8;
+const TRANSCRIPT_CHUNK = 4800;
 const MAX_AGE_DAYS = 14;
 // Una nota con una encuesta se lee aunque tenga hasta un mes y pasa primero en la fila.
 const POLL_MAX_AGE_DAYS = 30;
@@ -145,7 +148,8 @@ REGLAS
 10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. "online" es true si la nota dice que fue una encuesta abierta por internet o redes (cualquiera podía votar, sin muestra); si no, false. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
 11. En "topic" y "question" usá EXACTAMENTE uno de los ids de las listas de arriba (por ejemplo "finanzas", "futbol", "vinculos"). No inventes temas nuevos: si una declaración no encaja en ninguno, no la incluyas.
 12. Revisá la nota entera. Si un candidato habla de varios temas, devolvé un ítem por tema (hasta 6 por candidato). Una declaración puede venir contada por el periodista ("detalló que…", "planteó…", "reveló…", "aseguró que…"): en ese caso "quote" es esa oración de la nota, copiada igual. Los datos del club que el candidato cita (déficit, ventas, socios) cuentan como lo que dijo, no como hechos tuyos.
-13. Si la nota no trae nada de esto, devolvé las listas vacías.
+13. Si la nota no trae nada de esto, devolvé las listas vacías.${article.kind === "transcript" ? `
+14. Esta fuente es la transcripción automática del debate, no una nota. YouTube deforma apellidos: Pulguese, Puliese, Pulense o Puñese es Pugliese; Valestrini o Alestrini es Balestrini; Maiteli o Maciteli es Mazzitelli. Atribuí cada tramo al candidato que el moderador acaba de nombrar. Si el texto dice que en ese momento lo reemplazó otra persona, lo que dice el reemplazo no es del candidato y no es una baja. Copiá "quote" igual que en la transcripción, con esos errores.` : ""}
 
 FORMATO
 {"positions":[{"candidate":"id","topic":"id","summary":"...","quote":"..."}],
@@ -225,6 +229,54 @@ function exact(text) {
     .trim();
 }
 let EXACT_TEXT = "";
+let TRANSCRIPT = false;
+let TRANSCRIPT_CANDIDATES = [];
+
+function levenshtein(a, b, max) {
+  if (a === b) return 0;
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i += 1) {
+    const cur = [i];
+    let rowMin = i;
+    for (let j = 1; j <= b.length; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+      if (cur[j] < rowMin) rowMin = cur[j];
+    }
+    if (rowMin > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+// La transcripción automática escribe mal los apellidos. Solo se usa en ese texto, y la cita tiene que seguir estando textual.
+function fuzzyIncludes(haystack, name) {
+  const n = norm(name);
+  if (!n) return false;
+  if (haystack.includes(n)) return true;
+  if (n.length < 6) return false;
+  const max = n.length >= 8 ? 3 : 2;
+  const words = haystack.split(" ").map((word) => word.replace(/[^a-z0-9]+/g, "")).filter((word) => word.length >= 5);
+  const bag = (text) => [...text].sort().join("");
+  return words.some((word) => {
+    // Un error más si las primeras letras coinciden o están cambiadas de lugar (Pugliese / Pulguense).
+    const head = n.slice(0, 4);
+    const swapped = word.length >= 4 && bag(word.slice(0, 4)) === bag(head);
+    const limit = n.length >= 8 && (word.slice(0, 3) === n.slice(0, 3) || swapped) ? max + 1 : max;
+    return Math.abs(word.length - n.length) <= limit && levenshtein(word, n, limit) <= limit;
+  });
+}
+
+function transcriptNameOk(word, haystack) {
+  const key = norm(word);
+  for (const candidate of TRANSCRIPT_CANDIDATES) {
+    const names = [candidate.name, candidate.short, ...(candidate.aliases || [])].map(norm).filter((name) => name.length >= 4);
+    if (!names.some((name) => name === key || name.split(" ").includes(key))) continue;
+    if (names.some((name) => fuzzyIncludes(haystack, name))) return true;
+  }
+  return false;
+}
 
 function quoteOk(quote, haystack) {
   const q = norm(quote);
@@ -232,8 +284,47 @@ function quoteOk(quote, haystack) {
 }
 
 function mentions(candidate, haystack) {
-  const names = [candidate.name, ...(candidate.aliases || [])].filter(Boolean).map(norm);
-  return names.some((name) => name && haystack.includes(name));
+  const names = [candidate.name, ...(candidate.aliases || [])].filter(Boolean);
+  if (TRANSCRIPT) return names.some((name) => fuzzyIncludes(haystack, name));
+  return names.some((name) => name && haystack.includes(norm(name)));
+}
+
+// Misma idea que en la página: una opinión nueva que repite otra no suma otra tarjeta.
+const OPINION_STOP = new Set("el la los las de del un una y o a en que se su sus por con al lo es son para como mas muy ya no si esta este esto sobre desde hasta entre tambien despues donde cuando porque tiene tienen habia dijo dice afirma plantea propone quiere buscan busca candidato presidenta presidente vicepresidente formula elecciones eleccion club velez legado primero agrupacion lista socios socio hincha hinchas anos ano millones dolares pesos mensual caso tras fue ser estar hay les nos".split(" "));
+
+function opinionFold(text) {
+  return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+}
+function opinionStem(word) {
+  let w = word.replace(/(mente|ando|endo)$/, "");
+  w = w.replace(/(ados|idas|ado|ido|ar|er|ir)$/, "");
+  w = w.replace(/es$/, "");
+  w = w.replace(/s$/, "");
+  while (w.length > 4 && /[aeiou]$/.test(w)) w = w.slice(0, -1);
+  return w;
+}
+function opinionTokens(text) {
+  return [...new Set(opinionFold(text).split(" ").filter((word) => word.length >= 4 && !OPINION_STOP.has(word)).map(opinionStem).filter((word) => word.length >= 4))];
+}
+function sameOpinion(a, b) {
+  const qa = opinionFold(a.quote);
+  const qb = opinionFold(b.quote);
+  if (qa.length >= 40 && qb.length >= 40 && (qa.includes(qb.slice(0, 48)) || qb.includes(qa.slice(0, 48)))) return true;
+  const ta = opinionTokens(a.summary);
+  const tb = opinionTokens(b.summary);
+  const shared = ta.filter((word) => tb.includes(word));
+  return shared.length >= 3 && shared.length / Math.min(ta.length, tb.length) >= 0.6;
+}
+function betterOpinion(a, b) {
+  const time = (item) => Date.parse(item.date || "") || 0;
+  const newer = time(a) >= time(b) ? a : b;
+  const older = newer === a ? b : a;
+  const nt = opinionTokens(newer.summary);
+  const ot = opinionTokens(older.summary);
+  const covered = nt.filter((word) => ot.includes(word)).length / (nt.length || 1);
+  if (!older.auto && newer.auto && covered >= 0.6) return older;
+  if (covered >= 0.8 && ot.length >= nt.length + 2 && time(newer) - time(older) < 120 * 86400000) return older;
+  return newer;
 }
 
 // Hechos (fórmula, perfil, alianzas, bajas, fusiones) no se registran si la cita es un rumor o un condicional ("iría", "sería", "habría").
@@ -247,7 +338,7 @@ function isTentative(text) {
 function namesOk(summary, haystack) {
   return String(summary || "").split(/(?<=[.!?:])\s+/).every((sentence) =>
     sentence.split(/[^\p{L}\p{N}]+/u).filter(Boolean).slice(1)
-      .every((word) => word.length < 4 || !/^\p{Lu}/u.test(word) || haystack.includes(norm(word))));
+      .every((word) => word.length < 4 || !/^\p{Lu}/u.test(word) || haystack.includes(norm(word)) || (TRANSCRIPT && transcriptNameOk(word, haystack))));
 }
 
 const FACT_TOPICS = new Set(["formula", "perfil", "vinculos"]);
@@ -383,6 +474,64 @@ function brokenQuotes(result, haystack) {
   return all.filter((p) => p && p.quote && !quoteOk(p.quote, haystack)).map((p) => String(p.quote).slice(0, 320));
 }
 
+function clock(seconds) {
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  const mm = String(m).padStart(2, "0");
+  const ss = String(s).padStart(2, "0");
+  return h ? h + ":" + mm + ":" + ss : mm + ":" + ss;
+}
+
+// Parte cada transcripción en tramos con enlace al minuto. YouTube no se baja como una nota: el texto ya está en el archivo.
+async function transcriptArticles() {
+  let files = [];
+  try { files = await readdir(path.join(DATA, "transcripts")); } catch { return []; }
+  const items = [];
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+    let data;
+    try { data = JSON.parse(await readFile(path.join(DATA, "transcripts", file), "utf8")); } catch { continue; }
+    const segments = (Array.isArray(data.segments) ? data.segments : []).filter((seg) => seg && String(seg.text || "").trim());
+    if (!segments.length || !data.videoId) continue;
+    const published = data.published || data.fetchedAt || "";
+    if (!published || Number.isNaN(Date.parse(published))) continue;
+    const chunks = [];
+    let buf = [];
+    let chars = 0;
+    const flush = () => {
+      if (!buf.length) return;
+      const text = buf.map((seg) => String(seg.text).trim()).join(" ");
+      if (text.length >= MIN_TEXT) chunks.push({ t: buf[0].t || 0, text: text.slice(0, MAX_TEXT) });
+      else if (chunks.length) chunks[chunks.length - 1].text = (chunks[chunks.length - 1].text + " " + text).slice(0, MAX_TEXT);
+      buf = [];
+      chars = 0;
+    };
+    for (const seg of segments) {
+      const piece = String(seg.text).trim();
+      if (chars > 1200 && chars + piece.length > TRANSCRIPT_CHUNK) flush();
+      buf.push(seg);
+      chars += piece.length + 1;
+    }
+    flush();
+    const source = /debate/i.test(data.channel || "") ? "Vélez Debate" : (data.channel || "Vélez Debate");
+    const title = data.title || "Debate presidencial";
+    for (const chunk of chunks) {
+      const t = Math.max(0, Math.floor(Number(chunk.t) || 0));
+      items.push({
+        kind: "transcript",
+        url: "https://www.youtube.com/watch?v=" + data.videoId + "&t=" + t + "s",
+        title: title + " (desde " + clock(t) + ")",
+        source,
+        published,
+        text: chunk.text
+      });
+    }
+  }
+  return items;
+}
+
 async function main() {
   if (!provider) {
     console.log("No hay GEMINI_API_KEY (ni otra clave): se saltea la actualización automática de posturas. Noticias y sondeos siguen funcionando.");
@@ -431,6 +580,7 @@ async function main() {
   }
 
   const active = () => candidatesPayload.candidates.filter((c) => c.status !== "withdrawn");
+  TRANSCRIPT_CANDIDATES = active();
   const topics = candidatesPayload.topics;
   const questions = quizPayload.questions;
   TOPIC_IDS = new Set(topics.map((t) => t.id));
@@ -466,6 +616,11 @@ async function main() {
     .filter((item) => item.kind !== "community" && !/reddit\.com|youtube\.com/.test(hostOf(item.url)))
     .sort((a, b) => aboutPolls(b) - aboutPolls(a) || Date.parse(b.published) - Date.parse(a.published))
     .slice(0, MAX_ARTICLES);
+  const transcriptQueue = (await transcriptArticles())
+    .filter((item) => Date.parse(item.published) >= oldest)
+    .filter((item) => FORCE || (!seenBefore(ledger.items[item.url], now) && !cited.has(item.url)))
+    .slice(0, MAX_TRANSCRIPT);
+  const reading = [...transcriptQueue, ...queue];
 
   let articles = null;
   if (provider === "mock") articles = JSON.parse(await readFile(process.env.MOCK_ARTICLES_FILE, "utf8"));
@@ -473,9 +628,9 @@ async function main() {
   const log = [];
   let changed = false;
   let brokenModel = "";
-  console.log(`Notas por revisar: ${queue.length}. Proveedor: ${provider}.`);
+  console.log(`Notas por revisar: ${queue.length}. Tramos del debate: ${transcriptQueue.length}. Proveedor: ${provider}.`);
 
-  for (const entry of queue) {
+  for (const entry of reading) {
     const item = { ...entry }; // "item.url" pasa a ser la nota real si el enlace era de Google Noticias
     CURRENT_TITLE = entry.title;
     const mark = (result) => {
@@ -484,8 +639,10 @@ async function main() {
       ledger.items[item.url] = stamp;
     };
     let text = "";
+    TRANSCRIPT = entry.kind === "transcript";
     try {
-      if (articles) text = (articles.find((a) => a.url === entry.url) || {}).text || "";
+      if (TRANSCRIPT) text = entry.text || "";
+      else if (articles) text = (articles.find((a) => a.url === entry.url) || {}).text || "";
       else {
         if (hostOf(entry.url) === "news.google.com") {
           try { item.url = await resolveGoogleNews(entry.url); } catch (error) {
@@ -571,8 +728,17 @@ async function main() {
       if (!topics.some((t) => t.id === (p && p.topic)) || !p.summary || whyRejected("postura", p, c, haystack)) continue;
       c.positions = c.positions || {};
       const list = (c.positions[p.topic] = c.positions[p.topic] || []);
-      if (list.some((x) => x.url === item.url)) continue;
-      list.push({ summary: String(p.summary).slice(0, 260), quote: String(p.quote).trim(), source: item.source, url: item.url, date, auto: true });
+      const incoming = { summary: String(p.summary).slice(0, 260), quote: String(p.quote).trim(), source: item.source, url: item.url, date, auto: true };
+      const dup = list.findIndex((old) => old.url === incoming.url || sameOpinion(old, incoming));
+      if (dup >= 0) {
+        const kept = betterOpinion(list[dup], incoming);
+        if (kept !== list[dup]) {
+          list[dup] = kept;
+          entries.push(`${c.name}: postura actualizada en ${p.topic}`);
+        }
+        continue;
+      }
+      list.push(incoming);
       // Tope por tema: se descartan las automáticas más viejas, nunca las cargadas a mano.
       while (list.length > MAX_PER_TOPIC) {
         const drop = list.map((x, i) => ({ x, i })).filter((e) => e.x.auto)

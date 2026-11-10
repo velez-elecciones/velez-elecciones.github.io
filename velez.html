@@ -684,15 +684,15 @@
                     <span id="debate-when" class="meta"></span>
                 </div>
                 <div class="debate">
-                    <a id="debate-media" class="debate-media" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer" aria-label="Ver el debate en YouTube">
+                    <a id="debate-media" class="debate-media" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer" aria-label="Ver de nuevo el debate en YouTube">
                         <img src="https://i.ytimg.com/vi/WohLyKJ4d_A/maxresdefault.jpg" alt="Vélez Debate 2026" loading="lazy" decoding="async">
                         <span class="debate-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
                         <span id="debate-badge" class="debate-badge hidden">En vivo</span>
                     </a>
                     <div class="debate-text">
-                        <p>Los cuatro candidatos a presidente, en el debate que organizan los medios partidarios del club. Se transmite en vivo por el canal Velez Debate.</p>
-                        <a id="debate-cta" class="btn solid" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> <span id="debate-cta-text">Ver en YouTube</span></a>
-                        <p id="debate-fine" class="debate-fine">El canal no permite verlo dentro de otras páginas, por eso se abre en YouTube.</p>
+                        <p id="debate-lead">El debate ya terminó. Podés verlo de nuevo: los cuatro candidatos, en la grabación del canal Vélez Debate.</p>
+                        <a id="debate-cta" class="btn solid" href="https://www.youtube.com/watch?v=WohLyKJ4d_A" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> <span id="debate-cta-text">Ver de nuevo en YouTube</span></a>
+                        <p id="debate-fine" class="debate-fine">El canal no permite verlo dentro de otras páginas, por eso la grabación se abre en YouTube.</p>
                     </div>
                 </div>
             </section>
@@ -936,11 +936,76 @@
                 }).map((entry) => entry.item);
         }
 
-        function itemHtml(c, topic, item) {
+        // Hasta tres posturas distintas de un tema se leen enteras. Si se acumulan más, no se apilan
+        // repeticiones y las más viejas se acortan; pasado cuatro, las anteriores dejan de mostrarse.
+        const OPINION_EASY = 3;
+        const OPINION_CAP = 4;
+        const OPINION_STOP = new Set("el la los las de del un una y o a en que se su sus por con al lo es son para como mas muy ya no si esta este esto sobre desde hasta entre tambien despues donde cuando porque tiene tienen habia dijo dice afirma plantea propone quiere buscan busca candidato presidenta presidente vicepresidente formula elecciones eleccion club velez legado primero agrupacion lista socios socio hincha hinchas anos ano millones dolares pesos mensual caso tras fue ser estar hay les nos".split(" "));
+
+        function opinionFold(text) {
+            return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+        }
+        function opinionStem(word) {
+            let w = word.replace(/(mente|ando|endo)$/, "");
+            w = w.replace(/(ados|idas|ado|ido|ar|er|ir)$/, "");
+            w = w.replace(/es$/, "");
+            w = w.replace(/s$/, "");
+            while (w.length > 4 && /[aeiou]$/.test(w)) w = w.slice(0, -1);
+            return w;
+        }
+        function opinionTokens(text) {
+            return [...new Set(opinionFold(text).split(" ").filter((word) => word.length >= 4 && !OPINION_STOP.has(word)).map(opinionStem).filter((word) => word.length >= 4))];
+        }
+        function sameOpinion(a, b) {
+            const qa = opinionFold(a.quote);
+            const qb = opinionFold(b.quote);
+            if (qa.length >= 40 && qb.length >= 40 && (qa.includes(qb.slice(0, 48)) || qb.includes(qa.slice(0, 48)))) return true;
+            const ta = opinionTokens(a.summary);
+            const tb = opinionTokens(b.summary);
+            const shared = ta.filter((word) => tb.includes(word));
+            return shared.length >= 3 && shared.length / Math.min(ta.length, tb.length) >= 0.6;
+        }
+        function betterOpinion(a, b) {
+            const time = (item) => (toDate(item.date) || new Date(0)).getTime();
+            const newer = time(a) >= time(b) ? a : b;
+            const older = newer === a ? b : a;
+            const nt = opinionTokens(newer.summary);
+            const ot = opinionTokens(older.summary);
+            const covered = nt.filter((word) => ot.includes(word)).length / (nt.length || 1);
+            if (!older.auto && newer.auto && covered >= 0.6) return older;
+            if (covered >= 0.8 && ot.length >= nt.length + 2 && time(newer) - time(older) < 120 * 86400000) return older;
+            return newer;
+        }
+        function condenseOpinions(items) {
+            const kept = [];
+            sortedItems(items).forEach((item) => {
+                const idx = kept.findIndex((old) => sameOpinion(old, item));
+                if (idx === -1) kept.push(item);
+                else kept[idx] = betterOpinion(kept[idx], item);
+            });
+            return sortedItems(kept);
+        }
+        function shortenOpinion(summary, index, total) {
+            if (total <= OPINION_EASY || index === 0) return summary;
+            const cap = index === 1 ? 170 : index === 2 ? 130 : 100;
+            if (summary.length <= cap + 25) return summary;
+            const cut = summary.slice(0, cap);
+            const space = cut.lastIndexOf(" ");
+            return (space > 70 ? cut.slice(0, space) : cut).replace(/[,;:\s]+$/, "") + "…";
+        }
+        function visibleOpinions(items, hardLimit) {
+            const all = condenseOpinions(items);
+            if (!all.length) return [];
+            let cap = all.length > OPINION_EASY ? Math.min(OPINION_CAP, all.length) : all.length;
+            if (hardLimit) cap = Math.min(hardLimit, cap);
+            return all.slice(0, cap).map((item, index) => ({ item: item, text: shortenOpinion(item.summary, index, all.length) }));
+        }
+
+        function itemHtml(c, topic, item, text) {
             const when = shortDate(item.date);
             const old = item.date && monthsAgo(item.date) >= 3 ? ' <span class="cd-age">· hace ' + monthsAgo(item.date) + " meses</span>" : "";
             const auto = item.auto ? '<span class="cd-auto" title="Resumen generado automáticamente a partir de la nota. Verificalo en la fuente.">automático</span>' : "";
-            return '<div class="cd-item' + (newKeys.has(itemKey(c.id, topic, item)) ? " cd-new" : "") + '"><p class="cd-sum">' + esc(item.summary) + "</p>" +
+            return '<div class="cd-item' + (newKeys.has(itemKey(c.id, topic, item)) ? " cd-new" : "") + '"><p class="cd-sum">' + esc(text || item.summary) + "</p>" +
                 '<p class="cd-src"><a class="source-link" href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer"' +
                 (item.quote ? ' title="' + esc("«" + item.quote + "»") + '"' : "") + ">Fuente: " + esc(item.source || "ver la nota") + (when ? " · " + esc(when) : "") +
                 " " + ic("external") + "</a>" + old + auto + "</p></div>";
@@ -949,11 +1014,10 @@
         // Solo se muestran los temas que tienen al menos una postura con fuente; "limit" resume a lo más reciente.
         // Los temas "latestOnly" (la fórmula) muestran solo lo más reciente: si cambia, lo anterior deja de verse.
         function topicBlock(c, topic, limit) {
-            const items = sortedItems(c.positions && c.positions[topic.id]);
-            if (!items.length) return "";
-            const cap = topic.latestOnly ? 1 : (limit || items.length);
+            const rows = visibleOpinions(c.positions && c.positions[topic.id], topic.latestOnly ? 1 : limit);
+            if (!rows.length) return "";
             return '<section class="cd-topic"><p class="cd-kicker">' + ic(topic.icon || "user") + esc(topic.label) + "</p>" +
-                items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("") + "</section>";
+                rows.map((row) => itemHtml(c, topic.id, row.item, row.text)).join("") + "</section>";
         }
 
         function socialHtml(c) {
@@ -1102,10 +1166,9 @@
                 return '<article class="card cd-card tc-card" style="--c:' + colorOf(c) + '">' +
                     headHtml(c, { open: true }) + "</article>";
             }
-            const items = sortedItems(c.positions && c.positions[topic.id]);
-            const cap = topic.latestOnly ? 1 : Math.min(2, items.length || 1);
-            const body = items.length
-                ? items.slice(0, cap).map((item) => itemHtml(c, topic.id, item)).join("")
+            const rows = visibleOpinions(c.positions && c.positions[topic.id], topic.latestOnly ? 1 : 2);
+            const body = rows.length
+                ? rows.map((row) => itemHtml(c, topic.id, row.item, row.text)).join("")
                 : '<p class="cd-empty">Todavía no hay una postura publicada con fuente.</p>';
             return '<article class="card cd-card tc-card" style="--c:' + colorOf(c) + '">' +
                 headHtml(c, { open: true }) + '<section class="cd-body">' + body + "</section></article>";
@@ -1879,10 +1942,11 @@
         }
 
         // -------------------------------------------------------------
-        // DEBATE: el canal no deja reproducirlo en otras páginas, así que se abre en YouTube.
-        // Si el canal habilita la inserción, con embed: true se reproduce acá mismo.
+        // DEBATE: YouTube sigue sin permitir la inserción (playableInEmbed: false).
+        // Se abre en YouTube. Si el canal la habilita, con embed: true se reproduce acá.
+        // liveHours es la duración de la grabación (~2 h); después queda para ver de nuevo.
         // -------------------------------------------------------------
-        const DEBATE = { id: "WohLyKJ4d_A", start: "2026-11-09T19:00:00-03:00", liveHours: 3, embed: false };
+        const DEBATE = { id: "WohLyKJ4d_A", start: "2026-11-09T19:00:00-03:00", liveHours: 2, embed: false };
         const AR_DAY = { timeZone: "America/Argentina/Buenos_Aires", year: "numeric", month: "2-digit", day: "2-digit" };
 
         function setDebate() {
@@ -1899,10 +1963,19 @@
             else if (dayOf(start) === dayOf(now)) when = "Hoy a las " + hour;
             else if (dayOf(start) === dayOf(now + 86400000)) when = "Mañana a las " + hour;
             else when = new Date(start).toLocaleDateString("es-AR", { timeZone: "America/Argentina/Buenos_Aires", weekday: "long", day: "numeric", month: "long" }) + ", " + hour;
+            const lead = document.getElementById("debate-lead");
+            if (done) lead.textContent = "El debate ya terminó. Podés verlo de nuevo: los cuatro candidatos, en la grabación del canal Vélez Debate.";
+            else lead.textContent = "Los cuatro candidatos a presidente, en el debate que organizan los medios partidarios del club. Se transmite en vivo por el canal Vélez Debate.";
             document.getElementById("debate-when").textContent = when;
             document.getElementById("debate-badge").classList.toggle("hidden", !live);
-            document.getElementById("debate-cta-text").textContent = live ? "Ver en vivo en YouTube" : done ? "Ver la grabación en YouTube" : "Ver en YouTube";
-            document.getElementById("debate-fine").classList.toggle("hidden", DEBATE.embed);
+            document.getElementById("debate-cta-text").textContent = live ? "Ver en vivo en YouTube" : done ? (DEBATE.embed ? "Ver de nuevo" : "Ver de nuevo en YouTube") : "Ver en YouTube";
+            const fine = document.getElementById("debate-fine");
+            fine.classList.toggle("hidden", DEBATE.embed);
+            if (!DEBATE.embed) fine.textContent = done
+                ? "El canal no permite verlo dentro de otras páginas, por eso la grabación se abre en YouTube."
+                : "El canal no permite verlo dentro de otras páginas, por eso se abre en YouTube.";
+            const mediaLink = document.getElementById("debate-media");
+            if (mediaLink) mediaLink.setAttribute("aria-label", done ? "Ver de nuevo el debate en YouTube" : live ? "Ver el debate en vivo en YouTube" : "Ver el debate en YouTube");
         }
 
         function playDebateHere(event) {

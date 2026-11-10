@@ -130,7 +130,7 @@
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            z-index: 2;
+            z-index: 4;
         }
         .node.cand img, .node.cand .fallback {
             width: 64px; height: 64px;
@@ -150,7 +150,7 @@
             text-transform: uppercase; color: var(--c); line-height: 1.15;
         }
         .node.word {
-            z-index: 3;
+            z-index: 2;
             padding: 4px 11px;
             border-radius: 999px;
             border: 1px solid rgba(0, 61, 165, .2);
@@ -508,14 +508,83 @@
                 const py = dx / len;
                 const mix = linked.length === 1 ? (narrow ? 0.38 : 0.5) : (narrow ? 0.2 : 0.3);
                 group.forEach((node, i) => {
-                    const spread = (i - (group.length - 1) / 2) * (narrow ? 30 : 52);
-                    node.homeX = cx + (dx / len) * len * mix + px * spread;
-                    node.homeY = cy + (dy / len) * len * mix + py * spread;
+                    const spread = (i - (group.length - 1) / 2) * (narrow ? 34 : 56);
+                    const nearest = linked.reduce((best, cand) => {
+                        const dist = Math.hypot(cand.x - ax, cand.y - ay);
+                        return dist < best.dist ? { dist: dist, cand: cand } : best;
+                    }, { dist: Infinity, cand: linked[0] });
+                    const faceR = nearest.cand ? Math.max(nearest.cand.faceW || 64, nearest.cand.faceH || 64) / 2 + 40 : 72;
+                    const along = Math.min(len * mix, Math.max(narrow ? 28 : 48, len - faceR - node.h));
+                    node.homeX = cx + (dx / len) * along + px * spread;
+                    node.homeY = cy + (dy / len) * along + py * spread;
                     node.x = node.homeX;
                     node.y = node.homeY;
                     node.pin = false;
                 });
             });
+            const facePad = 20;
+            const slackOf = (node) => ({ x: node.w / 2 + node.amp + 10, y: node.h / 2 + node.amp + 10 });
+            const clampWord = (node) => {
+                const slack = slackOf(node);
+                node.x = Math.max(slack.x, Math.min(w - slack.x, node.x));
+                node.y = Math.max(slack.y, Math.min(h - slack.y, node.y));
+            };
+            const faceDisk = (cand) => ({
+                x: cand.x,
+                y: cand.y + (cand.faceDy || 0),
+                r: Math.max(cand.faceW || 64, cand.faceH || 64) / 2 + facePad
+            });
+            const overlapsFace = (word, disk) => {
+                const hw = word.w / 2;
+                const hh = word.h / 2;
+                const qx = Math.max(word.x - hw, Math.min(disk.x, word.x + hw));
+                const qy = Math.max(word.y - hh, Math.min(disk.y, word.y + hh));
+                return Math.hypot(qx - disk.x, qy - disk.y) < disk.r;
+            };
+            // Las palabras no pueden quedar sobre la foto. Si empujarlas hacia afuera las saca del escenario
+            // (pasa con el candidato de abajo), se corren de costado.
+            const clearFaces = () => {
+                words.forEach((word) => {
+                    for (let guard = 0; guard < 12; guard += 1) {
+                        let hit = false;
+                        cands.forEach((cand) => {
+                            const disk = faceDisk(cand);
+                            if (!overlapsFace(word, disk)) return;
+                            hit = true;
+                            const hw = word.w / 2;
+                            const hh = word.h / 2;
+                            const qx = Math.max(word.x - hw, Math.min(disk.x, word.x + hw));
+                            const qy = Math.max(word.y - hh, Math.min(disk.y, word.y + hh));
+                            let vx = qx - disk.x;
+                            let vy = qy - disk.y;
+                            let dist = Math.hypot(vx, vy);
+                            if (dist < 0.8) {
+                                vx = cx - disk.x;
+                                vy = cy - disk.y;
+                                dist = Math.hypot(vx, vy) || 1;
+                            }
+                            const push = disk.r - dist + 2;
+                            const ux = vx / dist;
+                            const uy = vy / dist;
+                            const slack = slackOf(word);
+                            const nx = word.x + ux * push;
+                            const ny = word.y + uy * push;
+                            if (nx >= slack.x && nx <= w - slack.x && ny >= slack.y && ny <= h - slack.y) {
+                                word.x = nx;
+                                word.y = ny;
+                                return;
+                            }
+                            const tx = -uy;
+                            const ty = ux;
+                            const side = Math.sign((cx - disk.x) * tx + (cy - disk.y) * ty) || 1;
+                            word.x += tx * side * push;
+                            word.y += ty * side * push;
+                            clampWord(word);
+                        });
+                        if (!hit) break;
+                    }
+                });
+            };
             const separate = (gap, spring) => {
                 for (let i = 0; i < nodes.length; i += 1) {
                     for (let j = i + 1; j < nodes.length; j += 1) {
@@ -549,12 +618,28 @@
                     node.x = Math.max(slackX, Math.min(w - slackX, node.x));
                     node.y = Math.max(slackY, Math.min(h - slackY, node.y));
                 });
+                clearFaces();
             };
             for (let step = 0; step < 160; step += 1) separate(narrow ? 10 : 14, true);
             for (let step = 0; step < 80; step += 1) separate(narrow ? 8 : 12, false);
+            clearFaces();
             nodes.forEach((node) => {
                 node.el.style.left = (node.x - node.w / 2) + "px";
                 node.el.style.top = (node.y - node.h / 2) + "px";
+            });
+        }
+
+        function coversFace(x, y, width, height) {
+            const hw = width / 2;
+            const hh = height / 2;
+            return nodes.some((cand) => {
+                if (cand.kind !== "cand") return false;
+                const fx = cand.x + (cand.ox || 0);
+                const fy = cand.y + (cand.faceDy || 0) + (cand.oy || 0);
+                const limit = Math.max(cand.faceW || 64, cand.faceH || 64) / 2 + 12;
+                const qx = Math.max(x - hw, Math.min(fx, x + hw));
+                const qy = Math.max(y - hh, Math.min(fy, y + hh));
+                return Math.hypot(qx - fx, qy - fy) < limit;
             });
         }
 
@@ -568,6 +653,10 @@
                 const slackY = node.h / 2 + 8;
                 ox = Math.max(slackX - node.x, Math.min(w - slackX - node.x, ox));
                 oy = Math.max(slackY - node.y, Math.min(h - slackY - node.y, oy));
+                if (node.kind === "word" && coversFace(node.x + ox, node.y + oy, node.w, node.h)) {
+                    ox = 0;
+                    oy = 0;
+                }
                 node.ox = ox;
                 node.oy = oy;
                 const scale = node.hot ? 1.08 : 1;
@@ -675,6 +764,12 @@
                 node.w = rect.width || node.w;
                 node.h = rect.height || node.h;
                 node.r = Math.max(node.w, node.h) / 2;
+                const faceEl = node.el.querySelector("img, .fallback");
+                const face = faceEl ? faceEl.getBoundingClientRect() : null;
+                node.faceW = (face && face.width) || 64;
+                node.faceH = (face && face.height) || 64;
+                // La foto está arriba del nombre: el centro de la cara no es el centro del nodo.
+                node.faceDy = face && rect.height ? (face.top + face.height / 2) - (rect.top + rect.height / 2) : -(node.h - node.faceH) / 2;
             });
             layout();
             let bend = -16;

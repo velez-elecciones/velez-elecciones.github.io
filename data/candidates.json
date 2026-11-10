@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T15:49:38.171Z",
+  "updated": "2026-11-10T21:47:12.115Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -695,6 +695,14 @@
             "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=4981s",
             "date": "2026-11-09",
             "auto": true
+          },
+          {
+            "summary": "Propone trabajar de forma planificada en el fútbol profesional con Héctor Coyo Almandoz como director deportivo desde divisiones inferiores.",
+            "quote": "La solución tiene que ser trabajar planificadamente, de forma profesional, con la suficiente anticipación, es decir, sentarnos al menos 18 meses antes de los vencimientos de los contratos de esos chicos.",
+            "source": "La Nación",
+            "url": "https://www.lanacion.com.ar/deportes/futbol/juan-cruz-montero-candidato-a-presidente-de-velez-si-no-cambiamos-el-modelo-economico-no-vamos-a-nid10112026/",
+            "date": "2026-11-10",
+            "auto": true
           }
         ],
         "social": [
@@ -733,6 +741,14 @@
             "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
             "date": "2026-11-09",
             "auto": true
+          },
+          {
+            "summary": "Montero advierte que Vélez adeuda 44 millones de dólares y propone renegociar pasivos, reducir la morosidad y sumar nuevos ingresos comerciales y por naming.",
+            "quote": "Vélez debe 44 millones de dólares, tiene un déficit operativo anual de 24.000 millones de pesos, perdió un 32% del patrimonio neto.",
+            "source": "La Nación",
+            "url": "https://www.lanacion.com.ar/deportes/futbol/juan-cruz-montero-candidato-a-presidente-de-velez-si-no-cambiamos-el-modelo-economico-no-vamos-a-nid10112026/",
+            "date": "2026-11-10",
+            "auto": true
           }
         ]
       },
@@ -752,24 +768,26 @@
           "supports": [
             "naming_si"
           ],
-          "partial": [
-            "naming_cond"
-          ],
-          "summary": "Quiere un naming con una empresa alineada en valores, sin perder el nombre Amalfitani.",
-          "source": "Diario CEMBA",
-          "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
-          "date": "2026-09-29"
+          "partial": [],
+          "summary": "Juan Cruz Montero apoya evaluar la venta del naming del estadio José Amalfitani junto a una productora de entretenimiento para generar ingresos extras.",
+          "quote": "También estamos trabajando con una productora de entretenimiento para evaluar la posibilidad del naming junto al José Amalfitani y que podamos generar un ingreso extra de 2 millones de dólares.",
+          "source": "La Nación",
+          "url": "https://www.lanacion.com.ar/deportes/futbol/juan-cruz-montero-candidato-a-presidente-de-velez-si-no-cambiamos-el-modelo-economico-no-vamos-a-nid10112026/",
+          "date": "2026-11-10",
+          "auto": true
         },
         "deficit": {
           "supports": [
-            "ingresos"
+            "mora",
+            "ingresos",
+            "gasto_fut"
           ],
           "partial": [],
-          "summary": "Montero propuso generar nuevos ingresos a través de marketing y explotación comercial para reducir el déficit.",
-          "quote": "Por eso vamos a trabajar profesionalizando el área de marketing para generar , millones de dólares adicionales con nuevos sponsors. También vamos a trabajar en una explotación comercial de José Malfitani con incluido que nos va a generar otros 2 millones.",
-          "source": "Vélez Debate",
-          "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1447s",
-          "date": "2026-11-09",
+          "summary": "Juan Cruz Montero plantea reducir el déficit bajando la morosidad social, incrementando sponsors, evaluando un naming y ordenando la planificación financiera.",
+          "quote": "Hoy Vélez reúne entre más de 60 sponsors solamente 6 millones de dólares. Esos ingresos pueden incrementarse en el primer año a 10 millones. Hay una morosidad en la cuota social de los socios que asciende al 30%. Nosotros apuntamos a recuperar al menos en primer año ese 10% de morosidad",
+          "source": "La Nación",
+          "url": "https://www.lanacion.com.ar/deportes/futbol/juan-cruz-montero-candidato-a-presidente-de-velez-si-no-cambiamos-el-modelo-economico-no-vamos-a-nid10112026/",
+          "date": "2026-11-10",
           "auto": true
         },
         "futbol_proyecto": {
@@ -850,11 +868,11 @@
             "date": "2026-10-09"
           },
           {
-            "summary": "Ignacio Mazzitelli es el candidato a presidente de Cruzada Renovadora, acompañado por Nahuel Pérez, Leandro González y Gonzalo Pérez.",
-            "quote": "En cuanto a Cruzada Renovadora, tiene a Ignacio Mazzitelli como aspirante a mandatario, mientras que lo acompañarán como vicepresidentes Nahuel Pérez, Leandro González y Gonzalo Pérez.",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/rosca/con-las-listas-definidas--seran-cuatro-los-candidatos-a-presidente-en-los-comicios-de-velez_a6aea9037c5b4d02690d8e1b6",
-            "date": "2026-11-04",
+            "summary": "Nahuel Perez asume el rol de candidato a vicepresidente primero de Cruzada Renovadora tras la descompensacion de Ignacio Mazzitelli en el debate.",
+            "quote": "Con el candidato ya fuera del encuentro, Nahuel Pérez, postulante a vicepresidente primero por Cruzada Renovadora, asumió su lugar y continuó con las instancias que quedaban del debate.",
+            "source": "TN",
+            "url": "https://tn.com.ar/deportes/futbol/2026/11/10/siento-angustia-y-bronca-el-mensaje-del-candidato-a-presidente-de-velez-que-se-descompuso-y-abandono-un-debate-en-vivo/",
+            "date": "2026-11-10",
             "auto": true
           },
           {

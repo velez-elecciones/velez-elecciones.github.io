@@ -1,5 +1,25 @@
 {
   "items": {
+    "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=5923s": {
+      "at": "2026-11-10T15:49:38.171Z",
+      "result": "applied"
+    },
+    "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPblZHMzRjTjBvUi0xRTlVQzRTTGxoTlQycEMwOWROSGhTS2JCTFlITFk3Z0owNXEza1hPaThqZDhTTldCUGRLandFVHNzZk9lUU9MeUExLVc5ODFsa2xmQWhCNXdrQWhQQnpCRHdNd18tUE10WGpjckI1ZnBuelE5alRQSVdIMFpJR25keGFvN3pmbnkzdUZnRFl1T01XTWVJNFY3Tk1HdlNGVzJ3czVFSzJtYVRnalNQU0VBaHRybGp5RnRjQktGZFJEMEplMW4zVlJKaVozcUN0WHBuZkl2YVhfQTZXYjIyYktWT3VzN3paMldXbjF3dkFR0gGOAkFVX3lxTFBxbjZJQVU2eDRuckxMeGc4ZkZPSXpiNF96dFF3N0kycnVLaERsOUQxOXlsRklkQjlsMXhyTWFpXzZ0R0NkSFlKUTBaQncwdnhvMkNzTWhhU1FnU3YxckpxWmhVeVcyY2MwSnhHZ2VyUWxJdHdYYXhrYmVWWWhoUlhDc0hhWFJOVHVMYmRhV3JYTkZoTGRUNU1Ia1ZRNnlZRU5YTGZoUUc0RnNOSnVkTU90YjYxSnJoek5rVXc1bkg2ekZuN0FxcDdqRC1UaTNHSklER1FfMXBYSTlROXp0Z3J4cjBNekZTVU9JTks5RUFaSUJ5QlJCaGVBNGZZaHN3Y054SmZ2SmFPa1R1ZGpLUQ?oc=5": {
+      "at": "2026-11-10T15:49:38.171Z",
+      "result": "invalid"
+    },
+    "https://tn.com.ar/videos/deportes/futbol/2026/11/10/me-trabe-un-candidato-a-presidente-de-velez-sufrio-una-descompensacion-en-pleno-debate-y-tuvo-que-ser-reemplazado/": {
+      "at": "2026-11-10T15:49:38.171Z",
+      "result": "invalid"
+    },
+    "https://www.newsdigitales.com/nota/349676/el-inesperado-momento-de-un-candidato-en-el-debate-de-velez-cancelame": {
+      "at": "2026-11-10T15:49:38.171Z",
+      "result": "empty"
+    },
+    "https://www.minutouno.com/deportes/el-insolito-momento-que-protagonizo-un-candidato-presidente-velez-vivo-cancelame-n6343437": {
+      "at": "2026-11-10T15:49:38.171Z",
+      "result": "empty"
+    },
     "https://www.diariojornada.com.ar/426789/deportes/cancelame_el_insolito_momento_de_un_candidato_a_presidente_de_velez_en_pleno_debate_en_vivo": {
       "at": "2026-11-10T07:41:28.534Z",
       "result": "empty"

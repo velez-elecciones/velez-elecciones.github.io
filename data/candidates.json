@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T01:25:27.752Z",
+  "updated": "2026-11-10T15:49:38.171Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -205,6 +205,14 @@
             "source": "Doble Amarilla",
             "url": "https://www.dobleamarilla.com.ar/liga-/velez-presento-un-plan-de-infraestructura-pensando--en-un-modelo-de-club-a-20-anos-_a6892ab141fdc0cf56af047f5",
             "date": "2025-08-05"
+          },
+          {
+            "summary": "Nelson Pugliese señala que un porcentaje de la venta de jugadores profesionales se destinará al fútbol amateur.",
+            "quote": "es proporcionar que un porcentaje de la venta de los jugadores profesionales sean destinados pur exclusivamente al fútbol amater.",
+            "source": "Vélez Debate",
+            "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=5923s",
+            "date": "2026-11-09",
+            "auto": true
           }
         ],
         "finanzas": [
@@ -343,14 +351,6 @@
             "date": "2026-10-18"
           },
           {
-            "summary": "Federico Balestrini encabeza Primero Vélez junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan.",
-            "quote": "Por su parte, Primero Vélez, con el Círculo El Fortín y Plan V ya desprendidos del oficialismo, va con Federico Balestrini como aspirante a la presidencia, junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes, respectivamente.",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/rosca/con-las-listas-definidas--seran-cuatro-los-candidatos-a-presidente-en-los-comicios-de-velez_a6aea9037c5b4d02690d8e1b6",
-            "date": "2026-11-04",
-            "auto": true
-          },
-          {
             "summary": "Federico Balestrini encabeza Primero Vélez junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes.",
             "quote": "Por su parte, Primero Vélez, con el Círculo El Fortín y Plan V ya desprendidos del oficialismo, va con Federico Balestrini como aspirante a la presidencia, junto a Carlos Figueroa, Florencia Encina y Gastón Trevisan como vicepresidentes, respectivamente.",
             "source": "Doble Amarilla",
@@ -364,6 +364,14 @@
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/349315/velez-oficializo-4-listas-en-una-eleccion-polarizada-entre-balestrini-y-pugliese-berlanga/",
             "date": "2026-11-05",
+            "auto": true
+          },
+          {
+            "summary": "Federico Balestrini confirma a Carlos Figueroa como su compañero de fórmula para la vicepresidencia.",
+            "quote": "hablamos de fútbol amater y eh me me me llena orgullo eh estar hablando de que mi compañero Fórmula es la persona que durante 20 años gestionó junto con otro obviamente un equipo de trabajo, la gestión del fútbol amater de Vélez.",
+            "source": "Vélez Debate",
+            "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=5923s",
+            "date": "2026-11-09",
             "auto": true
           }
         ],

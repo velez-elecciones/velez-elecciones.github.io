@@ -51,13 +51,13 @@
       "icon": "ball"
     },
     {
-      "id": "sad",
-      "label": "SAD",
-      "icon": "shield"
+      "id": "social",
+      "label": "Social",
+      "icon": "home"
     },
     {
       "id": "finanzas",
-      "label": "Finanzas",
+      "label": "Finanzas y SAD",
       "icon": "coin"
     }
   ],
@@ -198,13 +198,13 @@
             "auto": true
           }
         ],
-        "sad": [
+        "social": [
           {
-            "summary": "Dijo que si la AFA propone “no a las SAD”, Vélez levantaría la mano. Defendió la negativa a transformar la propiedad jurídica de los clubes.",
-            "quote": "Si mañana la AFA sale a proponer ‘no a las SAD’, nosotros vamos a levantar la mano",
-            "source": "Newsdigitales",
-            "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
-            "date": "2026-04-17"
+            "summary": "Impulsó el Plan Integral de Obras 2025-2045, para pensar el club “a 20 años”.",
+            "quote": "Generar un plan de infraestructura pensando en un modelo de club a 20 años",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/liga-/velez-presento-un-plan-de-infraestructura-pensando--en-un-modelo-de-club-a-20-anos-_a6892ab141fdc0cf56af047f5",
+            "date": "2025-08-05"
           }
         ],
         "finanzas": [
@@ -221,11 +221,11 @@
             "date": "2026-04-17"
           },
           {
-            "summary": "Impulsó el Plan Integral de Obras 2025-2045, para pensar el club “a 20 años”.",
-            "quote": "Generar un plan de infraestructura pensando en un modelo de club a 20 años",
-            "source": "Doble Amarilla",
-            "url": "https://www.dobleamarilla.com.ar/liga-/velez-presento-un-plan-de-infraestructura-pensando--en-un-modelo-de-club-a-20-anos-_a6892ab141fdc0cf56af047f5",
-            "date": "2025-08-05"
+            "summary": "Dijo que si la AFA propone “no a las SAD”, Vélez levantaría la mano. Defendió la negativa a transformar la propiedad jurídica de los clubes.",
+            "quote": "Si mañana la AFA sale a proponer ‘no a las SAD’, nosotros vamos a levantar la mano",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/331089/el-vicepresidente-de-velez-y-un-duro-diagnostico-sobre-la-economia-del-futbol/",
+            "date": "2026-04-17"
           }
         ]
       },
@@ -475,7 +475,14 @@
             "auto": true
           }
         ],
-        "sad": [],
+        "social": [
+          {
+            "summary": "Apoya las disciplinas amateurs (más de 25.000 personas por fin de semana) y un fondo de reserva de cerca del 7% de cada venta de juveniles para obras: iluminación del estadio, pista de atletismo y cancha de hockey.",
+            "source": "Newsdigitales",
+            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
+            "date": "2026-10-18"
+          }
+        ],
         "finanzas": [
           {
             "summary": "El fútbol profesional representa cerca del 70% de los egresos. El déficit operativo lo recibieron en torno a US$ 1,5 M mensuales y esperan una cifra “significativamente menor” en la próxima asamblea.",
@@ -486,12 +493,6 @@
           {
             "summary": "Hoy el club necesita vender dos o tres jugadores por año para equilibrarse; la meta es vender “por conveniencia y no por necesidad”.",
             "quote": "por conveniencia y no por necesidad",
-            "source": "Newsdigitales",
-            "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
-            "date": "2026-10-18"
-          },
-          {
-            "summary": "Apoya las disciplinas amateurs (más de 25.000 personas por fin de semana) y un fondo de reserva de cerca del 7% de cada venta de juveniles para obras: iluminación del estadio, pista de atletismo y cancha de hockey.",
             "source": "Newsdigitales",
             "url": "https://www.newsdigitales.com/nota/347799/federico-balestrini-candidato-a-presidente-de-velez-se-torcio-el-camino-de-la-gestion/",
             "date": "2026-10-18"
@@ -688,16 +689,22 @@
             "auto": true
           }
         ],
-        "sad": [
+        "social": [
           {
-            "summary": "Descarta convertir el club en sociedad anónima: “Creemos solamente en el modelo de asociación civil”.",
-            "quote": "Creemos solamente en el modelo de asociación civil, pero eso no quita que podamos tener relaciones con personas como Christian",
+            "summary": "Quiere ampliar el polideportivo con terrenos linderos de Playas Ferroviarias, en conversaciones con esa empresa y con la AABE.",
             "source": "Diario CEMBA",
             "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
             "date": "2026-09-29"
           }
         ],
         "finanzas": [
+          {
+            "summary": "Descarta convertir el club en sociedad anónima: “Creemos solamente en el modelo de asociación civil”.",
+            "quote": "Creemos solamente en el modelo de asociación civil, pero eso no quita que podamos tener relaciones con personas como Christian",
+            "source": "Diario CEMBA",
+            "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
+            "date": "2026-09-29"
+          },
           {
             "summary": "Plantea más ingresos: naming del estadio sin perder el nombre Amalfitani, un canal oficial de streaming y vender los espacios comerciales del club.",
             "quote": "Nunca vamos a sacar el nombre Amalfitani del estadio",
@@ -707,12 +714,6 @@
           },
           {
             "summary": "Según informes del Banco Central que cita su agrupación, la deuda bancaria del club llega a US$ 13 M. Los datos oficiales se presentan en la asamblea del 26 de octubre.",
-            "source": "Diario CEMBA",
-            "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
-            "date": "2026-09-29"
-          },
-          {
-            "summary": "Quiere ampliar el polideportivo con terrenos linderos de Playas Ferroviarias, en conversaciones con esa empresa y con la AABE.",
             "source": "Diario CEMBA",
             "url": "https://cemba.com.ar/creemos-solamente-en-el-modelo-de-asociacion-civil-pero-eso-no-quita-que-tengamos-a-bragarnik-como-referente/",
             "date": "2026-09-29"
@@ -889,7 +890,7 @@
           }
         ],
         "futbol": [],
-        "sad": [],
+        "social": [],
         "finanzas": []
       },
       "stances": {}

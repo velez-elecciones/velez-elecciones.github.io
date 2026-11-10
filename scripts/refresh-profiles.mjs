@@ -147,7 +147,7 @@ REGLAS
 8. Si la nota informa de una candidatura a presidente de Vélez de alguien que NO está en la lista, ponela en "newCandidates" con la cita.
 9. Usá solo el cuerpo de la nota titulada abajo. Ignorá titulares, bajadas y avances de OTRAS notas que aparezcan en el texto (notas relacionadas, "te puede interesar", barras laterales).
 10. Si la nota informa los resultados de una encuesta o sondeo sobre ESTA elección, con porcentaje por candidato, ponela en "polls". "pollster" es quien la hizo, escrito igual que en la nota (consultora, medio o grupo); "field" y "sample" (fecha de campo y muestra) solo si la nota los dice, si no vacíos; "results" usa como claves los ids de candidatos conocidos (y "indecisos" si la nota trae ese dato) y como valor el número sin el símbolo %. "online" es true si la nota dice que fue una encuesta abierta por internet o redes (cualquiera podía votar, sin muestra); si no, false. No incluyas encuestas sin porcentajes, sondeos de otras elecciones ni porcentajes que no estén escritos en la nota.
-11. En "topic" y "question" usá EXACTAMENTE uno de los ids de las listas de arriba (por ejemplo "finanzas", "futbol", "vinculos"). No inventes temas nuevos: si una declaración no encaja en ninguno, no la incluyas.
+11. En "topic" y "question" usá EXACTAMENTE uno de los ids de las listas de arriba (por ejemplo "finanzas", "social", "futbol", "vinculos"). No inventes temas nuevos: si una declaración no encaja en ninguno, no la incluyas. "finanzas" junta economía y SAD: déficit, deuda, ingresos y si el club sigue como asociación civil o pasa a sociedad anónima. No uses el id "sad". "social" es el club fuera del fútbol profesional: polideportivo, obras, instituto, peñas, cultura y rol social.
 12. Revisá la nota entera. Si un candidato habla de varios temas, devolvé un ítem por tema (hasta 6 por candidato). Una declaración puede venir contada por el periodista ("detalló que…", "planteó…", "reveló…", "aseguró que…"): en ese caso "quote" es esa oración de la nota, copiada igual. Los datos del club que el candidato cita (déficit, ventas, socios) cuentan como lo que dijo, no como hechos tuyos.
 13. Si la nota no trae nada de esto, devolvé las listas vacías.${article.kind === "transcript" ? `
 14. Esta fuente es la transcripción automática del debate, no una nota. YouTube deforma apellidos: Pulguese, Puliese, Pulense o Puñese es Pugliese; Valestrini o Alestrini es Balestrini; Maiteli o Maciteli es Mazzitelli. Atribuí cada tramo al candidato que el moderador acaba de nombrar. Si el texto dice que en ese momento lo reemplazó otra persona, lo que dice el reemplazo no es del candidato y no es una baja. Copiá "quote" igual que en la transcripción, con esos errores.` : ""}
@@ -726,6 +726,7 @@ async function main() {
 
     for (const p of Array.isArray(result.positions) ? result.positions : []) {
       const c = candidatesById.get(p && p.candidate);
+      if (p && p.topic === "sad") p.topic = "finanzas";
       if (!topics.some((t) => t.id === (p && p.topic)) || !p.summary || whyRejected("postura", p, c, haystack)) continue;
       c.positions = c.positions || {};
       const list = (c.positions[p.topic] = c.positions[p.topic] || []);

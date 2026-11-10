@@ -1,7 +1,18 @@
 {
-  "updated": "2026-11-10T01:25:04.880Z",
-  "checkedAt": "2026-11-10T01:25:04.880Z",
+  "updated": "2026-11-10T01:37:35.882Z",
+  "checkedAt": "2026-11-10T01:37:35.882Z",
   "items": [
+    {
+      "title": "El insólito momento que vivió un candidato a presidente de Vélez: “Cancelame”",
+      "summary": "Ignacio Mazzitelli, de la Cruzada Renovadora, no pudo continuar con su exposición al verse imposibilitado de articular sus argumentos. De acuerdo a fuentes cercanas a su espacio, tuvo que abandonar el estudio por haber sufrido un ataque de pánico.",
+      "url": "https://www.dobleamarilla.com.ar/rosca/el-insolito-momento-que-vivio-un-candidato-a-presidente-de-velez---cancelame-_a6af269158ff29b4d4353b9ab",
+      "source": "Doble Amarilla",
+      "published": "2026-11-10T01:34:47.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-assets.tadevel-cdn.com%2F6af26df88ff29b4d4353e937%2F720.jpeg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
     {
       "title": "Los cuatro candidatos a presidente de Vélez realizarán un debate previo a las elecciones: todos los detalles",
       "summary": "Este lunes desde las 19hs, en la sala de conferencias del José Amalfitani, Nelson Pugliese, Juan Cruz Montero, Federico Balestrini e Ignacio Mazzitelli le hablarán al socio sobre las diferentes ideas ...",
@@ -17,15 +28,6 @@
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-app.tadevel-cdn.com%2Fhostname%2Fwww.dobleamarilla.com.ar%2Fapi%2Fv1%2Fimage%2Farticle%2F6af1adc556da3dd682d05ca6%2Ffacebook%3Fv%3Ddd03f0a15a0af99f20e7d5fb726379fb%26s%3D25c707869ce7fb69237a5251a2bfdae1&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
-      "title": "Debate presidencial en Vélez antes de las elecciones",
-      "summary": "Vélez define su futuro con un debate presidencial abierto a los socios NewsITe Vélez Sarsfield ingresa en una semana decisiva: el club de Liniers renovará sus autoridades y, en la antesala de los comi ...",
-      "url": "https://diarioelnorte.com.ar/debate-presidencial-en-velez-antes-de-las-elecciones/",
-      "source": "Diario EL NORTE",
-      "published": "2026-11-08T16:00:00.000Z",
-      "tags": [],
-      "image": "https://www.bing.com/th?id=ONUT.onlS-B_teguTAMFsE4LrPg&pid=News&w=480&h=270&c=14"
-    },
-    {
       "title": "Vélez tendrá un debate presidencial de cara a las elecciones",
       "summary": "Buenos Aires, 8 noviembre (NA) – Vélez se acerca a unas elecciones en las que renovará a su presidente, ya que el actual mandatario Fabián Berlanga se candidateará como vice, y tendrá un debate ...",
       "url": "https://noticiasargentinas.com/deportes/velez-tendra-un-debate-presidencial-de-cara-a-las-elecciones_a6af12d14083a87fddc1abee1",
@@ -33,6 +35,15 @@
       "published": "2026-11-08T16:00:00.000Z",
       "tags": [],
       "image": "https://www.bing.com/th?id=ONUT.jkJhR-DEFHy3VuQu6l3Xsg&pid=News&w=480&h=270&c=14"
+    },
+    {
+      "title": "Debate presidencial en Vélez antes de las elecciones",
+      "summary": "Vélez define su futuro con un debate presidencial abierto a los socios NewsITe Vélez Sarsfield ingresa en una semana decisiva: el club de Liniers renovará sus autoridades y, en la antesala de los comi ...",
+      "url": "https://diarioelnorte.com.ar/debate-presidencial-en-velez-antes-de-las-elecciones/",
+      "source": "Diario EL NORTE",
+      "published": "2026-11-08T16:00:00.000Z",
+      "tags": [],
+      "image": "https://www.bing.com/th?id=ONUT.onlS-B_teguTAMFsE4LrPg&pid=News&w=480&h=270&c=14"
     },
     {
       "title": "Elecciones en Vélez: cuándo se vota, quiénes son los candidatos y cómo fue el año del Fortín",
@@ -181,17 +192,6 @@
       "published": "2026-10-29T20:00:47.000Z",
       "tags": [],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Felconurbano.com.ar%2Fwp-content%2Fuploads%2F2026%2F10%2Fimages-2-2.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "Un joven funcionario de Morón, mellizo de un exconcejal, va por la presidencia de Vélez",
-      "summary": "El próximo 15 de noviembre, Vélez Sarsfield elegirá a sus nuevas autoridades en una elección con cuatro listas en carrera. Entre los candidatos aparece Federico Balestrini, actual secretario de la ins ...",
-      "url": "https://www.lanoticiaweb.com.ar/un-joven-funcionario-de-moron-mellizo-de-un-exconcejal-va-por-la-presidencia-de-velez/",
-      "source": "La Noticia Web",
-      "published": "2026-10-29T13:00:00.000Z",
-      "tags": [
-        "balestrini"
-      ],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.lanoticiaweb.com.ar%2Fwp-content%2Fuploads%2F2026%2F10%2Fimages-2-2.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

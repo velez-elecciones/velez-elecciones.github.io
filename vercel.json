@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "functions": {
     "api/encuesta.mjs": { "includeFiles": "data/candidates.json" },
-    "api/og.mjs": { "includeFiles": "fonts/**,img/pugliese.jpg,img/balestrini-face.jpg,img/montero-face.jpg,img/mazzitelli.png,node_modules/@resvg/resvg-wasm/index_bg.wasm" }
+    "api/og.mjs": { "includeFiles": "share/**" }
   },
   "rewrites": [
     { "source": "/r/:code", "destination": "/api/resultado?code=:code" }

@@ -15,12 +15,14 @@ function readFirst(paths) {
 
 function loadFonts() {
   const regular = readFirst([
-    path.join(process.cwd(), "fonts", "Inter-Regular.ttf"),
-    fileURLToPath(new URL("../fonts/Inter-Regular.ttf", import.meta.url))
+    path.join(process.cwd(), "share", "Inter-Regular.ttf"),
+    fileURLToPath(new URL("../share/Inter-Regular.ttf", import.meta.url)),
+    path.join(process.cwd(), "fonts", "Inter-Regular.ttf")
   ]);
   const bold = readFirst([
-    path.join(process.cwd(), "fonts", "Inter-Bold.ttf"),
-    fileURLToPath(new URL("../fonts/Inter-Bold.ttf", import.meta.url))
+    path.join(process.cwd(), "share", "Inter-Bold.ttf"),
+    fileURLToPath(new URL("../share/Inter-Bold.ttf", import.meta.url)),
+    path.join(process.cwd(), "fonts", "Inter-Bold.ttf")
   ]);
   return [
     { name: "Inter", data: regular, weight: 400, style: "normal" },
@@ -32,8 +34,9 @@ let wasmReady;
 function ready() {
   if (!wasmReady) {
     const wasm = readFirst([
-      path.join(process.cwd(), "node_modules", "@resvg", "resvg-wasm", "index_bg.wasm"),
-      fileURLToPath(new URL("../node_modules/@resvg/resvg-wasm/index_bg.wasm", import.meta.url))
+      path.join(process.cwd(), "share", "resvg.wasm"),
+      fileURLToPath(new URL("../share/resvg.wasm", import.meta.url)),
+      path.join(process.cwd(), "node_modules", "@resvg", "resvg-wasm", "index_bg.wasm")
     ]);
     wasmReady = initWasm(wasm);
   }

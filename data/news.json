@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-10T21:46:47.506Z",
-  "checkedAt": "2026-11-10T21:46:47.506Z",
+  "updated": "2026-11-11T01:29:59.662Z",
+  "checkedAt": "2026-11-11T01:29:59.662Z",
   "items": [
     {
       "title": "Juan Cruz Montero, candidato a presidente de Vélez: “La relación que ha tenido Berlanga con Chiqui Tapia es una vergüenza”",
@@ -23,6 +23,17 @@
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fvelez.com.ar%2Fimg%2Fnoticias%2F26%2F1001153777.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
+      "title": "Habló Ignacio Mazzitelli, el candidato de Vélez que abandonó el debate: \"Atravesé una crisis de ansiedad\"",
+      "summary": "El aspirante a presidente por la Cruzada Renovadora reapareció en redes sociales con un mensaje en el que lamentó lo sucedido y aclaró que ello \"no cambia en absoluto\" su \"compromiso con este proyecto ...",
+      "url": "https://www.tycsports.com/liga-profesional-de-futbol/hablo-ignacio-mazzitelli-candidato-velez-que-abandono-debate-atravese-crisis-ansiedad-id771038.html",
+      "source": "TyC Sports",
+      "published": "2026-11-10T11:15:00.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "image": "https://www.bing.com/th?id=ONUT.F8frUYzU6HgJHwOrPeICpA&pid=News&w=480&h=270&c=14"
+    },
+    {
       "title": "“Siento angustia y bronca”: el mensaje del candidato a presidente de Vélez que se descompuso y abandonó un debate en vivo",
       "summary": "Ignacio Mazzitelli explicó por qué tuvo que abandonar la transmisión en vivo. La votación del Fortín será el próximo domingo.",
       "url": "https://tn.com.ar/deportes/futbol/2026/11/10/siento-angustia-y-bronca-el-mensaje-del-candidato-a-presidente-de-velez-que-se-descompuso-y-abandono-un-debate-en-vivo/",
@@ -35,11 +46,13 @@
     },
     {
       "title": "Un candidato a presidente de Vélez debió abandonar el debate minutos después del inicio: el comunicado con su explicación",
-      "summary": "Vélez Sarsfield realizó el debate de los candidatos a presidente para las elecciones que se llevarán a cabo el próximo domingo 15 de noviembre y, en medio del evento, ocurrió una situación inesperada ...",
+      "summary": "El representante de la Cruzada Renovadora, Ignacio Mazzitelli, no pudo continuar con su exposición y dejó la sala ante la sorpresa de todos ...",
       "url": "https://www.infobae.com/deportes/2026/11/10/un-candidato-a-presidente-de-velez-debio-abandonar-el-debate-minutos-despues-del-inicio-el-comunicado-con-su-explicacion/",
       "source": "Infobae",
       "published": "2026-11-10T09:48:00.000Z",
-      "tags": [],
+      "tags": [
+        "mazzitelli"
+      ],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.infobae.com%2Fresizer%2Fv2%2FYEV24VUKRFFGDAWQG4PDMCVD54.jpg%3Fauth%3Da6f04e97246c5363a6e08bf8bdf4c82c6a6ed61d13bcf2dfd5e40d6ba34fd04a%26smart%3Dtrue%26width%3D1200%26height%3D630%26quality%3D85&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
@@ -171,7 +184,7 @@
     {
       "title": "Elecciones en Vélez: cuándo se vota, quiénes son los candidatos y cómo fue el año del Fortín",
       "summary": "Los socios del Fortín elegirán a las nuevas autoridades el próximo 15 de noviembre, en unos comicios que definirán el rumbo institucional del club para los próximos tres años. En la previa, los cuatro ...",
-      "url": "https://www.msn.com/es-ar/deportes/general/elecciones-en-v%C3%A9lez-cu%C3%A1ndo-se-vota-qui%C3%A9nes-son-los-candidatos-y-c%C3%B3mo-fue-el-a%C3%B1o-del-fort%C3%ADn/ar-AA2h1eAc",
+      "url": "https://www.msn.com/es-ar/deportes/futbol/elecciones-en-v%C3%A9lez-cu%C3%A1ndo-se-vota-qui%C3%A9nes-son-los-candidatos-y-c%C3%B3mo-fue-el-a%C3%B1o-del-fort%C3%ADn/ar-AA2h1eAc",
       "source": "MSN",
       "published": "2026-11-08T14:13:45.000Z",
       "tags": [],
@@ -187,18 +200,6 @@
         "pugliese"
       ],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.clarin.com%2Fimg%2F2026%2F11%2F04%2FzTwZXG-4r_2000x1500__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "Vélez oficializó 4 listas en una elección polarizada entre Balestrini y Pugliese-Berlanga",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPbkhIOVNhQ3oxSmx4TXU3Tk5EaHNsSzdZS0h3R2U1SXllOGR1a1ZZek11Q1lQOVh2bmdUUllYSVRCQ2pBRXp6ODloeXZPNkpVaGc5SHRyZXpJY0dTbElxdHIxQ1JzMjQ0azNHd0o4MEdBQnBPN1dpalhGM1pud0NwTkU1WVV1a2pLbVkyejNWQmJqZF9INUFVanlWdlBoT0VueklIUDVLOXJNUHdiOUlVelJ2U0ZEUDhaeGRDdGphMkJNdmJPV0V2NEdoSkk?oc=5",
-      "source": "Newsdigitales",
-      "published": "2026-11-05T19:29:19.000Z",
-      "tags": [
-        "pugliese",
-        "balestrini"
-      ],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.newsdigitales.com%2Fuploads%2Fnoticias%2F2%2F2026%2F11%2F20261105015453_portada-velez-2-1920x1080.webp&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     }
   ],
   "sources": [

@@ -9,21 +9,29 @@
             location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
         }
     </script>
-    <link rel="canonical" href="https://velezelecciones.com/test.html">
     <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://velezelecciones.com/test">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="description" content="Qué harías vos en las elecciones de Vélez.">
     <meta property="og:title" content="Test electoral · Elecciones Vélez 2026">
     <meta property="og:description" content="Qué harías vos en las elecciones de Vélez.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="Elecciones Vélez 2026">
-    <meta property="og:url" content="https://velezelecciones.com/test.html">
-    <meta property="og:image" content="https://velezelecciones.com/img/preview.png?v=2">
+    <meta property="og:url" content="https://velezelecciones.com/test">
+    <meta property="og:image" content="https://velezelecciones.com/img/og-test.jpg">
+    <meta property="og:image:secure_url" content="https://velezelecciones.com/img/og-test.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Test electoral · Elecciones Vélez 2026">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Test electoral · Elecciones Vélez 2026">
     <meta name="twitter:description" content="Qué harías vos en las elecciones de Vélez.">
+    <meta name="twitter:url" content="https://velezelecciones.com/test">
+    <meta name="twitter:image" content="https://velezelecciones.com/img/og-test.jpg">
+    <meta name="twitter:image:alt" content="Test electoral · Elecciones Vélez 2026">
     <meta name="theme-color" content="#003da5">
     <style>
         :root {
@@ -226,7 +234,7 @@
     </div>
     <div id="toast" role="status" aria-live="polite"></div>
     <script>
-        const SHARE_URL = "https://velezelecciones.com/test.html";
+        const SHARE_URL = "https://velezelecciones.com/test";
         const SHARE_TEXT = "Test electoral de Elecciones Vélez 2026.";
         // Mismo código que api/result-shared.mjs: cuatro valores de tres dígitos, en este orden.
         const ORDER = ["pugliese", "balestrini", "montero", "mazzitelli"];
@@ -280,27 +288,31 @@
             }
             return { text: SHARE_TEXT, url: SHARE_URL };
         }
+        function shareMessage(share) {
+            return share.text + "\n" + share.url;
+        }
         function applyShareLinks() {
             const share = currentShare();
-            document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(share.text + " " + share.url);
-            document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(share.text) + "&url=" + encodeURIComponent(share.url);
+            const message = shareMessage(share);
+            document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(message);
+            document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(message);
             document.getElementById("share-copy").onclick = async () => {
-                const line = share.text + " " + share.url;
-                try { await navigator.clipboard.writeText(line); toast("Enlace copiado"); }
-                catch { window.prompt("Copiá el enlace:", share.url); }
+                try { await navigator.clipboard.writeText(message); toast("Enlace copiado"); }
+                catch { window.prompt("Copiá el enlace:", message); }
             };
             nativeShare.onclick = () => {
-                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: share.text, url: share.url }).catch((err) => {
+                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: message }).catch((err) => {
                     if (err && err.name === "AbortError") return;
-                    navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => {});
+                    navigator.clipboard.writeText(message).then(() => toast("Enlace copiado")).catch(() => {});
                 });
             };
         }
-        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT + " " + SHARE_URL);
-        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT) + "&url=" + encodeURIComponent(SHARE_URL);
+        const openingShare = shareMessage({ text: SHARE_TEXT, url: SHARE_URL });
+        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(openingShare);
+        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(openingShare);
         document.getElementById("share-copy").onclick = async () => {
-            try { await navigator.clipboard.writeText(SHARE_URL); toast("Enlace copiado"); }
-            catch { window.prompt("Copiá el enlace:", SHARE_URL); }
+            try { await navigator.clipboard.writeText(openingShare); toast("Enlace copiado"); }
+            catch { window.prompt("Copiá el enlace:", openingShare); }
         };
 
         const quizData = { enabled: false, questions: [], minCoverage: 3, candidates: [] };
@@ -444,13 +456,14 @@
             const share = resultBlurb(chartItems());
             if (!share) return;
             applyShareLinks();
+            const message = shareMessage(share);
             if (navigator.share) {
-                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: share.text, url: share.url }).catch((err) => {
-                    if (!err || err.name !== "AbortError") navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", share.url));
+                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: message }).catch((err) => {
+                    if (!err || err.name !== "AbortError") navigator.clipboard.writeText(message).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", message));
                 });
                 return;
             }
-            navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", share.url));
+            navigator.clipboard.writeText(message).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", message));
         }
 
         function renderResult() {

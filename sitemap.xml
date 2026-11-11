@@ -11,6 +11,11 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://velezelecciones.com/test</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://velezelecciones.com/encuesta.html</loc>
     <lastmod>2026-11-08</lastmod>
     <changefreq>hourly</changefreq>

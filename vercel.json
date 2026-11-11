@@ -6,6 +6,7 @@
     "api/og.mjs": { "includeFiles": "{share/**,node_modules/harfbuzzjs/*.wasm,node_modules/satori/yoga.wasm}" }
   },
   "rewrites": [
+    { "source": "/test", "destination": "/test.html" },
     { "source": "/r/:code", "destination": "/api/resultado?code=:code" }
   ],
   "redirects": [

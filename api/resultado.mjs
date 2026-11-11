@@ -10,7 +10,7 @@ export function pageFor(code, origin) {
   if (!rows) return null;
   const { title, scores } = describe(rows);
   const url = origin + "/r/" + code;
-  const image = origin + "/api/og?r=" + code;
+  const image = origin + "/api/og?r=" + code + "&v=3";
   const dest = JSON.stringify("/test.html#r=" + code);
   return `<!DOCTYPE html>
 <html lang="es">

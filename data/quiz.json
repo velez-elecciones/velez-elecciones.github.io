@@ -1,86 +1,117 @@
 {
-  "updated": "2026-10-10T21:30:00-03:00",
-  "enabled": false,
+  "updated": "2026-11-10T23:55:00-03:00",
+  "enabled": true,
+  "fixed": true,
   "minCoverage": 3,
   "questions": [
     {
-      "id": "modelo",
-      "title": "¿Qué modelo jurídico debería tener Vélez?",
+      "id": "economia",
+      "title": "¿Qué hacer con el déficit y la deuda?",
       "options": [
-        { "id": "asoc_civil", "text": "Seguir como asociación civil sin fines de lucro, sin excepciones" },
-        { "id": "asoc_abierta", "text": "Seguir como asociación civil, pero abierta a que aporten recursos empresas y privados" },
-        { "id": "sad", "text": "Convertirse en una sociedad anónima deportiva" }
+        { "id": "deuda", "text": "Reordenar primero lo que se debe, en cuotas y a una tasa baja, y recuperar a quienes no pagan." },
+        { "id": "meta", "text": "Revisar los contratos más caros y bajar el rojo con una meta concreta." },
+        { "id": "presupuesto", "text": "Achicar el rojo sin prometer eliminarlo, refinanciar y darle un presupuesto a cada actividad." },
+        { "id": "socios_caja", "text": "Corregir el déficit y la deuda de corto plazo, y apoyarlo con más socios." }
+      ]
+    },
+    {
+      "id": "ventas",
+      "title": "¿Cuándo vender un jugador, y para qué?",
+      "options": [
+        { "id": "reemplazo", "text": "No vender por una urgencia, y definir antes quién lo reemplaza." },
+        { "id": "intereses", "text": "Dejar de vender apurado para cubrir intereses." },
+        { "id": "elegir", "text": "Vender cuando el club puede elegir, no cuando la caja lo exige, y guardar una parte para obras." },
+        { "id": "amateur", "text": "Que una parte de cada venta del plantel profesional quede solo para el fútbol amateur." }
+      ]
+    },
+    {
+      "id": "polideportivo",
+      "title": "¿Cómo se sostiene el polideportivo?",
+      "options": [
+        { "id": "sponsors", "text": "Acercarlo a sostenerse con sponsors, sabiendo que no todas las actividades van a poder." },
+        { "id": "comercial", "text": "Poner gente de comercial en el lugar y cortar el uso sin pago." },
+        { "id": "cuotas", "text": "Que, en pocos años, las cuotas cubran todo el costo del personal." },
+        { "id": "terrenos", "text": "Sumar terrenos linderos del Estado para instituto, deporte y cultura." }
+      ]
+    },
+    {
+      "id": "obras",
+      "title": "¿Qué obras primero?",
+      "options": [
+        { "id": "terminar", "text": "Terminar lo que quedó a medio hacer y una cancha de competencia en el predio, pagada con un fondo de las ventas." },
+        { "id": "deudas", "text": "Primero las deudas, y después las obras grandes." },
+        { "id": "museo", "text": "Seguir el plan de obras de largo plazo ya escrito y avanzar con el museo del club." },
+        { "id": "publicar", "text": "Publicar cómo va cada obra y un plan para los próximos tres años." }
+      ]
+    },
+    {
+      "id": "socio",
+      "title": "¿Qué lugar tiene el socio?",
+      "options": [
+        { "id": "participar", "text": "Que socios e hinchas participen de verdad en las decisiones." },
+        { "id": "mora", "text": "Ordenar el padrón y la cobranza para que baje la mora." },
+        { "id": "actividad", "text": "Que quien hace cada actividad elija qué se resuelve primero ahí." },
+        { "id": "platea", "text": "Sumar socios y devolver la platea familiar a las familias." }
+      ]
+    },
+    {
+      "id": "listas",
+      "title": "¿Qué relación hay con las otras listas?",
+      "options": [
+        { "id": "propia", "text": "Competir con una lista propia, sin unirse a otra candidatura." },
+        { "id": "contactos", "text": "Después de votar, juntarse con los demás y dejar los contactos a disposición." },
+        { "id": "junta", "text": "Llegar a la elección con una lista que ya junte a varios espacios." },
+        { "id": "despues", "text": "No armar alianzas para ganar. Si se gana, al otro día llamar al resto a trabajar juntos." }
+      ]
+    },
+    {
+      "id": "cuentas",
+      "title": "¿Cómo se rinden las cuentas?",
+      "options": [
+        { "id": "simple", "text": "Explicar los números en simple, sin tecnicismos." },
+        { "id": "oposicion", "text": "Que la oposición controle, y que el patrimonio de los dirigentes se publique al empezar y al terminar." },
+        { "id": "plan", "text": "Publicar el plan: qué se va a hacer, cómo y cuándo." },
+        { "id": "auditoria", "text": "Auditorías de adentro y de afuera, y que quien conduce muestre su patrimonio." }
+      ]
+    },
+    {
+      "id": "estatuto",
+      "title": "¿Qué hacer con el estatuto?",
+      "options": [
+        { "id": "distancia", "text": "Que los socios que viven lejos puedan votar a distancia." },
+        { "id": "borrador", "text": "Llamar a todas las agrupaciones apenas se asume, con un borrador ya escrito." },
+        { "id": "anio", "text": "Tratarlo en el primer año, con las agrupaciones que se sumen." },
+        { "id": "comision", "text": "Reabrir una comisión amplia, y que la conducción solo convoque la asamblea cuando el texto esté." }
+      ]
+    },
+    {
+      "id": "futbol",
+      "title": "¿Cómo se conduce el fútbol?",
+      "options": [
+        { "id": "secretaria", "text": "Una secretaría técnica del club, y muchos partidos en reserva antes de subir a primera." },
+        { "id": "veto", "text": "Varias opciones por puesto, y que la dirigencia pueda frenar un pase." },
+        { "id": "juveniles", "text": "Scouting profesional, mayoría de juveniles y seguimiento de los que están a préstamo." },
+        { "id": "colegiado", "text": "Decisiones compartidas, con una dirección deportiva y la misma forma de jugar desde las inferiores." }
       ]
     },
     {
       "id": "naming",
       "title": "¿Qué hacer con el nombre del estadio?",
       "options": [
-        { "id": "naming_si", "text": "Vender un naming si se conserva el nombre Amalfitani y la empresa comparte los valores del club" },
-        { "id": "naming_cond", "text": "Solo con condiciones muy estrictas y con los fondos destinados a obras" },
-        { "id": "naming_no", "text": "No vender el nombre del estadio" }
-      ]
-    },
-    {
-      "id": "deficit",
-      "title": "¿Cuál es la mejor forma de reducir el déficit?",
-      "options": [
-        { "id": "mora", "text": "Cobrar mejor la cuota social y bajar la morosidad" },
-        { "id": "ingresos", "text": "Generar ingresos nuevos: naming, streaming y espacios comerciales" },
-        { "id": "gasto_fut", "text": "Planificar y ordenar el gasto del fútbol profesional" }
-      ]
-    },
-    {
-      "id": "futbol_proyecto",
-      "title": "¿Cómo debería manejarse el fútbol profesional?",
-      "options": [
-        { "id": "proyecto", "text": "Con un proyecto deportivo único y sostenido, con secretario técnico y entrenador definidos" },
-        { "id": "referente", "text": "Con el asesoramiento de un referente del mercado de pases, sin cargo directivo" },
-        { "id": "actual", "text": "Con la estructura actual, corrigiendo lo que haga falta" }
-      ]
-    },
-    {
-      "id": "amateur",
-      "title": "¿Qué hacer con el deporte amateur?",
-      "options": [
-        { "id": "ingresos_amateur", "text": "Conseguir ingresos nuevos para que no se recorte" },
-        { "id": "recorte_amateur", "text": "Ajustar su gasto para bajar el déficit" }
-      ]
-    },
-    {
-      "id": "obras",
-      "title": "¿Cómo debería crecer el club en infraestructura?",
-      "options": [
-        { "id": "plan", "text": "Con un plan de obras a 20 años, firmado por todas las fuerzas políticas" },
-        { "id": "terrenos", "text": "Pidiendo terrenos al Estado para ampliar el polideportivo" },
-        { "id": "no_ampliar", "text": "Mantener lo que hay y priorizar el gasto deportivo" }
-      ]
-    },
-    {
-      "id": "alianzas",
-      "title": "¿Cómo debería armarse la conducción?",
-      "options": [
-        { "id": "frente", "text": "Con un frente amplio que reúna varias agrupaciones antes de la elección" },
-        { "id": "propia", "text": "Con una lista propia, sin sumarse a un gran armado electoral" },
-        { "id": "despues", "text": "Compitiendo por separado y convocando a todos a trabajar juntos después de ganar" }
-      ]
-    },
-    {
-      "id": "socios",
-      "title": "¿Qué debería priorizar el club con sus socios?",
-      "options": [
-        { "id": "crecer", "text": "Sumar socios: llegar a los 100 mil" },
-        { "id": "participar", "text": "Más participación de socios e hinchas en las decisiones" },
-        { "id": "cobranza", "text": "Ordenar el sistema de socios y la cobranza de cuotas" }
+        { "id": "largo", "text": "Un acuerdo largo cuya plata vaya a la obra del estadio, no al gasto de todos los días." },
+        { "id": "mandato", "text": "Si el acuerdo dura más que el mandato, que lo vote el socio." },
+        { "id": "tope", "text": "Un sponsor al lado del nombre, con un tope anual y esa plata a obras." },
+        { "id": "concurso", "text": "Un concurso para que un privado lo explote varios años, y que lo vote el socio." }
       ]
     },
     {
       "id": "afa",
-      "title": "¿Cómo debería votar Vélez en la AFA?",
+      "title": "¿Cómo pararse en la AFA?",
       "options": [
-        { "id": "acompanar", "text": "Acompañando a la conducción para tener estabilidad" },
-        { "id": "criterio", "text": "Según el caso: acompañar si hay convicción y dar debate cuando no" },
-        { "id": "confrontar", "text": "Confrontando a la conducción de la AFA" }
+        { "id": "banca", "text": "La banca es del club, no de quien la ocupa." },
+        { "id": "criterio", "text": "Acompañar cuando hay convicción y discutir cuando no." },
+        { "id": "consenso", "text": "Que el presidente esté ahí para defender al club, con una postura consensuada." },
+        { "id": "representar", "text": "Cambiar la representación actual y poner el interés del club por encima de las personas." }
       ]
     }
   ]

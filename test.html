@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test electoral · Elecciones Vélez 2026</title>
+    <script>
+        if (/\.github\.io$/i.test(location.hostname)) {
+            location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
+        }
+    </script>
+    <link rel="canonical" href="https://velezelecciones.com/test.html">
+    <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Test electoral de Elecciones Vélez 2026. Preguntas fijas, comparadas con lo que dijo cada candidato y con la fuente.">
+    <meta property="og:title" content="Test electoral · Elecciones Vélez 2026">
+    <meta property="og:description" content="Un test aparte para compartir. Preguntas fijas, comparadas con lo que dijo cada candidato.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:site_name" content="Elecciones Vélez 2026">
+    <meta property="og:url" content="https://velezelecciones.com/test.html">
+    <meta property="og:image" content="https://velezelecciones.com/img/preview.png?v=2">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test electoral · Elecciones Vélez 2026">
+    <meta name="twitter:description" content="Un test aparte para compartir. Preguntas fijas, comparadas con lo que dijo cada candidato.">
+    <meta name="theme-color" content="#003da5">
+    <style>
+        :root {
+            --blue: #003da5;
+            --blue-soft: #1a8fe8;
+            --ink: #10203a;
+            --muted: #5a6b85;
+            --line: rgba(0, 61, 165, .12);
+            --paper: #ffffff;
+            --wash: #f3f7fc;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+            background-color: #001433;
+            background-image:
+                linear-gradient(180deg, rgba(0, 28, 92, .62), rgba(0, 16, 58, .78)),
+                url("img/fondo-amalfitani.jpg");
+            background-size: auto, cover;
+            background-position: center, center top;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat;
+        }
+        a { color: inherit; }
+        h1, h2, h3, p { margin: 0; }
+        button { font: inherit; }
+        .hidden { display: none !important; }
+        .ic { width: 1.2em; height: 1.2em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+        .page { min-height: 100vh; display: flex; flex-direction: column; }
+        .top {
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; gap: 10px 16px;
+            padding: 12px 24px;
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 12, 40, .28);
+        }
+        .top a { color: #fff; text-decoration: none; }
+        .top-crest { width: 48px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title h1 { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 13.5px; opacity: .85; }
+        .flow { width: 100%; max-width: 940px; margin: 0 auto; padding: 20px 20px 8px; display: grid; gap: 16px; }
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 30, 90, .08);
+        }
+        .panel { padding: 22px 22px 20px; }
+        .panel h1 { font-size: 27px; line-height: 1.15; font-weight: 800; color: var(--blue); letter-spacing: -.01em; }
+        .lead { margin-top: 8px; font-size: 15.5px; color: #3b4d6b; }
+        .closed { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--wash); border: 1px solid var(--line); font-size: 15.5px; color: #1e3355; }
+        .fine { margin-top: 14px; font-size: 13.5px; color: var(--muted); }
+        .progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 13px; font-weight: 800; letter-spacing: .06em; color: var(--blue); }
+        .bar { flex: 1; height: 8px; border-radius: 8px; background: var(--line); overflow: hidden; }
+        .bar span { display: block; height: 100%; background: var(--blue); }
+        .q-title { font-size: 22px; line-height: 1.25; font-weight: 800; color: #0b1c3a; }
+        .options { display: grid; gap: 8px; margin-top: 16px; }
+        .opt {
+            text-align: left;
+            padding: 12px 14px;
+            border: 1.5px solid rgba(0, 61, 165, .18);
+            border-radius: 12px;
+            background: #fff;
+            color: #0b1c3a;
+            cursor: pointer;
+        }
+        .opt:hover { border-color: rgba(0, 61, 165, .45); }
+        .opt.is-on { border-color: var(--blue); background: var(--wash); box-shadow: inset 0 0 0 1px var(--blue); }
+        .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 61, 165, .3);
+            background: #fff;
+            color: var(--blue);
+            font-weight: 650; font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: #eaf2fd; }
+        .btn.solid { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .btn.solid:hover { background: #0a4cc2; }
+        .btn:focus-visible, .opt:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+        .row { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; align-items: center; margin: 10px 0; }
+        .row img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 3px solid var(--c, var(--blue)); background: #fff; }
+        .row strong { display: block; }
+        .row span { color: var(--muted); font-size: 13.5px; }
+        .track { height: 8px; border-radius: 8px; background: var(--line); overflow: hidden; margin-top: 4px; }
+        .track i { display: block; height: 100%; background: var(--c, var(--blue)); }
+        .pct { font-weight: 800; font-variant-numeric: tabular-nums; }
+        .radar {
+            display: grid;
+            grid-template-columns: minmax(76px, 1fr) minmax(148px, 1.7fr) minmax(76px, 1fr);
+            grid-template-rows: auto minmax(148px, 1.7fr) auto;
+            align-items: center;
+            justify-items: center;
+            gap: 6px 8px;
+            width: min(100%, 520px);
+            margin: 16px auto 0;
+        }
+        .radar svg { grid-column: 2; grid-row: 2; width: 100%; height: auto; }
+        .face { text-align: center; width: 100%; max-width: 124px; }
+        .face img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center 18%; border: 3px solid var(--c, var(--blue)); background: #fff; }
+        .face strong { display: block; margin-top: 4px; font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+        .face span { display: block; font-size: 13px; color: #3b4d6b; line-height: 1.2; }
+        .face .miss { color: var(--muted); font-size: 12px; }
+        .face.miss strong { color: var(--muted); }
+        .face-n { grid-column: 2; grid-row: 1; }
+        .face-e { grid-column: 3; grid-row: 2; }
+        .face-s { grid-column: 2; grid-row: 3; }
+        .face-w { grid-column: 1; grid-row: 2; }
+        .radar-stack { display: block; text-align: center; }
+        .radar-stack svg { width: min(100%, 280px); margin: 0 auto; }
+        .radar-stack .face { display: inline-block; width: 46%; max-width: 140px; margin: 8px 1% 0; vertical-align: top; }
+        .detail { margin-top: 8px; }
+        .detail h3 { margin: 14px 0 4px; font-size: 16px; }
+        .detail li { margin: 4px 0; }
+        .share { padding: 16px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .share p { flex: 1 1 220px; font-size: 16px; font-weight: 750; color: #0b1c3a; }
+        .back {
+            display: inline-block; margin: 4px 0 0; justify-self: start; color: #fff;
+            font-size: 14px; font-weight: 650; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .4);
+        }
+        .back:hover { border-bottom-color: #fff; }
+        .site-credit { text-align: center; padding: 8px 8px 22px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+        #toast {
+            position: fixed; left: 50%; bottom: 22px; z-index: 50;
+            transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+            padding: 10px 16px; border-radius: 10px;
+            background: #0b1c3a; color: #fff; font-size: 14.5px; font-weight: 650;
+            transition: opacity .2s, transform .2s;
+        }
+        #toast.show { opacity: 1; transform: translate(-50%, 0); }
+        @media (max-width: 720px) {
+            .flow { padding: 12px 12px 4px; }
+            .panel, .share { padding: 16px 14px; }
+            .panel h1, .q-title { font-size: 22px; }
+            .share .btn { flex: 1 1 calc(50% - 4px); }
+            .face img { width: 48px; height: 48px; }
+            .face strong { font-size: 16px; }
+            .radar { gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.4A8.4 8.4 0 1 1 21 11.5z"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
+    </svg>
+    <div class="page">
+        <header class="top">
+            <a href="./"><img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield"></a>
+            <div class="top-title">
+                <h1><a href="./">Elecciones Vélez 2026</a></h1>
+                <p>Test electoral</p>
+            </div>
+        </header>
+        <main class="flow">
+            <section class="card panel" id="closed">
+                <h1>Test electoral</h1>
+                <p class="lead">Esta página es la del test, aparte de la home, para compartirla como la encuesta.</p>
+                <p class="closed">Todavía no está abierto. Las preguntas se publican cuando se apruebe el listado.</p>
+                <p class="fine">La dirección para compartir es <a href="https://velezelecciones.com/test.html">velezelecciones.com/test.html</a>. El resultado de cada persona, cuando el test esté abierto, va en el enlace de esta misma página.</p>
+            </section>
+
+            <section class="card panel hidden" id="quiz">
+                <div id="shared" class="closed hidden"></div>
+                <div id="screen-start">
+                    <h1>¿Qué harías vos?</h1>
+                    <p class="lead" id="intro"></p>
+                    <p class="fine">Cada navegador guarda su propio test. Compartir un resultado no pisa el de otra persona.</p>
+                    <div class="actions"><button type="button" class="btn solid" id="start">Comenzar el test</button></div>
+                </div>
+                <div id="screen-q" class="hidden">
+                    <div class="progress"><span id="step"></span><div class="bar"><span id="step-bar"></span></div></div>
+                    <h2 class="q-title" id="q-title"></h2>
+                    <div class="options" id="options"></div>
+                    <div class="actions">
+                        <button type="button" class="btn" id="back">Anterior</button>
+                        <button type="button" class="btn" id="skip">No tengo opinión</button>
+                    </div>
+                </div>
+                <div id="screen-result" class="hidden"></div>
+            </section>
+
+            <section class="card share" aria-label="Compartir el test">
+                <p>Esta es la página para compartir, como la encuesta</p>
+                <button type="button" class="btn solid" id="share-native"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> Compartir</button>
+                <a class="btn" id="share-wa" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp</a>
+                <a class="btn" id="share-x" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> X</a>
+                <button type="button" class="btn" id="share-copy"><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg> Copiar enlace</button>
+            </section>
+            <a class="back" href="./">Ver los candidatos y lo que dijo cada uno</a>
+        </main>
+        <p class="site-credit">Elecciones de Vélez Sarsfield</p>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script>
+        const SHARE_URL = "https://velezelecciones.com/test.html";
+        const SHARE_TEXT = "Test electoral de Elecciones Vélez 2026.";
+        const KEY = "velez-comicios-2026-quiz-v2";
+        const SKIP = "_skip";
+        const toastEl = document.getElementById("toast");
+        let toastTimer = 0;
+        function toast(text) {
+            toastEl.textContent = text;
+            toastEl.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+        }
+        function esc(value) {
+            return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT + " " + SHARE_URL);
+        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT) + "&url=" + encodeURIComponent(SHARE_URL);
+        const nativeShare = document.getElementById("share-native");
+        if (!navigator.share) nativeShare.classList.add("hidden");
+        nativeShare.addEventListener("click", () => {
+            navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: SHARE_TEXT, url: SHARE_URL }).catch(() => {});
+        });
+        document.getElementById("share-copy").addEventListener("click", async () => {
+            try { await navigator.clipboard.writeText(SHARE_URL); toast("Enlace copiado"); }
+            catch { window.prompt("Copiá el enlace:", SHARE_URL); }
+        });
+
+        const quizData = { enabled: false, questions: [], minCoverage: 3, candidates: [] };
+        let answers = {};
+        let orders = {};
+        let index = 0;
+
+        function questions() { return quizData.questions; }
+        function colorOf(c) { return (c && /^#[0-9a-f]{3,8}$/i.test(c.color || "")) ? c.color : "#003da5"; }
+        function photoOf(c) { return c.photo || "img/escudo-velez.svg"; }
+
+        function show(id) {
+            ["screen-start", "screen-q", "screen-result"].forEach((name) => {
+                document.getElementById(name).classList.toggle("hidden", name !== id);
+            });
+        }
+
+        function readSaved() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+                if (saved && saved.answers && typeof saved.answers === "object") return saved;
+            } catch (err) { /* privado */ }
+            return null;
+        }
+        function writeSaved(done) {
+            try { localStorage.setItem(KEY, JSON.stringify({ answers, orders, done: Boolean(done), savedAt: Date.now() })); } catch (err) { /* privado */ }
+        }
+
+        function shuffle(list) {
+            const copy = list.slice();
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const swap = copy[i];
+                copy[i] = copy[j];
+                copy[j] = swap;
+            }
+            return copy;
+        }
+
+        function mixedOptions(q) {
+            const byId = new Map(q.options.map((opt) => [opt.id, opt]));
+            const known = Array.isArray(orders[q.id]) ? orders[q.id] : [];
+            const ordered = known.map((id) => byId.get(id)).filter(Boolean);
+            const seen = new Set(ordered.map((opt) => opt.id));
+            const rest = q.options.filter((opt) => !seen.has(opt.id));
+            if (!rest.length) return ordered;
+            ordered.push(...shuffle(rest));
+            orders[q.id] = ordered.map((opt) => opt.id);
+            writeSaved(false);
+            return ordered;
+        }
+
+        function renderQuestion() {
+            const list = questions();
+            const q = list[index];
+            document.getElementById("step").textContent = "PREGUNTA " + (index + 1) + " DE " + list.length;
+            document.getElementById("step-bar").style.width = ((index + 1) / list.length * 100) + "%";
+            document.getElementById("q-title").textContent = q.title;
+            document.getElementById("back").style.visibility = index > 0 ? "visible" : "hidden";
+            const box = document.getElementById("options");
+            box.innerHTML = "";
+            mixedOptions(q).forEach((opt, i) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "opt" + (answers[q.id] === opt.id ? " is-on" : "");
+                btn.textContent = (i + 1) + ". " + opt.text;
+                btn.onclick = () => choose(q.id, opt.id);
+                box.appendChild(btn);
+            });
+            show("screen-q");
+        }
+
+        function choose(qid, optionId) {
+            answers[qid] = optionId;
+            index += 1;
+            if (index >= questions().length) { writeSaved(true); renderResult(); return; }
+            writeSaved(false);
+            renderQuestion();
+        }
+
+        function score() {
+            const answered = questions().filter((q) => {
+                const pick = answers[q.id];
+                return pick && pick !== SKIP && q.options.some((o) => o.id === pick);
+            });
+            const need = quizData.minCoverage;
+            const rows = quizData.candidates.map((c) => {
+                let sum = 0; let n = 0;
+                answered.forEach((q) => {
+                    const st = c.stances && c.stances[q.id];
+                    if (!st || !/^https?:\/\//i.test(st.url || "") || !st.summary) return;
+                    const pick = answers[q.id];
+                    sum += (st.supports || []).includes(pick) ? 1 : (st.partial || []).includes(pick) ? 0.5 : 0;
+                    n += 1;
+                });
+                return { c, n, total: answered.length, pct: n ? Math.round(sum / n * 100) : null, ranked: n >= need };
+            });
+            rows.sort((a, b) => (b.ranked - a.ranked) || ((b.pct ?? -1) - (a.pct ?? -1)));
+            return { rows, answered: answered.length };
+        }
+
+        function chartItems() {
+            const byId = new Map(score().rows.map((row) => [row.c.id, row]));
+            return quizData.candidates.map((c) => byId.get(c.id) || { c, ranked: false, pct: null });
+        }
+
+        function radarPoint(index, total, ratio) {
+            const angle = -Math.PI / 2 + index * 2 * Math.PI / total;
+            return (50 + Math.cos(angle) * 42 * ratio).toFixed(2) + "," + (50 + Math.sin(angle) * 42 * ratio).toFixed(2);
+        }
+
+        function radarSvg(items) {
+            if (items.length < 3) return "";
+            const ring = (ratio) => '<polygon points="' + items.map((_, i) => radarPoint(i, items.length, ratio)).join(" ") + '" fill="none" stroke="rgba(0,61,165,.2)" stroke-width="0.7"/>';
+            const axes = items.map((_, i) => {
+                const end = radarPoint(i, items.length, 1).split(",");
+                return '<line x1="50" y1="50" x2="' + end[0] + '" y2="' + end[1] + '" stroke="rgba(0,61,165,.2)" stroke-width="0.7"/>';
+            }).join("");
+            const data = items.map((item, i) => item.ranked ? radarPoint(i, items.length, Math.max(0, Math.min(100, item.pct)) / 100) : null).filter(Boolean);
+            const shape = data.length >= 3
+                ? '<polygon points="' + data.join(" ") + '" fill="rgba(0,61,165,.16)" stroke="#003da5" stroke-width="1.4" stroke-linejoin="round"/>'
+                : "";
+            return '<svg viewBox="0 0 100 100" role="img" aria-label="Afinidad con cada candidato">' + [0.25, 0.5, 0.75, 1].map(ring).join("") + axes + shape + "</svg>";
+        }
+
+        function radarHtml(items) {
+            const slots = ["face-n", "face-e", "face-s", "face-w"];
+            const stacked = items.length !== 4;
+            const faces = items.map((item, i) => {
+                const pct = item.ranked ? item.pct + "%" : "–";
+                const note = item.ranked ? "" : '<span class="miss">Sin datos suficientes</span>';
+                const pos = /^[\d.%\s]+$/.test(item.c.photoPosition || "") ? item.c.photoPosition : "center 18%";
+                return '<div class="face ' + (stacked ? "" : slots[i]) + (item.ranked ? "" : " miss") + '" style="--c:' + esc(colorOf(item.c)) + '">' +
+                    '<img src="' + esc(photoOf(item.c)) + '" alt="' + esc(item.c.name) + '" style="object-position:' + esc(pos) + '">' +
+                    "<strong>" + pct + "</strong><span>" + esc(item.c.short || item.c.name) + "</span>" + note + "</div>";
+            }).join("");
+            return '<div class="radar' + (stacked ? " radar-stack" : "") + '">' + radarSvg(items) + faces + "</div>";
+        }
+
+        function shareResult() {
+            const items = chartItems();
+            const payload = { v: 3, rows: items.map((row) => ({ id: row.c.id, pct: row.ranked ? row.pct : null })) };
+            const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+            const url = new URL(SHARE_URL);
+            url.hash = "r=" + b64;
+            const ranked = items.filter((row) => row.ranked).sort((a, b) => b.pct - a.pct);
+            const top = ranked.filter((row) => row.pct === ranked[0].pct).map((row) => row.c.name).join(" y ");
+            const text = "Mi afinidad en las elecciones de Vélez 2026: " + top + " (" + ranked[0].pct + "%). Hacé el test: " + url;
+            if (navigator.share) {
+                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text, url: url.toString() }).catch((err) => {
+                    if (!err || err.name !== "AbortError") navigator.clipboard.writeText(text).then(() => toast("Enlace copiado")).catch(() => toast(url.toString()));
+                });
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", url.toString()));
+        }
+
+        function renderResult() {
+            const items = chartItems();
+            const ranked = items.filter((row) => row.ranked);
+            const best = ranked.length ? Math.max(...ranked.map((row) => row.pct)) : null;
+            const winners = ranked.filter((row) => row.pct === best);
+            const answeredCount = score().answered;
+            let headline = "Salteaste todas las preguntas, así que no hay nada para comparar.";
+            if (ranked.length && winners.length > 1) headline = "Empate de afinidad: " + winners.map((row) => row.c.name).join(" y ") + " (" + best + "%).";
+            else if (winners.length === 1) headline = "Mayor afinidad según lo que dijeron: " + winners[0].c.name + " (" + best + "%).";
+            else if (answeredCount) headline = "Con tan pocas respuestas no hay un porcentaje para comparar.";
+            document.getElementById("screen-result").innerHTML =
+                "<h1>" + esc(headline) + "</h1>" +
+                radarHtml(items) +
+                '<p class="fine">Solo cuentan declaraciones públicas con fuente. Quien no llega al mínimo queda sin porcentaje. Es una guía, no un consejo de voto.</p>' +
+                '<div class="actions">' +
+                (ranked.length ? '<button type="button" class="btn solid" id="share-result">Compartir mi resultado</button>' : "") +
+                '<button type="button" class="btn" id="reset">Empezar de nuevo</button></div>';
+            show("screen-result");
+            const shareBtn = document.getElementById("share-result");
+            if (shareBtn) shareBtn.onclick = () => shareResult();
+            document.getElementById("reset").onclick = () => {
+                answers = {};
+                orders = {};
+                index = 0;
+                try { localStorage.removeItem(KEY); } catch (err) { /* privado */ }
+                show("screen-start");
+            };
+        }
+
+        function openAt(i) {
+            index = i;
+            if (index >= questions().length) { renderResult(); return; }
+            renderQuestion();
+        }
+
+        function showShared() {
+            const match = location.hash.match(/r=([A-Za-z0-9_-]+)/);
+            const box = document.getElementById("shared");
+            if (!match) return;
+            try {
+                const b64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
+                const payload = JSON.parse(decodeURIComponent(escape(atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4)))));
+                const pctOf = payload.rows
+                    ? new Map(payload.rows.map((row) => [row.id, row.pct]))
+                    : new Map(Object.entries(payload.pct || {}));
+                if (!pctOf.size && !payload.w) return;
+                const items = quizData.candidates.map((c) => {
+                    const raw = pctOf.has(c.id) ? pctOf.get(c.id) : null;
+                    const ranked = raw !== null && raw !== undefined && Number.isFinite(Number(raw));
+                    return { c, ranked, pct: ranked ? Number(raw) : null };
+                });
+                box.innerHTML = "<strong>Resultado compartido</strong>" + radarHtml(items) +
+                    '<p class="fine">El tuyo se guarda aparte cuando termines las preguntas.</p>';
+                box.classList.remove("hidden");
+            } catch (err) { /* enlace viejo o cortado */ }
+        }
+
+        function boot(quiz, candidates) {
+            const list = quiz && Array.isArray(quiz.questions) ? quiz.questions.filter((q) => q && q.id && q.title && Array.isArray(q.options) && q.options.length >= 2) : [];
+            if (quiz && quiz.enabled === true && list.length) {
+                quizData.enabled = true;
+                quizData.questions = list;
+                quizData.minCoverage = Number(quiz.minCoverage) > 0 ? Number(quiz.minCoverage) : 3;
+                quizData.candidates = (candidates && candidates.candidates ? candidates.candidates : candidates || []).filter((c) => c && c.status !== "withdrawn");
+                document.getElementById("closed").classList.add("hidden");
+                document.getElementById("quiz").classList.remove("hidden");
+                document.getElementById("intro").textContent = "Son " + list.length + " preguntas. Elegí qué harías. Al final ves con quién coincidís, y cada coincidencia tiene su fuente.";
+                showShared();
+                const saved = readSaved();
+                if (saved) {
+                    answers = saved.answers || {};
+                    orders = saved.orders && typeof saved.orders === "object" ? saved.orders : {};
+                }
+                const pending = list.findIndex((q) => !(q.id in answers));
+                const startAt = pending === -1 ? list.length : pending;
+                document.getElementById("start").textContent = Object.keys(answers).length ? "Continuar el test" : "Comenzar el test";
+                document.getElementById("start").onclick = () => openAt(Object.keys(answers).length ? startAt : 0);
+                if (saved && saved.done && pending === -1) renderResult();
+                document.getElementById("back").onclick = () => { if (index > 0) { index -= 1; renderQuestion(); } };
+                document.getElementById("skip").onclick = () => { const q = questions()[index]; if (q) choose(q.id, SKIP); };
+            }
+        }
+
+        Promise.all([
+            fetch("data/quiz.json", { cache: "no-cache" }).then((res) => res.ok ? res.json() : null).catch(() => null),
+            fetch("data/candidates.json", { cache: "no-cache" }).then((res) => res.ok ? res.json() : null).catch(() => null)
+        ]).then(([quiz, candidates]) => boot(quiz, candidates));
+    </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -720,38 +720,15 @@
                 <div class="news-progress" aria-hidden="true"><span id="news-bar"></span></div>
             </section>
 
-            <!-- El test está apagado mientras data/quiz.json tenga "enabled": false -->
+            <!-- El test está apagado mientras data/quiz.json tenga "enabled": false. Cuando se prenda, el botón abre test.html en otra pestaña. -->
             <section id="sec-quiz" class="card sec hidden">
                 <div class="sec-head no-select">
                     <h2><svg class="ic"><use href="#i-help"/></svg> Test electoral</h2>
-                    <button type="button" onclick="resetQuiz()" class="btn small"><svg class="ic"><use href="#i-reset"/></svg> Reiniciar</button>
                 </div>
-
-                <div id="quiz-box">
-                    <div id="shared-result" class="qz-shared hidden"></div>
-
-                    <div id="quiz-start" class="qz-start">
-                        <h3>¿No sabés a quién votar este 15 de noviembre?</h3>
-                        <p id="quiz-intro"></p>
-                        <p class="qz-fine">Cada navegador guarda su propio test. Compartir un resultado no pisa el de otra persona.</p>
-                        <button id="btn-start-quiz" type="button" onclick="startQuiz()" class="btn solid">Comenzar el test</button>
-                    </div>
-
-                    <div id="quiz-questions" class="hidden no-select">
-                        <div class="qz-progress">
-                            <span id="quiz-progress-text"></span>
-                            <div class="qz-bar"><div id="quiz-progress-bar"></div></div>
-                        </div>
-                        <h3 id="quiz-question-title"></h3>
-                        <div id="quiz-options" class="qz-options"></div>
-                        <div class="qz-actions">
-                            <button type="button" onclick="quizBack()" class="btn small" id="quiz-back"><svg class="ic"><use href="#i-left"/></svg> Anterior</button>
-                            <button type="button" onclick="quizSkip()" class="btn small">No tengo opinión</button>
-                        </div>
-                    </div>
-
-                    <div id="quiz-results" class="hidden"></div>
-                </div>
+                <p id="quiz-intro"></p>
+                <a id="quiz-cta" class="btn solid enc-cta" href="test.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg> Hacer el test</a>
+                <p class="enc-fine">Se abre en otra pestaña. El enlace se puede compartir aparte, como la encuesta.</p>
+                <div id="shared-result" class="qz-shared hidden"></div>
             </section>
 
             <section id="sec-encuesta" class="card sec">
@@ -910,7 +887,8 @@
             renderQuizIntro();
             if (lastNews) { newsSignature = ""; setNews(lastNews); }
             if (lastPolls) { pollsSignature = ""; setPolls(lastPolls); }
-            if (DATA.quiz.enabled && !document.getElementById("quiz-results").classList.contains("hidden")) showResults(false);
+            const quizResults = document.getElementById("quiz-results");
+            if (DATA.quiz.enabled && quizResults && !quizResults.classList.contains("hidden")) showResults(false);
             return !first;
         }
 
@@ -1231,7 +1209,8 @@
             const on = DATA.quiz.enabled && DATA.quiz.questions.length > 0;
             document.getElementById("sec-quiz").classList.toggle("hidden", !on);
             document.getElementById("top-sub").textContent = on ? "Candidatos, noticias, sondeos y test del socio" : "Candidatos, noticias y sondeos";
-            if (!on) document.getElementById("shared-result").classList.add("hidden");
+            const shared = document.getElementById("shared-result");
+            if (!on && shared) shared.classList.add("hidden");
         }
 
         function setQuizData(payload) {
@@ -1255,7 +1234,7 @@
             if (!el) return;
             const n = questions().length;
             el.textContent = n
-                ? "Respondé " + n + " preguntas. Comparamos tus respuestas con lo que cada candidato dijo en público, y cada coincidencia lleva el enlace a su fuente."
+                ? "Son " + n + " preguntas: qué harías vos. Se abre en otra pestaña y el enlace se comparte aparte, como la encuesta."
                 : "Estamos preparando las preguntas.";
         }
 
@@ -1272,7 +1251,10 @@
         }
 
         function showQuizScreen(id) {
-            ["quiz-start", "quiz-questions", "quiz-results"].forEach((screen) => document.getElementById(screen).classList.toggle("hidden", screen !== id));
+            const names = ["quiz-start", "quiz-questions", "quiz-results"];
+            const nodes = names.map((screen) => document.getElementById(screen));
+            if (nodes.some((node) => !node)) return;
+            nodes.forEach((node, index) => node.classList.toggle("hidden", names[index] !== id));
         }
 
         function firstOpen() {
@@ -1412,7 +1394,7 @@
         function restoreQuiz() {
             const saved = readQuiz();
             const button = document.getElementById("btn-start-quiz");
-            if (!saved) return;
+            if (!button || !saved) return;
             quizState = { answers: saved.answers || {}, done: Boolean(saved.done) };
             if (!questions().length) return;
             const open = firstOpen();
@@ -1431,7 +1413,9 @@
             quizState = { answers: {}, done: false };
             quizIndex = 0;
             lastResult = null;
-            document.getElementById("btn-start-quiz").textContent = "Comenzar el test";
+            const button = document.getElementById("btn-start-quiz");
+            if (!button) return;
+            button.textContent = "Comenzar el test";
             showQuizScreen("quiz-start");
             document.getElementById("quiz-box").scrollIntoView({ behavior: "smooth", block: "center" });
         }
@@ -1459,6 +1443,7 @@
         function showSharedResult() {
             const shared = readShareToken();
             const box = document.getElementById("shared-result");
+            if (!box) return;
             const other = shared && byId[shared.w];
             if (!other || !shared.pct) { box.classList.add("hidden"); return; }
             const pct = Number(shared.pct[shared.w]);

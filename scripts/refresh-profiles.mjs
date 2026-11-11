@@ -761,7 +761,7 @@ async function main() {
       if (!supports.length && !partial.length) continue;
       c.stances = c.stances || {};
       const old = c.stances[q.id];
-      if (old && old.date && Date.parse(old.date) >= Date.parse(date)) continue;
+      if (old && (old.fixed || (old.date && Date.parse(old.date) >= Date.parse(date)))) continue;
       c.stances[q.id] = { supports, partial, summary: String(s.summary).slice(0, 260), quote: String(s.quote).trim(), source: item.source, url: item.url, date, auto: true };
       entries.push(`${c.name}: respuesta del test «${q.id}» actualizada`);
     }

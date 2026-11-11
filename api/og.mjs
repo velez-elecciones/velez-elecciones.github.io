@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { CANDIDATES, parseCode, describe } from "./result-shared.mjs";
-import { pngFor } from "./result-card.mjs";
 
 const photos = new Map();
 
@@ -18,6 +17,7 @@ export async function GET(request) {
   const rows = parseCode(new URL(request.url).searchParams.get("r") || "");
   if (!rows) return new Response("No encontrado", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
   try {
+    const { pngFor } = await import("./result-card.mjs");
     const images = Object.fromEntries(CANDIDATES.map((person) => [person.id, photoOf(person)]));
     const png = await pngFor(rows, images, describe(rows));
     return new Response(png, {
@@ -28,6 +28,6 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error("og", error);
-    return new Response("No se pudo armar la imagen", { status: 500, headers: { "content-type": "text/plain; charset=utf-8" } });
+    return new Response(error instanceof Error ? error.message : "No se pudo armar la imagen", { status: 500, headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" } });
   }
 }

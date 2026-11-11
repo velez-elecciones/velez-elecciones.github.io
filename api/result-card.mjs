@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import satori from "satori";
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
@@ -10,15 +11,38 @@ const PANEL_H = 574;
 const PHOTO = 104;
 const FACE_W = 160;
 const FACE_H = 172;
-const fonts = [
-  { name: "Inter", data: readFileSync(fileURLToPath(new URL("./fonts/Inter-Regular.ttf", import.meta.url))), weight: 400, style: "normal" },
-  { name: "Inter", data: readFileSync(fileURLToPath(new URL("./fonts/Inter-Bold.ttf", import.meta.url))), weight: 700, style: "normal" }
-];
+
+function readFirst(paths) {
+  const misses = [];
+  for (const file of paths) {
+    try { return readFileSync(file); } catch (error) { misses.push(file + " (" + error.code + ")"); }
+  }
+  throw new Error(misses.join(" | "));
+}
+
+function loadFonts() {
+  const regular = readFirst([
+    path.join(process.cwd(), "api", "fonts", "Inter-Regular.ttf"),
+    fileURLToPath(new URL("./fonts/Inter-Regular.ttf", import.meta.url))
+  ]);
+  const bold = readFirst([
+    path.join(process.cwd(), "api", "fonts", "Inter-Bold.ttf"),
+    fileURLToPath(new URL("./fonts/Inter-Bold.ttf", import.meta.url))
+  ]);
+  return [
+    { name: "Inter", data: regular, weight: 400, style: "normal" },
+    { name: "Inter", data: bold, weight: 700, style: "normal" }
+  ];
+}
 
 let wasmReady;
 function ready() {
   if (!wasmReady) {
-    wasmReady = initWasm(readFileSync(fileURLToPath(new URL("../node_modules/@resvg/resvg-wasm/index_bg.wasm", import.meta.url))));
+    const wasm = readFirst([
+      path.join(process.cwd(), "node_modules", "@resvg", "resvg-wasm", "index_bg.wasm"),
+      fileURLToPath(new URL("../node_modules/@resvg/resvg-wasm/index_bg.wasm", import.meta.url))
+    ]);
+    wasmReady = initWasm(wasm);
   }
   return wasmReady;
 }
@@ -117,6 +141,6 @@ export function cardElement(rows, images, summary) {
 
 export async function pngFor(rows, images, summary) {
   await ready();
-  const svg = await satori(cardElement(rows, images, summary), { width: WIDTH, height: HEIGHT, fonts });
+  const svg = await satori(cardElement(rows, images, summary), { width: WIDTH, height: HEIGHT, fonts: loadFonts() });
   return new Resvg(svg, { fitTo: { mode: "width", value: WIDTH } }).render().asPng();
 }

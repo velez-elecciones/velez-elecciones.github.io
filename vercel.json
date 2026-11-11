@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "functions": {
     "api/encuesta.mjs": { "includeFiles": "data/candidates.json" },
-    "api/og.mjs": { "includeFiles": "share/**" }
+    "api/og.mjs": { "includeFiles": "{share/**,node_modules/harfbuzzjs/*.wasm,node_modules/satori/yoga.wasm}" }
   },
   "rewrites": [
     { "source": "/r/:code", "destination": "/api/resultado?code=:code" }

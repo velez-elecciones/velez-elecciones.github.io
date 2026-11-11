@@ -1,15 +1,6 @@
 {
-  "checkedAt": "2026-11-11T08:27:05.538Z",
+  "checkedAt": "2026-11-11T16:31:16.332Z",
   "flags": [
-    {
-      "kind": "posible-candidato-nuevo",
-      "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
-      "url": "https://www.ole.com.ar/previews-mode/1793888017/RNchK96FWU.html",
-      "source": "Olé",
-      "published": "2026-11-05T06:14:00.000Z",
-      "tags": [],
-      "firstSeen": "2026-11-07T23:07:05.419Z"
-    },
     {
       "kind": "posible-candidato-nuevo",
       "title": "Elecciones en Vélez: un candidato a presidente sufrió una descompensación durante el debate y tuvo que ser reemplazado",
@@ -27,6 +18,15 @@
       "published": "2026-11-05T06:14:00.000Z",
       "tags": [],
       "firstSeen": "2026-11-07T02:17:45.890Z"
+    },
+    {
+      "kind": "posible-candidato-nuevo",
+      "title": "Histórico: con fecha confirmada, Vélez tendrá un debate con los cuatro candidatos a presidente antes de sus elecciones",
+      "url": "https://www.ole.com.ar/previews-mode/1793888017/RNchK96FWU.html",
+      "source": "Olé",
+      "published": "2026-11-05T06:14:00.000Z",
+      "tags": [],
+      "firstSeen": "2026-11-07T23:07:05.419Z"
     }
   ]
 }

@@ -11,7 +11,7 @@
     </script>
     <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="canonical" href="https://velezelecciones.com/test">
+    <link rel="canonical" href="https://velezelecciones.com/quiz">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="description" content="Qué harías vos en las elecciones de Vélez.">
     <meta property="og:title" content="Test electoral · Elecciones Vélez 2026">
@@ -19,7 +19,7 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="Elecciones Vélez 2026">
-    <meta property="og:url" content="https://velezelecciones.com/test">
+    <meta property="og:url" content="https://velezelecciones.com/quiz">
     <meta property="og:image" content="https://velezelecciones.com/img/og-test.jpg">
     <meta property="og:image:secure_url" content="https://velezelecciones.com/img/og-test.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Test electoral · Elecciones Vélez 2026">
     <meta name="twitter:description" content="Qué harías vos en las elecciones de Vélez.">
-    <meta name="twitter:url" content="https://velezelecciones.com/test">
+    <meta name="twitter:url" content="https://velezelecciones.com/quiz">
     <meta name="twitter:image" content="https://velezelecciones.com/img/og-test.jpg">
     <meta name="twitter:image:alt" content="Test electoral · Elecciones Vélez 2026">
     <meta name="theme-color" content="#003da5">
@@ -234,7 +234,7 @@
     </div>
     <div id="toast" role="status" aria-live="polite"></div>
     <script>
-        const SHARE_URL = "https://velezelecciones.com/test";
+        const SHARE_URL = "https://velezelecciones.com/quiz";
         const SHARE_TEXT = "Test electoral de Elecciones Vélez 2026.";
         // Mismo código que api/result-shared.mjs: cuatro valores de tres dígitos, en este orden.
         const ORDER = ["pugliese", "balestrini", "montero", "mazzitelli"];
@@ -267,7 +267,7 @@
             const top = ranked.filter((row) => row.pct === ranked[0].pct);
             const names = top.length > 1 ? top.map((row) => row.c.short || row.c.name).join(" y ") : top[0].c.name;
             const text = (top.length > 1 ? "Empate de afinidad en las elecciones de Vélez: " : "Mi afinidad en las elecciones de Vélez: ") + names + " (" + top[0].pct + "%).";
-            return { text, url: "https://velezelecciones.com/r/" + resultCode(items) };
+            return { text, url: "https://velezelecciones.com/p/" + resultCode(items) };
         }
         function currentShare() {
             const resultOn = !document.getElementById("screen-result").classList.contains("hidden");

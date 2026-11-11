@@ -23,8 +23,12 @@ function photoOf(person) {
   return "data:" + type + ";base64," + file.toString("base64");
 }
 
+function codeOf(request) {
+  return (new URL(request.url).searchParams.get("r") || "").replace(/\.png$/i, "");
+}
+
 export async function GET(request) {
-  const rows = parseCode(new URL(request.url).searchParams.get("r") || "");
+  const rows = parseCode(codeOf(request));
   if (!rows) return new Response("No encontrado", { status: 404, headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" } });
   try {
     const { pngFor } = await import("./result-card.mjs");
@@ -34,6 +38,7 @@ export async function GET(request) {
       headers: {
         "content-type": "image/png",
         "content-length": String(png.byteLength),
+        "accept-ranges": "bytes",
         "cache-control": "public, max-age=31536000, immutable"
       }
     });
@@ -44,4 +49,10 @@ export async function GET(request) {
       headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" }
     });
   }
+}
+
+export async function HEAD(request) {
+  const res = await GET(request);
+  if (res.body) await res.body.cancel();
+  return new Response(null, { status: res.status, headers: res.headers });
 }

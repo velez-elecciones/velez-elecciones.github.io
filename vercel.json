@@ -6,7 +6,10 @@
     "api/og.mjs": { "includeFiles": "{share/**,node_modules/harfbuzzjs/*.wasm,node_modules/satori/yoga.wasm}" }
   },
   "rewrites": [
+    { "source": "/quiz", "destination": "/test.html" },
     { "source": "/test", "destination": "/test.html" },
+    { "source": "/og/:code", "destination": "/api/og?r=:code" },
+    { "source": "/p/:code", "destination": "/api/resultado?code=:code" },
     { "source": "/r/:code", "destination": "/api/resultado?code=:code" }
   ],
   "redirects": [

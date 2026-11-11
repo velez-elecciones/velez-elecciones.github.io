@@ -39,8 +39,7 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error("og", error);
-    const message = error instanceof Error ? error.message : "No se pudo armar la imagen";
-    return new Response(message, {
+    return new Response("No se pudo armar la imagen", {
       status: 500,
       headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" }
     });

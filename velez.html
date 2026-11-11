@@ -217,6 +217,8 @@
         .btn:hover { background: #eaf2fd; }
         .btn.active, .btn.solid { background: var(--blue); color: #fff; border-color: var(--blue); }
         .btn.solid:hover { background: #0a4cc2; }
+        .entry-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .entry-row:not(:has(> :nth-child(2):not(.hidden))) { grid-template-columns: 1fr; }
         a.red-entry {
             width: 100%;
             padding: 14px 18px;
@@ -530,6 +532,7 @@
             .sec, .cmp { padding: 14px; }
             .sec-head h2 { font-size: 17px; }
             .feed-checked { display: none; }
+            .entry-row { grid-template-columns: 1fr; }
             a.red-entry, a.enc-cta { font-size: 14px; letter-spacing: .02em; padding: 12px 10px; }
             .debate { grid-template-columns: 1fr; gap: 14px; }
             .debate-play { width: 54px; height: 54px; margin: -27px 0 0 -27px; }
@@ -698,7 +701,11 @@
                 </div>
             </section>
 
-            <a class="btn solid red-entry" href="red.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-net"/></svg> Red neuronal de candidatos</a>
+            <div class="entry-row">
+                <a class="btn solid red-entry" href="red.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-net"/></svg> Red neuronal de candidatos</a>
+                <a id="quiz-cta" class="btn solid red-entry hidden" href="test.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg> Hacer el test</a>
+            </div>
+            <div id="shared-result" class="qz-shared hidden"></div>
 
             <section id="sec-drops" class="card drops hidden" aria-label="Candidaturas que se bajaron"></section>
 
@@ -718,15 +725,6 @@
                 </div>
                 <div id="news-track" class="news-track" tabindex="0" aria-live="off"></div>
                 <div class="news-progress" aria-hidden="true"><span id="news-bar"></span></div>
-            </section>
-
-            <section id="sec-quiz" class="card sec hidden">
-                <div class="sec-head no-select">
-                    <h2><svg class="ic"><use href="#i-help"/></svg> Test electoral</h2>
-                </div>
-                <p id="quiz-intro"></p>
-                <a id="quiz-cta" class="btn solid enc-cta" href="test.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg> Hacer el test</a>
-                <div id="shared-result" class="qz-shared hidden"></div>
             </section>
 
             <section id="sec-encuesta" class="card sec">
@@ -1205,7 +1203,8 @@
         // "enabled": false en data/quiz.json apaga el test (la sección, el resultado compartido y el subtítulo).
         function applyQuizVisibility() {
             const on = DATA.quiz.enabled && DATA.quiz.questions.length > 0;
-            document.getElementById("sec-quiz").classList.toggle("hidden", !on);
+            const cta = document.getElementById("quiz-cta");
+            if (cta) cta.classList.toggle("hidden", !on);
             document.getElementById("top-sub").textContent = on ? "Candidatos, noticias, sondeos y test del socio" : "Candidatos, noticias y sondeos";
             const shared = document.getElementById("shared-result");
             if (!on && shared) shared.classList.add("hidden");

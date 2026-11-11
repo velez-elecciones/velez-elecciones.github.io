@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@resvg/resvg-wasm": "2.4.1",
+    "satori": "0.33.5"
+  }
+}

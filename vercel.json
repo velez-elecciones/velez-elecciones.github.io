@@ -2,8 +2,12 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "functions": {
-    "api/encuesta.mjs": { "includeFiles": "data/candidates.json" }
+    "api/encuesta.mjs": { "includeFiles": "data/candidates.json" },
+    "api/og.mjs": { "includeFiles": "{img/pugliese.jpg,img/balestrini-face.jpg,img/montero-face.jpg,img/mazzitelli.png,api/fonts/*.ttf,node_modules/@resvg/resvg-wasm/index_bg.wasm}" }
   },
+  "rewrites": [
+    { "source": "/r/:code", "destination": "/api/resultado?code=:code" }
+  ],
   "redirects": [
     {
       "source": "/velez.html",

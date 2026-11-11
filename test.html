@@ -228,6 +228,8 @@
     <script>
         const SHARE_URL = "https://velezelecciones.com/test.html";
         const SHARE_TEXT = "Test electoral de Elecciones Vélez 2026.";
+        // Mismo código que api/result-shared.mjs: cuatro valores de tres dígitos, en este orden.
+        const ORDER = ["pugliese", "balestrini", "montero", "mazzitelli"];
         const KEY = "velez-comicios-2026-quiz-v2";
         const SKIP = "_skip";
         const toastEl = document.getElementById("toast");
@@ -241,17 +243,65 @@
         function esc(value) {
             return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
         }
-        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT + " " + SHARE_URL);
-        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT) + "&url=" + encodeURIComponent(SHARE_URL);
         const nativeShare = document.getElementById("share-native");
         if (!navigator.share) nativeShare.classList.add("hidden");
-        nativeShare.addEventListener("click", () => {
-            navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: SHARE_TEXT, url: SHARE_URL }).catch(() => {});
-        });
-        document.getElementById("share-copy").addEventListener("click", async () => {
+        function resultCode(items) {
+            const byId = new Map(items.map((row) => [row.c.id, row]));
+            return ORDER.map((id) => {
+                const row = byId.get(id);
+                if (!row || !row.ranked || !Number.isFinite(Number(row.pct))) return "---";
+                return String(Math.max(0, Math.min(100, Math.round(Number(row.pct))))).padStart(3, "0");
+            }).join("");
+        }
+        function resultBlurb(items) {
+            const ranked = items.filter((row) => row.ranked).sort((a, b) => b.pct - a.pct);
+            if (!ranked.length) return null;
+            const top = ranked.filter((row) => row.pct === ranked[0].pct);
+            const names = top.length > 1 ? top.map((row) => row.c.short || row.c.name).join(" y ") : top[0].c.name;
+            const text = (top.length > 1 ? "Empate de afinidad en las elecciones de Vélez: " : "Mi afinidad en las elecciones de Vélez: ") + names + " (" + top[0].pct + "%).";
+            return { text, url: "https://velezelecciones.com/r/" + resultCode(items) };
+        }
+        function currentShare() {
+            const resultOn = !document.getElementById("screen-result").classList.contains("hidden");
+            if (resultOn && quizData.candidates.length) {
+                const share = resultBlurb(chartItems());
+                if (share) return share;
+            }
+            const token = (location.hash.match(/r=([A-Za-z0-9_-]+)/) || [])[1] || "";
+            if (/^(?:\d{3}|---){4}$/.test(token) && quizData.candidates.length) {
+                const items = quizData.candidates.map((c) => {
+                    const at = ORDER.indexOf(c.id);
+                    const part = at < 0 ? "---" : token.slice(at * 3, at * 3 + 3);
+                    const ranked = part !== "---";
+                    return { c, ranked, pct: ranked ? Number(part) : null };
+                });
+                const share = resultBlurb(items);
+                if (share) return share;
+            }
+            return { text: SHARE_TEXT, url: SHARE_URL };
+        }
+        function applyShareLinks() {
+            const share = currentShare();
+            document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(share.text + " " + share.url);
+            document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(share.text) + "&url=" + encodeURIComponent(share.url);
+            document.getElementById("share-copy").onclick = async () => {
+                const line = share.text + " " + share.url;
+                try { await navigator.clipboard.writeText(line); toast("Enlace copiado"); }
+                catch { window.prompt("Copiá el enlace:", share.url); }
+            };
+            nativeShare.onclick = () => {
+                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: share.text, url: share.url }).catch((err) => {
+                    if (err && err.name === "AbortError") return;
+                    navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => {});
+                });
+            };
+        }
+        document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT + " " + SHARE_URL);
+        document.getElementById("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT) + "&url=" + encodeURIComponent(SHARE_URL);
+        document.getElementById("share-copy").onclick = async () => {
             try { await navigator.clipboard.writeText(SHARE_URL); toast("Enlace copiado"); }
             catch { window.prompt("Copiá el enlace:", SHARE_URL); }
-        });
+        };
 
         const quizData = { enabled: false, questions: [], minCoverage: 3, candidates: [] };
         let answers = {};
@@ -391,21 +441,16 @@
         }
 
         function shareResult() {
-            const items = chartItems();
-            const payload = { v: 3, rows: items.map((row) => ({ id: row.c.id, pct: row.ranked ? row.pct : null })) };
-            const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
-            const url = new URL(SHARE_URL);
-            url.hash = "r=" + b64;
-            const ranked = items.filter((row) => row.ranked).sort((a, b) => b.pct - a.pct);
-            const top = ranked.filter((row) => row.pct === ranked[0].pct).map((row) => row.c.name).join(" y ");
-            const text = "Mi afinidad en las elecciones de Vélez 2026: " + top + " (" + ranked[0].pct + "%). Hacé el test: " + url;
+            const share = resultBlurb(chartItems());
+            if (!share) return;
+            applyShareLinks();
             if (navigator.share) {
-                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text, url: url.toString() }).catch((err) => {
-                    if (!err || err.name !== "AbortError") navigator.clipboard.writeText(text).then(() => toast("Enlace copiado")).catch(() => toast(url.toString()));
+                navigator.share({ title: "Test electoral · Elecciones Vélez 2026", text: share.text, url: share.url }).catch((err) => {
+                    if (!err || err.name !== "AbortError") navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", share.url));
                 });
                 return;
             }
-            navigator.clipboard.writeText(text).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", url.toString()));
+            navigator.clipboard.writeText(share.text + " " + share.url).then(() => toast("Enlace copiado")).catch(() => window.prompt("Copiá el enlace:", share.url));
         }
 
         function renderResult() {
@@ -433,7 +478,9 @@
                 index = 0;
                 try { localStorage.removeItem(KEY); } catch (err) { /* privado */ }
                 show("screen-start");
+                applyShareLinks();
             };
+            applyShareLinks();
         }
 
         function openAt(i) {
@@ -442,25 +489,42 @@
             renderQuestion();
         }
 
-        function showShared() {
-            const match = location.hash.match(/r=([A-Za-z0-9_-]+)/);
-            const box = document.getElementById("shared");
-            if (!match) return;
-            try {
-                const b64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
-                const payload = JSON.parse(decodeURIComponent(escape(atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4)))));
-                const pctOf = payload.rows
-                    ? new Map(payload.rows.map((row) => [row.id, row.pct]))
-                    : new Map(Object.entries(payload.pct || {}));
-                if (!pctOf.size && !payload.w) return;
-                const items = quizData.candidates.map((c) => {
-                    const raw = pctOf.has(c.id) ? pctOf.get(c.id) : null;
-                    const ranked = raw !== null && raw !== undefined && Number.isFinite(Number(raw));
-                    return { c, ranked, pct: ranked ? Number(raw) : null };
+        function rowsFromToken(token) {
+            if (/^(?:\d{3}|---){4}$/.test(token)) {
+                const parsed = ORDER.map((id, i) => {
+                    const part = token.slice(i * 3, i * 3 + 3);
+                    if (part === "---") return { id, pct: null };
+                    const pct = Number(part);
+                    if (!Number.isInteger(pct) || pct > 100) return null;
+                    return { id, pct };
                 });
-                box.innerHTML = "<strong>Resultado compartido</strong>" + radarHtml(items);
-                box.classList.remove("hidden");
+                if (parsed.some((row) => !row)) return null;
+                return parsed;
+            }
+            try {
+                const b64 = token.replace(/-/g, "+").replace(/_/g, "/");
+                const payload = JSON.parse(decodeURIComponent(escape(atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4)))));
+                if (Array.isArray(payload.rows)) return payload.rows.map((row) => ({ id: row.id, pct: row.pct }));
+                if (payload.pct && typeof payload.pct === "object") return Object.entries(payload.pct).map(([id, pct]) => ({ id, pct }));
             } catch (err) { /* enlace viejo o cortado */ }
+            return null;
+        }
+
+        function showShared() {
+            const token = (location.hash.match(/r=([A-Za-z0-9_-]+)/) || [])[1];
+            const box = document.getElementById("shared");
+            if (!token) return;
+            const parsed = rowsFromToken(token);
+            if (!parsed) return;
+            const pctOf = new Map(parsed.map((row) => [row.id, row.pct]));
+            const items = quizData.candidates.map((c) => {
+                const raw = pctOf.has(c.id) ? pctOf.get(c.id) : null;
+                const ranked = raw !== null && raw !== undefined && Number.isFinite(Number(raw));
+                return { c, ranked, pct: ranked ? Number(raw) : null };
+            });
+            if (!items.some((item) => item.ranked)) return;
+            box.innerHTML = "<strong>Resultado compartido</strong>" + radarHtml(items);
+            box.classList.remove("hidden");
         }
 
         function boot(quiz, candidates) {
@@ -484,6 +548,7 @@
                 document.getElementById("start").textContent = Object.keys(answers).length ? "Continuar el test" : "Comenzar el test";
                 document.getElementById("start").onclick = () => openAt(Object.keys(answers).length ? startAt : 0);
                 if (saved && saved.done && pending === -1) renderResult();
+                applyShareLinks();
                 document.getElementById("back").onclick = () => { if (index > 0) { index -= 1; renderQuestion(); } };
                 document.getElementById("skip").onclick = () => { const q = questions()[index]; if (q) choose(q.id, SKIP); };
             }

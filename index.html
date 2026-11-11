@@ -720,14 +720,12 @@
                 <div class="news-progress" aria-hidden="true"><span id="news-bar"></span></div>
             </section>
 
-            <!-- El test está apagado mientras data/quiz.json tenga "enabled": false. Cuando se prenda, el botón abre test.html en otra pestaña. -->
             <section id="sec-quiz" class="card sec hidden">
                 <div class="sec-head no-select">
                     <h2><svg class="ic"><use href="#i-help"/></svg> Test electoral</h2>
                 </div>
                 <p id="quiz-intro"></p>
                 <a id="quiz-cta" class="btn solid enc-cta" href="test.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg> Hacer el test</a>
-                <p class="enc-fine">Se abre en otra pestaña. El enlace se puede compartir aparte, como la encuesta.</p>
                 <div id="shared-result" class="qz-shared hidden"></div>
             </section>
 
@@ -1234,7 +1232,7 @@
             if (!el) return;
             const n = questions().length;
             el.textContent = n
-                ? "Son " + n + " preguntas: qué harías vos. Se abre en otra pestaña y el enlace se comparte aparte, como la encuesta."
+                ? "Son " + n + " preguntas."
                 : "Estamos preparando las preguntas.";
         }
 
@@ -1380,7 +1378,6 @@
             document.getElementById("quiz-results").innerHTML =
                 '<div class="qz-headline">' + ic("trophy") + "<h3>" + esc(headline) + "</h3></div>" +
                 '<div class="qr-list">' + result.rows.map((r) => rowHtml(r, winners.includes(r) && ranked.length > 0)).join("") + "</div>" +
-                '<p class="qz-fine" style="text-align:center;margin-top:12px">Solo cuentan declaraciones públicas con fuente. Si un candidato no habló de un tema, esa pregunta no suma ni resta. Es una guía, no un consejo de voto.</p>' +
                 '<details class="qd"><summary>Ver pregunta por pregunta, con la fuente de cada postura</summary>' + detailHtml(result) + "</details>" +
                 '<div class="qz-actions center">' +
                 '<button type="button" onclick="shareMyResult()" class="btn solid">' + ic("share") + " Compartir mi resultado</button>" +
@@ -1447,9 +1444,7 @@
             const other = shared && byId[shared.w];
             if (!other || !shared.pct) { box.classList.add("hidden"); return; }
             const pct = Number(shared.pct[shared.w]);
-            const mine = lastResult && byId[lastResult.w];
-            const mineLine = mine ? " El tuyo, en este navegador, sigue siendo " + mine.name + "." : " El tuyo se guarda aparte cuando termines las preguntas.";
-            box.innerHTML = "<strong>Resultado compartido:</strong> " + esc(other.name) + " (" + esc(other.group || "") + ")" + (Number.isFinite(pct) ? ", " + pct + "% de afinidad" : "") + "." + esc(mineLine);
+            box.innerHTML = "<strong>Resultado compartido:</strong> " + esc(other.name) + " (" + esc(other.group || "") + ")" + (Number.isFinite(pct) ? ", " + pct + "% de afinidad" : "") + ".";
             box.classList.remove("hidden");
         }
 

@@ -13,9 +13,9 @@
     <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="Test electoral de Elecciones Vélez 2026. Preguntas fijas, comparadas con lo que dijo cada candidato y con la fuente.">
+    <meta name="description" content="Qué harías vos en las elecciones de Vélez.">
     <meta property="og:title" content="Test electoral · Elecciones Vélez 2026">
-    <meta property="og:description" content="Un test aparte para compartir. Preguntas fijas, comparadas con lo que dijo cada candidato.">
+    <meta property="og:description" content="Qué harías vos en las elecciones de Vélez.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="Elecciones Vélez 2026">
@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://velezelecciones.com/img/preview.png?v=2">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Test electoral · Elecciones Vélez 2026">
-    <meta name="twitter:description" content="Un test aparte para compartir. Preguntas fijas, comparadas con lo que dijo cada candidato.">
+    <meta name="twitter:description" content="Qué harías vos en las elecciones de Vélez.">
     <meta name="theme-color" content="#003da5">
     <style>
         :root {
@@ -192,9 +192,7 @@
         <main class="flow">
             <section class="card panel" id="closed">
                 <h1>Test electoral</h1>
-                <p class="lead">Esta página es la del test, aparte de la home, para compartirla como la encuesta.</p>
-                <p class="closed">Todavía no está abierto. Las preguntas se publican cuando se apruebe el listado.</p>
-                <p class="fine">La dirección para compartir es <a href="https://velezelecciones.com/test.html">velezelecciones.com/test.html</a>. El resultado de cada persona, cuando el test esté abierto, va en el enlace de esta misma página.</p>
+                <p class="closed">Todavía no está abierto.</p>
             </section>
 
             <section class="card panel hidden" id="quiz">
@@ -202,7 +200,6 @@
                 <div id="screen-start">
                     <h1>¿Qué harías vos?</h1>
                     <p class="lead" id="intro"></p>
-                    <p class="fine">Cada navegador guarda su propio test. Compartir un resultado no pisa el de otra persona.</p>
                     <div class="actions"><button type="button" class="btn solid" id="start">Comenzar el test</button></div>
                 </div>
                 <div id="screen-q" class="hidden">
@@ -218,7 +215,6 @@
             </section>
 
             <section class="card share" aria-label="Compartir el test">
-                <p>Esta es la página para compartir, como la encuesta</p>
                 <button type="button" class="btn solid" id="share-native"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> Compartir</button>
                 <a class="btn" id="share-wa" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp</a>
                 <a class="btn" id="share-x" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> X</a>
@@ -425,7 +421,6 @@
             document.getElementById("screen-result").innerHTML =
                 "<h1>" + esc(headline) + "</h1>" +
                 radarHtml(items) +
-                '<p class="fine">Solo cuentan declaraciones públicas con fuente. Quien no llega al mínimo queda sin porcentaje. Es una guía, no un consejo de voto.</p>' +
                 '<div class="actions">' +
                 (ranked.length ? '<button type="button" class="btn solid" id="share-result">Compartir mi resultado</button>' : "") +
                 '<button type="button" class="btn" id="reset">Empezar de nuevo</button></div>';
@@ -463,8 +458,7 @@
                     const ranked = raw !== null && raw !== undefined && Number.isFinite(Number(raw));
                     return { c, ranked, pct: ranked ? Number(raw) : null };
                 });
-                box.innerHTML = "<strong>Resultado compartido</strong>" + radarHtml(items) +
-                    '<p class="fine">El tuyo se guarda aparte cuando termines las preguntas.</p>';
+                box.innerHTML = "<strong>Resultado compartido</strong>" + radarHtml(items);
                 box.classList.remove("hidden");
             } catch (err) { /* enlace viejo o cortado */ }
         }
@@ -478,7 +472,7 @@
                 quizData.candidates = (candidates && candidates.candidates ? candidates.candidates : candidates || []).filter((c) => c && c.status !== "withdrawn");
                 document.getElementById("closed").classList.add("hidden");
                 document.getElementById("quiz").classList.remove("hidden");
-                document.getElementById("intro").textContent = "Son " + list.length + " preguntas. Elegí qué harías. Al final ves con quién coincidís, y cada coincidencia tiene su fuente.";
+                document.getElementById("intro").textContent = "Son " + list.length + " preguntas.";
                 showShared();
                 const saved = readSaved();
                 if (saved) {

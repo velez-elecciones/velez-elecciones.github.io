@@ -1,7 +1,28 @@
 {
-  "updated": "2026-11-12T03:48:46.181Z",
-  "checkedAt": "2026-11-12T11:55:30.604Z",
+  "updated": "2026-11-12T19:51:38.623Z",
+  "checkedAt": "2026-11-12T19:51:38.623Z",
   "items": [
+    {
+      "title": "Vélez elige presidente: los candidatos, propuestas y todo lo que necesitas saber",
+      "summary": "El próximo domingo 15 de noviembre el Fortín elegirá nuevas autoridades y en Olé te traemos todo al detalle...",
+      "url": "https://www.ole.com.ar/velez/velez-candidatos-elecciones-presidente-propuestas-votacion-comicios-fortin_0_R5oBNtJ9hI.html",
+      "source": "Olé",
+      "published": "2026-11-12T17:36:11.000Z",
+      "tags": [],
+      "club": true,
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2F6FYNPKdsW_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
+    {
+      "title": "Rumbo a las urnas en Vélez: «Pensar, sentir y vivir en grande», el lema de Legado Velezano para renovar la conducción del club",
+      "summary": "La fórmula presidencial es encabezada por Nelson Pugliese (actual vicepresidente del club y referente de la gestión actual), acompañado por Aimaro como candidato a vicepresidente 1°. Desde el espacio ...",
+      "url": "https://ecomedios.com/rumbo-a-las-urnas-en-velez-pensar-sentir-y-vivir-en-grande-el-lema-de-legado-velezano-para-renovar-la-conduccion-del-club/",
+      "source": "ecomedios",
+      "published": "2026-11-12T05:02:00.000Z",
+      "tags": [
+        "pugliese"
+      ],
+      "imageTries": 1
+    },
     {
       "title": "León XIV lo marcó: un futbolista de Vélez quedó conmovido con su visita",
       "summary": "",
@@ -13,10 +34,10 @@
     },
     {
       "title": "Ignacio Mazzitelli confesó que sufrió una crisis de ansiedad durante el debate para las elecciones en Vélez: “La salud está por encima de la política”",
-      "summary": "",
-      "url": "https://news.google.com/rss/articles/CBMiygJBVV95cUxPR0ZfaUp0Zy1MQkFsTERXcmxLTXRiVm5sUnNsemFKRV9FbENldkVhdktGblhSMmotb0F0YVlpSEhYTzJrZUNyX0ZHNl9FdTZoY0lXRE83VlNiQXZtMFdCTzBjT0lfMHNCNUpBeWlYZWVLb1lBSU9BcldqQVlZQTZZcGFFZl9WNzVRUEVLdktPZVI3S3JfQkxsSmY2dWVyMGRGeEIzdTdZWXRKNkhwRFBQRTZxcmlUaEhMcjMzQmdrNGhEZnplRkM5OVZiUUhVZlRBM0YtcC1ZMW9GMU5Ncl94VWlxSUZaN19tblhPN1FyV3BaeVczb3ZRMC1uR0lvU0VNa19wWDNYbEVadmpmd0xfVFZCRkhQUEE2WnM2QVN5M1B3UndYYmlaX1lRTTJSc2puZ3lscjlSTmZRdDZ4UG1BMmlqSjBnOEtuQWfSAcoCQVVfeXFMT0dGX2lKdGctTEJBbExEV3JsS010YlZubFJzbHphSkVfRWxDZXZFYXZLRm5YUjJqLW9BdGFZaUhIWE8ya2VDcl9GRzZfRXU2aGNJV0RPN1ZTYkF2bTBXQk8wY09JXzBzQjVKQXlpWGVlS29ZQUlPQXJXakFZWUE2WXBhRWZfVjc1UVBFS3ZLT2VSN0tyX0JMbEpmNnVlcjBkRnhCM3U3WVl0SjZIcERQUEU2cXJpVGhITHIzM0JnazRoRGZ6ZUZDOTlWYlFIVWZUQTNGLXAtWTFvRjFOTXJfeFVpcUlGWjdfbW5YTzdRcldwWnlXM292UTAtbkdJb1NFTWtfcFgzWGxFWnZqZndMX1RWQkZIUFBBNlpzNkFTeTNQd1J3WGJpWl9ZUU0yUnNqbmd5bHI5Uk5mUXQ2eFBtQTJpakowZzhLbkFn?oc=5",
+      "summary": "El candidato de “Renovadora Vélez” debió abandonar el debate con los demás candidatos al verse imposibilitado de articular sus argumentos. En una carta abierta, decidió exponer el problema, aclarando ...",
+      "url": "https://www.dobleamarilla.com.ar/rosca/ignacio-mazzitelli-confeso-que-sufrio-una-crisis-de-ansiedad-durante-el-debate-para-las-elecciones-en-velez---la-salud-esta-por-encima-de-la-politica-_a6af4415360f6eee0828b434f",
       "source": "Doble Amarilla",
-      "published": "2026-11-11T10:43:00.000Z",
+      "published": "2026-11-11T02:43:00.000Z",
       "tags": [
         "mazzitelli"
       ],
@@ -179,29 +200,6 @@
         "mazzitelli"
       ],
       "image": "https://www.bing.com/th?id=ONUT.UNucLCAc_R7I042fHwPf6w&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "Los cuatro candidatos a presidente de Vélez realizarán un debate previo a las elecciones: todos los detalles",
-      "summary": "Este lunes desde las 19hs, en la sala de conferencias del José Amalfitani, Nelson Pugliese, Juan Cruz Montero, Federico Balestrini e Ignacio Mazzitelli le hablarán al socio sobre las diferentes ideas ...",
-      "url": "https://www.dobleamarilla.com.ar/rosca/los-cuatro-candidatos-a-presidente-de-velez-realizaran-un-debate-previo-a-las-elecciones--todos-los-detalles_a6af1adc556da3dd682d05ca6",
-      "source": "Doble Amarilla",
-      "published": "2026-11-09T03:39:00.000Z",
-      "tags": [
-        "pugliese",
-        "balestrini",
-        "montero",
-        "mazzitelli"
-      ],
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-app.tadevel-cdn.com%2Fhostname%2Fwww.dobleamarilla.com.ar%2Fapi%2Fv1%2Fimage%2Farticle%2F6af1adc556da3dd682d05ca6%2Ffacebook%3Fv%3Ddd03f0a15a0af99f20e7d5fb726379fb%26s%3D25c707869ce7fb69237a5251a2bfdae1&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "Debate presidencial en Vélez antes de las elecciones",
-      "summary": "Vélez define su futuro con un debate presidencial abierto a los socios NewsITe Vélez Sarsfield ingresa en una semana decisiva: el club de Liniers renovará sus autoridades y, en la antesala de los comi ...",
-      "url": "https://diarioelnorte.com.ar/debate-presidencial-en-velez-antes-de-las-elecciones/",
-      "source": "Diario EL NORTE",
-      "published": "2026-11-08T16:00:00.000Z",
-      "tags": [],
-      "image": "https://www.bing.com/th?id=ONUT.onlS-B_teguTAMFsE4LrPg&pid=News&w=480&h=270&c=14"
     }
   ],
   "sources": [

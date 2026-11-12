@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-09T16:46:50.117Z",
-  "checkedAt": "2026-11-11T23:07:56.823Z",
+  "updated": "2026-11-12T03:49:13.759Z",
+  "checkedAt": "2026-11-12T03:49:13.759Z",
   "source": "ESPN",
   "team": {
     "id": "21",
@@ -59,7 +59,7 @@
       "league": "arg.1",
       "competition": "Liga Profesional",
       "stage": "Clausura - Round of 16",
-      "date": "2026-11-22T20:00:00.000Z",
+      "date": "2026-11-20T23:00:00.000Z",
       "state": "pre",
       "status": "STATUS_SCHEDULED",
       "completed": false,

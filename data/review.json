@@ -1,17 +1,6 @@
 {
-  "checkedAt": "2026-11-13T07:52:29.627Z",
+  "checkedAt": "2026-11-13T16:14:46.682Z",
   "flags": [
-    {
-      "kind": "posible-postura-nueva",
-      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
-      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
-      "source": "Olé",
-      "published": "2026-11-12T15:19:00.000Z",
-      "tags": [
-        "mazzitelli"
-      ],
-      "firstSeen": "2026-11-13T01:01:55.955Z"
-    },
     {
       "kind": "posible-candidato-nuevo",
       "title": "Elecciones en Vélez: un candidato a presidente sufrió una descompensación durante el debate y tuvo que ser reemplazado",
@@ -29,6 +18,17 @@
       "published": "2026-11-05T06:14:00.000Z",
       "tags": [],
       "firstSeen": "2026-11-07T02:17:45.890Z"
+    },
+    {
+      "kind": "posible-postura-nueva",
+      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
+      "source": "Olé",
+      "published": "2026-11-12T15:19:00.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "firstSeen": "2026-11-13T01:01:55.955Z"
     },
     {
       "kind": "posible-candidato-nuevo",

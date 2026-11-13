@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-12T19:51:38.623Z",
+  "checkedAt": "2026-11-13T01:01:55.955Z",
   "flags": [
     {
       "kind": "posible-candidato-nuevo",
@@ -27,6 +27,17 @@
       "published": "2026-11-05T06:14:00.000Z",
       "tags": [],
       "firstSeen": "2026-11-07T23:07:05.419Z"
+    },
+    {
+      "kind": "posible-postura-nueva",
+      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
+      "source": "Olé",
+      "published": "2026-11-12T23:19:56.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "firstSeen": "2026-11-13T01:01:55.955Z"
     }
   ]
 }

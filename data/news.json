@@ -1,7 +1,19 @@
 {
-  "updated": "2026-11-12T19:51:38.623Z",
-  "checkedAt": "2026-11-12T19:51:38.623Z",
+  "updated": "2026-11-13T01:01:55.955Z",
+  "checkedAt": "2026-11-13T01:01:55.955Z",
   "items": [
+    {
+      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
+      "summary": "El postulante de Cruzada Renovadora detalló su plan integral con dos DTs en carpeta y un fuerte respaldo al semillero de Liniers.",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
+      "source": "Olé",
+      "published": "2026-11-12T23:19:56.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "club": true,
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2FIRyFEzMso_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
     {
       "title": "Vélez elige presidente: los candidatos, propuestas y todo lo que necesitas saber",
       "summary": "El próximo domingo 15 de noviembre el Fortín elegirá nuevas autoridades y en Olé te traemos todo al detalle...",
@@ -13,6 +25,28 @@
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2F6FYNPKdsW_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
+      "title": "Juan Cruz Montero con Olé: \"Vamos a crear el departamento de campeones del mundo, integrado por jugadores del 94\"",
+      "summary": "El domingo 15 será un día crucial para el futuro de Vélez: se vienen las elecciones presidenciales y todo se está por definir. El candidato a presidente que se postula como opositor acompañado de ADN ...",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-presidente-futbol-elecciones_0_d7Jg17aKfm.html",
+      "source": "Olé",
+      "published": "2026-11-12T14:04:00.000Z",
+      "tags": [
+        "montero"
+      ],
+      "image": "https://www.bing.com/th?id=ONUT.SvTtOyuqZQlsn6eYdaVrjQ&pid=News&w=480&h=270&c=14"
+    },
+    {
+      "title": "Nelson Pugliese con Olé: \"Vamos a competir desde el primer día\"",
+      "summary": "Se terminan las especulaciones. Cada uno dio su postura y llegó el momento de elegir. El domingo 15 Vélez tendrá elecciones y todo se está por definir. Por parte del oficialismo (Legado Vélez), se pre ...",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-nelsonpugliese-elecciones-presidente_0_deYZnvHMmY.html",
+      "source": "Olé",
+      "published": "2026-11-12T13:14:00.000Z",
+      "tags": [
+        "pugliese"
+      ],
+      "image": "https://www.bing.com/th?id=ONUT.tvz8TkprfuagFvKXiNrehQ&pid=News&w=480&h=270&c=14"
+    },
+    {
       "title": "Rumbo a las urnas en Vélez: «Pensar, sentir y vivir en grande», el lema de Legado Velezano para renovar la conducción del club",
       "summary": "La fórmula presidencial es encabezada por Nelson Pugliese (actual vicepresidente del club y referente de la gestión actual), acompañado por Aimaro como candidato a vicepresidente 1°. Desde el espacio ...",
       "url": "https://ecomedios.com/rumbo-a-las-urnas-en-velez-pensar-sentir-y-vivir-en-grande-el-lema-de-legado-velezano-para-renovar-la-conduccion-del-club/",
@@ -21,7 +55,7 @@
       "tags": [
         "pugliese"
       ],
-      "imageTries": 1
+      "imageTries": 2
     },
     {
       "title": "León XIV lo marcó: un futbolista de Vélez quedó conmovido con su visita",
@@ -161,45 +195,6 @@
         "mazzitelli"
       ],
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fdobleamarilla-assets.tadevel-cdn.com%2F6af26df88ff29b4d4353e937%2F720.jpeg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
-    {
-      "title": "\"Cancelame\": el insólito momento de un candidato a presidente de Vélez en pleno debate en vivo",
-      "summary": "Ignacio Mazzitelli, de la Cruzada Renovadora, no pudo continuar con su exposición al verse imposibilitado de articular sus argumentos. De acuerdo a fuentes cercanas a su espacio, tuvo que abandonar el ...",
-      "url": "https://www.diariojornada.com.ar/426789/deportes/cancelame_el_insolito_momento_de_un_candidato_a_presidente_de_velez_en_pleno_debate_en_vivo",
-      "source": "Diario Jornada",
-      "published": "2026-11-09T15:43:00.000Z",
-      "tags": [
-        "mazzitelli"
-      ],
-      "image": "https://www.bing.com/th?id=ONUT.hCuC3Mxe0I5hg-eXSW-xbQ&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "Vélez vivió un debate presidencial histórico entre sus cuatro candidatos con la mirada puesta en el futuro del club",
-      "summary": "Vélez vivió su primer debate presidencial: Pugliese, Montero, Balestrini y Mazzitelli expusieron sus propuestas de cara a los comicios del 15 de noviembre.",
-      "url": "https://www.vavel.com/ar/futbol-argentino/2026/11/09/velez/1278737-velez-vivio-un-debate-presidencial-historico-entre-sus-cuatro-candidatos-con-la-mirada-puesta-en-el-futuro-del-club.html",
-      "source": "VAVEL",
-      "published": "2026-11-09T14:53:00.000Z",
-      "tags": [
-        "pugliese",
-        "balestrini",
-        "montero",
-        "mazzitelli"
-      ],
-      "image": "https://www.bing.com/th?id=ONUT.VoqvAqtihUpSXp0qw4BwQQ&pid=News&w=480&h=270&c=14"
-    },
-    {
-      "title": "Bajón de presión en vivo, dardos cruzados y más en un accidentado debate presidencial de Vélez",
-      "summary": "Nelson Pugliese, Federico Balestrini, Juan Cruz Montero e Ignacio Mazzitelli-Nahuel Pérez marcaron estilos definidos en la exposición organizada por los medios partidarios de cara a las elecciones del ...",
-      "url": "https://www.tycsports.com/liga-profesional-de-futbol/bajon-presion-vivo-dardos-cruzados-y-mas-accidentado-debate-presidencial-velez-id770963.html",
-      "source": "TyC Sports",
-      "published": "2026-11-09T14:28:00.000Z",
-      "tags": [
-        "pugliese",
-        "balestrini",
-        "montero",
-        "mazzitelli"
-      ],
-      "image": "https://www.bing.com/th?id=ONUT.UNucLCAc_R7I042fHwPf6w&pid=News&w=480&h=270&c=14"
     }
   ],
   "sources": [

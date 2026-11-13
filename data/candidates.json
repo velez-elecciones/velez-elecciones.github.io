@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T21:47:12.115Z",
+  "updated": "2026-11-13T01:02:23.560Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -196,6 +196,14 @@
             "url": "https://www.clarin.com/deportes/nelson-pugliese-candidato-presidente-velez-imagino-guillermo-tentado-varios-clubes-quiere-continuar-queremos-continue_0_8lCOuRN6gM.html",
             "date": "2026-11-07",
             "auto": true
+          },
+          {
+            "summary": "Nelson Pugliese apuesta por la continuidad de Guillermo Barros Schelotto y un modelo alineado entre Primera y juveniles.",
+            "quote": "Si la decisión dependiera exclusivamente de nuestro espacio la respuesta es un sí rotundo a la continuidad de Guillermo Barros Schelotto y el equipo técnico actual.",
+            "source": "Olé",
+            "url": "https://www.ole.com.ar/futbol-primera/velez-nelsonpugliese-elecciones-presidente_0_deYZnvHMmY.html",
+            "date": "2026-11-12",
+            "auto": true
           }
         ],
         "social": [
@@ -219,6 +227,14 @@
             "source": "Vélez Debate",
             "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=5923s",
             "date": "2026-11-09"
+          },
+          {
+            "summary": "El oficialismo plantea finalizar obras en la Villa Olímpica y avanzar con el Museo de Vélez.",
+            "quote": "Culminar la infraestructura competitiva (canchas con vestuarios y oficinas técnicas para juveniles), garantizando que cada etapa cuente con partida presupuestaria clara y plazos publicados.",
+            "source": "Olé",
+            "url": "https://www.ole.com.ar/futbol-primera/velez-nelsonpugliese-elecciones-presidente_0_deYZnvHMmY.html",
+            "date": "2026-11-12",
+            "auto": true
           }
         ],
         "finanzas": [
@@ -247,6 +263,14 @@
             "source": "Vélez Debate",
             "url": "https://www.youtube.com/watch?v=WohLyKJ4d_A&t=1855s",
             "date": "2026-11-09"
+          },
+          {
+            "summary": "Pugliese propone ordenar la economía y reducir el déficit de forma gradual, sin soluciones mágicas.",
+            "quote": "No prometemos déficit cero de un día para otro ni soluciones mágicas, tenemos un plan detallado para lograr una mejora gradual, responsable y sostenible.",
+            "source": "Olé",
+            "url": "https://www.ole.com.ar/futbol-primera/velez-nelsonpugliese-elecciones-presidente_0_deYZnvHMmY.html",
+            "date": "2026-11-12",
+            "auto": true
           }
         ]
       },
@@ -793,11 +817,11 @@
             "date": "2026-08-28"
           },
           {
-            "summary": "Juan Cruz Montero es el candidato a presidente por ADN Azul y Blanco.",
-            "quote": "ADN Azul y Blanco lleva a Juan Cruz Montero como presidente, con Pablo Torrielli, Horacio Sambataro y Alejandro Tirel como vices.",
-            "source": "Tribuna",
-            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
-            "date": "2026-11-04",
+            "summary": "Juan Cruz Montero se postula como candidato a presidente acompañado por la agrupación ADN Azul y Blanco.",
+            "quote": "El candidato a presidente que se postula como opositor acompañado de ADN Azul y Blanco es Juan Cruz Montero, abogado de 36 años y exfuncionario de PAMI.",
+            "source": "Olé",
+            "url": "https://www.ole.com.ar/futbol-primera/velez-presidente-futbol-elecciones_0_d7Jg17aKfm.html",
+            "date": "2026-11-12",
             "auto": true
           },
           {

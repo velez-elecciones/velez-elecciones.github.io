@@ -1,19 +1,7 @@
 {
-  "updated": "2026-11-13T01:01:55.955Z",
-  "checkedAt": "2026-11-13T01:01:55.955Z",
+  "updated": "2026-11-13T07:52:29.627Z",
+  "checkedAt": "2026-11-13T07:52:29.627Z",
   "items": [
-    {
-      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
-      "summary": "El postulante de Cruzada Renovadora detalló su plan integral con dos DTs en carpeta y un fuerte respaldo al semillero de Liniers.",
-      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
-      "source": "Olé",
-      "published": "2026-11-12T23:19:56.000Z",
-      "tags": [
-        "mazzitelli"
-      ],
-      "club": true,
-      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2FIRyFEzMso_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
-    },
     {
       "title": "Vélez elige presidente: los candidatos, propuestas y todo lo que necesitas saber",
       "summary": "El próximo domingo 15 de noviembre el Fortín elegirá nuevas autoridades y en Olé te traemos todo al detalle...",
@@ -23,6 +11,17 @@
       "tags": [],
       "club": true,
       "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2F6FYNPKdsW_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
+    },
+    {
+      "title": "Ignacio Mazzitelli con Olé: \"Queremos un proyecto que esté por encima de los nombres propios y tenga continuidad\"",
+      "summary": "El postulante de Cruzada Renovadora detalló su plan integral con dos DTs en carpeta y un fuerte respaldo al semillero de Liniers.",
+      "url": "https://www.ole.com.ar/futbol-primera/velez-elecciones-presidente-votar-ignacio-mazzitelli_0_8LpEVNhRjL.html",
+      "source": "Olé",
+      "published": "2026-11-12T15:19:00.000Z",
+      "tags": [
+        "mazzitelli"
+      ],
+      "image": "https://wsrv.nl/?url=https%3A%2F%2Fwww.ole.com.ar%2Fimages%2F2026%2F11%2F12%2FIRyFEzMso_1200x630__1.jpg&w=320&h=180&fit=cover&a=attention&output=webp&q=72"
     },
     {
       "title": "Juan Cruz Montero con Olé: \"Vamos a crear el departamento de campeones del mundo, integrado por jugadores del 94\"",
@@ -55,7 +54,7 @@
       "tags": [
         "pugliese"
       ],
-      "imageTries": 2
+      "image": ""
     },
     {
       "title": "León XIV lo marcó: un futbolista de Vélez quedó conmovido con su visita",

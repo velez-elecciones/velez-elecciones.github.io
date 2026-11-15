@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T01:02:23.560Z",
+  "updated": "2026-11-15T23:57:07.167Z",
   "election": {
     "date": "2026-11-15",
     "short": "15 NOV 2026",
@@ -165,11 +165,11 @@
             "date": "2026-04-17"
           },
           {
-            "summary": "Nelson Pugliese se presenta como candidato oficialista por la lista Legado Vélez con el apoyo de Fabián Berlanga.",
-            "quote": "El candidato oficialista es Nelson Pugliese, por la lista Legado Vélez y con el apoyo de Berlanga, inscripto como vicepresidente primero",
-            "source": "Agencia Noticias Argentinas",
-            "url": "https://noticiasargentinas.com/deportes/velez-tendra-un-debate-presidencial-de-cara-a-las-elecciones_a6af12d14083a87fddc1abee1",
-            "date": "2026-11-08",
+            "summary": "Nelson Pugliese, candidato de Legado Vélez, ganó las elecciones y asumirá la presidencia acompañado por Gastón Aimaro, Eduardo Rado y Fabián Berlanga como vicepresidentes.",
+            "quote": "El flamante presidente estará acompañado por Gastón Aimaro, Eduardo Rado y Berlanga, quienes ocuparán las vicepresidencias. Así, el espacio que condujo el club durante los últimos tres años mantendrá la conducción.",
+            "source": "Mejor Informado",
+            "url": "https://www.mejorinformado.com/deportes/casi-10-mil-socios-urnas-velez-eligio-nelson-pugliese-nuevo-presidente_1794786344",
+            "date": "2026-11-15",
             "auto": true
           }
         ],
@@ -203,6 +203,14 @@
             "source": "Olé",
             "url": "https://www.ole.com.ar/futbol-primera/velez-nelsonpugliese-elecciones-presidente_0_deYZnvHMmY.html",
             "date": "2026-11-12",
+            "auto": true
+          },
+          {
+            "summary": "El principal objetivo deportivo de la nueva gestión encabezada por Nelson Pugliese es renovar el contrato de Guillermo Barros Schelotto, que vence en diciembre.",
+            "quote": "El principal punto de la campaña pasa por la promesa de continuidad de Guillermo Barros Schelotto, cuyo contrato vence en diciembre y el objetivo será renovarle el vínculo.",
+            "source": "Mejor Informado",
+            "url": "https://www.mejorinformado.com/deportes/casi-10-mil-socios-urnas-velez-eligio-nelson-pugliese-nuevo-presidente_1794786344",
+            "date": "2026-11-15",
             "auto": true
           }
         ],
@@ -513,14 +521,6 @@
             "date": "2026-09-30"
           },
           {
-            "summary": "Federico Balestrini es el candidato a presidente por Primero Vélez.",
-            "quote": "Primero Vélez, con Federico Balestrini como candidato a presidente, estará acompañado por Carlos Figueroa, Florencia Encina y Gastón Trevisan como vices.",
-            "source": "Tribuna",
-            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
-            "date": "2026-11-04",
-            "auto": true
-          },
-          {
             "summary": "Dijo que la representación actual de Vélez en la AFA no los representa y que vienen de la escuela de Raúl Gámez.",
             "quote": "No nos representa. Nosotros somos de la escuela de Raúl Gá",
             "source": "Vélez Debate",
@@ -817,11 +817,11 @@
             "date": "2026-08-28"
           },
           {
-            "summary": "Juan Cruz Montero se postula como candidato a presidente acompañado por la agrupación ADN Azul y Blanco.",
-            "quote": "El candidato a presidente que se postula como opositor acompañado de ADN Azul y Blanco es Juan Cruz Montero, abogado de 36 años y exfuncionario de PAMI.",
-            "source": "Olé",
-            "url": "https://www.ole.com.ar/futbol-primera/velez-presidente-futbol-elecciones_0_d7Jg17aKfm.html",
-            "date": "2026-11-12",
+            "summary": "Juan Cruz Montero encabeza la lista de la oposición ADN Azul y Blanco junto a sus vicepresidentes.",
+            "quote": "La primera postulante representa una de las tres listas de la oposición y está encabezada por Juan Cruz Montero, con Pablo Torrielli, Horacio Sambataro y Alejandro Tirel como vicepresidentes.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/elecciones-en-velez--ya-votaron-mas-de-3-000-socios-para-elegir-al-nuevo-presidente_a6af4b18de64a59ac3980ffea?output=amp",
+            "date": "2026-11-15",
             "auto": true
           },
           {
@@ -1114,11 +1114,11 @@
             "date": "2026-10-09"
           },
           {
-            "summary": "Ignacio Mazzitelli encabeza la postulación de Cruzada Renovadora.",
-            "quote": "Cruzada Renovadora postula a Ignacio Mazzitelli, junto a Nahuel Pérez, Leandro González y Gonzalo Pérez.",
-            "source": "Tribuna",
-            "url": "https://tribuna.ar/articulos/velez-confirmo-las-listas-para-las-elecciones-y-berlanga-bajo-su-candidatura-principal",
-            "date": "2026-11-04",
+            "summary": "Ignacio Mazzitelli encabeza la lista de Cruzada Renovadora junto a sus vicepresidentes.",
+            "quote": "Cruzada Renovadora, que estuvo al frente del club entre 2017 y 2023 bajo la presidencia de Sergio Rapisarda, se presentó con Ignacio Mazzitelli como candidato presidencial y escoltado por Nahuel Pérez, Leandro González y Gonzalo Pérez Paciaroni como vicepresidentes.",
+            "source": "Doble Amarilla",
+            "url": "https://www.dobleamarilla.com.ar/rosca/elecciones-en-velez--ya-votaron-mas-de-3-000-socios-para-elegir-al-nuevo-presidente_a6af4b18de64a59ac3980ffea?output=amp",
+            "date": "2026-11-15",
             "auto": true
           },
           {

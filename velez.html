@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elecciones Vélez Sarsfield 2026: candidatos, noticias y sondeos</title>
+    <title>Nelson Pugliese, presidente electo de Vélez</title>
     <script>
         if (/\.github\.io$/i.test(location.hostname)) {
             location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
@@ -14,9 +14,9 @@
     <link rel="image_src" href="https://velezelecciones.com/img/preview.png?v=2">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Elecciones de Vélez Sarsfield 2026: candidatos, posturas con fuente, noticias y sondeos que se actualizan solos.">
-    <meta property="og:title" content="Elecciones Vélez 2026: candidatos, noticias y sondeos">
-    <meta property="og:description" content="Leé qué dijo cada candidato, con la fuente, y seguí las noticias y los sondeos de la elección.">
+    <meta name="description" content="Escrutinio de las elecciones de Vélez del 15 de noviembre de 2026: votos, porcentajes y la declaración de Nelson Pugliese, con fuente.">
+    <meta property="og:title" content="Nelson Pugliese, presidente electo de Vélez">
+    <meta property="og:description" content="Escrutinio definitivo: votos, porcentajes y la primera declaración del presidente electo, con fuente.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="Elecciones Vélez 2026">
@@ -26,13 +26,13 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Elecciones Vélez 2026: candidatos, noticias y sondeos. Domingo 15 de noviembre.">
+    <meta property="og:image:alt" content="Nelson Pugliese, presidente electo de Vélez. Elecciones del 15 de noviembre de 2026.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Elecciones Vélez 2026: candidatos, noticias y sondeos">
-    <meta name="twitter:description" content="Quién es quién, qué dijo cada candidato y con qué fuente. Se actualiza solo.">
+    <meta name="twitter:title" content="Nelson Pugliese, presidente electo de Vélez">
+    <meta name="twitter:description" content="Escrutinio definitivo: votos, porcentajes y la primera declaración del presidente electo, con fuente.">
     <meta name="twitter:url" content="https://velezelecciones.com/">
     <meta name="twitter:image" content="https://velezelecciones.com/img/preview.png?v=2">
-    <meta name="twitter:image:alt" content="Elecciones Vélez 2026: candidatos, noticias y sondeos. Domingo 15 de noviembre.">
+    <meta name="twitter:image:alt" content="Nelson Pugliese, presidente electo de Vélez. Elecciones del 15 de noviembre de 2026.">
     <meta name="theme-color" content="#003da5">
     <script type="application/ld+json">
     {
@@ -42,7 +42,7 @@
           "@type": "WebSite",
           "name": "Elecciones Vélez 2026",
           "url": "https://velezelecciones.com/",
-          "description": "Elecciones de Vélez Sarsfield 2026: candidatos, posturas con fuente, noticias y sondeos que se actualizan solos.",
+          "description": "Escrutinio de las elecciones de Vélez del 15 de noviembre de 2026: votos, porcentajes y la declaración de Nelson Pugliese, con fuente.",
           "inLanguage": "es-AR",
           "image": "https://velezelecciones.com/img/preview.png?v=2"
         },
@@ -344,6 +344,49 @@
         .cd-full .cd-notes { display: block; }
         .cd-full .cd-notes:empty { display: none; }
 
+        /* Resultado: el ganador arriba, el resto en una segunda lectura */
+        .result { padding: 0; overflow: hidden; }
+        .result-winner {
+            display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 18px 22px; align-items: center;
+            padding: 22px 22px 18px;
+            background: linear-gradient(165deg, #003da5 0%, #00266e 100%);
+            color: #fff;
+        }
+        .result-winner img { width: 160px; height: 160px; border-radius: 18px; object-fit: cover; background: #fff; }
+        .result-kicker { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
+        .result-winner h2 { margin-top: 2px; font-size: 34px; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
+        .result-winner h2 a, .result-other h3 a, .result-legend a { color: inherit; text-decoration: none; }
+        .result-winner h2 a:hover, .result-other h3 a:hover, .result-legend a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        .result-list { margin-top: 4px; font-size: 16px; }
+        .result-score { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; }
+        .result-pct { font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+        .result-votes { font-size: 16px; font-weight: 650; color: rgba(255, 255, 255, .82); }
+        .result-quote { margin-top: 12px; font-size: 17px; line-height: 1.4; }
+        .result-quote a { color: #fff; font-weight: 650; }
+        .result-rest { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .result-other { padding: 16px 16px 14px; border-top: 1px solid var(--line); }
+        .result-other + .result-other { border-left: 1px solid var(--line); }
+        .result-other-head { display: flex; align-items: center; gap: 10px; }
+        .result-other img { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; background: var(--wash); flex: 0 0 auto; }
+        .result-place { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+        .result-other h3 { font-size: 17px; line-height: 1.15; font-weight: 750; }
+        .result-other .result-list { margin-top: 1px; font-size: 13.5px; color: var(--muted); }
+        .result-other .result-pct { display: block; margin-top: 10px; font-size: 28px; color: var(--c, var(--blue)); }
+        .result-other .result-votes { display: block; margin-top: 1px; font-size: 14px; color: var(--muted); }
+        .result-chart {
+            display: grid; grid-template-columns: 168px minmax(168px, 220px) minmax(0, 1fr); gap: 10px 22px; align-items: center;
+            padding: 16px 22px; border-top: 1px solid var(--line);
+        }
+        .result-chart svg { width: 168px; height: 168px; display: block; }
+        .result-legend { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+        .result-legend li { display: flex; align-items: baseline; gap: 8px; min-width: 0; font-size: 15px; }
+        .result-swatch { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: 0 0 auto; transform: translateY(1px); }
+        .result-legend strong { font-variant-numeric: tabular-nums; }
+        .result-legend span { color: var(--muted); }
+        .result-note { padding: 2px 4px 2px 18px; border-left: 1px solid var(--line); font-size: 14.5px; line-height: 1.45; color: var(--ink); }
+        .result-note p + p { margin-top: 8px; }
+        .result-note a { color: var(--blue); font-weight: 650; text-decoration: none; }
+
         /* Cómo votar */
         .vote-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
         .vote-item { padding: 12px 14px; border-radius: 12px; background: var(--wash); }
@@ -508,6 +551,8 @@
             .topic-btns { gap: 6px; }
             .topic-btns .btn { padding: 8px 0; }
             .topic-lab { display: none; }
+            .result-chart { grid-template-columns: 140px minmax(0, 1fr); }
+            .result-note { grid-column: 1 / -1; padding: 8px 0 0; border-left: 0; }
         }
         @media (max-width: 720px) {
             .top { padding: 8px 12px; gap: 6px 8px; }
@@ -533,6 +578,17 @@
             .sec-head h2 { font-size: 17px; }
             .feed-checked { display: none; }
             .entry-row { grid-template-columns: 1fr; }
+            .result-winner { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 16px; }
+            .result-winner img { width: 96px; height: 96px; border-radius: 14px; }
+            .result-winner h2 { font-size: 24px; }
+            .result-pct { font-size: 32px; }
+            .result-quote { font-size: 15.5px; }
+            .result-rest { grid-template-columns: 1fr; }
+            .result-other + .result-other { border-left: 0; }
+            .result-chart { grid-template-columns: 120px minmax(0, 1fr); gap: 8px 14px; padding: 14px; }
+            .result-chart svg { width: 120px; height: 120px; }
+            .result-legend li { font-size: 14px; }
+            .result-note { grid-column: 1 / -1; padding: 4px 0 0; border-left: 0; }
             a.red-entry, a.enc-cta { font-size: 14px; letter-spacing: .02em; padding: 12px 10px; }
             .debate { grid-template-columns: 1fr; gap: 14px; }
             .debate-play { width: 54px; height: 54px; margin: -27px 0 0 -27px; }
@@ -656,7 +712,7 @@
             <img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield">
             <div class="top-title">
                 <h1>Elecciones <span class="top-name-full">Vélez Sarsfield</span><span class="top-name-short">Vélez</span> 2026</h1>
-                <p id="top-sub">Candidatos, noticias y sondeos</p>
+                <p id="top-sub">Nelson Pugliese, presidente electo</p>
             </div>
             <div id="top-match" class="top-match hidden" aria-label="Partidos de Vélez" aria-live="polite"></div>
             <div class="top-date">
@@ -668,19 +724,76 @@
 
         <main class="flow">
 
-            <nav id="sec-topics" class="card topic-bar hidden" aria-label="Comparar por tema">
-                <div id="topic-btns" class="topic-btns"></div>
-            </nav>
-
-            <!-- Barra del candidato abierto (solo visible cuando hay uno desplegado) -->
-            <section id="sec-compare" class="card cmp hidden">
-                <div id="cmp-focus" class="cmp-focus">
-                    <button type="button" class="btn solid" data-unfocus><svg class="ic"><use href="#i-grid"/></svg> Ver todos los candidatos</button>
-                    <p id="focus-name"></p>
+            <section class="card result" aria-label="Resultado de la elección">
+                <div class="result-winner">
+                    <img src="img/pugliese.jpg" alt="Nelson Pugliese">
+                    <div>
+                        <p class="result-kicker">Presidente electo · 2027-2030</p>
+                        <h2><a href="posiciones.html?id=pugliese">Nelson Pugliese</a></h2>
+                        <p class="result-list">Legado Vélez</p>
+                        <p class="result-score"><span class="result-pct">38,6%</span><span class="result-votes">3.769 votos</span></p>
+                        <p class="result-quote">«Voy a hacer lo mismo que hice en estos tres años: poner el hombro y trabajar todos los días pensando en el Vélez que los hinchas merecen.» <a href="https://www.ole.com.ar/velez/nelsonpugliese-presidente-velez-elecciones-historico-fabianberlanga_0_DCy8YzqXWH.html" target="_blank" rel="noopener noreferrer">Olé, 15 nov</a></p>
+                    </div>
+                </div>
+                <div class="result-chart">
+                    <svg viewBox="0 0 42 42" role="img" aria-label="Votos de las cuatro listas: Pugliese 38,6%, Montero 30,2%, Balestrini 26,9%, Mazzitelli 4,1%">
+                        <g transform="rotate(-90 21 21)">
+                            <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#003da5" stroke-width="8" stroke-dasharray="38.64 61.36"/>
+                            <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#1a8fe8" stroke-width="8" stroke-dasharray="30.25 69.75" stroke-dashoffset="-38.64"/>
+                            <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#c49212" stroke-width="8" stroke-dasharray="26.97 73.03" stroke-dashoffset="-68.89"/>
+                            <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#0e7490" stroke-width="8" stroke-dasharray="4.14 95.86" stroke-dashoffset="-95.86"/>
+                        </g>
+                    </svg>
+                    <ul class="result-legend">
+                        <li style="--c:#003da5"><i class="result-swatch"></i><strong>38,6%</strong> <a href="posiciones.html?id=pugliese">Pugliese</a> <span>3.769</span></li>
+                        <li style="--c:#1a8fe8"><i class="result-swatch"></i><strong>30,2%</strong> <a href="posiciones.html?id=montero">Montero</a> <span>2.950</span></li>
+                        <li style="--c:#c49212"><i class="result-swatch"></i><strong>26,9%</strong> <a href="posiciones.html?id=balestrini">Balestrini</a> <span>2.630</span></li>
+                        <li style="--c:#0e7490"><i class="result-swatch"></i><strong>4,1%</strong> <a href="posiciones.html?id=mazzitelli">Mazzitelli</a> <span>404</span></li>
+                    </ul>
+                    <div class="result-note">
+                        <p>Escrutinio definitivo de 50 mesas, el domingo 15, de 8 a 18, en el Polideportivo José Ramón Feijóo. Votaron 9.769 socios, de un padrón de 36.158. En 2023 habían votado 7.665. Hubo 15 votos en blanco y 15 nulos. Pugliese asume con Gastón Aimaro, Eduardo Rado y Fabián Berlanga como vicepresidentes.</p>
+                        <p>La suma de esos votos da 9.783, catorce más que los 9.769 de participación. Las notas lo marcan y lo dejan para el escrutinio oficial. Fuentes: <a href="https://www.infobae.com/deportes/2026/11/15/nelson-pugliese-gano-las-elecciones-y-se-convirtio-en-el-nuevo-presidente-de-velez-sarsfield/" target="_blank" rel="noopener noreferrer">Infobae</a> · <a href="https://www.ole.com.ar/velez/nelsonpugliese-presidente-velez-elecciones-historico-fabianberlanga_0_DCy8YzqXWH.html" target="_blank" rel="noopener noreferrer">Olé</a> · <a href="https://www.clarin.com/deportes/nelson-pugliese-nuevo-presidente-velez-gano-eleccion-record-oficialismo-seguira-frente-club_0_lGx9cE3rE7.html" target="_blank" rel="noopener noreferrer">Clarín</a> · <a href="https://442.perfil.com/noticias/futbol/nelson-pugliese-es-el-nuevo-presidente-de-velez-gano-las-elecciones-con-el-386-de-los-votos.phtml" target="_blank" rel="noopener noreferrer">442</a>.</p>
+                    </div>
+                </div>
+                <div class="result-rest">
+                    <article class="result-other" style="--c:#1a8fe8">
+                        <div class="result-other-head">
+                            <img src="img/montero-face.jpg" alt="">
+                            <div>
+                                <p class="result-place">2.º</p>
+                                <h3><a href="posiciones.html?id=montero">Juan Cruz Montero</a></h3>
+                                <p class="result-list">ADN Azul y Blanco</p>
+                            </div>
+                        </div>
+                        <p class="result-pct">30,2%</p>
+                        <p class="result-votes">2.950 votos</p>
+                    </article>
+                    <article class="result-other" style="--c:#c49212">
+                        <div class="result-other-head">
+                            <img src="img/balestrini-face.jpg" alt="">
+                            <div>
+                                <p class="result-place">3.º</p>
+                                <h3><a href="posiciones.html?id=balestrini">Federico Balestrini</a></h3>
+                                <p class="result-list">Círculo El Fortín</p>
+                            </div>
+                        </div>
+                        <p class="result-pct">26,9%</p>
+                        <p class="result-votes">2.630 votos</p>
+                    </article>
+                    <article class="result-other" style="--c:#0e7490">
+                        <div class="result-other-head">
+                            <img src="img/mazzitelli.png" alt="">
+                            <div>
+                                <p class="result-place">4.º</p>
+                                <h3><a href="posiciones.html?id=mazzitelli">Ignacio Mazzitelli</a></h3>
+                                <p class="result-list">Cruzada Renovadora</p>
+                            </div>
+                        </div>
+                        <p class="result-pct">4,1%</p>
+                        <p class="result-votes">404 votos</p>
+                    </article>
                 </div>
             </section>
-
-            <section class="cd-grid" id="candidates-grid" aria-live="polite"></section>
 
             <section id="sec-debate" class="card sec">
                 <div class="sec-head no-select">
@@ -703,9 +816,7 @@
 
             <div class="entry-row">
                 <a class="btn solid red-entry" href="red.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-net"/></svg> Red neuronal de candidatos</a>
-                <a id="quiz-cta" class="btn solid red-entry hidden" href="test.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg> Test: a quién votar</a>
             </div>
-            <div id="shared-result" class="qz-shared hidden"></div>
 
             <section id="sec-drops" class="card drops hidden" aria-label="Candidaturas que se bajaron"></section>
 
@@ -735,14 +846,6 @@
                 <div id="enc-body"></div>
                 <a id="enc-cta" class="btn solid enc-cta" href="encuesta.html" target="_blank" rel="noopener noreferrer"><svg class="ic" aria-hidden="true"><use href="#i-ballot"/></svg> <span id="enc-cta-text">Votá en la encuesta</span></a>
                 <p class="enc-fine">Encuesta abierta: puede votar cualquiera, un voto por navegador. No es un sondeo con muestra.</p>
-            </section>
-
-            <section id="sec-polls" class="card sec">
-                <div class="sec-head no-select">
-                    <h2><svg class="ic"><use href="#i-chart"/></svg> Sondeos</h2>
-                    <span id="polls-checked" class="meta feed-checked"></span>
-                </div>
-                <div id="polls-body" class="polls-body"></div>
             </section>
 
         </main>
@@ -1035,6 +1138,7 @@
 
         function renderGrid() {
             const grid = document.getElementById("candidates-grid");
+            if (!grid) return;
             const focused = focusId && byId[focusId];
             grid.classList.toggle("is-focus", Boolean(focused));
             grid.classList.toggle("is-idle", !focused && !topicId);
@@ -1106,7 +1210,7 @@
         }
 
         function focusCandidate(id) {
-            if (!byId[id]) return;
+            if (!document.getElementById("candidates-grid") || !byId[id]) return;
             focusId = id;
             renderTopicBar();
             renderGrid();
@@ -1114,6 +1218,7 @@
         }
 
         function clearFocus() {
+            if (!document.getElementById("candidates-grid")) return;
             focusId = null;
             if (!topicId && !isMobileView()) topicId = defaultTopicId();
             renderTopicBar();
@@ -1124,6 +1229,7 @@
         function renderTopicBar() {
             const bar = document.getElementById("sec-topics");
             const box = document.getElementById("topic-btns");
+            if (!bar || !box) return;
             const topics = DATA.topics.filter((t) => t && t.id && t.label);
             const open = Boolean(focusId && byId[focusId]);
             bar.classList.toggle("hidden", !topics.length || open);
@@ -1158,21 +1264,8 @@
         }
 
         function renderVoteInfo() {
-            const info = DATA.election && DATA.election.info;
             const section = document.getElementById("sec-vote");
-            const items = info && Array.isArray(info.items) ? info.items.filter((i) => i && i.label && i.text) : [];
-            section.classList.toggle("hidden", !items.length);
-            if (!items.length) return;
-            const tiles = items.map((i) => {
-                const padron = /padr[oó]n/i.test(i.label);
-                const link = padron
-                    ? ' <a class="source-link" href="https://velez.com.ar/padron" target="_blank" rel="noopener noreferrer">Consultar ' + ic("external") + "</a>"
-                    : "";
-                return '<div class="vote-item"' + (padron ? ' id="padron"' : "") + "><strong>" + esc(i.label) + "</strong>" + esc(i.text) + link + "</div>";
-            }).join("");
-            document.getElementById("vote-body").innerHTML =
-                '<div class="vote-grid">' + tiles + "</div>" +
-                (isUrl(info.url) ? '<p class="vote-src"><a class="source-link" href="' + esc(info.url) + '" target="_blank" rel="noopener noreferrer">Fuente: ' + esc(info.source || "ver la nota") + (info.date ? " · " + esc(shortDate(info.date)) : "") + " " + ic("external") + "</a></p>" : "");
+            if (section) section.classList.add("hidden");
         }
 
         function paintCalendar() {
@@ -1184,7 +1277,7 @@
             const short = document.getElementById("comicios-short");
             if (!election) { line.textContent = ""; if (short) short.textContent = ""; return; }
             const label = new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "long", timeZone: BA }).format(election);
-            const days = Math.ceil((election.getTime() - now.getTime()) / 86400000);
+            const days = Math.round((new Date(dayKey(election) + "T12:00:00-03:00") - new Date(dayKey(now) + "T12:00:00-03:00")) / 86400000);
             if (days > 1) { line.textContent = "Faltan " + days + " días para el " + label; if (short) short.textContent = "Faltan " + days + " días"; }
             else if (days === 1) { line.textContent = "Mañana es el " + label; if (short) short.textContent = "Mañana"; }
             else if (days === 0) { line.textContent = "Hoy es el " + label; if (short) short.textContent = "Hoy"; }
@@ -1205,7 +1298,7 @@
             const on = DATA.quiz.enabled && DATA.quiz.questions.length > 0;
             const cta = document.getElementById("quiz-cta");
             if (cta) cta.classList.toggle("hidden", !on);
-            document.getElementById("top-sub").textContent = on ? "Candidatos, noticias, sondeos y test del socio" : "Candidatos, noticias y sondeos";
+            document.getElementById("top-sub").textContent = "Nelson Pugliese, presidente electo";
             const shared = document.getElementById("shared-result");
             if (!on && shared) shared.classList.add("hidden");
         }
@@ -1778,7 +1871,7 @@
             const track = document.getElementById("news-track");
             track.innerHTML = items.length
                 ? items.map(newsCard).join("")
-                : '<p class="feed-empty">Todavía no hay notas nuevas sobre la elección. Se vuelven a buscar solas.</p>';
+                : '<p class="feed-empty">No hay notas nuevas sobre la elección.</p>';
             track.scrollLeft = 0;
             restartNewsProgress();
             renderNotes();
@@ -1889,6 +1982,7 @@
         }
 
         function setPolls(payload) {
+            if (!document.getElementById("polls-body")) return;
             lastPolls = payload;
             const polls = (payload && Array.isArray(payload.polls) ? payload.polls : []).filter(validPoll)
                 .sort((a, b) => new Date(b.published) - new Date(a.published));
@@ -2030,29 +2124,7 @@
             }
         }
 
-        // -------------------------------------------------------------
-        // ACTUALIZACIÓN: todo se vuelve a leer cada minuto
-        // -------------------------------------------------------------
-        async function refreshLive() {
-            if (refreshLock) return;
-            refreshLock = true;
-            let changed = false;
-            refreshEncuesta();
-            setDebate();
-            try {
-                const [news, polls, candidates, quiz, matches] = await Promise.allSettled([
-                    fetchJson("news.json"), fetchJson("polls.json"), fetchJson("candidates.json"), fetchJson("quiz.json"), fetchJson("matches.json")
-                ]);
-                if (candidates.status === "fulfilled") changed = setCandidates(candidates.value) || changed;
-                if (quiz.status === "fulfilled") setQuizData(quiz.value);
-                if (news.status === "fulfilled") setNews(news.value);
-                if (polls.status === "fulfilled") setPolls(polls.value);
-                if (matches.status === "fulfilled") setMatches(matches.value);
-            } finally {
-                refreshLock = false;
-            }
-            if (changed) toast("Se actualizaron los candidatos o sus posturas");
-        }
+        // La elección terminó: las noticias, los sondeos y las posturas no se vuelven a buscar.
 
         document.addEventListener("click", (event) => {
             const topic = event.target.closest("[data-topic]");
@@ -2070,9 +2142,6 @@
             initNewsCarousel();
             setCandidates(BOOT.candidates);
             setQuizData(BOOT.quiz);
-            if (candSig === "") {
-                document.getElementById("candidates-grid").innerHTML = '<p class="card sec feed-empty">Estamos cargando los candidatos. Si no aparecen en unos segundos, recargá la página.</p>';
-            }
             paintCalendar();
             setNews(BOOT.news || { items: [] });
             setPolls(BOOT.polls || { polls: [], mentions: [] });
@@ -2088,11 +2157,12 @@
             };
             if (MOBILE_MQ.addEventListener) MOBILE_MQ.addEventListener("change", onViewport);
             else if (MOBILE_MQ.addListener) MOBILE_MQ.addListener(onViewport);
-            if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(document.getElementById("candidates-grid"));
+            const grid = document.getElementById("candidates-grid");
+            if (grid && window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(layoutTopics)).observe(grid);
             setDebate();
             document.getElementById("debate-media").addEventListener("click", playDebateHere);
-            refreshLive();
-            setInterval(refreshLive, LIVE_MS);
+            refreshEncuesta();
+            setInterval(() => { if (!document.hidden) refreshEncuesta(); }, LIVE_MS);
             document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshEncuesta(); });
             window.addEventListener("storage", (event) => { if (event.key === ENC_MINE_KEY) refreshEncuesta(); });
         };

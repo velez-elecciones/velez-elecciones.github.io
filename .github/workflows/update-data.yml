@@ -1,103 +1,14 @@
-name: Actualizar noticias, sondeos, candidatos y test
+name: Actualizaciones detenidas
+
+# La elección del 15 de noviembre terminó.
+# Este flujo ya no busca noticias, sondeos, posturas ni partidos, ni abre revisiones.
 
 on:
-  schedule:
-    # GitHub demora o saltea las corridas que caen en minutos cargados (sobre todo a la hora en punto): se usan minutos "raros".
-    - cron: "9,29,49 * * * *"
   workflow_dispatch:
-    inputs:
-      probar_modelo:
-        description: "Solo comprobar que el modelo responde (necesita GEMINI_API_KEY)"
-        type: boolean
-        default: false
-      probar_extraccion:
-        description: "Prueba en seco: muestra en el registro lo que se extraería de las notas recientes, sin guardar nada"
-        type: boolean
-        default: false
-
-permissions:
-  contents: write
-  issues: write
-
-concurrency:
-  group: update-data
-  cancel-in-progress: false
 
 jobs:
-  update:
+  detenido:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Probar el modelo
-        if: ${{ inputs.probar_modelo }}
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LLM_MODEL: ${{ vars.LLM_MODEL }}
-        run: node scripts/refresh-profiles.mjs --selftest
-
-      - name: Prueba en seco de la extracción
-        if: ${{ inputs.probar_extraccion }}
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LLM_MODEL: ${{ vars.LLM_MODEL }}
-          DRY_RUN: "1"
-          FORCE_ALL: "1"
-        run: node scripts/refresh-profiles.mjs
-
-      - name: Buscar noticias y sondeos
-        id: update
-        env:
-          REVIEW_BODY_FILE: ${{ runner.temp }}/review-body.md
-        run: node scripts/update-data.mjs
-
-      # Lee las notas nuevas y actualiza posturas, perfiles y respuestas del test.
-      # Solo guarda lo que trae una cita textual que está en la nota.
-      # Sin GEMINI_API_KEY este paso se saltea y el resto sigue funcionando.
-      - name: Actualizar posturas y test
-        id: profiles
-        continue-on-error: true
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LLM_MODEL: ${{ vars.LLM_MODEL }}
-        run: node scripts/refresh-profiles.mjs
-
-      # Último resultado y próximos partidos de Vélez (ESPN). El marcador en vivo lo pide el navegador; esto es el respaldo.
-      # Si ESPN no responde, se conserva lo anterior y el resto de la actualización sigue.
-      - name: Buscar partidos de Vélez
-        continue-on-error: true
-        run: node scripts/update-matches.mjs
-
-      - name: Regenerar el paquete de datos
-        run: node scripts/update-data.mjs --bundle-only
-
-      - name: Avisar si hay algo para revisar
-        if: steps.update.outputs.new_flags != '0'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh issue create \
-            --title "Revisar candidatos y posturas ($(date +%F))" \
-            --body-file "${{ runner.temp }}/review-body.md"
-
-      - name: Publicar si hay cambios
-        run: |
-          if [ -n "$(git status --porcelain data)" ]; then
-            git config user.name "actualizador-velez"
-            git config user.email "actions@users.noreply.github.com"
-            git add data
-            git commit -m "Actualiza datos"
-            git pull --rebase origin main
-            git push
-          fi
-
-      # Si el modelo dejó de responder (clave inválida o modelo dado de baja), los datos nuevos se publican igual
-      # y la corrida queda en rojo: GitHub avisa por mail y no pasa desapercibido.
-      - name: Avisar si el modelo no responde
-        if: steps.profiles.outcome == 'failure'
-        run: |
-          echo "::error::El paso de posturas y sondeos falló. Revisá GEMINI_API_KEY o el modelo (variable LLM_MODEL)."
-          exit 1
+      - name: No hay revisiones automáticas
+        run: echo "La elección terminó. No se actualizan noticias, sondeos ni posturas."

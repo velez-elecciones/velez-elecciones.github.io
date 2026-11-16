@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posturas · Elecciones Vélez 2026</title>
+    <script>
+        if (/\.github\.io$/i.test(location.hostname)) {
+            location.replace("https://velezelecciones.com" + location.pathname + location.search + location.hash);
+        }
+    </script>
+    <link rel="canonical" href="https://velezelecciones.com/posiciones.html">
+    <link rel="icon" href="https://velezelecciones.com/img/escudo-velez.svg" type="image/svg+xml">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Posturas publicadas de cada candidato a presidente de Vélez en 2026, con la fuente de cada frase.">
+    <meta name="theme-color" content="#003da5">
+    <style>
+        :root {
+            --blue: #003da5;
+            --ink: #10203a;
+            --muted: #5a6b85;
+            --line: rgba(0, 61, 165, .12);
+            --paper: #ffffff;
+            --wash: #f3f7fc;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px; line-height: 1.5; color: var(--ink);
+            background-color: #001433;
+            background-image:
+                linear-gradient(180deg, rgba(0, 28, 92, .62), rgba(0, 16, 58, .78)),
+                url("img/fondo-amalfitani.jpg");
+            background-size: auto, cover;
+            background-position: center, center top;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat;
+        }
+        a { color: inherit; }
+        h1, h2, h3, p { margin: 0; }
+        .ic { width: 1.15em; height: 1.15em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.18em; }
+        .page { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
+        .top {
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; gap: 10px 16px;
+            padding: 12px 24px; background: var(--blue); color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 12, 40, .28);
+        }
+        .top-crest { width: 48px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; flex: 0 0 auto; }
+        .top-title h1 { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; }
+        .top-title p { margin-top: 2px; font-size: 13.5px; opacity: .85; }
+        .top a { text-decoration: none; color: inherit; }
+        .flow { padding: 20px 24px 28px; width: 100%; max-width: 980px; margin: 0 auto; }
+        .back { margin: 0 0 12px; }
+        .back a { color: #fff; font-weight: 650; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .45); }
+        .card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 28px rgba(0, 30, 90, .08); overflow: hidden; }
+        .cd-head { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--c, var(--blue)); color: #fff; }
+        .cd-photo { width: 92px; height: 92px; border-radius: 16px; object-fit: cover; background: #fff; flex: 0 0 auto; }
+        .cd-role { display: inline-block; padding: 1px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+        .cd-head h2 { margin-top: 4px; font-size: 28px; line-height: 1.1; font-weight: 800; }
+        .cd-group { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 16px; }
+        .cd-group img { width: 22px; height: 22px; object-fit: contain; background: #fff; border-radius: 6px; padding: 1px; }
+        .cd-topics { --cols: 1; display: flex; flex-wrap: wrap; gap: 4px 28px; padding: 18px 20px 8px; }
+        .cd-topic { flex: 1 1 calc((100% - (var(--cols) - 1) * 28px) / var(--cols) - 1px); min-width: 220px; padding-bottom: 12px; }
+        .cd-kicker { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+        .cd-item { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+        .cd-item:last-child { border-bottom: 0; margin-bottom: 4px; }
+        .cd-sum { font-size: 16px; line-height: 1.45; }
+        .cd-src { margin-top: 6px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+        a.source-link { color: var(--blue); font-weight: 650; text-decoration: none; }
+        a.source-link:hover { color: #0a4cc2; }
+        .cd-age { color: #9a6a00; font-weight: 650; }
+        .cd-auto { margin-left: 6px; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); }
+        .cd-empty { margin: 2px 0 12px; font-size: 15px; line-height: 1.45; color: var(--muted); }
+        .cd-notes { padding: 4px 20px 8px; }
+        .cd-note { display: block; margin-bottom: 6px; padding: 8px 10px; border-radius: 10px; background: var(--wash); font-size: 14px; line-height: 1.35; text-decoration: none; }
+        .cd-note:hover { background: #e4eefb; }
+        .cd-note strong { color: var(--blue); margin-right: 4px; }
+        .cd-foot { display: flex; gap: 12px; flex-wrap: wrap; padding: 4px 20px 18px; font-size: 14px; }
+        .others { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .others a {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 12px 6px 6px; border-radius: 12px;
+            background: #fff; color: var(--ink); text-decoration: none;
+            border: 1px solid var(--line); font-weight: 700;
+        }
+        .others a img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
+        .others small { display: block; font-weight: 550; color: var(--muted); }
+        .missing { padding: 22px; }
+        .missing a { color: var(--blue); font-weight: 700; }
+        .site-credit { text-align: center; padding: 8px 8px 24px; color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+        @media (max-width: 720px) {
+            .top { padding: 8px 12px; }
+            .top-crest { width: 32px; height: 38px; padding: 2px; border-radius: 8px; }
+            .top-title h1 { font-size: 14px; }
+            .top-title p { display: none; }
+            .flow { padding: 12px; }
+            .cd-head h2 { font-size: 22px; }
+            .cd-photo { width: 72px; height: 72px; }
+            .cd-topic { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+        <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m12 7 4 3-1.5 4.5h-5L8 10z"/></symbol>
+        <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></symbol>
+        <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-.8-1.5-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2s1.2 1.7 2.8 2 2.8.8 2.8 2-1.2 2-2.8 2c-1.3 0-2.4-.4-2.9-1.3M12 6v2M12 16v2"/></symbol>
+        <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+        <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/></symbol>
+        <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    </svg>
+    <div class="page">
+        <header class="top">
+            <a href="./"><img class="top-crest" src="img/escudo-velez.svg" alt="Escudo del Club Atlético Vélez Sarsfield"></a>
+            <div class="top-title">
+                <h1><a href="./">Elecciones Vélez 2026</a></h1>
+                <p id="top-sub">Posturas</p>
+            </div>
+        </header>
+        <main class="flow">
+            <p class="back"><a href="./">Volver al resultado</a></p>
+            <article class="card" id="card"></article>
+            <nav class="others" id="others" aria-label="Otros candidatos"></nav>
+        </main>
+        <p class="site-credit">Elecciones de Vélez Sarsfield</p>
+    </div>
+    <script src="data/live.js"></script>
+    <script>
+        const BOOT = window.VELEZ_DATA || {};
+        const BA = "America/Argentina/Buenos_Aires";
+        const ORDER = ["pugliese", "montero", "balestrini", "mazzitelli"];
+        const payload = BOOT.candidates || {};
+        const topics = Array.isArray(payload.topics) ? payload.topics : [];
+        const people = (payload.candidates || []).filter((c) => c && c.id && c.name && c.status !== "withdrawn");
+        const byId = {};
+        people.forEach((c) => { byId[c.id] = c; });
+        const news = ((BOOT.news && BOOT.news.items) || []).filter((n) => n && n.title && /^https?:\/\//i.test(n.url || ""));
+
+        function esc(value) {
+            return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+        function ic(name) { return '<svg class="ic" aria-hidden="true"><use href="#i-' + esc(name) + '"/></svg>'; }
+        function isUrl(value) { return /^https?:\/\//i.test(String(value || "")); }
+        function toDate(value) {
+            if (!value) return null;
+            const date = new Date(String(value).length === 10 ? value + "T12:00:00-03:00" : value);
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+        function shortDate(value) {
+            const date = toDate(value);
+            if (!date) return "";
+            return new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "short", year: "numeric", timeZone: BA }).format(date).replace(/\./g, "");
+        }
+        function monthsAgo(value) {
+            const date = toDate(value);
+            return date ? Math.floor((Date.now() - date.getTime()) / (30.4 * 86400000)) : 0;
+        }
+        function relativeDay(iso) {
+            const date = toDate(iso);
+            if (!date) return "";
+            const dayKey = (d) => new Intl.DateTimeFormat("en-CA", { timeZone: BA }).format(d);
+            const diff = Math.round((new Date(dayKey(new Date()) + "T12:00:00-03:00") - new Date(dayKey(date) + "T12:00:00-03:00")) / 86400000);
+            if (diff <= 0) return "Hoy";
+            if (diff === 1) return "Ayer";
+            return new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "short", timeZone: BA }).format(date).replace(".", "");
+        }
+        function sortedItems(items) {
+            return (items || []).filter((item) => item && item.summary && isUrl(item.url))
+                .map((item, index) => ({ item, index }))
+                .sort((a, b) => {
+                    const da = toDate(a.item.date); const db = toDate(b.item.date);
+                    if (da && db) return db - da || a.index - b.index;
+                    if (da) return -1;
+                    if (db) return 1;
+                    return a.index - b.index;
+                }).map((entry) => entry.item);
+        }
+        const OPINION_EASY = 3;
+        const OPINION_CAP = 4;
+        const OPINION_STOP = new Set("el la los las de del un una y o a en que se su sus por con al lo es son para como mas muy ya no si esta este esto sobre desde hasta entre tambien despues donde cuando porque tiene tienen habia dijo dice afirma plantea propone quiere buscan busca candidato presidenta presidente vicepresidente formula elecciones eleccion club velez legado primero agrupacion lista socios socio hincha hinchas anos ano millones dolares pesos mensual caso tras fue ser estar hay les nos".split(" "));
+        function opinionFold(text) {
+            return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+        }
+        function opinionStem(word) {
+            let w = word.replace(/(mente|ando|endo)$/, "");
+            w = w.replace(/(ados|idas|ado|ido|ar|er|ir)$/, "");
+            w = w.replace(/es$/, "");
+            w = w.replace(/s$/, "");
+            while (w.length > 4 && /[aeiou]$/.test(w)) w = w.slice(0, -1);
+            return w;
+        }
+        function opinionTokens(text) {
+            return [...new Set(opinionFold(text).split(" ").filter((word) => word.length >= 4 && !OPINION_STOP.has(word)).map(opinionStem).filter((word) => word.length >= 4))];
+        }
+        function sameOpinion(a, b) {
+            const qa = opinionFold(a.quote);
+            const qb = opinionFold(b.quote);
+            if (qa.length >= 40 && qb.length >= 40 && (qa.includes(qb.slice(0, 48)) || qb.includes(qa.slice(0, 48)))) return true;
+            const ta = opinionTokens(a.summary);
+            const tb = opinionTokens(b.summary);
+            const shared = ta.filter((word) => tb.includes(word));
+            return shared.length >= 3 && shared.length / Math.min(ta.length, tb.length) >= 0.6;
+        }
+        function betterOpinion(a, b) {
+            const time = (item) => (toDate(item.date) || new Date(0)).getTime();
+            const newer = time(a) >= time(b) ? a : b;
+            const older = newer === a ? b : a;
+            const nt = opinionTokens(newer.summary);
+            const ot = opinionTokens(older.summary);
+            const covered = nt.filter((word) => ot.includes(word)).length / (nt.length || 1);
+            if (!older.auto && newer.auto && covered >= 0.6) return older;
+            if (covered >= 0.8 && ot.length >= nt.length + 2 && time(newer) - time(older) < 120 * 86400000) return older;
+            return newer;
+        }
+        function condenseOpinions(items) {
+            const kept = [];
+            sortedItems(items).forEach((item) => {
+                const idx = kept.findIndex((old) => sameOpinion(old, item));
+                if (idx === -1) kept.push(item);
+                else kept[idx] = betterOpinion(kept[idx], item);
+            });
+            return sortedItems(kept);
+        }
+        function visibleOpinions(items, hardLimit) {
+            const all = condenseOpinions(items);
+            if (!all.length) return [];
+            let cap = all.length > OPINION_EASY ? Math.min(OPINION_CAP, all.length) : all.length;
+            if (hardLimit) cap = Math.min(hardLimit, cap);
+            return all.slice(0, cap);
+        }
+        function itemHtml(item) {
+            const when = shortDate(item.date);
+            const old = item.date && monthsAgo(item.date) >= 3 ? ' <span class="cd-age">· hace ' + monthsAgo(item.date) + " meses</span>" : "";
+            const auto = item.auto ? '<span class="cd-auto">automático</span>' : "";
+            return '<div class="cd-item"><p class="cd-sum">' + esc(item.summary) + "</p>" +
+                '<p class="cd-src"><a class="source-link" href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer"' +
+                (item.quote ? ' title="' + esc("«" + item.quote + "»") + '"' : "") + ">Fuente: " + esc(item.source || "ver la nota") + (when ? " · " + esc(when) : "") +
+                " " + ic("external") + "</a>" + old + auto + "</p></div>";
+        }
+        function topicBlock(c, topic) {
+            const rows = visibleOpinions(c.positions && c.positions[topic.id], topic.latestOnly ? 1 : 0);
+            if (!rows.length) return "";
+            return '<section class="cd-topic"><p class="cd-kicker">' + ic(topic.icon || "user") + esc(topic.label) + "</p>" +
+                rows.map(itemHtml).join("") + "</section>";
+        }
+        function socialHtml(c) {
+            return (c.social || []).filter((s) => s && isUrl(s.url)).map((s) => {
+                const host = (() => { try { return new URL(s.url).hostname; } catch { return ""; } })();
+                const icon = /instagram/.test(host) ? "instagram" : /(^|\.)x\.com|twitter/.test(host) ? "x" : "globe";
+                return '<a class="source-link" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + ic(icon) + " " + esc(s.label || "Redes") + "</a>";
+            }).join("");
+        }
+        function notesHtml(c) {
+            const notes = news.filter((n) => (n.tags || []).includes(c.id)).slice(0, 4);
+            if (!notes.length) return "";
+            return '<section class="cd-notes"><p class="cd-kicker">' + ic("megaphone") + "Últimas notas</p>" + notes.map((n) =>
+                '<a class="cd-note" href="' + esc(n.url) + '" target="_blank" rel="noopener noreferrer"><strong>' + esc(n.source) + " · " + esc(relativeDay(n.published)) + "</strong> " + esc(n.title) + "</a>").join("") + "</section>";
+        }
+        function layoutTopics() {
+            document.querySelectorAll(".cd-topics").forEach((box) => {
+                const count = box.querySelectorAll(":scope > .cd-topic").length;
+                if (!count) return;
+                const width = box.clientWidth;
+                const fit = Math.max(1, Math.min(count, Math.floor((width + 28) / 218)));
+                const rows = Math.ceil(count / fit);
+                box.style.setProperty("--cols", String(Math.ceil(count / rows)));
+            });
+        }
+        function renderMissing() {
+            document.getElementById("card").innerHTML = '<div class="missing"><p>Elegí un candidato para leer sus posturas.</p></div>';
+        }
+        function render(c) {
+            document.title = "Posturas de " + c.name + " · Elecciones Vélez 2026";
+            document.getElementById("top-sub").textContent = c.name;
+            const color = /^#[0-9a-f]{3,8}$/i.test(c.color || "") ? c.color : "#003da5";
+            const pos = c.photoPosition ? ' style="object-position:' + esc(c.photoPosition) + '"' : "";
+            const blocks = topics.map((t) => topicBlock(c, t)).join("");
+            document.getElementById("card").innerHTML =
+                '<div class="cd-head" style="--c:' + esc(color) + '"><img class="cd-photo" src="' + esc(c.photo || "img/escudo-velez.svg") + '" alt="' + esc(c.name) + '"' + pos + ">" +
+                "<div><span class=\"cd-role\">" + esc(c.role || "Candidato") + "</span><h2>" + esc(c.name) + "</h2>" +
+                '<p class="cd-group">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : "") + esc(c.group || "") + "</p></div></div>" +
+                '<div class="cd-topics">' + (blocks || '<p class="cd-empty">No hay posturas publicadas con fuente.</p>') + "</div>" +
+                notesHtml(c) +
+                '<div class="cd-foot">' + socialHtml(c) + "</div>";
+            layoutTopics();
+        }
+        const id = new URLSearchParams(location.search).get("id");
+        if (byId[id]) render(byId[id]);
+        else renderMissing();
+        document.getElementById("others").innerHTML = ORDER.filter((key) => byId[key] && key !== id).map((key) => {
+            const c = byId[key];
+            return '<a href="posiciones.html?id=' + esc(c.id) + '"><img src="' + esc(c.photo || "img/escudo-velez.svg") + '" alt=""><span>' + esc(c.short || c.name) + "<small>" + esc(c.group || "") + "</small></span></a>";
+        }).join("");
+        window.addEventListener("resize", () => requestAnimationFrame(layoutTopics));
+    </script>
+</body>
+</html>
